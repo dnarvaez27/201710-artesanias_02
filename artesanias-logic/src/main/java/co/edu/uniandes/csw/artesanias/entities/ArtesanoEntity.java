@@ -5,10 +5,26 @@
  */
 package co.edu.uniandes.csw.artesanias.entities;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  *
  * @author ma.trujillo10
  */
-public class ArtesanoEntity {
+@Entity
+public class ArtesanoEntity implements Serializable {
+
+    @Id
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     
 }

@@ -93,7 +93,7 @@ public class ConferenciaEntity implements Serializable{
 	 * @ordered
 	 */
 	
-	public Feria feria;
+	public FeriaEntity feria;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -160,7 +160,7 @@ public class ConferenciaEntity implements Serializable{
         return horaFin;
     }
 
-    public Feria getFeria() {
+    public FeriaEntity getFeria() {
         return feria;
     }
 
@@ -168,7 +168,7 @@ public class ConferenciaEntity implements Serializable{
         return salon;
     }
 
-    public void setFeria(Feria feria) {
+    public void setFeria(FeriaEntity feria) {
         this.feria = feria;
     }
 
