@@ -1,7 +1,25 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Miller.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package co.edu.uniandes.csw.artesanias.entities;
 
@@ -47,7 +65,8 @@ public class CiudadEntity implements Serializable {
     /**
      * Conjunto de espacios que se encuentran en la ciudad.
      * Relación bidireccional con EspacioEntity. En caso de eliminar la ciudad, 
-     * se eliminarían todos los espacios asociados.
+     * se eliminarían todos los espacios asociados. El dueño de la relación es
+     * EspacioEntity.
      */
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudad",
             targetEntity = EspacioEntity.class)
@@ -55,7 +74,8 @@ public class CiudadEntity implements Serializable {
 
     /**
      * Conjunto de artesanos que se originan en la ciudad.
-     * Relación bidireccional con ArtesanoEntity.
+     * Relación bidireccional con ArtesanoEntity. El dueño de la relación es
+     * ArtesanoEntity.
      */
     @OneToMany(mappedBy = "ciudad", targetEntity = ArtesanoEntity.class)
     private Set<ArtesanoEntity> artesanos;
@@ -73,7 +93,8 @@ public class CiudadEntity implements Serializable {
     }
 
     /**
-     * Cambia el valor del id de la ciudad.
+     * Cambia el id de la ciudad.
+     * post: Se cambió el id de la ciudad.
      * @param id nuevo id de la ciudad.
      */
     public void setId(Long id) {
@@ -89,7 +110,8 @@ public class CiudadEntity implements Serializable {
     }
 
     /**
-     * Cambia el valor del nombre de la ciudad.
+     * Cambia el nombre de la ciudad.
+     * post: Se cambió el nombre de la ciudad.
      * @param nombre nuevo nombre de la ciudad.
      */
     public void setNombre(String nombre) {
@@ -106,6 +128,7 @@ public class CiudadEntity implements Serializable {
 
     /**
      * Cambia el nombre del país al que pertenece la ciudad.
+     * post: Se cambió el nombre del país al que pertenece la ciudad.
      * @param pais nuevo nombre del país al que pertenece la ciudad.
      */
     public void setPais(String pais) {
@@ -122,6 +145,7 @@ public class CiudadEntity implements Serializable {
 
     /**
      * Cambia el conjunto de espacios que se encuentran en la ciudad.
+     * post: Se cambió el conjunto de espacios que se encuentran en la ciudad.
      * @param espacios nuevo conjunto de espacios que se encuentran en la ciudad.
      */
     public void setEspacios(Set<EspacioEntity> espacios) {
@@ -138,6 +162,7 @@ public class CiudadEntity implements Serializable {
 
     /**
      * Cambia el conjunto de artesanos originarios de la ciudad.
+     * post: Se cambió el conjunto de artesanos originarios de la ciudad.
      * @param artesanos nuevo conjunto de artesanos originarios de la ciudad.
      */
     public void setArtesanos(Set<ArtesanoEntity> artesanos) {
