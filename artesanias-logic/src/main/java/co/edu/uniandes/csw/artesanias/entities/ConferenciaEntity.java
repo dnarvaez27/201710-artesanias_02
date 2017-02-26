@@ -120,7 +120,7 @@ public class ConferenciaEntity implements Serializable{
 	 * @ordered
 	 */
 	
-	public Salon salon;
+	public SalonEntity salon;
 
     public void setId(Long id) {
         this.id = id;
@@ -182,7 +182,7 @@ public class ConferenciaEntity implements Serializable{
         return feria;
     }
 
-    public Salon getSalon() {
+    public SalonEntity getSalon() {
         return salon;
     }
 
@@ -190,7 +190,7 @@ public class ConferenciaEntity implements Serializable{
         this.feria = feria;
     }
 
-    public void setSalon(Salon salon) {
+    public void setSalon(SalonEntity salon) {
         this.salon = salon;
     }
 

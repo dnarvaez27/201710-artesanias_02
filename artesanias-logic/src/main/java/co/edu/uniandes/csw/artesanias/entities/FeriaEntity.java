@@ -37,12 +37,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Entidad de las ferias.
  * @author ma.trujillo10
  */
 @Entity
+@XmlRootElement
 public class FeriaEntity implements Serializable {
 
     /**
@@ -190,6 +193,7 @@ public class FeriaEntity implements Serializable {
      * Devuelve el conjunto de artesanos que asistirán o asistieron a la feria.
      * @return conjunto de artesanos que asistirán a la feria.
      */
+    @XmlTransient
     public Set<ArtesanoEntity> getArtesanos() {
         return artesanos;
     }
@@ -209,6 +213,7 @@ public class FeriaEntity implements Serializable {
      * Devuelve el conjunto de boletas vendidas de la feria.
      * @return conjunto de boletas vendidas de la feria.
      */
+    @XmlTransient
     public Set<BoletaEntity> getBoletas() {
         return boletas;
     }
@@ -226,6 +231,7 @@ public class FeriaEntity implements Serializable {
      * Devuelve el conjunto de conferencias realizadas o a realizar de la feria.
      * @return conjunto de conferencias realizadas o a realizar de la feria.
      */
+    @XmlTransient
     public Set<ConferenciaEntity> getConferencias() {
         return conferencias;
     }

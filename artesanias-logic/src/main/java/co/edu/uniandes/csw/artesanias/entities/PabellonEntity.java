@@ -21,40 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package co.edu.uniandes.csw.artesanias.ejbs;
+package co.edu.uniandes.csw.artesanias.entities;
 
-import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
-import co.edu.uniandes.csw.artesanias.persistence.BoletaPersistence;
-import java.util.List;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
- * Logica de la entidad boleta.
+ *
  * @author Miller
  */
-@Stateless
-public class BoletaLogic {
-    
-    @Inject private BoletaPersistence persistence;
-    
-    public BoletaEntity getCiudad(Long id) {
-        return persistence.find(id);
+@Entity
+public class PabellonEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
     
-    public List<BoletaEntity> getCiudades() {
-        return persistence.findAll();
-    }
-    
-    public BoletaEntity createCiudad(BoletaEntity entity) {
-        return persistence.create(entity);
-    }
-    
-    public BoletaEntity updateCiudad(BoletaEntity entity) {
-        return persistence.update(entity);
-    }
-    
-    public void deleteCiudad(Long id) {
-        persistence.delete(id);
-    }
 }

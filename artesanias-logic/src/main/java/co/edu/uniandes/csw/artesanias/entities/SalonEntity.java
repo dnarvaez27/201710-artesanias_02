@@ -34,59 +34,40 @@ import javax.persistence.Id;
  * @author ia.salazar
  */
 @Entity
-public class SalonEntity implements Serializable{
-    
-     @Id
+public class SalonEntity implements Serializable {
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     
-     
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private Long id;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private Integer numero;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  --> @generated @ordered
+     */
+    private Long id;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private Integer capacidad;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  --> @generated @ordered
+     */
+    private Integer numero;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public Conferencia conferencia;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  --> @generated @ordered
+     */
+    private Integer capacidad;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public Pabellon pabellon;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  --> @generated @ordered
+     */
+    public ConferenciaEntity conferencia;
 
-        
-       
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  --> @generated @ordered
+     */
+    public PabellonEntity pabellon;
 
     public void setId(Long id) {
         this.id = id;
@@ -100,16 +81,15 @@ public class SalonEntity implements Serializable{
         this.capacidad = capacidad;
     }
 
-    public void setConferencia(Conferencia conferencia) {
+    public void setConferencia(ConferenciaEntity conferencia) {
         this.conferencia = conferencia;
     }
 
     /**
      * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
+     * <!--  end-user-doc  --> @generated
      */
-    public void setPabellon(Pabellon pabellon) {
+    public void setPabellon(PabellonEntity pabellon) {
         this.pabellon = pabellon;
     }
 
@@ -125,31 +105,29 @@ public class SalonEntity implements Serializable{
         return capacidad;
     }
 
-    public Conferencia getConferencia() {
+    public ConferenciaEntity getConferencia() {
         return conferencia;
     }
 
-    public Pabellon getPabellon() {
+    public PabellonEntity getPabellon() {
         return pabellon;
     }
-        
+
     @Override
     public boolean equals(Object obj) {
-        
-        if (this.getId()!=null) {
-            
+
+        if (this.getId() != null) {
+
             return this.getId().equals(((SalonEntity) obj).getId());
-            
+
         }
         return super.equals(obj);
     }
-    
+
     public int hashCode() {
         if (this.getId() != null) {
             return this.getId().hashCode();
         }
         return super.hashCode();
     }
-        }
-	
-
+}

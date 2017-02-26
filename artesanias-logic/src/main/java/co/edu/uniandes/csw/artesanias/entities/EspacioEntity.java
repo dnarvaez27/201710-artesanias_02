@@ -33,12 +33,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Entidad de los espacios.
  * @author ma.trujillo10
  */
 @Entity
+@XmlRootElement
 public class EspacioEntity implements Serializable {
     
     //--------------------------------------------------------------------------
@@ -178,6 +181,7 @@ public class EspacioEntity implements Serializable {
      * Devuelve el conjunto de ferias que se han realizado en el espacio.
      * @return conjunto de ferias que se han realizado en el espacio.
      */
+    @XmlTransient
     public Set<FeriaEntity> getFerias() {
         return ferias;
     }

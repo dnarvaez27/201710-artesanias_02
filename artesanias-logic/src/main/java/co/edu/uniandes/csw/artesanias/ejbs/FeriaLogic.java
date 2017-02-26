@@ -23,34 +23,34 @@
  */
 package co.edu.uniandes.csw.artesanias.ejbs;
 
-import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
-import co.edu.uniandes.csw.artesanias.persistence.BoletaPersistence;
+import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
+import co.edu.uniandes.csw.artesanias.persistence.FeriaPersistence;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- * Logica de la entidad boleta.
+ *
  * @author Miller
  */
 @Stateless
-public class BoletaLogic {
+public class FeriaLogic {
     
-    @Inject private BoletaPersistence persistence;
+    @Inject private FeriaPersistence persistence;
     
-    public BoletaEntity getCiudad(Long id) {
+    public FeriaEntity getCiudad(Long id) {
         return persistence.find(id);
     }
     
-    public List<BoletaEntity> getCiudades() {
+    public List<FeriaEntity> getCiudades() {
         return persistence.findAll();
     }
     
-    public BoletaEntity createCiudad(BoletaEntity entity) {
+    public FeriaEntity createCiudad(FeriaEntity entity) {
         return persistence.create(entity);
     }
     
-    public BoletaEntity updateCiudad(BoletaEntity entity) {
+    public FeriaEntity updateCiudad(FeriaEntity entity) {
         return persistence.update(entity);
     }
     
