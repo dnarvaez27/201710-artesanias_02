@@ -1,6 +1,6 @@
 <img src="https://dl.dropboxusercontent.com/u/109346191/WEB/Artesanias.png" height="250"/>
 
-#Welcome to the artesanias wiki!
+#Welcome to Artesanias!
 
 ###About the Project
 El Ministerio de la Cultura de Colombia organiza ferias artesanales o de artesanías en distintas ciudades del país y en ciudades alrededor del mundo donde el país tiene embajadas importantes. El Propósito es apoyar a los artesanos nacionales, mostrar la cultura y calidad de las artesanías que se realizan. Estas ferias son una ventana para el comercio y el intercambio de saberes artesanales. Quizás la feria más importante es la que se realiza a fin de año en Bogotá en donde participan artesanos de todas las regiones del país (alrededor de 1500) y también de otros países que se presentan en el pabellón internacional. La feria que se hace en Berlín es muy concurrida. Allí se presentan más o menos 150 artesanos de distintas regiones de Colombia. La organización de una feria artesanal es un proceso complejo y por esta razón el ministerio de Cultura quiere contar con una aplicación que le ayuda en la organización de los ferias y en su ejecución.
