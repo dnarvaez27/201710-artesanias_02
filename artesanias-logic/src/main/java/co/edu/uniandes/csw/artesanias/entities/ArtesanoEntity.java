@@ -44,6 +44,14 @@ public class ArtesanoEntity implements Serializable
 	private List<ReviewEntity> reviews;
 	
 	/**
+	 * Ciudad de Origen del Artesano
+	 */
+	@ManyToOne( targetEntity = CiudadEntity.class )
+	private CiudadEntity ciudad;
+	
+	// TODO: 27/02/2017 Stands
+	
+	/**
 	 * Retrieves the id of the ArtesanoEntity
 	 *
 	 * @return The id of the ArtesanoEntity
@@ -61,6 +69,26 @@ public class ArtesanoEntity implements Serializable
 	public void setId( Long id )
 	{
 		this.id = id;
+	}
+	
+	/**
+	 * Retrieves the ciudad of the ArtesanoEntity
+	 *
+	 * @return The ciudad of the ArtesanoEntity
+	 */
+	public CiudadEntity getCiudad( )
+	{
+		return ciudad;
+	}
+	
+	/**
+	 * Updates the ciudad of the ArtesanoEntity by the one given by parameter
+	 *
+	 * @param ciudad The new ciudad of the ArtesanoEntity
+	 */
+	public void setCiudad( CiudadEntity ciudad )
+	{
+		this.ciudad = ciudad;
 	}
 	
 	/**
