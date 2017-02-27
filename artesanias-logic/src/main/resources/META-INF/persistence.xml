@@ -3,7 +3,7 @@
   <persistence-unit name="artesaniasPU" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>java:app/jdbc/artesanias</jta-data-source>
-    <class>co.edu.uniandes.csw.artesanias.entities.EmployeeEntity</class>
+    <class>co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity</class>
     <properties>
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
