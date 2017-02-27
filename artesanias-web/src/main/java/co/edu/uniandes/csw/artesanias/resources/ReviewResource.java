@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author d.narvaez11
  */
-@Path( "/artesanos/{id_a}/reviews" )
+@Path( "/reviews" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
 public class ReviewResource

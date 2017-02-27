@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.ArtesaniaDTO;
+import co.edu.uniandes.csw.artesanias.dtos.ArtesanoDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ArtesaniaLogic;
 import co.edu.uniandes.csw.artesanias.entities.ArtesaniaEntity;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * @author d.narvaez11
  * // TODO: 27/02/2017
  */
-@Path( "/artesanos/{id_a}/artesanias" )
+@Path( "/artesanias/" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
 public class ArtesaniasResource
