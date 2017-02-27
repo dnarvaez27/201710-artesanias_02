@@ -108,4 +108,28 @@ public class ReviewEntity implements Serializable
 	{
 		this.artesano = artesano;
 	}
+	
+	@Override
+	public int hashCode( )
+	{
+		if( id == null )
+		{
+			return super.hashCode( );
+		}
+		return id.hashCode( );
+	}
+	
+	@Override
+	public boolean equals( Object obj )
+	{
+		if( id == null )
+		{
+			return super.equals( obj );
+		}
+		if( obj instanceof ReviewEntity )
+		{
+			return id.equals( ( ( ReviewEntity ) obj ).id );
+		}
+		return false;
+	}
 }

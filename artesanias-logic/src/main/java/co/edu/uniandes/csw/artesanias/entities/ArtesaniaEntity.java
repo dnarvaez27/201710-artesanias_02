@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 /**
  * Artesania Entity, contiene la información de una artesania creada por un artesano
+ *
  * @author d.narvaez11
  */
 @Entity
@@ -133,5 +134,29 @@ public class ArtesaniaEntity implements Serializable
 	public void setArtesano( ArtesanoEntity artesano )
 	{
 		this.artesano = artesano;
+	}
+	
+	@Override
+	public int hashCode( )
+	{
+		if( id == null )
+		{
+			return super.hashCode( );
+		}
+		return id.hashCode( );
+	}
+	
+	@Override
+	public boolean equals( Object obj )
+	{
+		if( id == null )
+		{
+			return super.equals( obj );
+		}
+		if( obj instanceof ArtesaniaEntity )
+		{
+			return id.equals( ( ( ArtesaniaEntity ) obj ).id );
+		}
+		return false;
 	}
 }
