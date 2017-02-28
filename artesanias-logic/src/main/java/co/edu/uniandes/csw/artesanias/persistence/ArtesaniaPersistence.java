@@ -5,7 +5,7 @@ import co.edu.uniandes.csw.artesanias.entities.ArtesaniaEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -47,7 +47,7 @@ public class ArtesaniaPersistence
 	 */
 	public List<ArtesaniaEntity> findAll( )
 	{
-		Query q = em.createQuery( "SELECT U FROM ArtesaniaEntity U" );
+		TypedQuery<ArtesaniaEntity> q = em.createQuery( "SELECT U FROM ArtesaniaEntity U", ArtesaniaEntity.class );
 		return q.getResultList( );
 	}
 	

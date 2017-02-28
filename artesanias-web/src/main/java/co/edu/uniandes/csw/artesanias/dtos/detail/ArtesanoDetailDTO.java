@@ -2,6 +2,7 @@ package co.edu.uniandes.csw.artesanias.dtos.detail;
 
 import co.edu.uniandes.csw.artesanias.dtos.ArtesaniaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.ArtesanoDTO;
+import co.edu.uniandes.csw.artesanias.dtos.CiudadDTO;
 import co.edu.uniandes.csw.artesanias.dtos.ReviewDTO;
 import co.edu.uniandes.csw.artesanias.entities.ArtesaniaEntity;
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
@@ -21,8 +22,9 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 	
 	private List<ReviewDTO> reviews;
 	
-	// TODO: 27/02/2017
-	// Ciudad, Stands
+	private CiudadDTO ciudad;
+	
+	// TODO: 27/02/2017 StandsDTO
 	
 	/**
 	 * Builds an ArtesanoDetailDTO by the fields from the ArtesanoDetailEntity given
@@ -45,6 +47,8 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 			{
 				reviews.add( new ReviewDTO( reviewEntity ) );
 			}
+			
+			ciudad = new CiudadDTO( entity.getCiudad( ) );
 		}
 	}
 	
@@ -69,6 +73,7 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 		
 		entity.setArtesanias( artesaniasEntities );
 		entity.setReviews( reviewsEntities );
+		entity.setCiudad( this.ciudad.toEntity( ) );
 		
 		return entity;
 	}
@@ -111,5 +116,25 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 	public void setReviews( List<ReviewDTO> reviews )
 	{
 		this.reviews = reviews;
+	}
+	
+	/**
+	 * Retrieves the ciudad of the ArtesanoDetailDTO
+	 *
+	 * @return The ciudad of the ArtesanoDetailDTO
+	 */
+	public CiudadDTO getCiudad( )
+	{
+		return ciudad;
+	}
+	
+	/**
+	 * Updates the ciudad of the ArtesanoDetailDTO by the one given by parameter
+	 *
+	 * @param ciudad The new ciudad of the ArtesanoDetailDTO
+	 */
+	public void setCiudad( CiudadDTO ciudad )
+	{
+		this.ciudad = ciudad;
 	}
 }
