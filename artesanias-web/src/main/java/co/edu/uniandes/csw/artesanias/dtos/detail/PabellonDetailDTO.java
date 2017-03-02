@@ -9,6 +9,8 @@ package co.edu.uniandes.csw.artesanias.dtos.detail;
  *
  * @author ja.espinosa12
  */
-public class PabellonDetailDTO {
+@XmlRootElement
+public class PabellonDetailDTO 
+{
     
 }

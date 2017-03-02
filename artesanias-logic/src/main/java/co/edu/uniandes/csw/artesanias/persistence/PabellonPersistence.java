@@ -23,10 +23,51 @@
  */
 package co.edu.uniandes.csw.artesanias.persistence;
 
+import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+
 /**
  *
  * @author ja.espinosa12
  */
+@Stateless
 public class PabellonPersistence {
+    @PersistenceContext(unitName="artesaniasPU")
     
+    protected EntityManager em;
+    
+    public PabellonEntity find(Long id) {
+             
+      return em.find(PabellonEntity.class, id);
+    }
+
+
+    public List<PabellonEntity> findAll() {
+       
+         TypedQuery<PabellonEntity> q = em.createQuery("select u from PabellonEntity u", PabellonEntity.class);
+          List<PabellonEntity> pabellones = q.getResultList();
+        return pabellones;
+    }
+
+    public PabellonEntity create(PabellonEntity entity) {
+      
+        em.persist(entity);
+        
+        return entity;
+    }
+
+    public PabellonEntity update(PabellonEntity entity) {
+       
+        return em.merge(entity);
+    }
+
+    public void delete(Long id) {
+        
+        PabellonEntity entity = em.find(PabellonEntity.class, id);
+        em.remove(entity);
+    }
 }
