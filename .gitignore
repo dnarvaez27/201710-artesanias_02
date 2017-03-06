@@ -77,3 +77,5 @@ hs_err_pid*
 out
 gen
 /artesanias-logic/derby.log
+/artesanias-02-logic/target/
+/artesanias-02-web/target/
