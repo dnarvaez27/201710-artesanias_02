@@ -23,10 +23,112 @@
  */
 package co.edu.uniandes.csw.artesanias.entities;
 
+import java.awt.Dimension;
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
  * @author ja.espinosa12
  */
-public class StandEntity {
+
+@Entity
+public class StandEntity implements Serializable{
     
+        @Id
+	@GeneratedValue( strategy = GenerationType.IDENTITY )
+	private Long id;
+	
+	private Integer numero;
+	
+        private Dimension dimensiones;
+        
+        private String descripcion;
+        
+        private Double precio;
+	
+	public void setId( Long id )
+	{
+		this.id = id;
+	}
+	
+	public void setNumero( Integer numero )
+	{
+		this.numero = numero;
+	}
+	
+	public void setDimensiones( Dimension pDimensiones )
+	{
+		this.dimensiones = pDimensiones;
+	}
+	
+	public void setDescripcion( String pDescripcion )
+	{
+		this.descripcion = pDescripcion;
+	}
+	
+	public void setPrecio( Double pPrecio )
+	{
+		this.precio = pPrecio;
+	}
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @return the numero
+     */
+    public Integer getNumero() {
+        return numero;
+    }
+
+    /**
+     * @return the dimensiones
+     */
+    public Dimension getDimensiones() {
+        return dimensiones;
+    }
+
+    /**
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * @return the precio
+     */
+    public Double getPrecio() {
+        return precio;
+    }
+    
+    @Override
+	public boolean equals( Object obj )
+	{
+		
+		if( this.getId( ) != null )
+		{
+			
+			return this.getId( ).equals( ( ( SalonEntity ) obj ).getId( ) );
+			
+		}
+		return super.equals( obj );
+	}
+	
+	public int hashCode( )
+	{
+		if( this.getId( ) != null )
+		{
+			return this.getId( ).hashCode( );
+		}
+		return super.hashCode( );
+	}
 }

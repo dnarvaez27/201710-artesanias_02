@@ -23,10 +23,39 @@
  */
 package co.edu.uniandes.csw.artesanias.ejbs;
 
+import co.edu.uniandes.csw.artesanias.entities.StandEntity;
+import co.edu.uniandes.csw.artesanias.persistence.StandPersistence;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+
 /**
  *
  * @author ja.espinosa12
  */
+@Stateless
 public class StandLogic {
+    
+    @Inject private StandPersistence persistence;
+    
+    public StandEntity getStand(Long id) {
+        return persistence.find(id);
+    }
+    
+    public List<StandEntity> getStands() {
+        return persistence.findAll();
+    }
+    
+    public StandEntity createStand(StandEntity entity) {
+        return persistence.create(entity);
+    }
+    
+    public StandEntity updateStand(StandEntity entity) {
+        return persistence.update(entity);
+    }
+    
+    public void deleteStand(Long id) {
+        persistence.delete(id);
+    }
     
 }

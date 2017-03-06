@@ -5,12 +5,29 @@
  */
 package co.edu.uniandes.csw.artesanias.dtos.detail;
 
+import co.edu.uniandes.csw.artesanias.dtos.PabellonDTO;
+import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author ja.espinosa12
  */
 @XmlRootElement
-public class PabellonDetailDTO 
+public class PabellonDetailDTO extends PabellonDTO
 {
+    public PabellonDetailDTO()
+    {
+        super();
+    }
     
+    public PabellonDetailDTO( PabellonEntity entity )
+    {
+        super(entity);
+    }
+    
+    public PabellonEntity toEntity()
+    {
+        return super.toEntity();
+    }
 }

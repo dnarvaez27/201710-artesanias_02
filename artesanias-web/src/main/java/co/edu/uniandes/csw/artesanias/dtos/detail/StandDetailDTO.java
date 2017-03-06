@@ -5,10 +5,31 @@
  */
 package co.edu.uniandes.csw.artesanias.dtos.detail;
 
+import co.edu.uniandes.csw.artesanias.dtos.StandDTO;
+import co.edu.uniandes.csw.artesanias.entities.StandEntity;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author ja.espinosa12
  */
-public class StandDetailDTO {
+
+@XmlRootElement
+public class StandDetailDTO extends StandDTO{
+    
+    public StandDetailDTO()
+    {
+        super();
+    }
+    
+    public StandDetailDTO( StandEntity entity)
+    {
+        super(entity);
+    }
+    
+    public StandEntity toEntity()
+    {
+        return super.toEntity();
+    }
     
 }
