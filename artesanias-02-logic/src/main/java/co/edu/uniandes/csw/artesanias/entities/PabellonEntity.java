@@ -23,6 +23,7 @@
  */
 package co.edu.uniandes.csw.artesanias.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -36,7 +37,7 @@ import javax.persistence.OneToMany;
  * @author Miller
  */
 @Entity
-public class PabellonEntity {
+public class PabellonEntity implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
