@@ -131,8 +131,8 @@ public class BoletaEntity implements Serializable {
      * @param tipo nuevo tipo de la boleta.
      */
     public void setTipo(Double tipo) {
-        assert(tipo == MENORES || tipo == REGULAR || tipo == MAYORES);
-        this.tipo = tipo;
+        if (tipo == MENORES || tipo == REGULAR || tipo == MAYORES)
+            this.tipo = tipo;
     }
 
     /**
