@@ -49,6 +49,8 @@ public class StandEntity implements Serializable{
         private String descripcion;
         
         private Double precio;
+        
+        private PabellonEntity pabellon;
 	
 	public void setId( Long id )
 	{
