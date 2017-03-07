@@ -24,8 +24,8 @@
 package co.edu.uniandes.csw.artesanias.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,7 +34,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Entidad de los espacios.
@@ -86,7 +85,7 @@ public class EspacioEntity implements Serializable {
      * FeriaEntity.
      */
     @OneToMany(mappedBy = "espacio")
-    private Set<FeriaEntity> ferias;
+    private List<FeriaEntity> ferias;
     
     //--------------------------------------------------------------------------
     // Métodos
@@ -181,8 +180,7 @@ public class EspacioEntity implements Serializable {
      * Devuelve el conjunto de ferias que se han realizado en el espacio.
      * @return conjunto de ferias que se han realizado en el espacio.
      */
-    @XmlTransient
-    public Set<FeriaEntity> getFerias() {
+    public List<FeriaEntity> getFerias() {
         return ferias;
     }
 
@@ -191,7 +189,7 @@ public class EspacioEntity implements Serializable {
      * post: Se cambió el conjunto de ferias que se han realizado en el espacio.
      * @param ferias nuevo conjunto de ferias que se han realizado en el espacio.
      */
-    public void setFerias(Set<FeriaEntity> ferias) {
+    public void setFerias(List<FeriaEntity> ferias) {
         this.ferias = ferias;
     }
     
