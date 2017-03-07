@@ -19,7 +19,6 @@ public class ArtesaniaPersistence
 	
 	/**
 	 * Creates a new Artesania Entity in the Data Base
-	 *
 	 * @param entity Artesania Entity to be created in the Data Base
 	 * @return The Artesania Entity created
 	 */
@@ -31,7 +30,6 @@ public class ArtesaniaPersistence
 	
 	/**
 	 * Retrieves the Artesania Entity whose id matches the one given by parameter
-	 *
 	 * @param id Id of the Artesania entity searched
 	 * @return The Artesania Entity whose id matches the one given by parameter
 	 */
@@ -42,18 +40,16 @@ public class ArtesaniaPersistence
 	
 	/**
 	 * Retrieves all the Artesania Entities in the Data Base
-	 *
 	 * @return A List with all the Artesania Entities in the Data Base
 	 */
 	public List<ArtesaniaEntity> findAll( )
 	{
-		TypedQuery<ArtesaniaEntity> q = em.createQuery( "SELECT U FROM ArtesaniaEntity U", ArtesaniaEntity.class );
+		Query q = em.createQuery( "SELECT U FROM ArtesaniaEntity U" );
 		return q.getResultList( );
 	}
 	
 	/**
 	 * Updates the information from the Artesania Entity whose id matches the one given by parameter
-	 *
 	 * @param entity Artesania Entity with the new information
 	 * @return The Artesania Entity with the new information updated.
 	 */
@@ -64,7 +60,6 @@ public class ArtesaniaPersistence
 	
 	/**
 	 * Deletes the Artesania Entity which id is given by parameter
-	 *
 	 * @param id Id of the Artesania to delete
 	 */
 	public void delete( Long id )

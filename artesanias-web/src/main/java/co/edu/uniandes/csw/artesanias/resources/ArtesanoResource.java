@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * @author d.narvaez11
  */
-@Path( "/artesanos" )
+@Path( "/{a:artesanos|ahodsf}" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
 public class ArtesanoResource
