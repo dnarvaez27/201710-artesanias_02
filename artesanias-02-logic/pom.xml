@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>artesanias-logic</artifactId>
-    <name>artesanias-logic</name>
+    <artifactId>artesanias-02-logic</artifactId>
+    <name>artesanias-02-logic</name>
     <parent>
         <groupId>co.edu.uniandes.csw.artesanias</groupId>
-        <artifactId>artesanias</artifactId>
+        <artifactId>artesanias-02</artifactId>
         <version>0.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>

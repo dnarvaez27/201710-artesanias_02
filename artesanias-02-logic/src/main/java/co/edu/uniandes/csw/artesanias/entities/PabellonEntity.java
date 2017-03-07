@@ -37,14 +37,75 @@ public class PabellonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private Long id;
+    
+    private String tipo;
+    
+    private Integer capacidad;
 
+    /**
+     * @return the id
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * @param id the id to set
+     */
     public void setId(Long id) {
         this.id = id;
     }
+
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    /**
+     * @return the capacidad
+     */
+    public Integer getCapacidad() {
+        return capacidad;
+    }
+
+    /**
+     * @param capacidad the capacidad to set
+     */
+    public void setCapacidad(Integer capacidad) {
+        this.capacidad = capacidad;
+    }
+    
+    @Override
+	public boolean equals( Object obj )
+	{
+		
+		if( this.getId( ) != null )
+		{
+			
+			return this.getId( ).equals( ( ( SalonEntity ) obj ).getId( ) );
+			
+		}
+		return super.equals( obj );
+	}
+	
+	public int hashCode( )
+	{
+		if( this.getId( ) != null )
+		{
+			return this.getId( ).hashCode( );
+		}
+		return super.hashCode( );
+	}
     
 }
