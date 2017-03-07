@@ -25,8 +25,8 @@ package co.edu.uniandes.csw.artesanias.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,7 +38,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Entidad de las ferias.
@@ -87,19 +86,19 @@ public class FeriaEntity implements Serializable {
       name="ferias_artesanos",
       joinColumns=@JoinColumn(name="feria_id", referencedColumnName="id"),
       inverseJoinColumns=@JoinColumn(name="artesano_id", referencedColumnName="id"))
-    private Set<ArtesanoEntity> artesanos;
+    private List<ArtesanoEntity> artesanos;
 
     /**
      * Conjunto de boletas vendidas de la feria.
      */
     @OneToMany
-    private Set<BoletaEntity> boletas;
+    private List<BoletaEntity> boletas;
 
     /**
      * Conjunto de conferencias que se van a realizar en la feria.
      */
     @OneToMany
-    private Set<ConferenciaEntity> conferencias;
+    private List<ConferenciaEntity> conferencias;
 
     //--------------------------------------------------------------------------
     // Métodos
@@ -193,8 +192,7 @@ public class FeriaEntity implements Serializable {
      * Devuelve el conjunto de artesanos que asistirán o asistieron a la feria.
      * @return conjunto de artesanos que asistirán a la feria.
      */
-    @XmlTransient
-    public Set<ArtesanoEntity> getArtesanos() {
+    public List<ArtesanoEntity> getArtesanos() {
         return artesanos;
     }
 
@@ -205,7 +203,7 @@ public class FeriaEntity implements Serializable {
      * @param artesanos nuevo conjunto de artesanos que asistirán o asistieron 
      *      a la feria.
      */
-    public void setArtesanos(Set<ArtesanoEntity> artesanos) {
+    public void setArtesanos(List<ArtesanoEntity> artesanos) {
         this.artesanos = artesanos;
     }
 
@@ -213,8 +211,7 @@ public class FeriaEntity implements Serializable {
      * Devuelve el conjunto de boletas vendidas de la feria.
      * @return conjunto de boletas vendidas de la feria.
      */
-    @XmlTransient
-    public Set<BoletaEntity> getBoletas() {
+    public List<BoletaEntity> getBoletas() {
         return boletas;
     }
 
@@ -223,7 +220,7 @@ public class FeriaEntity implements Serializable {
      * post: Se cambió el conjunto de boletas vendidas de la feria.
      * @param boletas nuevo conjunto de boletas vendidas de la feria.
      */
-    public void setBoletas(Set<BoletaEntity> boletas) {
+    public void setBoletas(List<BoletaEntity> boletas) {
         this.boletas = boletas;
     }
 
@@ -231,8 +228,7 @@ public class FeriaEntity implements Serializable {
      * Devuelve el conjunto de conferencias realizadas o a realizar de la feria.
      * @return conjunto de conferencias realizadas o a realizar de la feria.
      */
-    @XmlTransient
-    public Set<ConferenciaEntity> getConferencias() {
+    public List<ConferenciaEntity> getConferencias() {
         return conferencias;
     }
 
@@ -243,7 +239,7 @@ public class FeriaEntity implements Serializable {
      * @param conferencias nuevo conjunto de conferencias realizadas o a 
      *      realizar de la feria.
      */
-    public void setConferencias(Set<ConferenciaEntity> conferencias) {
+    public void setConferencias(List<ConferenciaEntity> conferencias) {
         this.conferencias = conferencias;
     }
     

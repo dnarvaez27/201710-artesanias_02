@@ -48,17 +48,17 @@ public class BoletaEntity implements Serializable {
     /**
      * Descuento para menores de edad.
      */
-    public static double MENORES = 0.7;
+    public final static double MENORES = 0.7;
 
     /**
      * Precio regular de la boleta.
      */
-    public static double REGULAR = 1.0;
+    public final static double REGULAR = 1.0;
     
     /**
      * Descuento para mayores de 65 años.
      */
-    public static double MAYORES = 0.8;
+    public final static double MAYORES = 0.8;
 
         
     //--------------------------------------------------------------------------

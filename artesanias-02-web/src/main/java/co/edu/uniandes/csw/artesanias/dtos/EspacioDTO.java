@@ -52,6 +52,7 @@ public class EspacioDTO {
      * @param entity entidad espacio desde la cual se va a crear el nuevo objeto.
      */
     public EspacioDTO(EspacioEntity entity) {
+        if (entity == null) return;
         this.id = entity.getId();
         this.direccion = entity.getDireccion();
         this.telefono = entity.getTelefono();

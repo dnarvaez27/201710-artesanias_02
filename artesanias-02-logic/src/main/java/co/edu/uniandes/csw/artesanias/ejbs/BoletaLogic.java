@@ -36,7 +36,15 @@ import javax.inject.Inject;
 @Stateless
 public class BoletaLogic {
     
+    //--------------------------------------------------------------------------
+    // Atributos
+    //--------------------------------------------------------------------------
+    
     @Inject private BoletaPersistence persistence;
+    
+    //--------------------------------------------------------------------------
+    // Métodos
+    //--------------------------------------------------------------------------
     
     public BoletaEntity getCiudad(Long id) {
         return persistence.find(id);
