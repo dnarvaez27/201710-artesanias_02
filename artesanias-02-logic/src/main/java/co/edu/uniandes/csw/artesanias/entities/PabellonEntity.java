@@ -23,10 +23,13 @@
  */
 package co.edu.uniandes.csw.artesanias.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -43,6 +46,9 @@ public class PabellonEntity {
     private String tipo;
     
     private Integer capacidad;
+    
+    @OneToMany( mappedBy = "pabellon")
+    private List<StandEntity> stands = new ArrayList();
 
     /**
      * @return the id
