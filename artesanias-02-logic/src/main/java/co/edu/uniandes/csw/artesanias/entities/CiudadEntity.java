@@ -24,8 +24,8 @@
 package co.edu.uniandes.csw.artesanias.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -73,7 +73,7 @@ public class CiudadEntity implements Serializable {
      */
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudad",
             targetEntity = EspacioEntity.class)
-    private Set<EspacioEntity> espacios;
+    private List<EspacioEntity> espacios;
 
     /**
      * Conjunto de artesanos que se originan en la ciudad.
@@ -81,7 +81,7 @@ public class CiudadEntity implements Serializable {
      * ArtesanoEntity.
      */
     @OneToMany(mappedBy = "ciudad", targetEntity = ArtesanoEntity.class)
-    private Set<ArtesanoEntity> artesanos;
+    private List<ArtesanoEntity> artesanos;
 
     //--------------------------------------------------------------------------
     // Métodos
@@ -143,7 +143,7 @@ public class CiudadEntity implements Serializable {
      * @return Conjunto de espacios que se encuentran en la ciudad.
      */
     @XmlTransient
-    public Set<EspacioEntity> getEspacios() {
+    public List<EspacioEntity> getEspacios() {
         return espacios;
     }
 
@@ -152,7 +152,7 @@ public class CiudadEntity implements Serializable {
      * post: Se cambió el conjunto de espacios que se encuentran en la ciudad.
      * @param espacios nuevo conjunto de espacios que se encuentran en la ciudad.
      */
-    public void setEspacios(Set<EspacioEntity> espacios) {
+    public void setEspacios(List<EspacioEntity> espacios) {
         this.espacios = espacios;
     }
 
@@ -160,8 +160,7 @@ public class CiudadEntity implements Serializable {
      * Devuelve el conjunto de artesanos originarios de la ciudad.
      * @return conjunto de artesanos originarios de la ciudad.
      */
-    @XmlTransient
-    public Set<ArtesanoEntity> getArtesanos() {
+    public List<ArtesanoEntity> getArtesanos() {
         return artesanos;
     }
 
@@ -170,7 +169,7 @@ public class CiudadEntity implements Serializable {
      * post: Se cambió el conjunto de artesanos originarios de la ciudad.
      * @param artesanos nuevo conjunto de artesanos originarios de la ciudad.
      */
-    public void setArtesanos(Set<ArtesanoEntity> artesanos) {
+    public void setArtesanos(List<ArtesanoEntity> artesanos) {
         this.artesanos = artesanos;
     }
     
