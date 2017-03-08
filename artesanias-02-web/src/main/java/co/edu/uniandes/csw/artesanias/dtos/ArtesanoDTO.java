@@ -33,7 +33,7 @@ public class ArtesanoDTO implements Serializable
 	 */
 	public ArtesanoDTO( )
 	{
-		
+		// Default Constructor. Mandatory
 	}
 	
 	/**
