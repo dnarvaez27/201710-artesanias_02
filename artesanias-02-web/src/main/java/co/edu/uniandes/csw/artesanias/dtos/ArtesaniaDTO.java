@@ -36,6 +36,7 @@ public class ArtesaniaDTO implements Serializable
 	
 	public ArtesaniaDTO( )
 	{
+		// Default Constructor. Mandatory
 	}
 	
 	/**

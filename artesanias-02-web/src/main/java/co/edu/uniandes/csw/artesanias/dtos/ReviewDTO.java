@@ -31,6 +31,7 @@ public class ReviewDTO implements Serializable
 	
 	public ReviewDTO( )
 	{
+		// Default Constructor. Mandatory
 	}
 	
 	/**
