@@ -26,22 +26,25 @@ public class SalonLogic {
       * 
       * @return  la lista de los salones.
       */
-    public List<SalonEntity> getEmployees() {
+    public List<SalonEntity> getSalones() {
         return persistence.findAll();
     }
     
+     public SalonEntity getSalon(Long id){
+        return persistence.find(id);
+     }
   
     
-    public SalonEntity createEmployee(SalonEntity entity) {
+    public SalonEntity createSalon(SalonEntity entity) {
         persistence.create(entity);
         return entity;
     }
     
-     public SalonEntity updateEmployee(SalonEntity entity) {
+     public SalonEntity updateSalon(SalonEntity entity) {
         return persistence.update(entity);
     }
      
-      public void deleteEmployee(Long id) {
+      public void deleteSalon(Long id) {
         persistence.delete(id);
     }
 }

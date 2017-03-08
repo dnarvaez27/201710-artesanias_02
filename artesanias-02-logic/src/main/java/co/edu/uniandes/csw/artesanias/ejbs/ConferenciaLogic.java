@@ -22,22 +22,24 @@ public class ConferenciaLogic {
      @Inject private ConferenciaPersistence persistence;
     
    
-    public List<ConferenciaEntity> getEmployees() {
+    public List<ConferenciaEntity> getConferencias() {
         return persistence.findAll();
     }
-    
+    public ConferenciaEntity getConferencia(Long id){
+        return persistence.find(id);
+    }
   
     
-    public ConferenciaEntity createEmployee(ConferenciaEntity entity) {
+    public ConferenciaEntity createConferencia(ConferenciaEntity entity) {
         persistence.create(entity);
         return entity;
     }
     
-     public ConferenciaEntity updateEmployee(ConferenciaEntity entity) {
+     public ConferenciaEntity updateConferencia(ConferenciaEntity entity) {
         return persistence.update(entity);
     }
      
-      public void deleteEmployee(Long id) {
+      public void deleteConferencia(Long id) {
         persistence.delete(id);
     } 
 }

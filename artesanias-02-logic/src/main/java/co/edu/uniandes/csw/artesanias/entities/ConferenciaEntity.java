@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.sql.Time;
+import java.util.Date;
 
 /**
  * @author ia.salazar
@@ -20,13 +22,13 @@ public class ConferenciaEntity implements Serializable
 	
 	private String tema;
 	
-	// TODO: 28/02/2017 Definicion de tipos
-	//	private Date fechaInicio;
-	//	private Date fechaFin;
-	//	private Time horaInicio;
-	//	private Time horaFin;
-	//	public FeriaEntity feria;
-	//	public SalonEntity salon;
+	 
+		private Date fechaInicio;
+		private Date fechaFin;
+		private Time horaInicio;
+	        private Time horaFin;
+		public FeriaEntity feria;
+		public SalonEntity salon;
 	
 	public void setId( Long id )
 	{
@@ -43,21 +45,21 @@ public class ConferenciaEntity implements Serializable
 		this.tema = tema;
 	}
 	
-	//    public void setFechaInicio(Date fechaInicio) {
-	//        this.fechaInicio = fechaInicio;
-	//    }
-	//
-	//    public void setFechaFin(Date fechaFin) {
-	//        this.fechaFin = fechaFin;
-	//    }
+	    public void setFechaInicio(Date fechaInicio) {
+	        this.fechaInicio = fechaInicio;
+	    }
 	
-	//    public void setHoraInicio(Time horaInicio) {
-	//        this.horaInicio = horaInicio;
-	//    }
-	//
-	//    public void setHoraFin(Time horaFin) {
-	//        this.horaFin = horaFin;
-	//    }
+	    public void setFechaFin(Date fechaFin) {
+	        this.fechaFin = fechaFin;
+	   }
+	
+	    public void setHoraInicio(Time horaInicio) {
+	       this.horaInicio = horaInicio;
+	    }
+	
+	    public void setHoraFin(Time horaFin) {
+	        this.horaFin = horaFin;
+	    }
 	
 	public Long getId( )
 	{
@@ -74,37 +76,37 @@ public class ConferenciaEntity implements Serializable
 		return tema;
 	}
 	
-	//    public Date getFechaInicio() {
-	//        return fechaInicio;
-	//    }
-	//
-	//    public Date getFechaFin() {
-	//        return fechaFin;
-	//    }
+	    public Date getFechaInicio() {
+	        return fechaInicio;
+	    }
 	
-	//    public Time getHoraInicio() {
-	//        return horaInicio;
-	//    }
-	//
-	//    public Time getHoraFin() {
-	//        return horaFin;
-	//    }
+	   public Date getFechaFin() {
+	       return fechaFin;
+    }
 	
-	//    public FeriaEntity getFeria() {
-	//        return feria;
-	//    }
-	//
-	//    public SalonEntity getSalon() {
-	//        return salon;
-	//    }
-	//
-	//    public void setFeria(FeriaEntity feria) {
-	//        this.feria = feria;
-	//    }
-	//
-	//    public void setSalon(SalonEntity salon) {
-	//        this.salon = salon;
-	//    }
+	    public Time getHoraInicio() {
+	        return horaInicio;
+	    }
+	
+	   public Time getHoraFin() {
+	        return horaFin;
+	    }
+	
+	    public FeriaEntity getFeria() {
+	        return feria;
+	   }
+	
+	    public SalonEntity getSalon() {
+	        return salon;
+	    }
+	
+	    public void setFeria(FeriaEntity feria) {
+	        this.feria = feria;
+	    }
+	
+	    public void setSalon(SalonEntity salon) {
+	        this.salon = salon;
+	    }
 	
 	@Override
 	public boolean equals( Object obj )
