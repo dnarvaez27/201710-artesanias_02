@@ -38,23 +38,23 @@ public class EspacioLogic {
     
     @Inject private EspacioPersistence persistence;
     
-    public EspacioEntity getCiudad(Long id) {
+    public EspacioEntity getEspacio(Long id) {
         return persistence.find(id);
     }
     
-    public List<EspacioEntity> getCiudades() {
+    public List<EspacioEntity> getEspacios() {
         return persistence.findAll();
     }
     
-    public EspacioEntity createCiudad(EspacioEntity entity) {
+    public EspacioEntity createEspacio(EspacioEntity entity) {
         return persistence.create(entity);
     }
     
-    public EspacioEntity updateCiudad(EspacioEntity entity) {
+    public EspacioEntity updateEspacio(EspacioEntity entity) {
         return persistence.update(entity);
     }
     
-    public void deleteCiudad(Long id) {
+    public void deleteEspacio(Long id) {
         persistence.delete(id);
     }
 }

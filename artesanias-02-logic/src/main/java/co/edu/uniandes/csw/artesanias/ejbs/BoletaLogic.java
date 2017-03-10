@@ -46,23 +46,23 @@ public class BoletaLogic {
     // Métodos
     //--------------------------------------------------------------------------
     
-    public BoletaEntity getCiudad(Long id) {
+    public BoletaEntity getBoleta(Long id) {
         return persistence.find(id);
     }
     
-    public List<BoletaEntity> getCiudades() {
+    public List<BoletaEntity> getBoletas() {
         return persistence.findAll();
     }
     
-    public BoletaEntity createCiudad(BoletaEntity entity) {
+    public BoletaEntity createBoleta(BoletaEntity entity) {
         return persistence.create(entity);
     }
     
-    public BoletaEntity updateCiudad(BoletaEntity entity) {
+    public BoletaEntity updateBoleta(BoletaEntity entity) {
         return persistence.update(entity);
     }
     
-    public void deleteCiudad(Long id) {
+    public void deleteBoleta(Long id) {
         persistence.delete(id);
     }
 }

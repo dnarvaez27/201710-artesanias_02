@@ -5,9 +5,9 @@
  */
 package co.edu.uniandes.csw.artesanias.resources;
 
-import co.edu.uniandes.csw.artesanias.dtos.FeriaDTO;
-import co.edu.uniandes.csw.artesanias.ejbs.FeriaLogic;
-import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
+import co.edu.uniandes.csw.artesanias.dtos.BoletaDTO;
+import co.edu.uniandes.csw.artesanias.ejbs.BoletaLogic;
+import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
@@ -31,47 +31,47 @@ import javax.ws.rs.core.MediaType;
 @Path("/ferias")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class FeriaResource {
+public class BoletaResource {
     
-    @Inject private FeriaLogic feriaLogic;
+    @Inject private BoletaLogic logic;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("limit") private Integer maxRecords;
     
     @POST
-    public FeriaDTO createFeria(FeriaEntity entity) {
-        return new FeriaDTO(feriaLogic.createFeria(entity));
+    public BoletaDTO createFeria(BoletaEntity entity) {
+        return new BoletaDTO(logic.createBoleta(entity));
     }
     
     @GET
-    public List<FeriaDTO> getArtesanos() {
-        return listEntity2DTO(feriaLogic.getFerias());
+    public List<BoletaDTO> getArtesanos() {
+        return listEntity2DTO(logic.getBoletas());
     }
     
     @GET
     @Path("{id: \\d+}")
-    public FeriaDTO getArtesano(@PathParam("id") Long id ) {
-        return new FeriaDTO(feriaLogic.getFeria(id));
+    public BoletaDTO getArtesano(@PathParam("id") Long id ) {
+        return new BoletaDTO(logic.getBoleta(id));
     }
     
     @PUT
     @Path("{id: \\d+}")
-    public FeriaDTO updateArtesano(@PathParam("id") Long id, FeriaDTO dto) {
-        FeriaEntity entity = dto.toEntity();
+    public BoletaDTO updateArtesano(@PathParam("id") Long id, BoletaDTO dto) {
+        BoletaEntity entity = dto.toEntity();
         entity.setId(id);
-        return new FeriaDTO(feriaLogic.updateFeria(entity));
+        return new BoletaDTO(logic.updateBoleta(entity));
     }
     
     @DELETE
     @Path("{id: \\d+}")
     public void deleteArtesano(@PathParam("id") Long id) {
-        feriaLogic.deleteFeria(id);
+        logic.deleteBoleta(id);
     }
     
-    private List<FeriaDTO> listEntity2DTO(List<FeriaEntity> entities) {
-        List<FeriaDTO> rta = new LinkedList<FeriaDTO>();
-        for (FeriaEntity entity : entities)
-            rta.add(new FeriaDTO(entity));
+    private List<BoletaDTO> listEntity2DTO(List<BoletaEntity> entities) {
+        List<BoletaDTO> rta = new LinkedList<BoletaDTO>();
+        for (BoletaEntity entity : entities)
+            rta.add(new BoletaDTO(entity));
         return rta;
     }
 }
