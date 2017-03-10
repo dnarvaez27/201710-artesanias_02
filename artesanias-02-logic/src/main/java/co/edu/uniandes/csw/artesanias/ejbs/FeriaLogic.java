@@ -38,23 +38,23 @@ public class FeriaLogic {
     
     @Inject private FeriaPersistence persistence;
     
-    public FeriaEntity getCiudad(Long id) {
+    public FeriaEntity getFeria(Long id) {
         return persistence.find(id);
     }
     
-    public List<FeriaEntity> getCiudades() {
+    public List<FeriaEntity> getFerias() {
         return persistence.findAll();
     }
     
-    public FeriaEntity createCiudad(FeriaEntity entity) {
+    public FeriaEntity createFeria(FeriaEntity entity) {
         return persistence.create(entity);
     }
     
-    public FeriaEntity updateCiudad(FeriaEntity entity) {
+    public FeriaEntity updateFeria(FeriaEntity entity) {
         return persistence.update(entity);
     }
     
-    public void deleteCiudad(Long id) {
+    public void deleteFeria(Long id) {
         persistence.delete(id);
     }
 }

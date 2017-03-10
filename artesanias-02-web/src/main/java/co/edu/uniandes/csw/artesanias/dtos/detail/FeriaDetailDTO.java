@@ -50,7 +50,11 @@ public class FeriaDetailDTO extends FeriaDTO {
             lbol.add(boleta.toEntity());
         /*List<ConferenciaEntity> lcon = new LinkedList<ConferenciaEntity>();
         for (ConferenciaDTO conferencia : conferencias)
-            lbol.add(conferencia.toEntity());*/
+            lcon.add(conferencia.toEntity());
+        entity.setConferencias(lcon);
+        */
+        entity.setArtesanos(lart);
+        entity.setBoletas(lbol);
         return entity;
     }
 
