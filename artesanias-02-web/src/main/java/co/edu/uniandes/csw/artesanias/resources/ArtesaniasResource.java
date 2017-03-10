@@ -17,7 +17,7 @@ import java.util.List;
  * @author d.narvaez11
  * // TODO: 27/02/2017
  */
-@Path( "/artesanias/" )
+@Path( "/artesanias" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
 public class ArtesaniasResource
