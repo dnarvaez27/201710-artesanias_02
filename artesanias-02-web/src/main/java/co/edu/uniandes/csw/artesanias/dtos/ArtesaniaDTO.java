@@ -25,11 +25,6 @@ public class ArtesaniaDTO implements Serializable
 	private String descripcion;
 	
 	/**
-	 * Precio de la Artesania
-	 */
-	private Double precio;
-	
-	/**
 	 * Artesano quien creó la artesania
 	 */
 	private ArtesanoEntity artesano;
@@ -51,7 +46,6 @@ public class ArtesaniaDTO implements Serializable
 			this.id = entity.getId( );
 			this.nombre = entity.getNombre( );
 			this.descripcion = entity.getDescripcion( );
-			this.precio = entity.getPrecio( );
 			this.artesano = entity.getArtesano( );
 		}
 	}
@@ -65,7 +59,6 @@ public class ArtesaniaDTO implements Serializable
 		entity.setId( this.id );
 		entity.setNombre( this.nombre );
 		entity.setDescripcion( this.descripcion );
-		entity.setPrecio( this.precio );
 		entity.setArtesano( this.artesano );
 		return entity;
 	}
@@ -128,26 +121,6 @@ public class ArtesaniaDTO implements Serializable
 	public void setDescripcion( String descripcion )
 	{
 		this.descripcion = descripcion;
-	}
-	
-	/**
-	 * Retrieves the precio of the ArtesaniaDTO
-	 *
-	 * @return The precio of the ArtesaniaDTO
-	 */
-	public Double getPrecio( )
-	{
-		return precio;
-	}
-	
-	/**
-	 * Updates the precio of the ArtesaniaDTO by the one given by parameter
-	 *
-	 * @param precio The new precio of the ArtesaniaDTO
-	 */
-	public void setPrecio( Double precio )
-	{
-		this.precio = precio;
 	}
 	
 	/**
