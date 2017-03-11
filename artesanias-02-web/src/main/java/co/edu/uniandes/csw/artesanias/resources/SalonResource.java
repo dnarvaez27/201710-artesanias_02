@@ -65,7 +65,8 @@ public class SalonResource {
     @Path(("{id: \\d+}/Conferencias"))
     public List<ConferenciaDTO> getConferenciasFromSalon(@PathParam( "id" ) Long id ){
         
-        return new SalonDetailDTO(SalonLogic.getSalon(id).getConferencia());
+        SalonDetailDTO x=new SalonDetailDTO(SalonLogic.getSalon(id));
+        return x.getConferencias();
     }
     
     
