@@ -5,8 +5,10 @@
  */
 package co.edu.uniandes.csw.artesanias.dtos.detail;
 
+import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.SalonDTO;
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
+import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -16,6 +18,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class SalonDetailDTO extends SalonDTO
 {
+    	    public List<ConferenciaDTO> conferencia;
+	
+	    public Pabellon pabellon;
     
      public SalonDetailDTO() {
         super();
@@ -23,6 +28,7 @@ public class SalonDetailDTO extends SalonDTO
      
      public SalonDetailDTO(SalonEntity entity) {
         super(entity);
+        
         
     }
      

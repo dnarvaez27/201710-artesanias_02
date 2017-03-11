@@ -5,9 +5,11 @@
  */
 package co.edu.uniandes.csw.artesanias.resources;
 
+import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.detail.SalonDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.SalonLogic;
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
+import com.sun.org.glassfish.gmbal.ParameterNames;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -58,6 +60,14 @@ public class SalonResource {
     public SalonDetailDTO getSalon(@PathParam("id") Long id) {
         return new SalonDetailDTO(SalonLogic.getSalon(id));
     }
+    
+    @GET
+    @Path(("{id: \\d+}/Conferencias"))
+    public List<ConferenciaDTO> getConferenciasFromSalon(@PathParam( "id" ) Long id ){
+        
+        return new SalonDetailDTO(SalonLogic.getSalon(id).getConferencia());
+    }
+    
     
     @POST
     public SalonDetailDTO createSalon(SalonDetailDTO dto) {

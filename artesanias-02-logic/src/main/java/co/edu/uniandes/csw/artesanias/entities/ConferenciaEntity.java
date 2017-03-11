@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
  * @author ia.salazar
@@ -23,12 +25,20 @@ public class ConferenciaEntity implements Serializable
 	private String tema;
 	
 	 
+        @Temporal(javax.persistence.TemporalType.DATE)
 		private Date fechaInicio;
+        @Temporal(javax.persistence.TemporalType.DATE)
 		private Date fechaFin;
+        @Temporal(javax.persistence.TemporalType.TIME)
 		private Time horaInicio;
+        @Temporal(javax.persistence.TemporalType.TIME)
 	        private Time horaFin;
-		public FeriaEntity feria;
-		public SalonEntity salon;
+        
+    
+    @ManyToOne
+		private FeriaEntity feria;
+    @ManyToOne(targetEntity = SalonEntity.class)
+		private SalonEntity salon;
 	
 	public void setId( Long id )
 	{

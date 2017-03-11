@@ -22,9 +22,7 @@ public class SalonDTO
 	
 	private Integer capacidad;
 	
-	//    public Conferencia conferencia;
-	//
-	//    public Pabellon pabellon;
+
 	
 	public void setId( Long id )
 	{

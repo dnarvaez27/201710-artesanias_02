@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 
-import co.edu.uniandes.csw.artesanias.dtos.detail.
+import co.edu.uniandes.csw.artesanias.dtos.detail.ConferenciaDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ConferenciaLogic;
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import java.util.ArrayList;
