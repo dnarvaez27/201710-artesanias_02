@@ -84,8 +84,7 @@ public class SalonDTO
 			this.id = entity.getId( );
 			this.numero = entity.getNumero( );
 			this.capacidad = entity.getCapacidad( );
-			//			this.Pabellon = entity.getPabellon( );
-			//			this.Conferencia = entity.getConferencia( );
+			
 		}
 	}
 	
@@ -96,8 +95,7 @@ public class SalonDTO
 		entity.setId( this.getId( ) );
 		entity.setNumero( this.getNumero( ) );
 		entity.setCapacidad( this.getCapacidad( ) );
-		//		entity.setPabellon( this.getPabellon( ) );
-		//		entity.setConferencia( this.getConferencia( ) );
+		
 		return entity;
 	}
 }

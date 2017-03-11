@@ -5,9 +5,14 @@
  */
 package co.edu.uniandes.csw.artesanias.dtos.detail;
 
+import co.edu.uniandes.csw.artesanias.dtos.PabellonDTO;
 import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.SalonDTO;
+import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -18,24 +23,45 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class SalonDetailDTO extends SalonDTO
 {
-    	    public List<ConferenciaDTO> conferencia;
+    	    public List<ConferenciaDTO> conferencias;
 	
-	    public Pabellon pabellon;
+	    public PabellonDTO pabellon;
     
      public SalonDetailDTO() {
         super();
+        
     }
      
      public SalonDetailDTO(SalonEntity entity) {
         super(entity);
-        
-        
+         
+         if (entity==null) {
+             return;  
+         }
+          for (ConferenciaEntity conferencia : entity.getConferencias()){
+              this.conferencias.add(new ConferenciaDTO(conferencia));
+          }
+            pabellon = new PabellonDTO(entity.getPabellon());
     }
      
         @Override
     public SalonEntity toEntity() {
         SalonEntity entity = super.toEntity();
+        List<ConferenciaEntity> listaConferencias = new LinkedList<ConferenciaEntity>();
+        for (ConferenciaDTO conferencia : conferencias){
+            listaConferencias.add(conferencia.toEntity());
+        }
+        entity.setConferencia(listaConferencias);
+        entity.setPabellon(pabellon.toEntity());
         return entity;
+    }
+    
+    public List<ConferenciaDTO> getConferencias() {
+        return conferencias;
+    }
+
+    public void setConferencias(List<ConferenciaDTO> conferencias) {
+        this.conferencias = conferencias;
     }
      
 }
