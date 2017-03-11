@@ -29,6 +29,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -50,7 +51,10 @@ public class StandEntity implements Serializable{
         
         private Double precio;
         
+        @ManyToOne(targetEntity = PabellonEntity.class)
         private PabellonEntity pabellon;
+        
+        private ArtesanoEntity artesano;
 	
 	public void setId( Long id )
 	{
