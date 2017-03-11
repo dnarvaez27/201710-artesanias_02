@@ -49,11 +49,6 @@ public class ArtesaniaEntity implements Serializable
 	private String descripcion;
 	
 	/**
-	 * Precio de la Artesania
-	 */
-	private Double precio;
-	
-	/**
 	 * Artesano quien creó la artesania
 	 */
 	@ManyToOne( targetEntity = ArtesanoEntity.class )
@@ -117,26 +112,6 @@ public class ArtesaniaEntity implements Serializable
 	public void setDescripcion( String descripcion )
 	{
 		this.descripcion = descripcion;
-	}
-	
-	/**
-	 * Retrieves the precio of the ArtesaniaEntity
-	 *
-	 * @return The precio of the ArtesaniaEntity
-	 */
-	public Double getPrecio( )
-	{
-		return precio;
-	}
-	
-	/**
-	 * Updates the precio of the ArtesaniaEntity by the one given by parameter
-	 *
-	 * @param precio The new precio of the ArtesaniaEntity
-	 */
-	public void setPrecio( Double precio )
-	{
-		this.precio = precio;
 	}
 	
 	/**
