@@ -7,10 +7,11 @@ package co.edu.uniandes.csw.artesanias.resources;
 
 
 import co.edu.uniandes.csw.artesanias.dtos.FeriaDTO;
-import co.edu.uniandes.csw.artesanias.dtos.detail.OrganizadorDto;
+import co.edu.uniandes.csw.artesanias.dtos.OrganizadorDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.OrganizadorDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.OrganizadorLogic;
 import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
-import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -41,47 +42,47 @@ public class OrganizadorResource {
     @QueryParam("page") private Integer page;
     @QueryParam("limit") private Integer maxRecords;
     
-      private List<OrganizadorDto> listEntity2DTO(List<OrganizadorEntity> entityList){
-        List<OrganizadorDto> list = new ArrayList<>();
+      private List<OrganizadorDTO> listEntity2DTO(List<OrganizadorEntity> entityList){
+        List<OrganizadorDTO> list = new ArrayList<>();
         for (OrganizadorEntity entity : entityList) {
-            list.add(new OrganizadorDto(entity));
+            list.add(new OrganizadorDetailDTO(entity));
         }
         return list;
     }
     
     @GET
-    public List<OrganizadorDto> getOrganizadores() {
+    public List<OrganizadorDTO> getOrganizadores() {
         
         return listEntity2DTO(organizadorLogic.getOrganizadores());
     }
     
      @GET
     @Path("{id: \\d+}")
-    public OrganizadorDto getOrganizador(@PathParam("id") Long id) {
-        return new OrganizadorDto(organizadorLogic.getOrganizador(id));
+    public OrganizadorDetailDTO getOrganizador(@PathParam("id") Long id) {
+        return new OrganizadorDetailDTO(organizadorLogic.getOrganizador(id));
     }
     
     @GET
     @Path(("{id: \\d+}/ferias"))
     public List<FeriaDTO> getFeriasDeOrganizador(@PathParam( "id" ) Long id ){
         
-        OrganizadorDto x=new OrganizadorDto(organizadorLogic.getOrganizador(id));
+        OrganizadorDetailDTO x=new OrganizadorDetailDTO(organizadorLogic.getOrganizador(id));
         return x.getFerias();
     }
     
     
     @POST
-    public OrganizadorDto createOrganizador(OrganizadorDto dto) {
-        return new OrganizadorDto(organizadorLogic.createOrganizador(dto.toEntity()));
+    public OrganizadorDTO createOrganizador(OrganizadorDTO dto) {
+        return new OrganizadorDTO(organizadorLogic.createOrganizador(dto.toEntity()));
     }
     
     
      @PUT
     @Path("{id: \\d+}")
-    public OrganizadorDto updateOrganizador(@PathParam("id") Long id, OrganizadorDto dto) {
+    public OrganizadorDetailDTO updateOrganizador(@PathParam("id") Long id, OrganizadorDetailDTO dto) {
         OrganizadorEntity entity = dto.toEntity();
         entity.setId(id);
-        return new OrganizadorDto(organizadorLogic.updateOrganizador(entity));
+        return new OrganizadorDetailDTO(organizadorLogic.updateOrganizador(entity));
     }
     
      @DELETE

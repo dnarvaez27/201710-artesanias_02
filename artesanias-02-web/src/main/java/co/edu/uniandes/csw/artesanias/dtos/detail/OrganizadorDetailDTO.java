@@ -18,15 +18,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author IVAN
  */
 @XmlRootElement
-public class OrganizadorDto extends OrganizadorDTO{
+public class OrganizadorDetailDTO extends OrganizadorDTO{
     
     private List<FeriaDTO> ferias;
     
     
-    public OrganizadorDto(){
+    public OrganizadorDetailDTO(){
         super();
     }
-    public OrganizadorDto(OrganizadorEntity entity){
+    public OrganizadorDetailDTO(OrganizadorEntity entity){
         super();
         for (FeriaEntity feria : entity.getFerias()) {
             ferias.add(new FeriaDTO(feria));

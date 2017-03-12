@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
+import co.edu.uniandes.csw.artesanias.dtos.SalonDTO;
 import co.edu.uniandes.csw.artesanias.dtos.detail.SalonDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.SalonLogic;
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
@@ -40,16 +41,16 @@ public class SalonResource {
     
     
     
-    private List<SalonDetailDTO> listEntity2DTO(List<SalonEntity> entityList){
-        List<SalonDetailDTO> list = new ArrayList<>();
+    private List<SalonDTO> listEntity2DTO(List<SalonEntity> entityList){
+        List<SalonDTO> list = new ArrayList<>();
         for (SalonEntity entity : entityList) {
-            list.add(new SalonDetailDTO(entity));
+            list.add(new SalonDTO(entity));
         }
         return list;
     }
     
     @GET
-    public List<SalonDetailDTO> getSalones() {
+    public List<SalonDTO> getSalones() {
         
         return listEntity2DTO(SalonLogic.getSalones());
     }
@@ -70,8 +71,8 @@ public class SalonResource {
     
     
     @POST
-    public SalonDetailDTO createSalon(SalonDetailDTO dto) {
-        return new SalonDetailDTO(SalonLogic.createSalon(dto.toEntity()));
+    public SalonDTO createSalon(SalonDetailDTO dto) {
+        return new SalonDTO(SalonLogic.createSalon(dto.toEntity()));
     }
     
     

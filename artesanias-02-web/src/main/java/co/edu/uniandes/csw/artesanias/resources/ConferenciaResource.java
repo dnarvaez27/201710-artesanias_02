@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 
+import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.detail.ConferenciaDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ConferenciaLogic;
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
@@ -43,16 +44,16 @@ public class ConferenciaResource {
     
     
     
-    private List<ConferenciaDetailDTO> listEntity2DTO(List<ConferenciaEntity> entityList){
-        List<ConferenciaDetailDTO> list = new ArrayList<>();
+    private List<ConferenciaDTO> listEntity2DTO(List<ConferenciaEntity> entityList){
+        List<ConferenciaDTO> list = new ArrayList<>();
         for (ConferenciaEntity entity : entityList) {
-            list.add(new ConferenciaDetailDTO(entity));
+            list.add(new ConferenciaDTO(entity));
         }
         return list;
     }
     
     @GET
-    public List<ConferenciaDetailDTO> getConferencias() {
+    public List<ConferenciaDTO> getConferencias() {
         
         return listEntity2DTO(conferenciaLogic.getConferencias());
     }
@@ -64,8 +65,8 @@ public class ConferenciaResource {
     }
     
     @POST
-    public ConferenciaDetailDTO createConferencia(ConferenciaDetailDTO dto) {
-        return new ConferenciaDetailDTO(conferenciaLogic.createConferencia(dto.toEntity()));
+    public ConferenciaDTO createConferencia(ConferenciaDTO dto) {
+        return new ConferenciaDTO(conferenciaLogic.createConferencia(dto.toEntity()));
     }
     
     
