@@ -14,6 +14,11 @@ public class ReviewDetailDTO extends ReviewDTO
 {
 	private ArtesanoDTO artesano;
 	
+	public ReviewDetailDTO( )
+	{
+		// Default Constructor. Mandatory
+	}
+	
 	/**
 	 * Builds an ReviewDTO by the fields from the ReviewEntity given
 	 *

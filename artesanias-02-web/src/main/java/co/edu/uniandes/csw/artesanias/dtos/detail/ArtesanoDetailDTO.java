@@ -23,7 +23,10 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 	
 	private StandDTO stand;
 	
-	private ArtesanoDTO artesano;
+	public ArtesanoDetailDTO( )
+	{
+		// Default Constructor. Mandatory
+	}
 	
 	/**
 	 * Builds an ArtesanoDetailDTO by the fields from the ArtesanoDetailEntity given
