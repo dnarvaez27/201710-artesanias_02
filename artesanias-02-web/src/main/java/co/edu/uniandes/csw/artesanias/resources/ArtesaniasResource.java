@@ -30,6 +30,18 @@ public class ArtesaniasResource
 	@QueryParam( "limit" )
 	private Integer maxRec;
 	
+	private Long idArtesano;
+	
+	public ArtesaniasResource(  )
+	{
+		
+	}
+	
+	public ArtesaniasResource( Long idArtesano )
+	{
+		this.idArtesano = idArtesano;
+	}
+	
 	@POST
 	public ArtesaniaDTO createArtesania( ArtesaniaDTO dto )
 	{
@@ -37,16 +49,16 @@ public class ArtesaniasResource
 	}
 	
 	@GET
-	public List<ArtesaniaDTO> getArtesanias( @PathParam( "artesanoId" ) Long id )
+	public List<ArtesaniaDTO> getArtesanias( )
 	{
-		return listEntity2DTO( logic.getArtesaniasFromArtesano( id ) );
+		return listEntity2DTO( logic.getArtesaniasFromArtesano( idArtesano ) );
 	}
 	
 	@GET
 	@Path( "/{id_art}" )
-	public String get( @PathParam( "artesanoId" ) Long artesanoId, @PathParam( "id_art" ) Long id )
+	public ArtesaniaDTO get( @PathParam( "id_art" ) Long id )
 	{
-		return "Artesano: " + artesanoId + ": \n\tArtesania: " + id;
+		return new ArtesaniaDTO( logic.getArtesania( id ) );
 	}
 	
 	@PUT

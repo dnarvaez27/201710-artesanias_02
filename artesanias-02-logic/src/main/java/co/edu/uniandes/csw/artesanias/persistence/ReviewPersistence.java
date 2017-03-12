@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -47,7 +48,14 @@ public class ReviewPersistence
 	 */
 	public List<ReviewEntity> findAll( )
 	{
-		Query q = em.createQuery( "SELECT U FROM ReviewEntity U" );
+		TypedQuery<ReviewEntity> q = em.createQuery( "SELECT U FROM ReviewEntity U", ReviewEntity.class );
+		return q.getResultList( );
+	}
+	
+	public List<ReviewEntity> findAllFromArtesano( Long artesanoId )
+	{
+		TypedQuery<ReviewEntity> q = em.createQuery( "SELECT R FROM ReviewEntity R WHERE R.artesano.id = :artesanoId", ReviewEntity.class );
+		q.setParameter( "artesanoId", artesanoId );
 		return q.getResultList( );
 	}
 	
