@@ -72,7 +72,12 @@ public class ArtesanoEntity implements Serializable
 	@ManyToOne( targetEntity = CiudadEntity.class )
 	private CiudadEntity ciudad;
 	
-	// TODO: 27/02/2017 Stands
+	// TODO: ?
+	/**
+	 * Stand en el que un Artesano se encuentra
+	 */
+	@ManyToOne( targetEntity = StandEntity.class )
+	private StandEntity stand;
 	
 	/**
 	 * Retrieves the id of the ArtesanoEntity
@@ -212,6 +217,26 @@ public class ArtesanoEntity implements Serializable
 	public void setReviews( List<ReviewEntity> reviews )
 	{
 		this.reviews = reviews;
+	}
+	
+	/**
+	 * Retrieves the stand of the ArtesanoEntity
+	 *
+	 * @return The stand of the ArtesanoEntity
+	 */
+	public StandEntity getStand( )
+	{
+		return stand;
+	}
+	
+	/**
+	 * Updates the stand of the ArtesanoEntity by the one given by parameter
+	 *
+	 * @param stand The new stand of the ArtesanoEntity
+	 */
+	public void setStand( StandEntity stand )
+	{
+		this.stand = stand;
 	}
 	
 	@Override
