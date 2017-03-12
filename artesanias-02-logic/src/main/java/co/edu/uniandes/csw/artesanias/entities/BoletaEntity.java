@@ -38,7 +38,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author ma.trujillo10
  */
 @Entity
-@XmlRootElement
 public class BoletaEntity implements Serializable {
     
     //--------------------------------------------------------------------------

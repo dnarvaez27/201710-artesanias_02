@@ -39,24 +39,24 @@ public class BoletaResource {
     @QueryParam("limit") private Integer maxRecords;
     
     @POST
-    public BoletaDTO createFeria(BoletaEntity entity) {
+    public BoletaDTO createBoleta(BoletaEntity entity) {
         return new BoletaDTO(logic.createBoleta(entity));
     }
     
     @GET
-    public List<BoletaDTO> getArtesanos() {
+    public List<BoletaDTO> getBoletas() {
         return listEntity2DTO(logic.getBoletas());
     }
     
     @GET
     @Path("{id: \\d+}")
-    public BoletaDTO getArtesano(@PathParam("id") Long id ) {
+    public BoletaDTO getBoleta(@PathParam("id") Long id ) {
         return new BoletaDTO(logic.getBoleta(id));
     }
     
     @PUT
     @Path("{id: \\d+}")
-    public BoletaDTO updateArtesano(@PathParam("id") Long id, BoletaDTO dto) {
+    public BoletaDTO updateBoleta(@PathParam("id") Long id, BoletaDTO dto) {
         BoletaEntity entity = dto.toEntity();
         entity.setId(id);
         return new BoletaDTO(logic.updateBoleta(entity));
@@ -64,7 +64,7 @@ public class BoletaResource {
     
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteArtesano(@PathParam("id") Long id) {
+    public void deleteBoleta(@PathParam("id") Long id) {
         logic.deleteBoleta(id);
     }
     
