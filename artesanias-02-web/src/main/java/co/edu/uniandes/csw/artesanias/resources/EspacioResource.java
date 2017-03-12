@@ -5,9 +5,9 @@
  */
 package co.edu.uniandes.csw.artesanias.resources;
 
-import co.edu.uniandes.csw.artesanias.dtos.FeriaDTO;
-import co.edu.uniandes.csw.artesanias.ejbs.FeriaLogic;
-import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
+import co.edu.uniandes.csw.artesanias.dtos.EspacioDTO;
+import co.edu.uniandes.csw.artesanias.ejbs.EspacioLogic;
+import co.edu.uniandes.csw.artesanias.entities.EspacioEntity;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
@@ -31,47 +31,47 @@ import javax.ws.rs.core.MediaType;
 @Path("/ferias")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class FeriaResource {
+public class EspacioResource {
     
-    @Inject private FeriaLogic feriaLogic;
+    @Inject private EspacioLogic espacioLogic;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("limit") private Integer maxRecords;
     
     @POST
-    public FeriaDTO createFeria(FeriaEntity entity) {
-        return new FeriaDTO(feriaLogic.createFeria(entity));
+    public EspacioDTO createFeria(EspacioEntity entity) {
+        return new EspacioDTO(espacioLogic.createEspacio(entity));
     }
     
     @GET
-    public List<FeriaDTO> getArtesanos() {
-        return listEntity2DTO(feriaLogic.getFerias());
+    public List<EspacioDTO> getArtesanos() {
+        return listEntity2DTO(espacioLogic.getEspacios());
     }
     
     @GET
     @Path("{id: \\d+}")
-    public FeriaDTO getArtesano(@PathParam("id") Long id ) {
-        return new FeriaDTO(feriaLogic.getFeria(id));
+    public EspacioDTO getArtesano(@PathParam("id") Long id ) {
+        return new EspacioDTO(espacioLogic.getEspacio(id));
     }
     
     @PUT
     @Path("{id: \\d+}")
-    public FeriaDTO updateArtesano(@PathParam("id") Long id, FeriaDTO dto) {
-        FeriaEntity entity = dto.toEntity();
+    public EspacioDTO updateArtesano(@PathParam("id") Long id, EspacioDTO dto) {
+        EspacioEntity entity = dto.toEntity();
         entity.setId(id);
-        return new FeriaDTO(feriaLogic.updateFeria(entity));
+        return new EspacioDTO(espacioLogic.updateEspacio(entity));
     }
     
     @DELETE
     @Path("{id: \\d+}")
     public void deleteArtesano(@PathParam("id") Long id) {
-        feriaLogic.deleteFeria(id);
+        espacioLogic.deleteEspacio(id);
     }
     
-    private List<FeriaDTO> listEntity2DTO(List<FeriaEntity> entities) {
-        List<FeriaDTO> rta = new LinkedList<FeriaDTO>();
-        for (FeriaEntity entity : entities)
-            rta.add(new FeriaDTO(entity));
+    private List<EspacioDTO> listEntity2DTO(List<EspacioEntity> entities) {
+        List<EspacioDTO> rta = new LinkedList<EspacioDTO>();
+        for (EspacioEntity entity : entities)
+            rta.add(new EspacioDTO(entity));
         return rta;
     }
 }
