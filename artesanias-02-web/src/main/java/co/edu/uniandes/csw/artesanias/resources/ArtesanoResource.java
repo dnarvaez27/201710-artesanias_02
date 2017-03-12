@@ -81,9 +81,15 @@ public class ArtesanoResource
 		return list;
 	}
 	
-	@Path( "{artesanoId: \\d+}/artesanias" )
-	public ArtesaniasResource getArtesaniasResource( )
+	@Path( "{artesanoId}: \\d+}/reviews" )
+	public ReviewResource getReviewResource( @PathParam( "artesanoId" ) Long artesanoId )
 	{
-		return new ArtesaniasResource( );
+		return new ReviewResource( artesanoId );
+	}
+	
+	@Path( "{artesanoId: \\d+}/artesanias" )
+	public ArtesaniasResource getArtesaniasResource( @PathParam( "artesanoId" ) Long artesanoId )
+	{
+		return new ArtesaniasResource( artesanoId );
 	}
 }

@@ -22,7 +22,7 @@ public class ReviewResource
 {
 	@Inject
 	private ReviewLogic logic;
-		
+	
 	@Context
 	private HttpServletResponse response;
 	
@@ -31,6 +31,18 @@ public class ReviewResource
 	
 	@QueryParam( "limit" )
 	private Integer maxRec;
+	
+	private Long artesanoId;
+	
+	public ReviewResource( )
+	{
+		
+	}
+	
+	public ReviewResource( Long artesanoId )
+	{
+		this.artesanoId = artesanoId;
+	}
 	
 	@POST
 	public ReviewDTO createReview( ReviewDTO dto )
@@ -41,7 +53,7 @@ public class ReviewResource
 	@GET
 	public List<ReviewDTO> getReviews( )
 	{
-		return listEntity2DTO( logic.getReviews( ) );
+		return listEntity2DTO( logic.getReviewsFromArtesano( artesanoId ) );
 	}
 	
 	@GET

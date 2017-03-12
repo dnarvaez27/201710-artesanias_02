@@ -37,6 +37,11 @@ public class ReviewLogic
 		return persistence.findAll( );
 	}
 	
+	public List<ReviewEntity> getReviewsFromArtesano( Long id )
+	{
+		return persistence.findAllFromArtesano( id );
+	}
+	
 	/**
 	 * Retrieves the data of an instance of Review by its ID.
 	 *
