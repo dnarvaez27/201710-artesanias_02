@@ -82,9 +82,9 @@ public class ArtesanoResource
 	}
 	
 	@Path( "{artesanoId}: \\d+}/reviews" )
-	public ReviewResource getReviewResource( )
+	public ReviewResource getReviewResource( @PathParam( "artesanoId" ) Long artesanoId )
 	{
-		return new ReviewResource( );
+		return new ReviewResource( artesanoId );
 	}
 	
 	@Path( "{artesanoId: \\d+}/artesanias" )
