@@ -46,7 +46,7 @@ public class OrganizadorEntity implements IUsuario, Serializable{
     private String correo;
     private  String contrasena;
     private String foto;
-    private String identificación;
+    private String identificacion;
     
     @OneToMany
     private List<FeriaEntity> ferias;
@@ -61,7 +61,7 @@ public class OrganizadorEntity implements IUsuario, Serializable{
         return id;
     }
     public String getIdentificacion(){
-        return identificación;
+        return identificacion;
     }
 
     @Override
@@ -100,7 +100,7 @@ public class OrganizadorEntity implements IUsuario, Serializable{
      this.foto=foto;
     }
     public void setIdentificacion(String identificacion){
-        this.identificación=identificacion;
+        this.identificacion=identificacion;
     }
     
 
