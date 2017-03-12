@@ -15,11 +15,7 @@ import java.util.List;
 
 /**
  * @author d.narvaez11
- * // TODO: 27/02/2017
  */
-@Path( "/artesanias" )
-@Consumes( MediaType.APPLICATION_JSON )
-@Produces( MediaType.APPLICATION_JSON )
 public class ArtesaniasResource
 {
 	@Inject
@@ -41,16 +37,16 @@ public class ArtesaniasResource
 	}
 	
 	@GET
-	public List<ArtesaniaDTO> getArtesanias( )
+	public List<ArtesaniaDTO> getArtesanias( @PathParam( "artesanoId" ) Long id )
 	{
-		return listEntity2DTO( logic.getArtesanias( ) );
+		return listEntity2DTO( logic.getArtesaniasFromArtesano( id ) );
 	}
 	
 	@GET
-	@Path( "{id: \\d+}" )
-	public ArtesaniaDTO getArtesania( @PathParam( "id" ) Long id )
+	@Path( "/{id_art}" )
+	public String get( @PathParam( "artesanoId" ) Long artesanoId, @PathParam( "id_art" ) Long id )
 	{
-		return new ArtesaniaDTO( logic.getArtesania( id ) );
+		return "Artesano: " + artesanoId + ": \n\tArtesania: " + id;
 	}
 	
 	@PUT

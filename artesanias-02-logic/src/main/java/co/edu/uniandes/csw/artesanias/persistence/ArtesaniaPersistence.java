@@ -51,6 +51,13 @@ public class ArtesaniaPersistence
 		return q.getResultList( );
 	}
 	
+	public List<ArtesaniaEntity> findAllFromArtesano( Long id )
+	{
+		TypedQuery<ArtesaniaEntity> q = em.createQuery( "SELECT A FROM ArtesaniaEntity A WHERE A.artesano.id = :artesanoId", ArtesaniaEntity.class );
+		q.setParameter( "artesanoId", id );
+		return q.getResultList( );
+	}
+	
 	/**
 	 * Updates the information from the Artesania Entity whose id matches the one given by parameter
 	 *

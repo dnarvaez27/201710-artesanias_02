@@ -24,11 +24,6 @@ public class ArtesaniaDTO implements Serializable
 	 */
 	private String descripcion;
 	
-	/**
-	 * Artesano quien creó la artesania
-	 */
-	private ArtesanoEntity artesano;
-	
 	public ArtesaniaDTO( )
 	{
 		// Default Constructor. Mandatory
@@ -46,7 +41,6 @@ public class ArtesaniaDTO implements Serializable
 			this.id = entity.getId( );
 			this.nombre = entity.getNombre( );
 			this.descripcion = entity.getDescripcion( );
-			this.artesano = entity.getArtesano( );
 		}
 	}
 	
@@ -59,7 +53,6 @@ public class ArtesaniaDTO implements Serializable
 		entity.setId( this.id );
 		entity.setNombre( this.nombre );
 		entity.setDescripcion( this.descripcion );
-		entity.setArtesano( this.artesano );
 		return entity;
 	}
 	
@@ -121,25 +114,5 @@ public class ArtesaniaDTO implements Serializable
 	public void setDescripcion( String descripcion )
 	{
 		this.descripcion = descripcion;
-	}
-	
-	/**
-	 * Retrieves the artesano of the ArtesaniaDTO
-	 *
-	 * @return The artesano of the ArtesaniaDTO
-	 */
-	public ArtesanoEntity getArtesano( )
-	{
-		return artesano;
-	}
-	
-	/**
-	 * Updates the artesano of the ArtesaniaDTO by the one given by parameter
-	 *
-	 * @param artesano The new artesano of the ArtesaniaDTO
-	 */
-	public void setArtesano( ArtesanoEntity artesano )
-	{
-		this.artesano = artesano;
 	}
 }

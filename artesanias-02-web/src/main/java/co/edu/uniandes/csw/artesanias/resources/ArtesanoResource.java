@@ -81,10 +81,9 @@ public class ArtesanoResource
 		return list;
 	}
 	
-	@GET
-	@Path( "{id: \\d+}/artesanias" )
-	public List<ArtesaniaDTO> getArtesaniasFromArtesano( @PathParam( "id" ) Long id )
+	@Path( "{artesanoId: \\d+}/artesanias" )
+	public ArtesaniasResource getArtesaniasResource( )
 	{
-		return new ArtesanoDetailDTO( logic.getArtesano( id ) ).getArtesanias( );
+		return new ArtesaniasResource( );
 	}
 }

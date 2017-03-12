@@ -3,12 +3,14 @@ package co.edu.uniandes.csw.artesanias.ejbs;
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
 import co.edu.uniandes.csw.artesanias.persistence.ArtesanoPersistence;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
 
 /**
  * @author d.narvaez11
  */
+@Stateless
 public class ArtesanoLogic
 {
 	@Inject

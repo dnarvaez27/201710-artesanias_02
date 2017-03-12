@@ -37,6 +37,11 @@ public class ArtesaniaLogic
 		return persistence.findAll( );
 	}
 	
+	public List<ArtesaniaEntity> getArtesaniasFromArtesano( Long id )
+	{
+		return persistence.findAllFromArtesano( id );
+	}
+	
 	/**
 	 * Retrieves the data of an instance of Artesania by its ID.
 	 *

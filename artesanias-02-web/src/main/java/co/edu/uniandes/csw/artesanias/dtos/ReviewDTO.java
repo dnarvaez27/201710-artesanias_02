@@ -1,6 +1,5 @@
 package co.edu.uniandes.csw.artesanias.dtos;
 
-import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
 import co.edu.uniandes.csw.artesanias.entities.ReviewEntity;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,11 +23,6 @@ public class ReviewDTO implements Serializable
 	 */
 	private String comentario;
 	
-	/**
-	 * Artesano al cual va dirijido el Review
-	 */
-	private ArtesanoEntity artesano;
-	
 	public ReviewDTO( )
 	{
 		// Default Constructor. Mandatory
@@ -46,7 +40,6 @@ public class ReviewDTO implements Serializable
 			this.id = entity.getId( );
 			this.puntuacion = entity.getPuntuacion( );
 			this.comentario = entity.getComentario( );
-			this.artesano = entity.getArtesano( );
 		}
 	}
 	
@@ -59,7 +52,6 @@ public class ReviewDTO implements Serializable
 		entity.setId( this.id );
 		entity.setPuntuacion( this.puntuacion );
 		entity.setComentario( this.comentario );
-		entity.setArtesano( this.artesano );
 		return entity;
 	}
 	
@@ -121,25 +113,5 @@ public class ReviewDTO implements Serializable
 	public void setComentario( String comentario )
 	{
 		this.comentario = comentario;
-	}
-	
-	/**
-	 * Retrieves the artesano of the ReviewDTO
-	 *
-	 * @return The artesano of the ReviewDTO
-	 */
-	public ArtesanoEntity getArtesano( )
-	{
-		return artesano;
-	}
-	
-	/**
-	 * Updates the artesano of the ReviewDTO by the one given by parameter
-	 *
-	 * @param artesano The new artesano of the ReviewDTO
-	 */
-	public void setArtesano( ArtesanoEntity artesano )
-	{
-		this.artesano = artesano;
 	}
 }
