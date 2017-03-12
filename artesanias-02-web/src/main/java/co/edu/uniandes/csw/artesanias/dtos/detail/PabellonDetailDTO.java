@@ -6,28 +6,69 @@
 package co.edu.uniandes.csw.artesanias.dtos.detail;
 
 import co.edu.uniandes.csw.artesanias.dtos.PabellonDTO;
+import co.edu.uniandes.csw.artesanias.dtos.SalonDTO;
+import co.edu.uniandes.csw.artesanias.dtos.StandDTO;
 import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
+import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
+import co.edu.uniandes.csw.artesanias.entities.StandEntity;
+
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
- *
  * @author ja.espinosa12
  */
 @XmlRootElement
 public class PabellonDetailDTO extends PabellonDTO
 {
-    public PabellonDetailDTO()
-    {
-        super();
-    }
-    
-    public PabellonDetailDTO( PabellonEntity entity )
-    {
-        super(entity);
-    }
-    
-    public PabellonEntity toEntity()
-    {
-        return super.toEntity();
-    }
+	private List<SalonDTO> salones;
+	
+	private List<StandDTO> stands;
+	
+	public PabellonDetailDTO( )
+	{
+		super( );
+	}
+	
+	public PabellonDetailDTO( PabellonEntity entity )
+	{
+		super( entity );
+		if( entity != null )
+		{
+			salones = new LinkedList<>( );
+			for( SalonEntity salon : entity.getSalones( ) )
+			{
+				salones.add( new SalonDTO( salon ) );
+			}
+			
+			stands = new LinkedList<>( );
+			for( StandEntity stand : entity.getStands( ) )
+			{
+				stands.add( new StandDTO( stand ) );
+			}
+		}
+	}
+	
+	public PabellonEntity toEntity( )
+	{
+		PabellonEntity entity = super.toEntity( );
+		
+		List<SalonEntity> salonEntities = new LinkedList<>( );
+		for( SalonDTO salon : salones )
+		{
+			salonEntities.add( salon.toEntity( ) );
+		}
+		
+		List<StandEntity> standEntities = new LinkedList<>( );
+		for( StandDTO stand : stands )
+		{
+			standEntities.add( stand.toEntity( ) );
+		}
+		
+		entity.setSalones( salonEntities );
+		entity.setStands( standEntities );
+		
+		return entity;
+	}
 }

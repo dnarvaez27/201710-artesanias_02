@@ -9,42 +9,56 @@ import co.edu.uniandes.csw.artesanias.dtos.FeriaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.OrganizadorDTO;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
+
 import java.util.LinkedList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
  * @author IVAN
  */
 @XmlRootElement
-public class OrganizadorDetailDTO extends OrganizadorDTO{
-    
-    private List<FeriaDTO> ferias;
-    
-    
-    public OrganizadorDetailDTO(){
-        super();
-    }
-    public OrganizadorDetailDTO(OrganizadorEntity entity){
-        super();
-        for (FeriaEntity feria : entity.getFerias()) {
-            ferias.add(new FeriaDTO(feria));
-        }
-    }
-    public List<FeriaDTO> getFerias(){
-     return ferias;   
-    }
-      public void setArtesanos(List<FeriaDTO> ferias) {
-        this.ferias = ferias;
-    }
-    @Override
-    public OrganizadorEntity toEntity() {
-        OrganizadorEntity entity = super.toEntity();
-        List<FeriaEntity> lista = new LinkedList<FeriaEntity>();
-        for ( FeriaDTO feria : ferias)
-            lista.add(feria.toEntity());
-         entity.setFerias(lista);
-         return entity;
-    }
+public class OrganizadorDetailDTO extends OrganizadorDTO
+{
+	private List<FeriaDTO> ferias;
+	
+	public OrganizadorDetailDTO( )
+	{
+		super( );
+	}
+	
+	public OrganizadorDetailDTO( OrganizadorEntity entity )
+	{
+		super( entity );
+		if( entity != null )
+		{
+			for( FeriaEntity feria : entity.getFerias( ) )
+			{
+				ferias.add( new FeriaDTO( feria ) );
+			}
+		}
+	}
+	
+	public List<FeriaDTO> getFerias( )
+	{
+		return ferias;
+	}
+	
+	public void setArtesanos( List<FeriaDTO> ferias )
+	{
+		this.ferias = ferias;
+	}
+	
+	@Override
+	public OrganizadorEntity toEntity( )
+	{
+		OrganizadorEntity entity = super.toEntity( );
+		List<FeriaEntity> lista = new LinkedList<>( );
+		for( FeriaDTO feria : ferias )
+		{
+			lista.add( feria.toEntity( ) );
+		}
+		entity.setFerias( lista );
+		return entity;
+	}
 }

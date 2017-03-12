@@ -25,41 +25,42 @@ package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
 import co.edu.uniandes.csw.artesanias.persistence.OrganizadorPersistence;
+
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-
-
 /**
- *
  * @author IVAN
  */
 @Stateless
-public class OrganizadorLogic{
-
-    @Inject private OrganizadorPersistence persistence;
-    
-     public List<OrganizadorEntity> getOrganizadores() {
-        return persistence.findAll();
-    }
-    
-     public OrganizadorEntity getOrganizador(Long id){
-        return persistence.find(id);
-     }
-  
-    
-    public OrganizadorEntity createOrganizador(OrganizadorEntity entity) {
-        persistence.create(entity);
-        return entity;
-    }
-    
-     public OrganizadorEntity updateOrganizador(OrganizadorEntity entity) {
-        return persistence.update(entity);
-    }
-     
-      public void deleteOrganizador(Long id) {
-        persistence.delete(id);
-    }
-    
+public class OrganizadorLogic
+{
+	@Inject
+	private OrganizadorPersistence persistence;
+	
+	public List<OrganizadorEntity> getOrganizadores( )
+	{
+		return persistence.findAll( );
+	}
+	
+	public OrganizadorEntity getOrganizador( Long id )
+	{
+		return persistence.find( id );
+	}
+	
+	public OrganizadorEntity createOrganizador( OrganizadorEntity entity )
+	{
+		return persistence.create( entity );
+	}
+	
+	public OrganizadorEntity updateOrganizador( OrganizadorEntity entity )
+	{
+		return persistence.update( entity );
+	}
+	
+	public void deleteOrganizador( Long id )
+	{
+		persistence.delete( id );
+	}
 }

@@ -24,6 +24,7 @@
 package co.edu.uniandes.csw.artesanias.persistence;
 
 import co.edu.uniandes.csw.artesanias.entities.StandEntity;
+
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -32,44 +33,39 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
- *
  * @author ja.espinosa12
  */
-
 @Stateless
-public class StandPersistence {
-    
-    @PersistenceContext(unitName = "artesaniasPU")
-    
-    protected EntityManager em;
-    
-    public StandEntity find(Long id) {
-      
-        return em.find(StandEntity.class, id);
-    }
-      
-      public List<StandEntity> findAll() {
-       
-        TypedQuery<StandEntity> q = em.createQuery("select u from StandEntity u", StandEntity.class);
-          List<StandEntity> stands = q.getResultList();
-        return stands;
-    }
-
-    public StandEntity create(StandEntity entity) {
-      
-        em.persist(entity);
-        
-        return entity;
-    }
-
-    public StandEntity update(StandEntity entity) {
-       
-        return em.merge(entity);
-    }
-
-    public void delete(Long id) {
-        
-        StandEntity entity = em.find(StandEntity.class, id);
-        em.remove(entity);
-    }
+public class StandPersistence
+{
+	@PersistenceContext( unitName = "artesaniasPU" )
+	protected EntityManager em;
+	
+	public StandEntity find( Long id )
+	{
+		return em.find( StandEntity.class, id );
+	}
+	
+	public List<StandEntity> findAll( )
+	{
+		TypedQuery<StandEntity> q = em.createQuery( "select u from StandEntity u", StandEntity.class );
+		return q.getResultList( );
+	}
+	
+	public StandEntity create( StandEntity entity )
+	{
+		em.persist( entity );
+		return entity;
+	}
+	
+	public StandEntity update( StandEntity entity )
+	{
+		return em.merge( entity );
+	}
+	
+	public void delete( Long id )
+	{
+		StandEntity entity = em.find( StandEntity.class, id );
+		em.remove( entity );
+	}
 }

@@ -5,46 +5,48 @@
  */
 package co.edu.uniandes.csw.artesanias.ejbs;
 
-/**
- *
- * @author ia.salazar
- */
-
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
 import co.edu.uniandes.csw.artesanias.persistence.SalonPersistence;
+
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+/**
+ * @author ia.salazar
+ */
 @Stateless
-public class SalonLogic {
-    
-     @Inject private SalonPersistence persistence;
-    
-     
-     /**
-      * 
-      * @return  la lista de los salones.
-      */
-    public List<SalonEntity> getSalones() {
-        return persistence.findAll();
-    }
-    
-     public SalonEntity getSalon(Long id){
-        return persistence.find(id);
-     }
-  
-    
-    public SalonEntity createSalon(SalonEntity entity) {
-        persistence.create(entity);
-        return entity;
-    }
-    
-     public SalonEntity updateSalon(SalonEntity entity) {
-        return persistence.update(entity);
-    }
-     
-      public void deleteSalon(Long id) {
-        persistence.delete(id);
-    }
+public class SalonLogic
+{
+	@Inject
+	private SalonPersistence persistence;
+	
+	/**
+	 * @return la lista de los salones.
+	 */
+	public List<SalonEntity> getSalones( )
+	{
+		return persistence.findAll( );
+	}
+	
+	public SalonEntity getSalon( Long id )
+	{
+		return persistence.find( id );
+	}
+	
+	public SalonEntity createSalon( SalonEntity entity )
+	{
+		persistence.create( entity );
+		return entity;
+	}
+	
+	public SalonEntity updateSalon( SalonEntity entity )
+	{
+		return persistence.update( entity );
+	}
+	
+	public void deleteSalon( Long id )
+	{
+		persistence.delete( id );
+	}
 }

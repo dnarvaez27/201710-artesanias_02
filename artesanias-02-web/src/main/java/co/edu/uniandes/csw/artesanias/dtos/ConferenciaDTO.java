@@ -8,175 +8,133 @@ package co.edu.uniandes.csw.artesanias.dtos;
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
+
 import java.sql.Time;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
  * @author ia.salazar
  */
 @XmlRootElement
-public class ConferenciaDTO {
-    
-    /**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
+public class ConferenciaDTO
+{
 	private Long id;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	
 	private String conferencista;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	
 	private String tema;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	
 	private Date fechaInicio;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	
 	private Date fechaFin;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	
 	private String horaInicio;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	
 	private String horaFin;
-
 	
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setConferencista(String conferencista) {
-        this.conferencista = conferencista;
-    }
-
-    public void setTema(String tema) {
-        this.tema = tema;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
-    public void setHoraInicio(String horaInicio) {
-        this.horaInicio = horaInicio;
-    }
-
-    public void setHoraFin(String horaFin) {
-        this.horaFin = horaFin;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getConferencista() {
-        return conferencista;
-    }
-
-    public String getTema() {
-        return tema;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public Date getFechaFin() {
-        return fechaFin;
-    }
-
-    public String getHoraInicio() {
-        return horaInicio;
-    }
-
-    public String getHoraFin() {
-        return horaFin;
-    }
-
-    
-
-  
-    public ConferenciaDTO(){
-        
-    }
-    
-       public ConferenciaDTO(ConferenciaEntity entity) {
-        if (entity != null) {
-            this.id = entity.getId();
-            this.tema = entity.getTema();
-            this.fechaFin = entity.getFechaFin();
-            this.fechaInicio = entity.getFechaInicio();
-            this.conferencista = entity.getConferencista();
-            this.horaInicio=entity.getHoraInicio();
-            this.horaFin=entity.getHoraFin();
-           
-                    
-                    
-        }
-    }
-
-    /**
-     *
-     * @return
-     */
-    public ConferenciaEntity toEntity() {
-        ConferenciaEntity entity = new ConferenciaEntity();
-
-        entity.setId(this.getId());
-       entity.setTema(this.getTema());
-       entity.setFechaFin(this.getFechaFin());
-       entity.setFechaInicio(this.getFechaInicio());
-       entity.setConferencista(this.getConferencista());
-       entity.setHoraInicio(this.getHoraInicio());
-       entity.setHoraFin(this.getHoraFin());
-      
-        return entity;
-    }
+	public ConferenciaDTO( )
+	{
+		
+	}
+	
+	public ConferenciaDTO( ConferenciaEntity entity )
+	{
+		if( entity != null )
+		{
+			this.id = entity.getId( );
+			this.tema = entity.getTema( );
+			this.fechaFin = entity.getFechaFin( );
+			this.fechaInicio = entity.getFechaInicio( );
+			this.conferencista = entity.getConferencista( );
+			this.horaInicio = entity.getHoraInicio( );
+			this.horaFin = entity.getHoraFin( );
+			
+		}
+	}
+	
+	public void setId( Long id )
+	{
+		this.id = id;
+	}
+	
+	public void setConferencista( String conferencista )
+	{
+		this.conferencista = conferencista;
+	}
+	
+	public void setTema( String tema )
+	{
+		this.tema = tema;
+	}
+	
+	public void setFechaInicio( Date fechaInicio )
+	{
+		this.fechaInicio = fechaInicio;
+	}
+	
+	public void setFechaFin( Date fechaFin )
+	{
+		this.fechaFin = fechaFin;
+	}
+	
+	public void setHoraInicio( String horaInicio )
+	{
+		this.horaInicio = horaInicio;
+	}
+	
+	public void setHoraFin( String horaFin )
+	{
+		this.horaFin = horaFin;
+	}
+	
+	public Long getId( )
+	{
+		return id;
+	}
+	
+	public String getConferencista( )
+	{
+		return conferencista;
+	}
+	
+	public String getTema( )
+	{
+		return tema;
+	}
+	
+	public Date getFechaInicio( )
+	{
+		return fechaInicio;
+	}
+	
+	public Date getFechaFin( )
+	{
+		return fechaFin;
+	}
+	
+	public String getHoraInicio( )
+	{
+		return horaInicio;
+	}
+	
+	public String getHoraFin( )
+	{
+		return horaFin;
+	}
+	
+	public ConferenciaEntity toEntity( )
+	{
+		ConferenciaEntity entity = new ConferenciaEntity( );
+		
+		entity.setId( this.getId( ) );
+		entity.setTema( this.getTema( ) );
+		entity.setFechaFin( this.getFechaFin( ) );
+		entity.setFechaInicio( this.getFechaInicio( ) );
+		entity.setConferencista( this.getConferencista( ) );
+		entity.setHoraInicio( this.getHoraInicio( ) );
+		entity.setHoraFin( this.getHoraFin( ) );
+		
+		return entity;
+	}
 }

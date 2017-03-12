@@ -72,7 +72,6 @@ public class ArtesanoEntity implements Serializable
 	@ManyToOne( targetEntity = CiudadEntity.class )
 	private CiudadEntity ciudad;
 	
-	// TODO: ?
 	/**
 	 * Stand en el que un Artesano se encuentra
 	 */

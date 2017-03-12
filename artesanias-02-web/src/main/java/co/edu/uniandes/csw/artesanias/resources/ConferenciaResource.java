@@ -5,82 +5,76 @@
  */
 package co.edu.uniandes.csw.artesanias.resources;
 
-
 import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
-import co.edu.uniandes.csw.artesanias.dtos.detail.ConferenciaDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ConferenciaLogic;
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
-import java.util.ArrayList;
-import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- *
  * @author IVAN
  */
-@Path("/salon")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
-public class ConferenciaResource {
-    
-    
-
-    
-     @Inject private ConferenciaLogic conferenciaLogic;
-    @Context private HttpServletResponse response;
-    @QueryParam("tema") private Integer tema;
-    
-    
-    
-    private List<ConferenciaDTO> listEntity2DTO(List<ConferenciaEntity> entityList){
-        List<ConferenciaDTO> list = new ArrayList<>();
-        for (ConferenciaEntity entity : entityList) {
-            list.add(new ConferenciaDTO(entity));
-        }
-        return list;
-    }
-    
-    @GET
-    public List<ConferenciaDTO> getConferencias() {
-        
-        return listEntity2DTO(conferenciaLogic.getConferencias());
-    }
-    
-     @GET
-    @Path("{id: \\d+}")
-    public ConferenciaDetailDTO getConferencia(@PathParam("id") Long id) {
-        return new ConferenciaDetailDTO(conferenciaLogic.getConferencia(id));
-    }
-    
-    @POST
-    public ConferenciaDTO createConferencia(ConferenciaDTO dto) {
-        return new ConferenciaDTO(conferenciaLogic.createConferencia(dto.toEntity()));
-    }
-    
-    
-     @PUT
-    @Path("{id: \\d+}")
-    public ConferenciaDetailDTO updateConferencia(@PathParam("id") Long id, ConferenciaDetailDTO dto) {
-        ConferenciaEntity entity = dto.toEntity();
-        entity.setId(id);
-        return new ConferenciaDetailDTO(conferenciaLogic.updateConferencia(entity));
-    }
-    
-     @DELETE
-    @Path("{id: \\d+}")
-    public void deleteSConferencia(@PathParam("id") Long id) {
-        conferenciaLogic.deleteConferencia(id);
-    }
+@Path( "/conferencias" )
+@Consumes( MediaType.APPLICATION_JSON )
+@Produces( MediaType.APPLICATION_JSON )
+public class ConferenciaResource
+{
+	@Inject
+	private ConferenciaLogic conferenciaLogic;
+	
+	@Context
+	private HttpServletResponse response;
+	
+	private List<ConferenciaDTO> listEntity2DTO( List<ConferenciaEntity> entityList )
+	{
+		List<ConferenciaDTO> list = new ArrayList<>( );
+		for( ConferenciaEntity entity : entityList )
+		{
+			list.add( new ConferenciaDTO( entity ) );
+		}
+		return list;
+	}
+	
+	@GET
+	public List<ConferenciaDTO> getConferencias( )
+	{
+		
+		return listEntity2DTO( conferenciaLogic.getConferencias( ) );
+	}
+	
+	@GET
+	@Path( "{id: \\d+}" )
+	public ConferenciaDTO getConferencia( @PathParam( "id" ) Long id )
+	{
+		return new ConferenciaDTO( conferenciaLogic.getConferencia( id ) );
+	}
+	
+	@POST
+	public ConferenciaDTO createConferencia( ConferenciaDTO dto )
+	{
+		return new ConferenciaDTO( conferenciaLogic.createConferencia( dto.toEntity( ) ) );
+	}
+	
+	@PUT
+	@Path( "{id: \\d+}" )
+	public ConferenciaDTO updateConferencia(
+			@PathParam( "id" ) Long id, ConferenciaDTO dto )
+	{
+		ConferenciaEntity entity = dto.toEntity( );
+		entity.setId( id );
+		return new ConferenciaDTO( conferenciaLogic.updateConferencia( entity ) );
+	}
+	
+	@DELETE
+	@Path( "{id: \\d+}" )
+	public void deleteSConferencia( @PathParam( "id" ) Long id )
+	{
+		conferenciaLogic.deleteConferencia( id );
+	}
 }

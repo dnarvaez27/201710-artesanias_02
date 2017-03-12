@@ -11,6 +11,7 @@ import co.edu.uniandes.csw.artesanias.dtos.SalonDTO;
 
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -18,51 +19,46 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
  * @author ia.salazar
  */
 @XmlRootElement
 public class SalonDetailDTO extends SalonDTO
 {
-    	    public List<ConferenciaDTO> conferencias;
+	private ConferenciaDTO conferencia;
 	
-	    public PabellonDTO pabellon;
-    
-     public SalonDetailDTO() {
-        super();
-        
-    }
-     
-     public SalonDetailDTO(SalonEntity entity) {
-        super(entity);
-         
-         if (entity==null) {
-             return;  
-         }
-          for (ConferenciaEntity conferencia : entity.getConferencias()){
-              this.conferencias.add(new ConferenciaDTO(conferencia));
-          }
-            pabellon = new PabellonDTO(entity.getPabellon());
-    }
-     
-        @Override
-    public SalonEntity toEntity() {
-        SalonEntity entity = super.toEntity();
-        List<ConferenciaEntity> listaConferencias = new LinkedList<ConferenciaEntity>();
-        for (ConferenciaDTO conferencia : conferencias){
-            listaConferencias.add(conferencia.toEntity());
-        }
-        entity.setConferencia(listaConferencias);
-        entity.setPabellon(pabellon.toEntity());
-        return entity;
-    }
-    
-    public List<ConferenciaDTO> getConferencias() {
-        return conferencias;
-    }
-
-    public void setConferencias(List<ConferenciaDTO> conferencias) {
-        this.conferencias = conferencias;
-    }
-     
+	private PabellonDTO pabellon;
+	
+	public SalonDetailDTO( )
+	{
+		super( );
+	}
+	
+	public SalonDetailDTO( SalonEntity entity )
+	{
+		super( entity );
+		if( entity != null )
+		{
+			this.conferencia = new ConferenciaDTO( entity.getConferencia( ) );
+			this.pabellon = new PabellonDTO( entity.getPabellon( ) );
+		}
+	}
+	
+	@Override
+	public SalonEntity toEntity( )
+	{
+		SalonEntity entity = super.toEntity( );
+		entity.setConferencia( conferencia.toEntity( ) );
+		entity.setPabellon( pabellon.toEntity( ) );
+		return entity;
+	}
+	
+	public ConferenciaDTO getConferencia( )
+	{
+		return conferencia;
+	}
+	
+	public void setConferencia( ConferenciaDTO conferencia )
+	{
+		this.conferencia = conferencia;
+	}
 }
