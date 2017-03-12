@@ -24,50 +24,49 @@
 package co.edu.uniandes.csw.artesanias.persistence;
 
 import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
+
 import java.util.List;
 import javax.ejb.Stateless;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
- *
  * @author IVAN
  */
 @Stateless
-public class OrganizadorPersistence {
-     
-    @PersistenceContext(name = "artesaniasPU")
-    protected EntityManager em;
-    
-    public OrganizadorEntity find(Long id) {
-      
-        return em.find(OrganizadorEntity.class, id);
-    }
-      
-      public List<OrganizadorEntity> findAll() {
-       
-        Query q = em.createQuery("select u from OrganizadorEntity u");
-        return q.getResultList();
-    }
-
-    public OrganizadorEntity create(OrganizadorEntity entity) {
-      
-        em.persist(entity);
-        
-        return entity;
-    }
-
-    public OrganizadorEntity update(OrganizadorEntity entity) {
-       
-        return em.merge(entity);
-    }
-
-    public void delete(Long id) {
-        
-        OrganizadorEntity entity = em.find(OrganizadorEntity.class, id);
-        em.remove(entity);
-    }
-
+public class OrganizadorPersistence
+{
+	@PersistenceContext( name = "artesaniasPU" )
+	protected EntityManager em;
+	
+	public OrganizadorEntity find( Long id )
+	{
+		return em.find( OrganizadorEntity.class, id );
+	}
+	
+	public List<OrganizadorEntity> findAll( )
+	{
+		TypedQuery<OrganizadorEntity> q = em.createQuery( "select u from OrganizadorEntity u" , OrganizadorEntity.class );
+		return q.getResultList( );
+	}
+	
+	public OrganizadorEntity create( OrganizadorEntity entity )
+	{
+		em.persist( entity );
+		return entity;
+	}
+	
+	public OrganizadorEntity update( OrganizadorEntity entity )
+	{
+		return em.merge( entity );
+	}
+	
+	public void delete( Long id )
+	{
+		OrganizadorEntity entity = em.find( OrganizadorEntity.class, id );
+		em.remove( entity );
+	}
 }

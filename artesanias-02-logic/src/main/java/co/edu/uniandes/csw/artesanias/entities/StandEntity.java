@@ -23,38 +23,33 @@
  */
 package co.edu.uniandes.csw.artesanias.entities;
 
-import java.awt.Dimension;
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import java.util.List;
 
 /**
- *
  * @author ja.espinosa12
  */
-
 @Entity
-public class StandEntity implements Serializable{
-    
-        @Id
+public class StandEntity implements Serializable
+{
+	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;
 	
 	private Integer numero;
 	
-        private Dimension dimensiones;
-        
-        private String descripcion;
-        
-        private Double precio;
-        
-        @ManyToOne(targetEntity = PabellonEntity.class)
-        private PabellonEntity pabellon;
-        
-        private ArtesanoEntity artesano;
+	private String dimensiones;
+	
+	private String descripcion;
+	
+	private Double precio;
+	
+	@ManyToOne( targetEntity = PabellonEntity.class )
+	private PabellonEntity pabellon;
+	
+	@OneToMany( fetch = FetchType.LAZY, targetEntity = ArtesanoEntity.class, mappedBy = "stand" )
+	private List<ArtesanoEntity> artesanos;
 	
 	public void setId( Long id )
 	{
@@ -66,7 +61,7 @@ public class StandEntity implements Serializable{
 		this.numero = numero;
 	}
 	
-	public void setDimensiones( Dimension pDimensiones )
+	public void setDimensiones( String pDimensiones )
 	{
 		this.dimensiones = pDimensiones;
 	}
@@ -80,46 +75,90 @@ public class StandEntity implements Serializable{
 	{
 		this.precio = pPrecio;
 	}
-
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @return the numero
-     */
-    public Integer getNumero() {
-        return numero;
-    }
-
-    /**
-     * @return the dimensiones
-     */
-    public Dimension getDimensiones() {
-        return dimensiones;
-    }
-
-    /**
-     * @return the descripcion
-     */
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    /**
-     * @return the precio
-     */
-    public Double getPrecio() {
-        return precio;
-    }
-    
-    @Override
+	
+	/**
+	 * @return the id
+	 */
+	public Long getId( )
+	{
+		return id;
+	}
+	
+	/**
+	 * @return the numero
+	 */
+	public Integer getNumero( )
+	{
+		return numero;
+	}
+	
+	/**
+	 * @return the dimensiones
+	 */
+	public String getDimensiones( )
+	{
+		return dimensiones;
+	}
+	
+	/**
+	 * @return the descripcion
+	 */
+	public String getDescripcion( )
+	{
+		return descripcion;
+	}
+	
+	/**
+	 * @return the precio
+	 */
+	public Double getPrecio( )
+	{
+		return precio;
+	}
+	
+	/**
+	 * Retrieves the pabellon of the StandEntity
+	 *
+	 * @return The pabellon of the StandEntity
+	 */
+	public PabellonEntity getPabellon( )
+	{
+		return pabellon;
+	}
+	
+	/**
+	 * Updates the pabellon of the StandEntity by the one given by parameter
+	 *
+	 * @param pabellon The new pabellon of the StandEntity
+	 */
+	public void setPabellon( PabellonEntity pabellon )
+	{
+		this.pabellon = pabellon;
+	}
+	
+	/**
+	 * Retrieves the artesano of the StandEntity
+	 *
+	 * @return The artesano of the StandEntity
+	 */
+	public List<ArtesanoEntity> getArtesanos( )
+	{
+		return artesanos;
+	}
+	
+	/**
+	 * Updates the artesano of the StandEntity by the one given by parameter
+	 *
+	 * @param artesanos The new artesano of the StandEntity
+	 */
+	public void setArtesanos( List<ArtesanoEntity> artesanos )
+	{
+		this.artesanos = artesanos;
+	}
+	
+	@Override
 	public boolean equals( Object obj )
 	{
-		
 		if( this.getId( ) != null )
 		{
 			

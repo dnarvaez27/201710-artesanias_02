@@ -1,13 +1,8 @@
 package co.edu.uniandes.csw.artesanias.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  * @author ia.salazar
@@ -23,11 +18,10 @@ public class SalonEntity implements Serializable
 	
 	private Integer capacidad;
 	
-	// TODO: 28/02/2017 Arreglar Ivan: Anotaciones
-       @OneToMany(mappedBy = "salon")
-	private List<ConferenciaEntity> conferencia;
+	@OneToOne( targetEntity = ConferenciaEntity.class, fetch = FetchType.LAZY )
+	private ConferenciaEntity conferencia;
 	
-        @OneToMany(mappedBy = "salon")
+	@ManyToOne( targetEntity = PabellonEntity.class, fetch = FetchType.LAZY )
 	private PabellonEntity pabellon;
 	
 	public void setId( Long id )
@@ -45,7 +39,7 @@ public class SalonEntity implements Serializable
 		this.capacidad = capacidad;
 	}
 	
-	public void setConferencia( List<ConferenciaEntity> conferencia )
+	public void setConferencia( ConferenciaEntity conferencia )
 	{
 		this.conferencia = conferencia;
 	}
@@ -70,7 +64,7 @@ public class SalonEntity implements Serializable
 		return capacidad;
 	}
 	
-	public List<ConferenciaEntity> getConferencias( )
+	public ConferenciaEntity getConferencia( )
 	{
 		return conferencia;
 	}
@@ -83,7 +77,6 @@ public class SalonEntity implements Serializable
 	@Override
 	public boolean equals( Object obj )
 	{
-		
 		if( this.getId( ) != null )
 		{
 			

@@ -15,14 +15,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class SalonDTO
 {
-	
 	private Long id;
 	
 	private Integer numero;
 	
 	private Integer capacidad;
 	
-
+	public SalonDTO( )
+	{
+		
+	}
+	
+	public SalonDTO( SalonEntity entity )
+	{
+		if( entity != null )
+		{
+			this.id = entity.getId( );
+			this.numero = entity.getNumero( );
+			this.capacidad = entity.getCapacidad( );
+		}
+	}
 	
 	public void setId( Long id )
 	{
@@ -39,14 +51,6 @@ public class SalonDTO
 		this.capacidad = capacidad;
 	}
 	
-	//    public void setConferencia(Conferencia conferencia) {
-	//        this.conferencia = conferencia;
-	//    }
-	
-	//    public void setPabellon(Pabellon pabellon) {
-	//        this.pabellon = pabellon;
-	//    }
-	
 	public Long getId( )
 	{
 		return id;
@@ -60,32 +64,6 @@ public class SalonDTO
 	public Integer getCapacidad( )
 	{
 		return capacidad;
-	}
-	
-	//	public Conferencia getConferencia( )
-	//	{
-	//		return conferencia;
-	//	}
-	//
-	//	public Pabellon getPabellon( )
-	//	{
-	//		return pabellon;
-	//	}
-	
-	public SalonDTO( )
-	{
-		
-	}
-	
-	public SalonDTO( SalonEntity entity )
-	{
-		if( entity != null )
-		{
-			this.id = entity.getId( );
-			this.numero = entity.getNumero( );
-			this.capacidad = entity.getCapacidad( );
-			
-		}
 	}
 	
 	public SalonEntity toEntity( )

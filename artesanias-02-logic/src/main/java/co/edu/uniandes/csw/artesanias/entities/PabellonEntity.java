@@ -25,83 +25,124 @@ package co.edu.uniandes.csw.artesanias.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
- *
- * @author Miller
+ * @author ja.espinoza
  */
 @Entity
-public class PabellonEntity implements Serializable{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
-    private Long id;
-    
-    private String tipo;
-    
-    private Integer capacidad;
-    
-    @OneToMany( mappedBy = "pabellon")
-    private List<StandEntity> stands = new ArrayList();
-
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the tipo
-     */
-    public String getTipo() {
-        return tipo;
-    }
-
-    /**
-     * @param tipo the tipo to set
-     */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    /**
-     * @return the capacidad
-     */
-    public Integer getCapacidad() {
-        return capacidad;
-    }
-
-    /**
-     * @param capacidad the capacidad to set
-     */
-    public void setCapacidad(Integer capacidad) {
-        this.capacidad = capacidad;
-    }
-    
-    @Override
+public class PabellonEntity implements Serializable
+{
+	@Id
+	@GeneratedValue( strategy = GenerationType.IDENTITY )
+	private Long id;
+	
+	private String tipo;
+	
+	private Integer capacidad;
+	
+	@OneToMany( mappedBy = "pabellon", targetEntity = StandEntity.class, fetch = FetchType.LAZY )
+	private List<StandEntity> stands = new LinkedList<>( );
+	
+	@OneToMany( mappedBy = "pabellon", targetEntity = SalonEntity.class, fetch = FetchType.LAZY )
+	private List<SalonEntity> salones = new LinkedList<>( );
+	
+	/**
+	 * Retrieves the salones of the PabellonEntity
+	 *
+	 * @return The salones of the PabellonEntity
+	 */
+	public List<SalonEntity> getSalones( )
+	{
+		return salones;
+	}
+	
+	/**
+	 * Updates the salones of the PabellonEntity by the one given by parameter
+	 *
+	 * @param salones The new salones of the PabellonEntity
+	 */
+	public void setSalones( List<SalonEntity> salones )
+	{
+		this.salones = salones;
+	}
+	
+	/**
+	 * Retrieves the stands of the PabellonEntity
+	 *
+	 * @return The stands of the PabellonEntity
+	 */
+	public List<StandEntity> getStands( )
+	{
+		return stands;
+	}
+	
+	/**
+	 * Updates the stands of the PabellonEntity by the one given by parameter
+	 *
+	 * @param stands The new stands of the PabellonEntity
+	 */
+	public void setStands( List<StandEntity> stands )
+	{
+		this.stands = stands;
+	}
+	
+	/**
+	 * @return the id
+	 */
+	public Long getId( )
+	{
+		return id;
+	}
+	
+	/**
+	 * @param id the id to set
+	 */
+	public void setId( Long id )
+	{
+		this.id = id;
+	}
+	
+	/**
+	 * @return the tipo
+	 */
+	public String getTipo( )
+	{
+		return tipo;
+	}
+	
+	/**
+	 * @param tipo the tipo to set
+	 */
+	public void setTipo( String tipo )
+	{
+		this.tipo = tipo;
+	}
+	
+	/**
+	 * @return the capacidad
+	 */
+	public Integer getCapacidad( )
+	{
+		return capacidad;
+	}
+	
+	/**
+	 * @param capacidad the capacidad to set
+	 */
+	public void setCapacidad( Integer capacidad )
+	{
+		this.capacidad = capacidad;
+	}
+	
+	@Override
 	public boolean equals( Object obj )
 	{
-		
 		if( this.getId( ) != null )
 		{
-			
 			return this.getId( ).equals( ( ( SalonEntity ) obj ).getId( ) );
-			
 		}
 		return super.equals( obj );
 	}
@@ -114,5 +155,4 @@ public class PabellonEntity implements Serializable{
 		}
 		return super.hashCode( );
 	}
-    
 }

@@ -1,8 +1,6 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
-import co.edu.uniandes.csw.artesanias.dtos.ArtesaniaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.ArtesanoDTO;
-import co.edu.uniandes.csw.artesanias.dtos.detail.ArtesanoDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ArtesanoLogic;
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
 
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

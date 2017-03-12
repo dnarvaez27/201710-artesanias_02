@@ -1,15 +1,8 @@
 package co.edu.uniandes.csw.artesanias.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.Date;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
 
 /**
  * @author ia.salazar
@@ -25,22 +18,21 @@ public class ConferenciaEntity implements Serializable
 	
 	private String tema;
 	
-	 
-        @Temporal(javax.persistence.TemporalType.DATE)
-		private Date fechaInicio;
-        @Temporal(javax.persistence.TemporalType.DATE)
-		private Date fechaFin;
-        
-		private String horaInicio;
-        
-	        private String horaFin;
-        
-    
-    @ManyToOne
-		private FeriaEntity feria;
-    
-    @OneToOne
-		private SalonEntity salon;
+	@Temporal( javax.persistence.TemporalType.DATE )
+	private Date fechaInicio;
+	
+	@Temporal( javax.persistence.TemporalType.DATE )
+	private Date fechaFin;
+	
+	private String horaInicio;
+	
+	private String horaFin;
+	
+	@ManyToOne( targetEntity = FeriaEntity.class, fetch = FetchType.LAZY )
+	private FeriaEntity feria;
+	
+	@OneToOne( targetEntity = SalonEntity.class, fetch = FetchType.LAZY )
+	private SalonEntity salon;
 	
 	public void setId( Long id )
 	{
@@ -57,21 +49,25 @@ public class ConferenciaEntity implements Serializable
 		this.tema = tema;
 	}
 	
-	    public void setFechaInicio(Date fechaInicio) {
-	        this.fechaInicio = fechaInicio;
-	    }
+	public void setFechaInicio( Date fechaInicio )
+	{
+		this.fechaInicio = fechaInicio;
+	}
 	
-	    public void setFechaFin(Date fechaFin) {
-	        this.fechaFin = fechaFin;
-	   }
+	public void setFechaFin( Date fechaFin )
+	{
+		this.fechaFin = fechaFin;
+	}
 	
-	    public void setHoraInicio(String horaInicio) {
-	       this.horaInicio = horaInicio;
-	    }
+	public void setHoraInicio( String horaInicio )
+	{
+		this.horaInicio = horaInicio;
+	}
 	
-	    public void setHoraFin(String horaFin) {
-	        this.horaFin = horaFin;
-	    }
+	public void setHoraFin( String horaFin )
+	{
+		this.horaFin = horaFin;
+	}
 	
 	public Long getId( )
 	{
@@ -88,37 +84,45 @@ public class ConferenciaEntity implements Serializable
 		return tema;
 	}
 	
-	    public Date getFechaInicio() {
-	        return fechaInicio;
-	    }
+	public Date getFechaInicio( )
+	{
+		return fechaInicio;
+	}
 	
-	   public Date getFechaFin() {
-	       return fechaFin;
-    }
+	public Date getFechaFin( )
+	{
+		return fechaFin;
+	}
 	
-	    public String getHoraInicio() {
-	        return horaInicio;
-	    }
+	public String getHoraInicio( )
+	{
+		return horaInicio;
+	}
 	
-	   public String getHoraFin() {
-	        return horaFin;
-	    }
+	public String getHoraFin( )
+	{
+		return horaFin;
+	}
 	
-	    public FeriaEntity getFeria() {
-	        return feria;
-	   }
+	public FeriaEntity getFeria( )
+	{
+		return feria;
+	}
 	
-	    public SalonEntity getSalon() {
-	        return salon;
-	    }
+	public SalonEntity getSalon( )
+	{
+		return salon;
+	}
 	
-	    public void setFeria(FeriaEntity feria) {
-	        this.feria = feria;
-	    }
+	public void setFeria( FeriaEntity feria )
+	{
+		this.feria = feria;
+	}
 	
-	    public void setSalon(SalonEntity salon) {
-	        this.salon = salon;
-	    }
+	public void setSalon( SalonEntity salon )
+	{
+		this.salon = salon;
+	}
 	
 	@Override
 	public boolean equals( Object obj )

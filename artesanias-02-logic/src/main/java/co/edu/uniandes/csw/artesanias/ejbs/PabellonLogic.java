@@ -25,38 +25,42 @@ package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
 import co.edu.uniandes.csw.artesanias.persistence.PabellonPersistence;
+
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- *
  * @author ja.espinosa12
  */
-
 @Stateless
-public class PabellonLogic {
-    
-    @Inject private PabellonPersistence persistence;
-    
-    public PabellonEntity getPabellon(Long id) {
-        return persistence.find(id);
-    }
-    
-    public List<PabellonEntity> getPabellones() {
-        return persistence.findAll();
-    }
-    
-    public PabellonEntity createPabellon(PabellonEntity entity) {
-        return persistence.create(entity);
-    }
-    
-    public PabellonEntity updatePabellon(PabellonEntity entity) {
-        return persistence.update(entity);
-    }
-    
-    public void deletePabellon(Long id) {
-        persistence.delete(id);
-    }
-    
+public class PabellonLogic
+{
+	@Inject
+	private PabellonPersistence persistence;
+	
+	public PabellonEntity getPabellon( Long id )
+	{
+		return persistence.find( id );
+	}
+	
+	public List<PabellonEntity> getPabellones( )
+	{
+		return persistence.findAll( );
+	}
+	
+	public PabellonEntity createPabellon( PabellonEntity entity )
+	{
+		return persistence.create( entity );
+	}
+	
+	public PabellonEntity updatePabellon( PabellonEntity entity )
+	{
+		return persistence.update( entity );
+	}
+	
+	public void deletePabellon( Long id )
+	{
+		persistence.delete( id );
+	}
 }

@@ -24,42 +24,48 @@
 package co.edu.uniandes.csw.artesanias.persistence;
 
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
+
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
- *
  * @author ia.salazar
  */
 @Stateless
-public class ConferenciaPersistence {
-
-    @PersistenceContext(unitName = "artesaniasPU")
-    protected EntityManager em;
-
-    public ConferenciaEntity find(Long id) {
-        return em.find(ConferenciaEntity.class, id);
-    }
-
-    public List<ConferenciaEntity> findAll() {
-        Query q = em.createQuery("select u from ConferenciaEntity u");
-        return q.getResultList();
-    }
-
-    public ConferenciaEntity create(ConferenciaEntity entity) {
-        em.persist(entity);
-        return entity;
-    }
-
-    public ConferenciaEntity update(ConferenciaEntity entity) {
-        return em.merge(entity);
-    }
-
-    public void delete(Long id) {
-        ConferenciaEntity entity = em.find(ConferenciaEntity.class, id);
-        em.remove(entity);
-    }
+public class ConferenciaPersistence
+{
+	@PersistenceContext( unitName = "artesaniasPU" )
+	protected EntityManager em;
+	
+	public ConferenciaEntity find( Long id )
+	{
+		return em.find( ConferenciaEntity.class, id );
+	}
+	
+	public List<ConferenciaEntity> findAll( )
+	{
+		TypedQuery<ConferenciaEntity> q = em.createQuery( "select u from ConferenciaEntity u", ConferenciaEntity.class );
+		return q.getResultList( );
+	}
+	
+	public ConferenciaEntity create( ConferenciaEntity entity )
+	{
+		em.persist( entity );
+		return entity;
+	}
+	
+	public ConferenciaEntity update( ConferenciaEntity entity )
+	{
+		return em.merge( entity );
+	}
+	
+	public void delete( Long id )
+	{
+		ConferenciaEntity entity = em.find( ConferenciaEntity.class, id );
+		em.remove( entity );
+	}
 }
