@@ -9,7 +9,6 @@ import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.detail.SalonDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.SalonLogic;
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
-import com.sun.org.glassfish.gmbal.ParameterNames;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;

@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -29,15 +30,16 @@ public class ConferenciaEntity implements Serializable
 		private Date fechaInicio;
         @Temporal(javax.persistence.TemporalType.DATE)
 		private Date fechaFin;
-        @Temporal(javax.persistence.TemporalType.TIME)
-		private Time horaInicio;
-        @Temporal(javax.persistence.TemporalType.TIME)
-	        private Time horaFin;
+        
+		private String horaInicio;
+        
+	        private String horaFin;
         
     
     @ManyToOne
 		private FeriaEntity feria;
-    @ManyToOne(targetEntity = SalonEntity.class)
+    
+    @OneToOne
 		private SalonEntity salon;
 	
 	public void setId( Long id )
@@ -63,11 +65,11 @@ public class ConferenciaEntity implements Serializable
 	        this.fechaFin = fechaFin;
 	   }
 	
-	    public void setHoraInicio(Time horaInicio) {
+	    public void setHoraInicio(String horaInicio) {
 	       this.horaInicio = horaInicio;
 	    }
 	
-	    public void setHoraFin(Time horaFin) {
+	    public void setHoraFin(String horaFin) {
 	        this.horaFin = horaFin;
 	    }
 	
@@ -94,11 +96,11 @@ public class ConferenciaEntity implements Serializable
 	       return fechaFin;
     }
 	
-	    public Time getHoraInicio() {
+	    public String getHoraInicio() {
 	        return horaInicio;
 	    }
 	
-	   public Time getHoraFin() {
+	   public String getHoraFin() {
 	        return horaFin;
 	    }
 	

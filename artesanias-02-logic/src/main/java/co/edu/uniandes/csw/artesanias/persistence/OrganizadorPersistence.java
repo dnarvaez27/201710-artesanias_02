@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2017 Miller.
+ * Copyright 2017 IVAN.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,49 +23,50 @@
  */
 package co.edu.uniandes.csw.artesanias.persistence;
 
-import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
+import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
 import java.util.List;
 import javax.ejb.Stateless;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
  *
- * @author ia.salazar
+ * @author IVAN
  */
 @Stateless
-public class SalonPersistence {
-    
-     @PersistenceContext(unitName="artesaniasPU")
-    protected EntityManager em;
+public class OrganizadorPersistence {
      
-      public SalonEntity find(Long id) {
+    @PersistenceContext(name = "artesaniasPU")
+    protected EntityManager em;
+    
+    public OrganizadorEntity find(Long id) {
       
-        return em.find(SalonEntity.class, id);
+        return em.find(OrganizadorEntity.class, id);
     }
       
-      public List<SalonEntity> findAll() {
+      public List<OrganizadorEntity> findAll() {
        
-        Query q = em.createQuery("select u from SalonEntity u");
+        Query q = em.createQuery("select u from OrganizadorEntity u");
         return q.getResultList();
     }
 
-    public SalonEntity create(SalonEntity entity) {
+    public OrganizadorEntity create(OrganizadorEntity entity) {
       
         em.persist(entity);
         
         return entity;
     }
 
-    public SalonEntity update(SalonEntity entity) {
+    public OrganizadorEntity update(OrganizadorEntity entity) {
        
         return em.merge(entity);
     }
 
     public void delete(Long id) {
         
-        SalonEntity entity = em.find(SalonEntity.class, id);
+        OrganizadorEntity entity = em.find(OrganizadorEntity.class, id);
         em.remove(entity);
     }
 

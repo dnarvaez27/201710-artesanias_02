@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2017 Miller.
+ * Copyright 2017 IVAN.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,52 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package co.edu.uniandes.csw.artesanias.persistence;
-
-import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
-import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+package co.edu.uniandes.csw.artesanias.entities;
 
 /**
  *
- * @author ia.salazar
+ * @author IVAN
  */
-@Stateless
-public class SalonPersistence {
+interface IUsuario {
     
-     @PersistenceContext(unitName="artesaniasPU")
-    protected EntityManager em;
-     
-      public SalonEntity find(Long id) {
-      
-        return em.find(SalonEntity.class, id);
-    }
-      
-      public List<SalonEntity> findAll() {
-       
-        Query q = em.createQuery("select u from SalonEntity u");
-        return q.getResultList();
-    }
-
-    public SalonEntity create(SalonEntity entity) {
-      
-        em.persist(entity);
-        
-        return entity;
-    }
-
-    public SalonEntity update(SalonEntity entity) {
-       
-        return em.merge(entity);
-    }
-
-    public void delete(Long id) {
-        
-        SalonEntity entity = em.find(SalonEntity.class, id);
-        em.remove(entity);
-    }
-
+    Long getId( );
+    String getCorreo();
+    String getContrasena();
+    String getFoto();
+    void setId(Long id);
+    void setCorreo(String correo);
+    void setContrasena(String contrasena);
+    void setFoto(String foto);
+    @Override
+    int hashCode();
+    @Override
+    boolean equals(Object ob);
+    
 }

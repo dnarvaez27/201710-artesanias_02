@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2017 Miller.
+ * Copyright 2017 IVAN.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,52 +21,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package co.edu.uniandes.csw.artesanias.persistence;
+package co.edu.uniandes.csw.artesanias.ejbs;
 
-import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
+import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
+import co.edu.uniandes.csw.artesanias.persistence.OrganizadorPersistence;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.inject.Inject;
+
+
 
 /**
  *
- * @author ia.salazar
+ * @author IVAN
  */
 @Stateless
-public class SalonPersistence {
-    
-     @PersistenceContext(unitName="artesaniasPU")
-    protected EntityManager em;
-     
-      public SalonEntity find(Long id) {
-      
-        return em.find(SalonEntity.class, id);
-    }
-      
-      public List<SalonEntity> findAll() {
-       
-        Query q = em.createQuery("select u from SalonEntity u");
-        return q.getResultList();
-    }
+public class OrganizadorLogic{
 
-    public SalonEntity create(SalonEntity entity) {
-      
-        em.persist(entity);
-        
+    @Inject private OrganizadorPersistence persistence;
+    
+     public List<OrganizadorEntity> getOrganizadores() {
+        return persistence.findAll();
+    }
+    
+     public OrganizadorEntity getOrganizador(Long id){
+        return persistence.find(id);
+     }
+  
+    
+    public OrganizadorEntity createOrganizador(OrganizadorEntity entity) {
+        persistence.create(entity);
         return entity;
     }
-
-    public SalonEntity update(SalonEntity entity) {
-       
-        return em.merge(entity);
+    
+     public OrganizadorEntity updateOrganizador(OrganizadorEntity entity) {
+        return persistence.update(entity);
     }
-
-    public void delete(Long id) {
-        
-        SalonEntity entity = em.find(SalonEntity.class, id);
-        em.remove(entity);
+     
+      public void deleteOrganizador(Long id) {
+        persistence.delete(id);
     }
-
+    
 }

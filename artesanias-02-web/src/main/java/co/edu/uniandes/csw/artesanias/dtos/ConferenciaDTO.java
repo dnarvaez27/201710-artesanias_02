@@ -71,7 +71,7 @@ public class ConferenciaDTO {
 	 * @ordered
 	 */
 	
-	private Time horaInicio;
+	private String horaInicio;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -80,25 +80,9 @@ public class ConferenciaDTO {
 	 * @ordered
 	 */
 	
-	private Time horaFin;
+	private String horaFin;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	
-	public FeriaEntity feria;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public SalonEntity salon;
 
     public void setId(Long id) {
         this.id = id;
@@ -120,11 +104,11 @@ public class ConferenciaDTO {
         this.fechaFin = fechaFin;
     }
 
-    public void setHoraInicio(Time horaInicio) {
+    public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public void setHoraFin(Time horaFin) {
+    public void setHoraFin(String horaFin) {
         this.horaFin = horaFin;
     }
 
@@ -148,29 +132,17 @@ public class ConferenciaDTO {
         return fechaFin;
     }
 
-    public Time getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public Time getHoraFin() {
+    public String getHoraFin() {
         return horaFin;
     }
 
-    public FeriaEntity getFeria() {
-        return feria;
-    }
+    
 
-    public SalonEntity getSalon() {
-        return salon;
-    }
-
-    public void setFeria(FeriaEntity feria) {
-        this.feria = feria;
-    }
-
-    public void setSalon(SalonEntity salon) {
-        this.salon = salon;
-    }
+  
     public ConferenciaDTO(){
         
     }
@@ -184,8 +156,7 @@ public class ConferenciaDTO {
             this.conferencista = entity.getConferencista();
             this.horaInicio=entity.getHoraInicio();
             this.horaFin=entity.getHoraFin();
-            this.salon=entity.getSalon();
-            this.feria=entity.getFeria();
+           
                     
                     
         }
@@ -205,8 +176,7 @@ public class ConferenciaDTO {
        entity.setConferencista(this.getConferencista());
        entity.setHoraInicio(this.getHoraInicio());
        entity.setHoraFin(this.getHoraFin());
-       entity.setSalon(this.getSalon());
-       entity.setFeria(this.getFeria());
+      
         return entity;
     }
 }

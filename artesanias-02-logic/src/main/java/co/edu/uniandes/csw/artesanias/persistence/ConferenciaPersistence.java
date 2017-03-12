@@ -45,7 +45,7 @@ public class ConferenciaPersistence {
     }
 
     public List<ConferenciaEntity> findAll() {
-        Query q = em.createQuery("select u from EmployeeEntity u");
+        Query q = em.createQuery("select u from ConferenciaEntity u");
         return q.getResultList();
     }
 

@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.artesanias.dtos.detail;
 import co.edu.uniandes.csw.artesanias.dtos.PabellonDTO;
 import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.SalonDTO;
+
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
 import java.util.ArrayList;
