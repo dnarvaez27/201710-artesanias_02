@@ -2,20 +2,24 @@ package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.ArtesaniaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.ArtesanoDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.ArtesaniaDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ArtesaniaLogic;
 import co.edu.uniandes.csw.artesanias.entities.ArtesaniaEntity;
+import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * @author d.narvaez11
  */
+@Consumes( MediaType.APPLICATION_JSON )
+@Produces( MediaType.APPLICATION_JSON )
 public class ArtesaniasResource
 {
 	@Inject
@@ -30,33 +34,25 @@ public class ArtesaniasResource
 	@QueryParam( "limit" )
 	private Integer maxRec;
 	
-	private Long idArtesano;
-	
-	public ArtesaniasResource(  )
-	{
-		
-	}
-	
-	public ArtesaniasResource( Long idArtesano )
-	{
-		this.idArtesano = idArtesano;
-	}
-	
 	@POST
-	public ArtesaniaDTO createArtesania( ArtesaniaDTO dto )
+	public ArtesaniaDTO createArtesania( @PathParam( "artesanoId" ) Long id, ArtesaniaDetailDTO dto )
 	{
-		return new ArtesaniaDTO( logic.createArtesania( dto.toEntity( ) ) );
+		ArtesanoEntity en = new ArtesanoEntity( );
+		en.setId( id );
+		dto.setArtesano( new ArtesanoDTO( en ) );
+		ArtesaniaEntity entity = logic.createArtesania( dto.toEntity( ) );
+		return new ArtesaniaDTO( entity );
 	}
 	
 	@GET
-	public List<ArtesaniaDTO> getArtesanias( )
+	public List<ArtesaniaDTO> getArtesanias( @PathParam( "artesanoId" ) Long id )
 	{
-		return listEntity2DTO( logic.getArtesaniasFromArtesano( idArtesano ) );
+		return listEntity2DTO( logic.getArtesaniasFromArtesano( id ) );
 	}
 	
 	@GET
-	@Path( "/{id_art}" )
-	public ArtesaniaDTO get( @PathParam( "id_art" ) Long id )
+	@Path( "{id: \\d+}" )
+	public ArtesaniaDTO get( @PathParam( "id" ) Long id )
 	{
 		return new ArtesaniaDTO( logic.getArtesania( id ) );
 	}
@@ -79,7 +75,7 @@ public class ArtesaniasResource
 	
 	private List<ArtesaniaDTO> listEntity2DTO( List<ArtesaniaEntity> entityList )
 	{
-		List<ArtesaniaDTO> list = new ArrayList<>( );
+		List<ArtesaniaDTO> list = new LinkedList<>( );
 		for( ArtesaniaEntity entity : entityList )
 		{
 			list.add( new ArtesaniaDTO( entity ) );

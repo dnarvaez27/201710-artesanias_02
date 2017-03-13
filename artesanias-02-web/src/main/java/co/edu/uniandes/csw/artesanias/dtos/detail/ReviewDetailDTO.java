@@ -26,6 +26,7 @@ public class ReviewDetailDTO extends ReviewDTO
 	 */
 	public ReviewDetailDTO( ReviewEntity entity )
 	{
+		super( entity );
 		if( entity != null )
 		{
 			this.artesano = new ArtesanoDTO( entity.getArtesano( ) );
@@ -40,5 +41,25 @@ public class ReviewDetailDTO extends ReviewDTO
 		ReviewEntity entity = super.toEntity( );
 		entity.setArtesano( this.artesano.toEntity( ) );
 		return entity;
+	}
+	
+	/**
+	 * Retrieves the artesano of the ReviewDetailDTO
+	 *
+	 * @return The artesano of the ReviewDetailDTO
+	 */
+	public ArtesanoDTO getArtesano( )
+	{
+		return artesano;
+	}
+	
+	/**
+	 * Updates the artesano of the ReviewDetailDTO by the one given by parameter
+	 *
+	 * @param artesano The new artesano of the ReviewDetailDTO
+	 */
+	public void setArtesano( ArtesanoDTO artesano )
+	{
+		this.artesano = artesano;
 	}
 }
