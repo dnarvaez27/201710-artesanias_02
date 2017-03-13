@@ -36,9 +36,13 @@ public class ReviewPersistence
 	 * @param id Id of the Review entity searched
 	 * @return The Review Entity whose id matches the one given by parameter
 	 */
-	public ReviewEntity find( Long id )
+	public ReviewEntity find( Long artesanoId, Long id )
 	{
-		return em.find( ReviewEntity.class, id );
+		TypedQuery<ReviewEntity> q = em.createQuery( "SELECT R FROM ReviewEntity R WHERE R.id = :id AND R.artesano.id = :artesanoId", ReviewEntity.class );
+		q.setParameter( "id", id );
+		q.setParameter( "artesanoId", artesanoId );
+		List<ReviewEntity> res = q.getResultList( );
+		return res.size( ) > 0 ? res.get( 0 ) : null;
 	}
 	
 	/**

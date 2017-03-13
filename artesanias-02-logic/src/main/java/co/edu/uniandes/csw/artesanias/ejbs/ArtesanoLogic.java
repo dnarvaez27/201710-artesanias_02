@@ -75,11 +75,11 @@ public class ArtesanoLogic
 	
 	private void checkInfo( ArtesanoEntity entity ) throws BusinessLogicException
 	{
-		boolean nombre = entity.getNombre( ).isEmpty( );
-		boolean ident = entity.getIdentificacion( ).isEmpty( );
+		boolean nombre = entity.getNombre( ) == null || entity.getNombre( ).isEmpty( );
+		boolean ident = entity.getIdentificacion( ) == null || entity.getIdentificacion( ).isEmpty( );
 		if( nombre || ident )
 		{
-			throw new BusinessLogicException( "El nombre del Artesano no puede estar vacío", Response.Status.BAD_REQUEST );
+			throw new BusinessLogicException( String.format( "%s del Artesano no puede estar vacío", nombre ? "El nombre" : "La identificacion" ), Response.Status.BAD_REQUEST );
 		}
 	}
 }

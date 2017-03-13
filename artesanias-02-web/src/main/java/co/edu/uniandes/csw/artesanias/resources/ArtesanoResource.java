@@ -1,7 +1,6 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.ArtesanoDTO;
-import co.edu.uniandes.csw.artesanias.dtos.detail.ArtesanoDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ArtesanoLogic;
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
@@ -48,9 +47,9 @@ public class ArtesanoResource
 	
 	@GET
 	@Path( "{id: \\d+}" )
-	public ArtesanoDetailDTO getArtesano( @PathParam( "id" ) Long id )
+	public ArtesanoDTO getArtesano( @PathParam( "id" ) Long id )
 	{
-		return new ArtesanoDetailDTO( logic.getArtesano( id ) );
+		return new ArtesanoDTO( logic.getArtesano( id ) );
 	}
 	
 	@PUT

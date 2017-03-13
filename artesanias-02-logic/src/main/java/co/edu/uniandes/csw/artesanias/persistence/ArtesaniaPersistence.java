@@ -1,11 +1,13 @@
 package co.edu.uniandes.csw.artesanias.persistence;
 
 import co.edu.uniandes.csw.artesanias.entities.ArtesaniaEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -35,9 +37,13 @@ public class ArtesaniaPersistence
 	 * @param id Id of the Artesania entity searched
 	 * @return The Artesania Entity whose id matches the one given by parameter
 	 */
-	public ArtesaniaEntity find( Long id )
+	public ArtesaniaEntity find( Long artesanoId, Long id )
 	{
-		return em.find( ArtesaniaEntity.class, id );
+		TypedQuery<ArtesaniaEntity> q = em.createQuery( "SELECT A FROM ArtesaniaEntity A WHERE A.id = :id AND A.artesano.id = :artesanoID", ArtesaniaEntity.class );
+		q.setParameter( "id", id );
+		q.setParameter( "artesanoID", artesanoId );
+		List<ArtesaniaEntity> res = q.getResultList( );
+		return res.size( ) > 0 ? res.get( 0 ) : null;
 	}
 	
 	/**

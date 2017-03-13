@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.artesanias.resources;
 import co.edu.uniandes.csw.artesanias.dtos.PabellonDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.PabellonLogic;
 import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class PabellonResource
 	private Integer maxRec;
 	
 	@POST
-	public PabellonDTO createPabellon( PabellonEntity entity )
+	public PabellonDTO createPabellon( PabellonEntity entity ) throws BusinessLogicException
 	{
 		return new PabellonDTO( logic.createPabellon( entity ) );
 	}
@@ -66,7 +67,7 @@ public class PabellonResource
 	
 	@PUT
 	@Path( "{id: \\d+}" )
-	public PabellonDTO updatePabellon( @PathParam( "id" ) Long id, PabellonDTO dto )
+	public PabellonDTO updatePabellon( @PathParam( "id" ) Long id, PabellonDTO dto ) throws BusinessLogicException
 	{
 		PabellonEntity entity = dto.toEntity( );
 		entity.setId( id );

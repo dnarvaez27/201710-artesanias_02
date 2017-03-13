@@ -1,10 +1,12 @@
 package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.ArtesaniaEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.persistence.ArtesaniaPersistence;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -22,8 +24,9 @@ public class ArtesaniaLogic
 	 * @param entity Objet from ArtesaniaEntity with the new data.
 	 * @return Objet from ArtesaniaEntity with the new data and ID.
 	 */
-	public ArtesaniaEntity createArtesania( ArtesaniaEntity entity )
+	public ArtesaniaEntity createArtesania( ArtesaniaEntity entity ) throws BusinessLogicException
 	{
+		check( entity );
 		return persistence.create( entity );
 	}
 	
@@ -48,9 +51,14 @@ public class ArtesaniaLogic
 	 * @param id Identifier of the instance to consult.
 	 * @return Instance of ArtesaniaEntity with the data from the Artesania consulted.
 	 */
-	public ArtesaniaEntity getArtesania( Long id )
+	public ArtesaniaEntity getArtesania( Long artesanoId, Long id ) throws BusinessLogicException
 	{
-		return persistence.find( id );
+		ArtesaniaEntity res = persistence.find( artesanoId, id );
+		if( res != null )
+		{
+			return res;
+		}
+		throw new BusinessLogicException( String.format( "La artesania %s, no pertenece al artesano %s", id, artesanoId ), Response.Status.FORBIDDEN );
 	}
 	
 	/**
@@ -59,8 +67,9 @@ public class ArtesaniaLogic
 	 * @param entity Instance of ArtesaniaEntity with the new data.
 	 * @return Instance of ArtesaniaEntity with the updated data.
 	 */
-	public ArtesaniaEntity updateArtesania( ArtesaniaEntity entity )
+	public ArtesaniaEntity updateArtesania( ArtesaniaEntity entity ) throws BusinessLogicException
 	{
+		check( entity );
 		return persistence.update( entity );
 	}
 	
@@ -72,5 +81,13 @@ public class ArtesaniaLogic
 	public void deleteArtesania( Long id )
 	{
 		persistence.delete( id );
+	}
+	
+	private void check( ArtesaniaEntity entity ) throws BusinessLogicException
+	{
+		if( entity.getNombre( ) == null || entity.getNombre( ).isEmpty( ) )
+		{
+			throw new BusinessLogicException( "El nombre de la Artesania no puede ser vacio", Response.Status.BAD_REQUEST );
+		}
 	}
 }

@@ -26,7 +26,6 @@ public class ReviewDetailDTO extends ReviewDTO
 	 */
 	public ReviewDetailDTO( ReviewEntity entity )
 	{
-		super( entity );
 		if( entity != null )
 		{
 			this.artesano = new ArtesanoDTO( entity.getArtesano( ) );

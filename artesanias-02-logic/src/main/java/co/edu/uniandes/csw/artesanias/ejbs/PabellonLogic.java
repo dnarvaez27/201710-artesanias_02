@@ -24,11 +24,13 @@
 package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.persistence.PabellonPersistence;
 
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
 /**
  * @author ja.espinosa12
@@ -49,18 +51,28 @@ public class PabellonLogic
 		return persistence.findAll( );
 	}
 	
-	public PabellonEntity createPabellon( PabellonEntity entity )
+	public PabellonEntity createPabellon( PabellonEntity entity ) throws BusinessLogicException
 	{
+		check( entity );
 		return persistence.create( entity );
 	}
 	
-	public PabellonEntity updatePabellon( PabellonEntity entity )
+	public PabellonEntity updatePabellon( PabellonEntity entity ) throws BusinessLogicException
 	{
+		check( entity );
 		return persistence.update( entity );
 	}
 	
 	public void deletePabellon( Long id )
 	{
 		persistence.delete( id );
+	}
+	
+	private void check( PabellonEntity entity ) throws BusinessLogicException
+	{
+		if( entity.getCapacidad() <= 0 )
+		{
+			throw new BusinessLogicException( "La capacidad del Pabellon debe ser mayor a 0", Response.Status.BAD_REQUEST );
+		}
 	}
 }
