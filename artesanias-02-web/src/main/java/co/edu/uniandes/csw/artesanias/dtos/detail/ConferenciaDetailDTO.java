@@ -41,8 +41,8 @@ public class ConferenciaDetailDTO extends ConferenciaDTO
 	public ConferenciaEntity toEntity( )
 	{
 		ConferenciaEntity entity = super.toEntity( );
-		entity.setSalon( salon.toEntity( ) );
-		entity.setFeria( feria.toEntity( ) );
+		entity.setSalon( salon != null ? salon.toEntity( ) : null );
+		entity.setFeria( feria != null ? feria.toEntity( ) : null );
 		return entity;
 	}
 	

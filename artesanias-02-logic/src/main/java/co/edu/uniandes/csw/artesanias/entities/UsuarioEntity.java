@@ -30,7 +30,7 @@ import java.io.Serializable;
  * @author IVAN, d.narvaez11
  */
 @Entity
-@Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
+@Inheritance( strategy = InheritanceType.JOINED )
 public abstract class UsuarioEntity implements Serializable
 {
 	@Id

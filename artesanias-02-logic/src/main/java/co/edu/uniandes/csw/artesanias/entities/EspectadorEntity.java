@@ -3,6 +3,7 @@ package co.edu.uniandes.csw.artesanias.entities;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author d.narvaez11
  */
 @Entity
+@PrimaryKeyJoinColumn( referencedColumnName = "id" )
 public class EspectadorEntity extends UsuarioEntity implements Serializable
 {
 	private Integer edad;
