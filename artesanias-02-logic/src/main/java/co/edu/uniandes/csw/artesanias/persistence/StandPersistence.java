@@ -49,6 +49,14 @@ public class StandPersistence
 	public List<StandEntity> findAll( )
 	{
 		TypedQuery<StandEntity> q = em.createQuery( "select u from StandEntity u", StandEntity.class );
+		List<StandEntity> stands = q.getResultList( );
+		return stands;
+	}
+	
+	public List<StandEntity> findAllFromPabellon( Long pabellonId )
+	{
+		TypedQuery<StandEntity> q = em.createQuery( "SELECT S FROM StandEntity S WHERE S.pabellon.id = :pabellonId", StandEntity.class );
+		q.setParameter( "pabellonId", pabellonId );
 		return q.getResultList( );
 	}
 	

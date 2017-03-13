@@ -43,12 +43,32 @@ public class SalonDetailDTO extends SalonDTO
 		}
 	}
 	
+	/**
+	 * Retrieves the pabellon of the SalonDetailDTO
+	 *
+	 * @return The pabellon of the SalonDetailDTO
+	 */
+	public PabellonDTO getPabellon( )
+	{
+		return pabellon;
+	}
+	
+	/**
+	 * Updates the pabellon of the SalonDetailDTO by the one given by parameter
+	 *
+	 * @param pabellon The new pabellon of the SalonDetailDTO
+	 */
+	public void setPabellon( PabellonDTO pabellon )
+	{
+		this.pabellon = pabellon;
+	}
+	
 	@Override
 	public SalonEntity toEntity( )
 	{
 		SalonEntity entity = super.toEntity( );
-		entity.setConferencia( conferencia.toEntity( ) );
-		entity.setPabellon( pabellon.toEntity( ) );
+		entity.setConferencia( conferencia != null ? conferencia.toEntity( ) : null );
+		entity.setPabellon( pabellon != null ? pabellon.toEntity( ) : null );
 		return entity;
 	}
 	

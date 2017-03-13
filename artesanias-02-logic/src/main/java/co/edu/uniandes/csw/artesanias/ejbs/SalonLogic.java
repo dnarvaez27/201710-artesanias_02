@@ -29,6 +29,11 @@ public class SalonLogic
 		return persistence.findAll( );
 	}
 	
+	public List<SalonEntity> getSalonesFromPabellon( Long pabellonId )
+	{
+		return persistence.findAllFromPabellon( pabellonId );
+	}
+	
 	public SalonEntity getSalon( Long id )
 	{
 		return persistence.find( id );

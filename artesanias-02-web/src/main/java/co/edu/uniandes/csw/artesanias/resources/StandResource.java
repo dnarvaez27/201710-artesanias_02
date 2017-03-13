@@ -5,8 +5,11 @@
  */
 package co.edu.uniandes.csw.artesanias.resources;
 
+import co.edu.uniandes.csw.artesanias.dtos.PabellonDTO;
 import co.edu.uniandes.csw.artesanias.dtos.StandDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.StandDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.StandLogic;
+import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
 import co.edu.uniandes.csw.artesanias.entities.StandEntity;
 
 import java.util.LinkedList;
@@ -46,15 +49,19 @@ public class StandResource
 	private Integer maxRec;
 	
 	@POST
-	public StandDTO createStand( StandEntity entity )
+	public StandDTO createStand( @PathParam( "pabellonId" ) Long pabellonId, StandDetailDTO dto )
 	{
-		return new StandDTO( logic.createStand( entity ) );
+		PabellonEntity en = new PabellonEntity( );
+		en.setId( pabellonId );
+		dto.setPabellon( new PabellonDTO( en ) );
+		StandEntity entity = logic.createStand( dto.toEntity( ) );
+		return new StandDTO( entity );
 	}
 	
 	@GET
-	public List<StandDTO> getStands( )
+	public List<StandDTO> getStands( @PathParam( "pabellonId" ) Long pabellonId )
 	{
-		return listEntity2DTO( logic.getStands( ) );
+		return listEntity2DTO( logic.getStandsFromPabellon( pabellonId ) );
 	}
 	
 	@GET

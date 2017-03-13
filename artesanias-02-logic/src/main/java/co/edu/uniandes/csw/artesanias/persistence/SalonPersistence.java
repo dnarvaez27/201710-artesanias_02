@@ -48,7 +48,14 @@ public class SalonPersistence
 	
 	public List<SalonEntity> findAll( )
 	{
-		TypedQuery<SalonEntity> q = em.createQuery( "select u from SalonEntity u", SalonEntity.class );
+		Query q = em.createQuery( "select u from SalonEntity u" );
+		return q.getResultList( );
+	}
+	
+	public List<SalonEntity> findAllFromPabellon( Long pabellonId )
+	{
+		TypedQuery<SalonEntity> q = em.createQuery( "SELECT S FROM SalonEntity S WHERE S.pabellon.id = :pabellonId", SalonEntity.class );
+		q.setParameter( "pabellonId", pabellonId );
 		return q.getResultList( );
 	}
 	

@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * @author ja.espinosa12
  */
+
 @XmlRootElement
 public class PabellonDTO
 {

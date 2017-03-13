@@ -49,6 +49,11 @@ public class StandLogic
 		return persistence.findAll( );
 	}
 	
+	public List<StandEntity> getStandsFromPabellon( Long pabellonId )
+	{
+		return persistence.findAllFromPabellon( pabellonId );
+	}
+	
 	public StandEntity createStand( StandEntity entity )
 	{
 		return persistence.create( entity );
