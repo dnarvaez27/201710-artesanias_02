@@ -27,9 +27,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -93,6 +95,11 @@ public class BoletaEntity implements Serializable {
      */
     private Double precio;
     
+    /**
+     * Feria de la boleta
+     */
+    @ManyToOne( targetEntity = FeriaEntity.class, fetch = FetchType.LAZY )
+    private FeriaEntity feria;
         
     //--------------------------------------------------------------------------
     // Métodos
@@ -169,7 +176,7 @@ public class BoletaEntity implements Serializable {
 
     /**
      * Devuelve el precio de la boleta.
-     * @return precio de la bolet.
+     * @return precio de la boleta.
      */
     public Double getPrecio() {
         return precio*tipo;
@@ -182,6 +189,23 @@ public class BoletaEntity implements Serializable {
      */
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    /**
+     * Devuelve la feria de la boleta.
+     * @return feria de la boleta.
+     */
+    public FeriaEntity getFeria() {
+        return feria;
+    }
+
+    /**
+     * Cambia la feria de la boleta.
+     * post: Se cambio la feria de la boleta.
+     * @param feria nueva feria de la boleta.
+     */
+    public void setFeria(FeriaEntity feria) {
+        this.feria = feria;
     }
     
     //--------------------------------------------------------------------------

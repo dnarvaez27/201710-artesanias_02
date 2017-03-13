@@ -27,6 +27,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -89,13 +90,15 @@ public class FeriaEntity implements Serializable {
     /**
      * Conjunto de boletas vendidas de la feria.
      */
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "feria",
+            targetEntity = BoletaEntity.class)
     private List<BoletaEntity> boletas;
 
     /**
      * Conjunto de conferencias que se van a realizar en la feria.
      */
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "feria",
+            targetEntity = ConferenciaEntity.class)
     private List<ConferenciaEntity> conferencias;
 
     //--------------------------------------------------------------------------
