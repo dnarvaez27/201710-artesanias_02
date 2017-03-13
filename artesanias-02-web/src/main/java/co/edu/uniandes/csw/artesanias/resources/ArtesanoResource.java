@@ -1,8 +1,10 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.ArtesanoDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.ArtesanoDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ArtesanoLogic;
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +35,7 @@ public class ArtesanoResource
 	private Integer maxRec;
 	
 	@POST
-	public ArtesanoDTO createArtesano( ArtesanoDTO dto )
+	public ArtesanoDTO createArtesano( ArtesanoDTO dto ) throws BusinessLogicException
 	{
 		return new ArtesanoDTO( logic.createArtesano( dto.toEntity( ) ) );
 	}
@@ -46,14 +48,15 @@ public class ArtesanoResource
 	
 	@GET
 	@Path( "{id: \\d+}" )
-	public ArtesanoDTO getArtesano( @PathParam( "id" ) Long id )
+	public ArtesanoDetailDTO getArtesano( @PathParam( "id" ) Long id )
 	{
-		return new ArtesanoDTO( logic.getArtesano( id ) );
+		return new ArtesanoDetailDTO( logic.getArtesano( id ) );
 	}
 	
 	@PUT
 	@Path( "{id: \\d+}" )
-	public ArtesanoDTO updateArtesano( @PathParam( "id" ) Long id, ArtesanoDTO dto )
+	public ArtesanoDTO updateArtesano(
+			@PathParam( "id" ) Long id, ArtesanoDTO dto ) throws BusinessLogicException
 	{
 		ArtesanoEntity entity = dto.toEntity( );
 		entity.setId( id );
@@ -79,13 +82,13 @@ public class ArtesanoResource
 	}
 	
 	@Path( "{artesanoId: \\d+}/reviews" )
-	public Class<ReviewResource> getReviewResource(  )
+	public Class<ReviewResource> getReviewResource( )
 	{
 		return ReviewResource.class;
 	}
 	
 	@Path( "{artesanoId: \\d+}/artesanias" )
-	public Class<ArtesaniasResource> getArtesaniasResource(  )
+	public Class<ArtesaniasResource> getArtesaniasResource( )
 	{
 		return ArtesaniasResource.class;
 	}

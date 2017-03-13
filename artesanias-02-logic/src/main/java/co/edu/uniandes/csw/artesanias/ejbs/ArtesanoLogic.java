@@ -1,10 +1,12 @@
 package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.persistence.ArtesanoPersistence;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -22,8 +24,9 @@ public class ArtesanoLogic
 	 * @param entity Objet from ArtesanoEntity with the new data.
 	 * @return Objet from ArtesanoEntity with the new data and ID.
 	 */
-	public ArtesanoEntity createArtesano( ArtesanoEntity entity )
+	public ArtesanoEntity createArtesano( ArtesanoEntity entity ) throws BusinessLogicException
 	{
+		checkInfo( entity );
 		return persistence.create( entity );
 	}
 	
@@ -54,8 +57,9 @@ public class ArtesanoLogic
 	 * @param entity Instance of ArtesanoEntity with the new data.
 	 * @return Instance of ArtesanoEntity with the updated data.
 	 */
-	public ArtesanoEntity updateArtesano( ArtesanoEntity entity )
+	public ArtesanoEntity updateArtesano( ArtesanoEntity entity ) throws BusinessLogicException
 	{
+		checkInfo( entity );
 		return persistence.update( entity );
 	}
 	
@@ -67,5 +71,15 @@ public class ArtesanoLogic
 	public void deleteArtesano( Long id )
 	{
 		persistence.delete( id );
+	}
+	
+	private void checkInfo( ArtesanoEntity entity ) throws BusinessLogicException
+	{
+		boolean nombre = entity.getNombre( ).isEmpty( );
+		boolean ident = entity.getIdentificacion( ).isEmpty( );
+		if( nombre || ident )
+		{
+			throw new BusinessLogicException( "El nombre del Artesano no puede estar vacío", Response.Status.BAD_REQUEST );
+		}
 	}
 }
