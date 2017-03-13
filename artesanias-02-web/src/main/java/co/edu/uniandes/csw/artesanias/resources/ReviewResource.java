@@ -1,7 +1,10 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
+import co.edu.uniandes.csw.artesanias.dtos.ArtesanoDTO;
 import co.edu.uniandes.csw.artesanias.dtos.ReviewDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.ReviewDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ReviewLogic;
+import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
 import co.edu.uniandes.csw.artesanias.entities.ReviewEntity;
 
 import javax.inject.Inject;
@@ -31,28 +34,20 @@ public class ReviewResource
 	@QueryParam( "limit" )
 	private Integer maxRec;
 	
-	private Long artesanoId;
-	
-	public ReviewResource( )
-	{
-		
-	}
-	
-	public ReviewResource( Long artesanoId )
-	{
-		this.artesanoId = artesanoId;
-	}
-	
 	@POST
-	public ReviewDTO createReview( ReviewDTO dto )
+	public ReviewDTO createReview( @PathParam( "artesanoId" ) Long id, ReviewDetailDTO dto )
 	{
-		return new ReviewDTO( logic.createReview( dto.toEntity( ) ) );
+		ArtesanoEntity en = new ArtesanoEntity( );
+		en.setId( id );
+		dto.setArtesano( new ArtesanoDTO( en ) );
+		ReviewEntity entity = logic.createReview( dto.toEntity( ) );
+		return new ReviewDTO( entity );
 	}
 	
 	@GET
-	public List<ReviewDTO> getReviews( )
+	public List<ReviewDTO> getReviews( @PathParam( "artesanoId" ) Long id )
 	{
-		return listEntity2DTO( logic.getReviewsFromArtesano( artesanoId ) );
+		return listEntity2DTO( logic.getReviewsFromArtesano( id ) );
 	}
 	
 	@GET
@@ -81,7 +76,6 @@ public class ReviewResource
 	private List<ReviewDTO> listEntity2DTO( List<ReviewEntity> entityList )
 	{
 		List<ReviewDTO> list = new ArrayList<>( );
-		
 		for( ReviewEntity entity : entityList )
 		{
 			list.add( new ReviewDTO( entity ) );
