@@ -32,15 +32,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Entidad de las ciudades.
  * @author ma.trujillo10
  */
 @Entity
-@XmlRootElement
 public class CiudadEntity implements Serializable {
     
     //--------------------------------------------------------------------------
@@ -142,7 +139,6 @@ public class CiudadEntity implements Serializable {
      * Devuelve el conjunto de espacios que se encuentran en la ciudad.
      * @return Conjunto de espacios que se encuentran en la ciudad.
      */
-    @XmlTransient
     public List<EspacioEntity> getEspacios() {
         return espacios;
     }
