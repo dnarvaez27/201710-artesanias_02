@@ -35,17 +35,17 @@ public class ArtesaniasResource
 	private Integer maxRec;
 	
 	@POST
-	public ArtesaniaDTO createArtesania( @PathParam( "artesanoId" ) Long id, ArtesaniaDetailDTO dto )
+	public ArtesaniaDetailDTO createArtesania( @PathParam( "artesanoId" ) Long id, ArtesaniaDetailDTO dto )
 	{
-		ArtesanoEntity en = new ArtesanoEntity( );
+		ArtesanoEntity en = new ArtesanoEntity();
 		en.setId( id );
 		dto.setArtesano( new ArtesanoDTO( en ) );
 		ArtesaniaEntity entity = logic.createArtesania( dto.toEntity( ) );
-		return new ArtesaniaDTO( entity );
+		return new ArtesaniaDetailDTO( entity );
 	}
 	
 	@GET
-	public List<ArtesaniaDTO> getArtesanias( @PathParam( "artesanoId" ) Long id )
+	public List<ArtesaniaDetailDTO> getArtesanias( @PathParam( "artesanoId" ) Long id )
 	{
 		return listEntity2DTO( logic.getArtesaniasFromArtesano( id ) );
 	}
@@ -73,12 +73,12 @@ public class ArtesaniasResource
 		logic.deleteArtesania( id );
 	}
 	
-	private List<ArtesaniaDTO> listEntity2DTO( List<ArtesaniaEntity> entityList )
+	private List<ArtesaniaDetailDTO> listEntity2DTO( List<ArtesaniaEntity> entityList )
 	{
-		List<ArtesaniaDTO> list = new LinkedList<>( );
+		List<ArtesaniaDetailDTO> list = new LinkedList<>( );
 		for( ArtesaniaEntity entity : entityList )
 		{
-			list.add( new ArtesaniaDTO( entity ) );
+			list.add( new ArtesaniaDetailDTO( entity ) );
 		}
 		return list;
 	}

@@ -13,7 +13,7 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+THE SOFTWARE IS PROVIDED "AS IS" NTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -24,24 +24,43 @@ SOFTWARE.
 package co.edu.uniandes.csw.artesanias.exceptions;
 
 import javax.ejb.ApplicationException;
+import javax.ws.rs.core.Response;
 
-@ApplicationException(rollback = true)
-public class BusinessLogicException extends Exception {
-
-    public BusinessLogicException() {
-        super();
-    }
-
-    public BusinessLogicException(String message) {
-        super(message);
-    }
-
-    public BusinessLogicException(Throwable cause) {
-        super(cause);
-    }
-
-    public BusinessLogicException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
+@ApplicationException( rollback = true )
+public class BusinessLogicException extends Exception
+{
+	private Response.Status status;
+	
+	public BusinessLogicException( Response.Status status )
+	{
+		super( );
+		this.status = status;
+	}
+	
+	public BusinessLogicException( String message, Response.Status status )
+	{
+		super( message );
+		this.status = status;
+	}
+	
+	public BusinessLogicException( Throwable cause, Response.Status status )
+	{
+		super( cause );
+		this.status = status;
+	}
+	
+	public BusinessLogicException( String message, Throwable cause )
+	{
+		super( message, cause );
+	}
+	
+	/**
+	 * Retrieves the status of the BusinessLogicException
+	 *
+	 * @return The status of the BusinessLogicException
+	 */
+	public Response.Status getStatus( )
+	{
+		return status;
+	}
 }
