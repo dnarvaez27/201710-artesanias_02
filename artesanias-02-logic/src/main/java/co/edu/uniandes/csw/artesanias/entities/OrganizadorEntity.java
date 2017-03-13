@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author IVAN
  */
 @Entity
-@XmlRootElement
+@PrimaryKeyJoinColumn( referencedColumnName = "id" )
 public class OrganizadorEntity extends UsuarioEntity implements Serializable
 {
 	private String identificacion;

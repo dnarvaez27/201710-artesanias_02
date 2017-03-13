@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.ConferenciaDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ConferenciaLogic;
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
@@ -52,7 +53,7 @@ public class ConferenciaResource
 	@Path( "{id: \\d+}" )
 	public ConferenciaDTO getConferencia( @PathParam( "id" ) Long id )
 	{
-		return new ConferenciaDTO( conferenciaLogic.getConferencia( id ) );
+		return new ConferenciaDetailDTO( conferenciaLogic.getConferencia( id ) );
 	}
 	
 	@POST

@@ -34,7 +34,7 @@ import javax.ws.rs.core.MediaType;
 public class OrganizadorResource
 {
 	@Inject
-	private OrganizadorLogic organizadorLogic;
+	private OrganizadorLogic logic;
 	
 	@Context
 	private HttpServletResponse response;
@@ -43,35 +43,25 @@ public class OrganizadorResource
 	private Integer page;
 	
 	@QueryParam( "limit" )
-	private Integer maxRecords;
+	private Integer maxRec;
 	
-	private List<OrganizadorDTO> listEntity2DTO( List<OrganizadorEntity> entityList )
+	@POST
+	public OrganizadorDTO createOrganizador( OrganizadorDTO dto )
 	{
-		List<OrganizadorDTO> list = new ArrayList<>( );
-		for( OrganizadorEntity entity : entityList )
-		{
-			list.add( new OrganizadorDTO( entity ) );
-		}
-		return list;
+		return new OrganizadorDTO( logic.createOrganizador( dto.toEntity( ) ) );
 	}
 	
 	@GET
-	public List<OrganizadorDTO> getOrganizadores( )
+	public List<OrganizadorDTO> getOrganizadors( )
 	{
-		return listEntity2DTO( organizadorLogic.getOrganizadores( ) );
+		return listEntity2DTO( logic.getOrganizadores( ) );
 	}
 	
 	@GET
 	@Path( "{id: \\d+}" )
 	public OrganizadorDTO getOrganizador( @PathParam( "id" ) Long id )
 	{
-		return new OrganizadorDTO( organizadorLogic.getOrganizador( id ) );
-	}
-	
-	@POST
-	public OrganizadorDTO createOrganizador( OrganizadorDTO dto )
-	{
-		return new OrganizadorDTO( organizadorLogic.createOrganizador( dto.toEntity( ) ) );
+		return new OrganizadorDTO( logic.getOrganizador( id ) );
 	}
 	
 	@PUT
@@ -80,13 +70,30 @@ public class OrganizadorResource
 	{
 		OrganizadorEntity entity = dto.toEntity( );
 		entity.setId( id );
-		return new OrganizadorDTO( organizadorLogic.updateOrganizador( entity ) );
+		return new OrganizadorDTO( logic.updateOrganizador( entity ) );
 	}
 	
 	@DELETE
 	@Path( "{id: \\d+}" )
 	public void deleteOrganizador( @PathParam( "id" ) Long id )
 	{
-		organizadorLogic.deleteOrganizador( id );
+		logic.deleteOrganizador( id );
+	}
+	
+	private List<OrganizadorDTO> listEntity2DTO( List<OrganizadorEntity> entityList )
+	{
+		List<OrganizadorDTO> list = new ArrayList<>( );
+		
+		for( OrganizadorEntity entity : entityList )
+		{
+			list.add( new OrganizadorDTO( entity ) );
+		}
+		return list;
+	}
+	
+	@Path( "{organizadorId: \\d+}/ferias" )
+	public Class<FeriaResource> getFeriaResource( )
+	{
+		return FeriaResource.class;
 	}
 }
