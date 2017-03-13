@@ -28,7 +28,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Miller
  */
-@Path("/ferias")
+@Path("/boletas")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class BoletaResource {
