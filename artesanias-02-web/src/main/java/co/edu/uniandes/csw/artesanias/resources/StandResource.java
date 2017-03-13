@@ -11,6 +11,7 @@ import co.edu.uniandes.csw.artesanias.dtos.detail.StandDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.StandLogic;
 import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
 import co.edu.uniandes.csw.artesanias.entities.StandEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -49,7 +50,8 @@ public class StandResource
 	private Integer maxRec;
 	
 	@POST
-	public StandDTO createStand( @PathParam( "pabellonId" ) Long pabellonId, StandDetailDTO dto )
+	public StandDTO createStand( @PathParam( "pabellonId" )
+			                             Long pabellonId, StandDetailDTO dto ) throws BusinessLogicException
 	{
 		PabellonEntity en = new PabellonEntity( );
 		en.setId( pabellonId );
@@ -73,10 +75,15 @@ public class StandResource
 	
 	@PUT
 	@Path( "{id: \\d+}" )
-	public StandDTO updateStand( @PathParam( "id" ) Long id, StandDTO dto )
+	public StandDTO updateStand(
+			@PathParam( "pabellonId" ) Long pabellonId,
+			@PathParam( "id" ) Long id, StandDTO dto ) throws BusinessLogicException
 	{
+		PabellonEntity pab = new PabellonEntity( );
+		pab.setId( pabellonId );
 		StandEntity entity = dto.toEntity( );
 		entity.setId( id );
+		entity.setPabellon( pab );
 		return new StandDTO( logic.updateStand( entity ) );
 	}
 	

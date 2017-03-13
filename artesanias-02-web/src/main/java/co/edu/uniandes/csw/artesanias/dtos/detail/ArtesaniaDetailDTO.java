@@ -7,9 +7,6 @@ import co.edu.uniandes.csw.artesanias.entities.ArtesaniaEntity;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
-/**
- * @author d.narvaez11
- */
 @XmlRootElement
 public class ArtesaniaDetailDTO extends ArtesaniaDTO implements Serializable
 {

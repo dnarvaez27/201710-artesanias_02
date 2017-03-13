@@ -6,11 +6,13 @@
 package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.persistence.SalonPersistence;
 
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
 /**
  * @author ia.salazar
@@ -39,19 +41,33 @@ public class SalonLogic
 		return persistence.find( id );
 	}
 	
-	public SalonEntity createSalon( SalonEntity entity )
+	public SalonEntity createSalon( SalonEntity entity ) throws BusinessLogicException
 	{
+		check( entity );
 		persistence.create( entity );
 		return entity;
 	}
 	
-	public SalonEntity updateSalon( SalonEntity entity )
+	public SalonEntity updateSalon( SalonEntity entity ) throws BusinessLogicException
 	{
+		check( entity );
 		return persistence.update( entity );
 	}
 	
 	public void deleteSalon( Long id )
 	{
 		persistence.delete( id );
+	}
+	
+	private void check( SalonEntity entity ) throws BusinessLogicException
+	{
+		if( entity.getNumero( ) < 0 )
+		{
+			throw new BusinessLogicException( "El número del Salón debe ser positivo", Response.Status.BAD_REQUEST );
+		}
+		if( entity.getCapacidad( ) <= 0 )
+		{
+			throw new BusinessLogicException( "La capacidad del Salón debe ser mayor a 0", Response.Status.BAD_REQUEST );
+		}
 	}
 }

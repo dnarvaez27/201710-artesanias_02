@@ -25,112 +25,38 @@ package co.edu.uniandes.csw.artesanias.entities;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
  * @author IVAN
  */
 @Entity
 @XmlRootElement
-public class OrganizadorEntity implements IUsuario, Serializable{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String correo;
-    private  String contrasena;
-    private String foto;
-    private String identificacion;
-    
-    @OneToMany
-    private List<FeriaEntity> ferias;
-    
-    public List<FeriaEntity> getFerias(){
-        return ferias;
-    }
-
-    @Override
-    public Long getId() {
-        
-        return id;
-    }
-    public String getIdentificacion(){
-        return identificacion;
-    }
-
-    @Override
-    public String getCorreo() {
-        return correo;
-    }
-
-    @Override
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    @Override
-    public String getFoto() {
-        return foto;
-    }
-
-    @Override
-    public void setId(Long id) {
-       this.id=id;
-    }
-
-    @Override
-    public void setCorreo(String correo) {
-    this.correo=correo;
-    }
-
-    @Override
-    public void setContrasena(String contrasena) {
-        this.contrasena=contrasena;
-    }
-
-    @Override
-    public void setFoto(String foto) {
-
-     this.foto=foto;
-    }
-    public void setIdentificacion(String identificacion){
-        this.identificacion=identificacion;
-    }
-    
-
-    public void setFerias(List<FeriaEntity> ferias){
-        this.ferias=ferias;
-    }
-      @Override
-    public int hashCode() {
-       if( this.getId( ) != null )
-		{
-			return this.getId( ).hashCode( );
-		}
-		return super.hashCode( );
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-       
-		if( this.getId( ) != null )
-		{
-			
-			return this.getId( ).equals( ( ( OrganizadorEntity ) obj ).getId( ) );
-			
-		}
-		return super.equals( obj );
+public class OrganizadorEntity extends UsuarioEntity implements Serializable
+{
+	private String identificacion;
+	
+	@OneToMany( targetEntity = FeriaEntity.class, fetch = FetchType.LAZY )
+	private List<FeriaEntity> ferias;
+	
+	public List<FeriaEntity> getFerias( )
+	{
+		return ferias;
 	}
-
-    
-    }
-    
-    
-
-
+	
+	public String getIdentificacion( )
+	{
+		return identificacion;
+	}
+	
+	public void setIdentificacion( String identificacion )
+	{
+		this.identificacion = identificacion;
+	}
+	
+	public void setFerias( List<FeriaEntity> ferias )
+	{
+		this.ferias = ferias;
+	}
+}

@@ -49,7 +49,6 @@ public class ConferenciaDTO
 			this.conferencista = entity.getConferencista( );
 			this.horaInicio = entity.getHoraInicio( );
 			this.horaFin = entity.getHoraFin( );
-			
 		}
 	}
 	
@@ -122,7 +121,7 @@ public class ConferenciaDTO
 	{
 		return horaFin;
 	}
-	
+
 	public ConferenciaEntity toEntity( )
 	{
 		ConferenciaEntity entity = new ConferenciaEntity( );

@@ -6,6 +6,7 @@ import co.edu.uniandes.csw.artesanias.dtos.detail.ArtesaniaDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ArtesaniaLogic;
 import co.edu.uniandes.csw.artesanias.entities.ArtesaniaEntity;
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -35,9 +36,10 @@ public class ArtesaniasResource
 	private Integer maxRec;
 	
 	@POST
-	public ArtesaniaDetailDTO createArtesania( @PathParam( "artesanoId" ) Long id, ArtesaniaDetailDTO dto )
+	public ArtesaniaDetailDTO createArtesania( @PathParam( "artesanoId" )
+			                                           Long id, ArtesaniaDetailDTO dto ) throws BusinessLogicException
 	{
-		ArtesanoEntity en = new ArtesanoEntity();
+		ArtesanoEntity en = new ArtesanoEntity( );
 		en.setId( id );
 		dto.setArtesano( new ArtesanoDTO( en ) );
 		ArtesaniaEntity entity = logic.createArtesania( dto.toEntity( ) );
@@ -45,24 +47,31 @@ public class ArtesaniasResource
 	}
 	
 	@GET
-	public List<ArtesaniaDetailDTO> getArtesanias( @PathParam( "artesanoId" ) Long id )
+	public List<ArtesaniaDTO> getArtesanias( @PathParam( "artesanoId" ) Long id )
 	{
 		return listEntity2DTO( logic.getArtesaniasFromArtesano( id ) );
 	}
 	
 	@GET
 	@Path( "{id: \\d+}" )
-	public ArtesaniaDTO get( @PathParam( "id" ) Long id )
+	public ArtesaniaDTO get(
+			@PathParam( "artesanoId" ) Long artesanoId,
+			@PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-		return new ArtesaniaDTO( logic.getArtesania( id ) );
+		return new ArtesaniaDTO( logic.getArtesania( artesanoId, id ) );
 	}
 	
 	@PUT
 	@Path( "{id: \\d+}" )
-	public ArtesaniaDTO updateArtesania( @PathParam( "id" ) Long id, ArtesaniaDTO dto )
+	public ArtesaniaDTO updateArtesania(
+			@PathParam( "artesanoId" ) Long artesanoId,
+			@PathParam( "id" ) Long id, ArtesaniaDTO dto ) throws BusinessLogicException
 	{
+		ArtesanoEntity arte = new ArtesanoEntity( );
+		arte.setId( artesanoId );
 		ArtesaniaEntity entity = dto.toEntity( );
 		entity.setId( id );
+		entity.setArtesano( arte );
 		return new ArtesaniaDTO( logic.updateArtesania( entity ) );
 	}
 	
@@ -73,12 +82,12 @@ public class ArtesaniasResource
 		logic.deleteArtesania( id );
 	}
 	
-	private List<ArtesaniaDetailDTO> listEntity2DTO( List<ArtesaniaEntity> entityList )
+	private List<ArtesaniaDTO> listEntity2DTO( List<ArtesaniaEntity> entityList )
 	{
-		List<ArtesaniaDetailDTO> list = new LinkedList<>( );
+		List<ArtesaniaDTO> list = new LinkedList<>( );
 		for( ArtesaniaEntity entity : entityList )
 		{
-			list.add( new ArtesaniaDetailDTO( entity ) );
+			list.add( new ArtesaniaDTO( entity ) );
 		}
 		return list;
 	}

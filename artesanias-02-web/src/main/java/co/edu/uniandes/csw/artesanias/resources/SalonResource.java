@@ -13,6 +13,7 @@ import co.edu.uniandes.csw.artesanias.ejbs.SalonLogic;
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -66,7 +67,8 @@ public class SalonResource
 	}
 	
 	@POST
-	public SalonDTO createSalon( @PathParam( "pabellonId" ) Long pabellonId, SalonDetailDTO dto )
+	public SalonDTO createSalon( @PathParam( "pabellonId" )
+			                             Long pabellonId, SalonDetailDTO dto ) throws BusinessLogicException
 	{
 		PabellonEntity en = new PabellonEntity( );
 		en.setId( pabellonId );
@@ -77,10 +79,15 @@ public class SalonResource
 	
 	@PUT
 	@Path( "{id: \\d+}" )
-	public SalonDTO updateSalon( @PathParam( "id" ) Long id, SalonDTO dto )
+	public SalonDTO updateSalon(
+			@PathParam( "pabellonId" ) Long pabellonId,
+			@PathParam( "id" ) Long id, SalonDTO dto ) throws BusinessLogicException
 	{
+		PabellonEntity pab = new PabellonEntity( );
+		pab.setId( pabellonId );
 		SalonEntity entity = dto.toEntity( );
 		entity.setId( id );
+		entity.setPabellon( pab );
 		return new SalonDTO( logic.updateSalon( entity ) );
 	}
 	

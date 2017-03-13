@@ -6,6 +6,7 @@ import co.edu.uniandes.csw.artesanias.dtos.detail.ReviewDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ReviewLogic;
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
 import co.edu.uniandes.csw.artesanias.entities.ReviewEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +36,8 @@ public class ReviewResource
 	private Integer maxRec;
 	
 	@POST
-	public ReviewDTO createReview( @PathParam( "artesanoId" ) Long id, ReviewDetailDTO dto )
+	public ReviewDTO createReview(
+			@PathParam( "artesanoId" ) Long id, ReviewDetailDTO dto ) throws BusinessLogicException
 	{
 		ArtesanoEntity en = new ArtesanoEntity( );
 		en.setId( id );
@@ -52,17 +54,24 @@ public class ReviewResource
 	
 	@GET
 	@Path( "{id: \\d+}" )
-	public ReviewDTO getReview( @PathParam( "id" ) Long id )
+	public ReviewDTO getReview(
+			@PathParam( "artesanoId" ) Long artesanoId, @PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-		return new ReviewDTO( logic.getReview( id ) );
+		return new ReviewDTO( logic.getReview( artesanoId, id ) );
 	}
 	
 	@PUT
 	@Path( "{id: \\d+}" )
-	public ReviewDTO updateReview( @PathParam( "id" ) Long id, ReviewDTO dto )
+	public ReviewDTO updateReview(
+			@PathParam( "artesanoId" ) Long artesanoId,
+			@PathParam( "id" ) Long id, ReviewDTO dto ) throws BusinessLogicException
 	{
+		ArtesanoEntity artes = new ArtesanoEntity( );
+		artes.setId( artesanoId );
 		ReviewEntity entity = dto.toEntity( );
+		
 		entity.setId( id );
+		entity.setArtesano( artes );
 		return new ReviewDTO( logic.updateReview( entity ) );
 	}
 	

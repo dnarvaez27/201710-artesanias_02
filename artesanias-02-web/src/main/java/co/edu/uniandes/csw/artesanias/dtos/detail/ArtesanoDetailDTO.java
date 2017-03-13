@@ -51,7 +51,10 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 			}
 			
 			stand = new StandDTO( entity.getStand( ) );
-			ciudad = new CiudadDTO( entity.getCiudad( ) );
+			if( entity.getCiudad() != null )
+			{
+				ciudad = new CiudadDTO( entity.getCiudad( ) );
+			}
 		}
 	}
 	
@@ -76,8 +79,8 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 		
 		entity.setArtesanias( artesaniasEntities );
 		entity.setReviews( reviewsEntities );
-		entity.setCiudad( this.ciudad.toEntity( ) );
-		entity.setStand( this.stand.toEntity( ) );
+		entity.setCiudad( ciudad != null ? this.ciudad.toEntity( ) : null );
+		entity.setStand( stand != null ? this.stand.toEntity( ) : null );
 		
 		return entity;
 	}

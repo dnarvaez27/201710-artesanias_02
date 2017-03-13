@@ -31,7 +31,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 /**
  * @author IVAN
@@ -49,7 +48,7 @@ public class OrganizadorPersistence
 	
 	public List<OrganizadorEntity> findAll( )
 	{
-		TypedQuery<OrganizadorEntity> q = em.createQuery( "select u from OrganizadorEntity u" , OrganizadorEntity.class );
+		Query q = em.createQuery( "select u from OrganizadorEntity u" );
 		return q.getResultList( );
 	}
 	

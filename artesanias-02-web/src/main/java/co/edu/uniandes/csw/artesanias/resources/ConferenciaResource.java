@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.artesanias.resources;
 import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ConferenciaLogic;
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +45,6 @@ public class ConferenciaResource
 	@GET
 	public List<ConferenciaDTO> getConferencias( )
 	{
-		
 		return listEntity2DTO( conferenciaLogic.getConferencias( ) );
 	}
 	
@@ -56,7 +56,7 @@ public class ConferenciaResource
 	}
 	
 	@POST
-	public ConferenciaDTO createConferencia( ConferenciaDTO dto )
+	public ConferenciaDTO createConferencia( ConferenciaDTO dto ) throws BusinessLogicException
 	{
 		return new ConferenciaDTO( conferenciaLogic.createConferencia( dto.toEntity( ) ) );
 	}
@@ -64,7 +64,7 @@ public class ConferenciaResource
 	@PUT
 	@Path( "{id: \\d+}" )
 	public ConferenciaDTO updateConferencia(
-			@PathParam( "id" ) Long id, ConferenciaDTO dto )
+			@PathParam( "id" ) Long id, ConferenciaDTO dto ) throws BusinessLogicException
 	{
 		ConferenciaEntity entity = dto.toEntity( );
 		entity.setId( id );

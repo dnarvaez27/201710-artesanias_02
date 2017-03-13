@@ -43,10 +43,10 @@ public class PabellonEntity implements Serializable
 	
 	private Integer capacidad;
 	
-	@OneToMany( mappedBy = "pabellon", targetEntity = StandEntity.class, fetch = FetchType.LAZY )
+	@OneToMany( cascade = CascadeType.ALL, mappedBy = "pabellon", targetEntity = StandEntity.class, fetch = FetchType.LAZY )
 	private List<StandEntity> stands = new LinkedList<>( );
 	
-	@OneToMany( mappedBy = "pabellon", targetEntity = SalonEntity.class, fetch = FetchType.LAZY )
+	@OneToMany( cascade = CascadeType.ALL, mappedBy = "pabellon", targetEntity = SalonEntity.class, fetch = FetchType.LAZY )
 	private List<SalonEntity> salones = new LinkedList<>( );
 	
 	/**
