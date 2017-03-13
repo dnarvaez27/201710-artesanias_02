@@ -54,6 +54,11 @@ public class EspacioEntity implements Serializable {
     private Long id;
     
     /**
+     * Nombre del espacio.
+     */
+    private String nombre;
+    
+    /**
      * Dirección del espacio.
      */
     private String direccion;
@@ -106,6 +111,23 @@ public class EspacioEntity implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Devuelve el nombre del espacio.
+     * @return nombre del espacio.
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * Cambia el nombre del espacio.
+     * post: Se cambió el nombre del espacio.
+     * @param nombre nuevo nombre del espacio.
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
     /**
      * Devuelve la dirección del espacio.
      * @return dirección del espacio.

@@ -27,6 +27,11 @@ public class EspacioDTO {
     private Long id;
     
     /**
+     * Nombre del espacio.
+     */
+    private String nombre;
+    
+    /**
      * Dirección del espacio.
      */
     private String direccion;
@@ -78,6 +83,23 @@ public class EspacioDTO {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    /**
+     * Devuelve el nombre del espacio.
+     * @return nombre del espacio.
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * Cambia el nombre del espacio.
+     * post: Se cambió el nombre del espacio.
+     * @param nombre nuevo nombre del espacio.
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     /**
@@ -142,6 +164,7 @@ public class EspacioDTO {
     public EspacioEntity toEntity() {
         EspacioEntity entity = new EspacioEntity();
         entity.setId(this.id);
+        entity.setNombre(this.nombre);
         entity.setDireccion(this.direccion);
         entity.setTelefono(this.telefono);
         entity.setCapacidad(this.capacidad);
