@@ -48,7 +48,8 @@ public class PabellonPersistence
 	public List<PabellonEntity> findAll( )
 	{
 		TypedQuery<PabellonEntity> q = em.createQuery( "select u from PabellonEntity u", PabellonEntity.class );
-		return q.getResultList( );
+		List<PabellonEntity> pabellones = q.getResultList( );
+		return pabellones;
 	}
 	
 	public PabellonEntity create( PabellonEntity entity )

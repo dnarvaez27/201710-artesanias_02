@@ -78,14 +78,14 @@ public class ArtesanoResource
 		return list;
 	}
 	
-	@Path( "{artesanoId}: \\d+}/reviews" )
-	public Class<ReviewResource> getReviewResource( )
+	@Path( "{artesanoId: \\d+}/reviews" )
+	public Class<ReviewResource> getReviewResource(  )
 	{
 		return ReviewResource.class;
 	}
 	
 	@Path( "{artesanoId: \\d+}/artesanias" )
-	public Class<ArtesaniasResource> getArtesaniasResource( )
+	public Class<ArtesaniasResource> getArtesaniasResource(  )
 	{
 		return ArtesaniasResource.class;
 	}

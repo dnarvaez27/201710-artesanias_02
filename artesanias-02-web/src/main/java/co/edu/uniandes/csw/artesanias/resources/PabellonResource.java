@@ -82,12 +82,23 @@ public class PabellonResource
 	
 	private List<PabellonDTO> listEntity2DTO( List<PabellonEntity> entities )
 	{
-		List<PabellonDTO> rta = new LinkedList<
-				>( );
+		List<PabellonDTO> rta = new LinkedList<>( );
 		for( PabellonEntity entity : entities )
 		{
 			rta.add( new PabellonDTO( entity ) );
 		}
 		return rta;
+	}
+	
+	@Path( "{pabellonId: \\d+}/stands" )
+	public Class<StandResource> getStandResource( )
+	{
+		return StandResource.class;
+	}
+	
+	@Path( "{pabellonId: \\d+}/salones" )
+	public Class<SalonResource> getSalonResource( )
+	{
+		return SalonResource.class;
 	}
 }

@@ -6,8 +6,12 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
+import co.edu.uniandes.csw.artesanias.dtos.PabellonDTO;
 import co.edu.uniandes.csw.artesanias.dtos.SalonDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.SalonDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.SalonLogic;
+import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
+import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
 
 import java.util.LinkedList;
@@ -28,7 +32,6 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author IVAN
  */
-@Path( "/salones" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
 public class SalonResource
@@ -50,9 +53,9 @@ public class SalonResource
 	}
 	
 	@GET
-	public List<SalonDTO> getSalones( )
+	public List<SalonDTO> getSalones( @PathParam( "pabellonId" ) Long pabellonId )
 	{
-		return listEntity2DTO( logic.getSalones( ) );
+		return listEntity2DTO( logic.getSalonesFromPabellon( pabellonId ) );
 	}
 	
 	@GET
@@ -63,9 +66,13 @@ public class SalonResource
 	}
 	
 	@POST
-	public SalonDTO createSalon( SalonDTO dto )
+	public SalonDTO createSalon( @PathParam( "pabellonId" ) Long pabellonId, SalonDetailDTO dto )
 	{
-		return new SalonDTO( logic.createSalon( dto.toEntity( ) ) );
+		PabellonEntity en = new PabellonEntity( );
+		en.setId( pabellonId );
+		dto.setPabellon( new PabellonDTO( en ) );
+		SalonEntity entity = logic.createSalon( dto.toEntity( ) );
+		return new SalonDTO( entity );
 	}
 	
 	@PUT
@@ -82,5 +89,11 @@ public class SalonResource
 	public void deleteSalon( @PathParam( "id" ) Long id )
 	{
 		logic.deleteSalon( id );
+	}
+	
+	@Path( "{salonId: \\d+}" )
+	public Class<ConferenciaResource> getConferenciaResource( )
+	{
+		return ConferenciaResource.class;
 	}
 }
