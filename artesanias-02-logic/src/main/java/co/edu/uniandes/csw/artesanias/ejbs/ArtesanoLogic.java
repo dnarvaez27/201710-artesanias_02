@@ -45,6 +45,7 @@ public class ArtesanoLogic
 	 *
 	 * @param id Identifier of the instance to consult.
 	 * @return Instance of ArtesanoEntity with the data from the Artesano consulted.
+	 * @throws BusinessLogicException en caso que no exista un artesano con el ID dado (404 NOT FOUND)
 	 */
 	public ArtesanoEntity getArtesano( Long id ) throws BusinessLogicException
 	{

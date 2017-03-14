@@ -25,9 +25,10 @@ package co.edu.uniandes.csw.artesanias.exceptions;
 
 import javax.ejb.ApplicationException;
 import javax.ws.rs.core.Response;
+import java.io.Serializable;
 
 @ApplicationException( rollback = true )
-public class BusinessLogicException extends Exception
+public class BusinessLogicException extends Exception implements Serializable
 {
 	private Response.Status status;
 	
