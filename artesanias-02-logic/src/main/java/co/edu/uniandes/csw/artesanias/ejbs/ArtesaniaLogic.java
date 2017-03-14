@@ -58,7 +58,7 @@ public class ArtesaniaLogic
 		{
 			return res;
 		}
-		throw new BusinessLogicException( String.format( "La artesania %s, no pertenece al artesano %s", id, artesanoId ), Response.Status.FORBIDDEN );
+		throw new BusinessLogicException( String.format( "La artesania %s, no pertenece al artesano %s", id, artesanoId ), Response.Status.NOT_FOUND );
 	}
 	
 	/**
@@ -78,9 +78,17 @@ public class ArtesaniaLogic
 	 *
 	 * @param id Identifier of the instance to remove.
 	 */
-	public void deleteArtesania( Long id )
+	public void deleteArtesania( Long artesanoId, Long id ) throws BusinessLogicException
 	{
-		persistence.delete( id );
+		try
+		{
+			getArtesania( artesanoId, id ); // Para verificar si existe
+			persistence.delete( id );
+		}
+		catch( BusinessLogicException e )
+		{
+			throw new BusinessLogicException( String.format( "La artesanía %s no pertenece al artesano %s", id, artesanoId ), Response.Status.FORBIDDEN );
+		}
 	}
 	
 	private void check( ArtesaniaEntity entity ) throws BusinessLogicException

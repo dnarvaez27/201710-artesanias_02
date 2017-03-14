@@ -10,21 +10,41 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Clase DTO (Data Transfer Object) Detallado que representa un Artesano
+ *
  * @author d.narvaez11
+ * @see ArtesanoEntity
+ * @see ArtesanoDTO
  */
 @XmlRootElement
 public class ArtesanoDetailDTO extends ArtesanoDTO
 {
+	/**
+	 * Lista de Artesanias que ha realizado el Artesano
+	 */
 	private List<ArtesaniaDTO> artesanias;
 	
+	/**
+	 * Lista de Reviews que ha recibido el Artesano
+	 */
 	private List<ReviewDTO> reviews;
 	
+	/**
+	 * Ciudad de origen del Artesano
+	 */
 	private CiudadDTO ciudad;
 	
+	/**
+	 * Stand al cual esta asignado el Artesano
+	 */
 	private StandDTO stand;
 	
+	/**
+	 * Builds an empty Artesano Detail
+	 */
 	public ArtesanoDetailDTO( )
 	{
+		super( );
 		// Default Constructor. Mandatory
 	}
 	
@@ -51,7 +71,7 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 			}
 			
 			stand = new StandDTO( entity.getStand( ) );
-			if( entity.getCiudad() != null )
+			if( entity.getCiudad( ) != null )
 			{
 				ciudad = new CiudadDTO( entity.getCiudad( ) );
 			}

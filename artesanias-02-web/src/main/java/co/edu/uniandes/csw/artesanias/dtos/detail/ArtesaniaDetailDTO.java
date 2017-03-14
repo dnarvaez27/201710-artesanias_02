@@ -7,14 +7,28 @@ import co.edu.uniandes.csw.artesanias.entities.ArtesaniaEntity;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
+/**
+ * Clase DTO (Data Transfer Object) detallado que representa una Artesania
+ *
+ * @author d.narvaez11
+ * @see ArtesaniaEntity
+ * @see ArtesaniaDTO
+ */
 @XmlRootElement
 public class ArtesaniaDetailDTO extends ArtesaniaDTO implements Serializable
 {
+	/**
+	 * Artesano al cual pertenece la artesania
+	 */
 	private ArtesanoDTO artesano;
 	
+	/**
+	 * Builds an empty Artesania Detail
+	 */
 	public ArtesaniaDetailDTO( )
 	{
-		
+		super( );
+		// Default Constructor. Mandatory
 	}
 	
 	/**

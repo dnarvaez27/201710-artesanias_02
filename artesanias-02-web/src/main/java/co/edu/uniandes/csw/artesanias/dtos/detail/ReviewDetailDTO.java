@@ -7,13 +7,23 @@ import co.edu.uniandes.csw.artesanias.entities.ReviewEntity;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * Clase DTO (Data Transfer Object) Detallado que representa un Review
+ *
  * @author d.narvaez11
+ * @see ReviewEntity
+ * @see ReviewDTO
  */
 @XmlRootElement
 public class ReviewDetailDTO extends ReviewDTO
 {
+	/**
+	 * Artesano al cual van dirigidos los Reviews
+	 */
 	private ArtesanoDTO artesano;
 	
+	/**
+	 * Builds an empty Review Detail
+	 */
 	public ReviewDetailDTO( )
 	{
 		// Default Constructor. Mandatory

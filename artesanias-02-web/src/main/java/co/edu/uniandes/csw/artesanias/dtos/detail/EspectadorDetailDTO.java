@@ -11,16 +11,26 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Clase DTO (Data Transfer Object) Detallado que representa un Espectador
+ *
  * @author d.narvaez11
+ * @see EspectadorEntity
+ * @see EspectadorDTO
  */
 @XmlRootElement
 public class EspectadorDetailDTO extends EspectadorDTO implements Serializable
 {
+	/**
+	 * Lista con las Boletas que el espectador ha adquirido
+	 */
 	private List<BoletaDTO> boletas;
 	
+	/**
+	 * Builds an empty Espectador Detail
+	 */
 	public EspectadorDetailDTO( )
 	{
-		
+		// Default Constructor. Mandatory
 	}
 	
 	/**

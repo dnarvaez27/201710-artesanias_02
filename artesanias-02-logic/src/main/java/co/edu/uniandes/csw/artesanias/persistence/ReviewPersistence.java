@@ -10,11 +10,16 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
+ * Clase encargada de la persistnecia de los Reviews
+ *
  * @author d.narvaez11
  */
 @Stateless
 public class ReviewPersistence
 {
+	/**
+	 * Entity Manager, encargado de la persistencia
+	 */
 	@PersistenceContext( unitName = "artesaniasPU" )
 	protected EntityManager em;
 	
@@ -56,6 +61,12 @@ public class ReviewPersistence
 		return q.getResultList( );
 	}
 	
+	/**
+	 * Retrieves all the Review from the Artesano whose id matches the one given by parameter
+	 *
+	 * @param artesanoId Id of the Artesano, whose reviews are returned
+	 * @return List of Reviews from the Artesano whose id matches the one given by parameter
+	 */
 	public List<ReviewEntity> findAllFromArtesano( Long artesanoId )
 	{
 		TypedQuery<ReviewEntity> q = em.createQuery( "SELECT R FROM ReviewEntity R WHERE R.artesano.id = :artesanoId", ReviewEntity.class );

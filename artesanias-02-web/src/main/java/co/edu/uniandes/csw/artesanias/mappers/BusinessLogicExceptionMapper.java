@@ -6,7 +6,10 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 
 /**
- * d.narvaez11
+ * Mapper de Excepciones ocurridas en el sistema
+ *
+ * @author d.narvaez11
+ * @see BusinessLogicException
  */
 public class BusinessLogicExceptionMapper implements ExceptionMapper<BusinessLogicException>
 {

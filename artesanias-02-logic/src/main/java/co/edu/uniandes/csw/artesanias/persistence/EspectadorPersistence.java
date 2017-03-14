@@ -9,11 +9,16 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
+ * Clase encargada de la persistencia de los Espectadores
+ *
  * @author d.narvaez11
  */
 @Stateless
 public class EspectadorPersistence
 {
+	/**
+	 * Entity Manager, encargado de la persistencia
+	 */
 	@PersistenceContext( unitName = "artesaniasPU" )
 	protected EntityManager em;
 	

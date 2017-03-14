@@ -34,6 +34,9 @@ import java.io.Serializable;
 @Entity
 public class ArtesaniaEntity implements Serializable
 {
+	/**
+	 * Identificador único de cada instancia
+	 */
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;

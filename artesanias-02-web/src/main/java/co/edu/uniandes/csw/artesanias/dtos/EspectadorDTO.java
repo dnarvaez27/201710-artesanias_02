@@ -6,24 +6,45 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
+ * Clase DTO (Data Transfer Object) basica que representa un Espectador
+ *
  * @author d.narvaez11
+ * @see EspectadorEntity
  */
 @XmlRootElement
 public class EspectadorDTO implements Serializable
 {
+	/**
+	 * Identificador único de cada instancia de Espectador
+	 */
 	private Long id;
 	
+	/**
+	 * Correo y login del espectador
+	 */
 	private String correo;
 	
+	/**
+	 * Contrasena de acceso del espectador
+	 */
 	private String contrasena;
 	
+	/**
+	 * Foto del espectador
+	 */
 	private String foto;
 	
+	/**
+	 * Edad del espectador
+	 */
 	private Integer edad;
 	
+	/**
+	 * Builds an empty Espectador
+	 */
 	public EspectadorDTO( )
 	{
-		
+		// Default Constructor. Mandatory
 	}
 	
 	/**

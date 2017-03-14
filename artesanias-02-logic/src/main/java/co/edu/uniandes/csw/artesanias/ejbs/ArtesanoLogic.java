@@ -46,9 +46,14 @@ public class ArtesanoLogic
 	 * @param id Identifier of the instance to consult.
 	 * @return Instance of ArtesanoEntity with the data from the Artesano consulted.
 	 */
-	public ArtesanoEntity getArtesano( Long id )
+	public ArtesanoEntity getArtesano( Long id ) throws BusinessLogicException
 	{
-		return persistence.find( id );
+		ArtesanoEntity en = persistence.find( id );
+		if( en != null )
+		{
+			return en;
+		}
+		throw new BusinessLogicException( String.format( "No existe el artesano con el id %s", id ), Response.Status.NOT_FOUND );
 	}
 	
 	/**
@@ -76,7 +81,8 @@ public class ArtesanoLogic
 	private void checkInfo( ArtesanoEntity entity ) throws BusinessLogicException
 	{
 		boolean nombre = entity.getNombre( ) == null || entity.getNombre( ).isEmpty( );
-		boolean ident = entity.getIdentificacion( ) == null || entity.getIdentificacion( ).isEmpty( );
+		boolean ident = entity.getIdentificacion( ) == null || entity.getIdentificacion( )
+		                                                             .isEmpty( );
 		if( nombre || ident )
 		{
 			throw new BusinessLogicException( String.format( "%s del Artesano no puede estar vacío", nombre ? "El nombre" : "La identificacion" ), Response.Status.BAD_REQUEST );

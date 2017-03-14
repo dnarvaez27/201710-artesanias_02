@@ -6,11 +6,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
+ * Clase DTO (Data Transfer Object) basica que representa un Artesano
+ *
  * @author d.narvaez11
+ * @see ArtesanoEntity
  */
 @XmlRootElement
 public class ArtesanoDTO implements Serializable
 {
+	/**
+	 * Identificador único de una instancia de Artesano
+	 */
 	private Long id;
 	
 	/**
