@@ -34,9 +34,15 @@ import javax.ws.rs.core.MediaType;
 @Produces( MediaType.APPLICATION_JSON )
 public class PabellonResource
 {
+        /**
+         * lógica correspondiente a los pabellones
+         */
 	@Inject
 	private PabellonLogic logic;
 	
+        /**
+         * Servicio de respuesta HTTP
+         */
 	@Context
 	private HttpServletResponse response;
 	
@@ -46,18 +52,33 @@ public class PabellonResource
 	@QueryParam( "limit" )
 	private Integer maxRec;
 	
+        /**
+         * Crea un nuevo pabellón con base al PabellonEntity ingresado
+         * @param entity
+         * @return PabellonDTO
+         * @throws BusinessLogicException 
+         */
 	@POST
 	public PabellonDTO createPabellon( PabellonEntity entity ) throws BusinessLogicException
 	{
 		return new PabellonDTO( logic.createPabellon( entity ) );
 	}
 	
+        /**
+         * Retorna una lista con todos los pabellones
+         * @return lista de PabellonDTO
+         */
 	@GET
 	public List<PabellonDTO> getPabellones( )
 	{
 		return listEntity2DTO( logic.getPabellones( ) );
 	}
 	
+        /**
+         * Retorna el pabellón con id dado
+         * @param id
+         * @return PabellonDTO
+         */
 	@GET
 	@Path( "{id: \\d+}" )
 	public PabellonDTO getPabellon( @PathParam( "id" ) Long id )
@@ -65,6 +86,13 @@ public class PabellonResource
 		return new PabellonDTO( logic.getPabellon( id ) );
 	}
 	
+        /**
+         * Actualiza el pabellón con id dado con base al dto ingresado
+         * @param id
+         * @param dto
+         * @return PabellonDTO
+         * @throws BusinessLogicException 
+         */
 	@PUT
 	@Path( "{id: \\d+}" )
 	public PabellonDTO updatePabellon( @PathParam( "id" ) Long id, PabellonDTO dto ) throws BusinessLogicException
@@ -74,6 +102,10 @@ public class PabellonResource
 		return new PabellonDTO( logic.updatePabellon( entity ) );
 	}
 	
+        /**
+         * Elimina el pabellón con id ingresado
+         * @param id 
+         */
 	@DELETE
 	@Path( "{id: \\d+}" )
 	public void deletePabellon( @PathParam( "id" ) Long id )
@@ -81,6 +113,11 @@ public class PabellonResource
 		logic.deletePabellon( id );
 	}
 	
+        /**
+         * Retorna una lista de PabellonDTO con base a la lista de PabellonEntity ingresada
+         * @param entities
+         * @return rta
+         */
 	private List<PabellonDTO> listEntity2DTO( List<PabellonEntity> entities )
 	{
 		List<PabellonDTO> rta = new LinkedList<>( );
@@ -91,12 +128,20 @@ public class PabellonResource
 		return rta;
 	}
 	
+        /**
+         * Ruta a los stands del pabellón
+         * @return StandResource
+         */
 	@Path( "{pabellonId: \\d+}/stands" )
 	public Class<StandResource> getStandResource( )
 	{
 		return StandResource.class;
 	}
 	
+        /**
+         * Ruta a los salones del pabellón
+         * @return SalonResource
+         */
 	@Path( "{pabellonId: \\d+}/salones" )
 	public Class<SalonResource> getSalonResource( )
 	{

@@ -37,18 +37,32 @@ import javax.ws.rs.core.MediaType;
 @Produces( MediaType.APPLICATION_JSON )
 public class StandResource
 {
+        /**
+         * lógica correspondiente a los stands
+         */
 	@Inject
 	private StandLogic logic;
 	
+        /**
+         * Servicio de respuesta HTTP
+         */
 	@Context
 	private HttpServletResponse response;
 	
+        
 	@QueryParam( "page" )
 	private Integer page;
 	
 	@QueryParam( "limit" )
 	private Integer maxRec;
 	
+        /**
+         * Crea un nuevo stand con base al dto ingresado en el pabellón dado
+         * @param pabellonId
+         * @param dto
+         * @return StandDTO
+         * @throws BusinessLogicException 
+         */
 	@POST
 	public StandDTO createStand( @PathParam( "pabellonId" )
 			                             Long pabellonId, StandDetailDTO dto ) throws BusinessLogicException
@@ -60,12 +74,22 @@ public class StandResource
 		return new StandDTO( entity );
 	}
 	
+        /**
+         * Retorna todos los stands en el pabellón dado
+         * @param pabellonId
+         * @return Lista de StandDTO
+         */
 	@GET
 	public List<StandDTO> getStands( @PathParam( "pabellonId" ) Long pabellonId )
 	{
 		return listEntity2DTO( logic.getStandsFromPabellon( pabellonId ) );
 	}
 	
+        /**
+         * Retorna el stand con id dado
+         * @param id
+         * @return StandDTO
+         */
 	@GET
 	@Path( "{id: \\d+}" )
 	public StandDTO getStand( @PathParam( "id" ) Long id )
@@ -73,6 +97,14 @@ public class StandResource
 		return new StandDTO( logic.getStand( id ) );
 	}
 	
+        /**
+         * Actualiza el stand con id igresado en el pabellón dado con base al dto dado
+         * @param pabellonId
+         * @param id
+         * @param dto
+         * @returnStandDTO
+         * @throws BusinessLogicException 
+         */
 	@PUT
 	@Path( "{id: \\d+}" )
 	public StandDTO updateStand(
@@ -87,6 +119,10 @@ public class StandResource
 		return new StandDTO( logic.updateStand( entity ) );
 	}
 	
+        /**
+         * Elimina el stand con id ingresado
+         * @param id 
+         */
 	@DELETE
 	@Path( "{id: \\d+}" )
 	public void deleteStand( @PathParam( "id" ) Long id )
@@ -94,6 +130,11 @@ public class StandResource
 		logic.deleteStand( id );
 	}
 	
+        /**
+         * Retorna una lista de StandDTO con base en una lista de StandEntity
+         * @param entities
+         * @return rta
+         */
 	private List<StandDTO> listEntity2DTO( List<StandEntity> entities )
 	{
 		List<StandDTO> rta = new LinkedList<>( );

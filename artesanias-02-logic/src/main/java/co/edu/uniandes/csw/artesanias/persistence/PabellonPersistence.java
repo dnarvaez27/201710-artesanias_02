@@ -37,14 +37,26 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class PabellonPersistence
 {
+        /**
+         * Entity Manager encargado de la persistencia de Entities
+         */
 	@PersistenceContext( unitName = "artesaniasPU" )
 	protected EntityManager em;
 	
+        /**
+         * Retorna el PabellonEntity buscado por su id
+         * @param id
+         * @return PabellonEntity
+         */
 	public PabellonEntity find( Long id )
 	{
 		return em.find( PabellonEntity.class, id );
 	}
 	
+        /**
+         * Retorna una lista con todos los PabellonEntity
+         * @return pabellones
+         */
 	public List<PabellonEntity> findAll( )
 	{
 		TypedQuery<PabellonEntity> q = em.createQuery( "select u from PabellonEntity u", PabellonEntity.class );
@@ -52,17 +64,31 @@ public class PabellonPersistence
 		return pabellones;
 	}
 	
+        /**
+         * Genera un PabellonEntity
+         * @param entity
+         * @return entity
+         */
 	public PabellonEntity create( PabellonEntity entity )
 	{
 		em.persist( entity );
 		return entity;
 	}
 	
+        /**
+         * Actualiza el PabellonEntity ingresado por parámetro
+         * @param entity
+         * @return PabellonEntity
+         */
 	public PabellonEntity update( PabellonEntity entity )
 	{
 		return em.merge( entity );
 	}
 	
+        /**
+         * Elimina el PabellonEntity con id ingresado
+         * @param id 
+         */
 	public void delete( Long id )
 	{
 		PabellonEntity entity = em.find( PabellonEntity.class, id );

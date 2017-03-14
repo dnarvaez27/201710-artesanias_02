@@ -16,17 +16,33 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class PabellonDTO
 {
+        /**
+         * Id único del pabellón
+         */
 	private Long id;
 	
+        /**
+         * Tipo del pabellón
+         */
 	private String tipo;
 	
+        /**
+         * Capacidad del pabellón
+         */
 	private Integer capacidad;
 	
+        /**
+         * Constructor vacío
+         */
 	public PabellonDTO( )
 	{
 		
 	}
 	
+        /**
+         * Construye un nuevo pabellón cona base a un PabellonEntity
+         * @param entity 
+         */
 	public PabellonDTO( PabellonEntity entity )
 	{
 		if( entity != null )
@@ -85,6 +101,10 @@ public class PabellonDTO
 		this.capacidad = capacidad;
 	}
 	
+        /**
+         * Convierte el pabellón actual en un PabellonEntity
+         * @return entity
+         */
 	public PabellonEntity toEntity( )
 	{
 		PabellonEntity entity = new PabellonEntity( );
