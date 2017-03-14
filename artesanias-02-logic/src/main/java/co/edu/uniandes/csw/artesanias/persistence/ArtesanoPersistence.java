@@ -10,11 +10,16 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
+ * Clase encargada de la persistencia de los Artesanos
+ *
  * @author d.narvaez11
  */
 @Stateless
 public class ArtesanoPersistence
 {
+	/**
+	 * Entity Manager, encargado de la persistnecia
+	 */
 	@PersistenceContext( unitName = "artesaniasPU" )
 	protected EntityManager em;
 	
@@ -48,7 +53,7 @@ public class ArtesanoPersistence
 	 */
 	public List<ArtesanoEntity> findAll( )
 	{
-		TypedQuery q = em.createQuery( "SELECT U FROM ArtesanoEntity U", ArtesanoEntity.class );
+		TypedQuery<ArtesanoEntity> q = em.createQuery( "SELECT U FROM ArtesanoEntity U", ArtesanoEntity.class );
 		return q.getResultList( );
 	}
 	

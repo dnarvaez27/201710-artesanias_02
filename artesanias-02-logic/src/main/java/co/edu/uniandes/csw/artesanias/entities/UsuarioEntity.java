@@ -33,14 +33,26 @@ import java.io.Serializable;
 @Inheritance( strategy = InheritanceType.JOINED )
 public abstract class UsuarioEntity implements Serializable
 {
+	/**
+	 * Identificador único de cada instancia de Usuario
+	 */
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;
 	
+	/**
+	 * Correo electronico del Usuario
+	 */
 	private String correo;
 	
+	/**
+	 * Contrasena de acceso al sistema del Usuario
+	 */
 	private String contrasena;
 	
+	/**
+	 * Foto del Usuario
+	 */
 	private String foto;
 	
 	/**

@@ -11,11 +11,16 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
+ * Clase encargada de la persistencia de las Artesanias
+ *
  * @author d.narvaez11
  */
 @Stateless
 public class ArtesaniaPersistence
 {
+	/**
+	 * Entity Manager encargado de la persistencia de Entities
+	 */
 	@PersistenceContext( unitName = "artesaniasPU" )
 	protected EntityManager em;
 	
@@ -57,6 +62,12 @@ public class ArtesaniaPersistence
 		return q.getResultList( );
 	}
 	
+	/**
+	 * Retrieves the Artesanias Entities whose Artesano id matches the one given by parameter
+	 *
+	 * @param id Artesano Id whose Artesanias are wanted
+	 * @return List of the Artesano's Artesanias whose id matches the one given by parameter
+	 */
 	public List<ArtesaniaEntity> findAllFromArtesano( Long id )
 	{
 		TypedQuery<ArtesaniaEntity> q = em.createQuery( "SELECT A FROM ArtesaniaEntity A WHERE A.artesano.id = :artesanoId", ArtesaniaEntity.class );

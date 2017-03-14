@@ -27,6 +27,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
+ * ReviewEntity, contiene la información necesaria para modelar un Review hacia un Artesano
+ *
  * @author d.narvaez11
  */
 @Entity

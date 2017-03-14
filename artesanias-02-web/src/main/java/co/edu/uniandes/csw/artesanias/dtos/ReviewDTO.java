@@ -6,11 +6,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
+ * Clase DTO (Data Transfer Object) basica  que representa un Review
+ *
  * @author d.narvaez11
+ * @see ReviewEntity
  */
 @XmlRootElement
 public class ReviewDTO implements Serializable
 {
+	/**
+	 * Identificador unico de cada instancia de Review
+	 */
 	private Long id;
 	
 	/**
@@ -23,6 +29,9 @@ public class ReviewDTO implements Serializable
 	 */
 	private String comentario;
 	
+	/**
+	 * Builds an empty Review
+	 */
 	public ReviewDTO( )
 	{
 		// Default Constructor. Mandatory

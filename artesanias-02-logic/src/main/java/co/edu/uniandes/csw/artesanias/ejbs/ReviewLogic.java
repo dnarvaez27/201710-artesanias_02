@@ -58,7 +58,7 @@ public class ReviewLogic
 		{
 			return res;
 		}
-		throw new BusinessLogicException( String.format( "El review %s no pertenece al artesano %s ", id, artesanoId ), Response.Status.FORBIDDEN );
+		throw new BusinessLogicException( String.format( "El review %s no pertenece al artesano %s ", id, artesanoId ), Response.Status.NOT_FOUND );
 	}
 	
 	/**
@@ -78,9 +78,17 @@ public class ReviewLogic
 	 *
 	 * @param id Identifier of the instance to remove.
 	 */
-	public void deleteReview( Long id )
+	public void deleteReview( Long artesanoId, Long id ) throws BusinessLogicException
 	{
-		persistence.delete( id );
+		try
+		{
+			getReview( artesanoId, id ); // Verificar Exception
+			persistence.delete( id );
+		}
+		catch( BusinessLogicException e )
+		{
+			throw new BusinessLogicException( String.format( "El review %s no pertenece al artesano %s", id, artesanoId ), Response.Status.FORBIDDEN );
+		}
 	}
 	
 	private void check( ReviewEntity entity ) throws BusinessLogicException
