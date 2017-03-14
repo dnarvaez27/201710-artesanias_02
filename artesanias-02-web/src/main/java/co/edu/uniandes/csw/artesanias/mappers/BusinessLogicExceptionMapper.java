@@ -4,6 +4,7 @@ import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
 
 /**
  * Mapper de Excepciones ocurridas en el sistema
@@ -11,6 +12,7 @@ import javax.ws.rs.ext.ExceptionMapper;
  * @author d.narvaez11
  * @see BusinessLogicException
  */
+@Provider
 public class BusinessLogicExceptionMapper implements ExceptionMapper<BusinessLogicException>
 {
 	@Override
