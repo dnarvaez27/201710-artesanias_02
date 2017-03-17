@@ -12,6 +12,9 @@ import java.util.List;
 /**
  * @author d.narvaez11
  */
+
+//TODO lasverificaciones de existencia son responsabilidad de los recursos no de la lógica
+			
 @Stateless
 public class ArtesaniaLogic
 {
@@ -82,7 +85,7 @@ public class ArtesaniaLogic
 	{
 		try
 		{
-			getArtesania( artesanoId, id ); // Para verificar si existe
+			getArtesania( artesanoId, id ); // Para verificar si existe //TODO estás verificaciones de existencia son responsabilidad de los recursos no de la lógica
 			persistence.delete( id );
 		}
 		catch( BusinessLogicException e )

@@ -12,6 +12,8 @@ import java.util.List;
 /**
  * @author d.narvaez11
  */
+//TODO las verificaciones de existencia son responsabilidad de los recursos no de la lógica
+			
 @Stateless
 public class ArtesanoLogic
 {

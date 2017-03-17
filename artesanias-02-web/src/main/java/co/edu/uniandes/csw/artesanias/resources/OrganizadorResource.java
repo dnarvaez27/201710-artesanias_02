@@ -28,6 +28,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author IVAN
  */
+
 @Path( "/organizadores" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
@@ -61,6 +62,8 @@ public class OrganizadorResource
 	@Path( "{id: \\d+}" )
 	public OrganizadorDTO getOrganizador( @PathParam( "id" ) Long id )
 	{
+            // TODO si elorganizador no existe debe disparar WebApplicationException 404
+	
 		return new OrganizadorDTO( logic.getOrganizador( id ) );
 	}
 	
@@ -68,6 +71,8 @@ public class OrganizadorResource
 	@Path( "{id: \\d+}" )
 	public OrganizadorDTO updateOrganizador( @PathParam( "id" ) Long id, OrganizadorDTO dto )
 	{
+            // TODO si elorganizador no existe debe disparar WebApplicationException 404
+	
 		OrganizadorEntity entity = dto.toEntity( );
 		entity.setId( id );
 		return new OrganizadorDTO( logic.updateOrganizador( entity ) );
@@ -77,6 +82,8 @@ public class OrganizadorResource
 	@Path( "{id: \\d+}" )
 	public void deleteOrganizador( @PathParam( "id" ) Long id )
 	{
+            // TODO si elorganizador no existe debe disparar WebApplicationException 404
+	
 		logic.deleteOrganizador( id );
 	}
 	
@@ -94,6 +101,8 @@ public class OrganizadorResource
 	@Path( "{organizadorId: \\d+}/ferias" )
 	public Class<FeriaResource> getFeriaResource( )
 	{
+            // TODO si el organizador no existe debe disparar WebApplicationException 404
+	
 		return FeriaResource.class;
 	}
 }

@@ -46,6 +46,9 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Miller
  */
+
+// TODO Segun organizadorResource , ferias es un subrecurso cuyo path es @Path( "{organizadorId: \\d+}/ferias" ) o se define como un subrecurso de la clase organizador.
+// TODO Cada método debde recibir como PathParam a organizadorId
 @Path("/ferias")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -60,7 +63,7 @@ public class FeriaResource {
     public FeriaDTO createFeria(FeriaEntity entity) {
         return new FeriaDTO(feriaLogic.createFeria(entity));
     }
-    
+    //TODO debe traer las ferias no los artesanos. Por qué el método se llama getArtesanos? 
     @GET
     public List<FeriaDTO> getArtesanos() {
         return listEntity2DTO(feriaLogic.getFerias());
@@ -68,13 +71,17 @@ public class FeriaResource {
     
     @GET
     @Path("{id: \\d+}")
+    //TODO debe traer la feria no el artesano. Por qué el método se llama getArtesano? 
     public FeriaDTO getArtesano(@PathParam("id") Long id ) {
+        //TODO si la feria id no existe debe disparar WebApplicationException con 404
         return new FeriaDTO(feriaLogic.getFeria(id));
     }
     
     @PUT
     @Path("{id: \\d+}")
+     //TODO debe actualizar la feria no el artesano. Por qué el método se llama updateArtesano? 
     public FeriaDTO updateArtesano(@PathParam("id") Long id, FeriaDTO dto) {
+        //TODO si la feria id no existe debe disparar WebApplicationException con 404
         FeriaEntity entity = dto.toEntity();
         entity.setId(id);
         return new FeriaDTO(feriaLogic.updateFeria(entity));
@@ -82,6 +89,7 @@ public class FeriaResource {
     
     @DELETE
     @Path("{id: \\d+}")
+     //TODO debe borrar la feria no el artesano. Por qué el método se llama deleteArtesano? 
     public void deleteArtesano(@PathParam( "id" ) Long id ) {
         feriaLogic.deleteFeria(id);
     }
@@ -92,4 +100,10 @@ public class FeriaResource {
             rta.add(new FeriaDTO(entity));
         return rta;
     }
+    
+    //TODO falta GET /ferias/:id/artesanos los artesanos de la feria :id
+    //TODO falta GET /ferias/:id/espacios los artesanos de la feria :id
+    
+    //TODO verificar los subrecursos conferencia y boleta
+    
 }

@@ -32,6 +32,10 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author ja.espinosa12
  */
+
+//TODO de acuerdo con apbellon, stand es un subrecurso de pabellon y el path es: @Path( "{pabellonId: \\d+}/stands" )
+// TODO en los métodos que reciben el id del stand se debe verificar que exista o sino disparar WebApplicationExcepton 404
+	
 @Path( "/stands" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )

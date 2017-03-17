@@ -35,6 +35,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
+// TODO en los métodos que reciben el id del salón se debe verificar que exista o sino disparar WebApplicationExcepton 404
 public class SalonResource
 {
 	@Inject
@@ -61,6 +62,7 @@ public class SalonResource
 	
 	@GET
 	@Path( "{id: \\d+}" )
+        // TODO debe tener tambien @PathParam( "pabellonId" ) Long pabellonId
 	public SalonDTO getSalon( @PathParam( "id" ) Long id )
 	{
 		return new SalonDTO( logic.getSalon( id ) );
@@ -97,6 +99,8 @@ public class SalonResource
 	{
 		logic.deleteSalon( id );
 	}
+        
+        // TODO aquí está diciendo que la conferencia es un subrecurso de salon y no es asi. Veriicar
 	
 	@Path( "{salonId: \\d+}" )
 	public Class<ConferenciaResource> getConferenciaResource( )
