@@ -46,6 +46,12 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Miller
  */
+// TODO según el diagrama de clases espacio es un sbrecurso de ciudad. Se puede definir como subrecurso desde ciudad o el path aquí debe ser:
+// TODO  "/ciudades/{idCiudad \\+d}/espacios"
+// TODO EN cualquier caso se debe verificar que la ciudad de idCiudad efectivamente existe
+
+// TODO revisar los nombres de los métodos que  no coinciden con el del recurso 
+// TODO en los métodos que reciben el id del espacio se debe verificar que exista o sino disparar WebApplicationExcepton 404
 @Path("/espacios")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)

@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * @author d.narvaez11
  */
+
 @Stateless
 public class EspectadorLogic
 {

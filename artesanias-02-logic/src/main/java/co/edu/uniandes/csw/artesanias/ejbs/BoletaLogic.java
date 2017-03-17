@@ -33,6 +33,8 @@ import javax.inject.Inject;
  * Logica de la entidad boleta.
  * @author Miller
  */
+
+// TODO debe haber alguna regla de negocio que verifique que hay boletas disponibles.
 @Stateless
 public class BoletaLogic {
     

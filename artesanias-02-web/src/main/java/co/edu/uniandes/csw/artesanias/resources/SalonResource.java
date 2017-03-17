@@ -35,6 +35,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
+// TODO en los métodos que reciben el id del salón se debe verificar que exista o sino disparar WebApplicationExcepton 404
 public class SalonResource
 {
 	@Inject

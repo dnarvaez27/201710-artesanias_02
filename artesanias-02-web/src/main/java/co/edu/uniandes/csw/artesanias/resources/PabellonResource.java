@@ -29,6 +29,9 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author ja.espinosa12
  */
+// TODO todos los métodos deben recibir el idEspacio porque este es un subrecurso de Espacio 
+// TODO en los métodos que reciben el id del pabellon se debe verificar que exista o sino disparar WebApplicationExcepton 404
+
 @Path( "/pabellones" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
@@ -128,6 +131,7 @@ public class PabellonResource
 		return rta;
 	}
 	
+        // TODO actualizar el diagrama de clasespara indicar que salon y satand son subrecursos de pabellon
         /**
          * Ruta a los stands del pabellón
          * @return StandResource

@@ -46,6 +46,11 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Miller
  */
+
+//TODO segun el diagrama de clases, las boletas son dependientes de la feria. 
+//TODO El PATH debe ser /ferias/:idFeria/boletas y cada método debe recibir un @PathParam( "idFeria" ) Long idFeria
+// TODO cada método debe validar que la feria con el idFeria exista o disparar WebApplicationException 404
+
 @Path("/boletas")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -69,12 +74,16 @@ public class BoletaResource {
     @GET
     @Path("{id: \\d+}")
     public BoletaDTO getBoleta(@PathParam("id") Long id ) {
+        // TODO si la boleta no existe debe disparar WebApplicationException 404
+		
         return new BoletaDTO(logic.getBoleta(id));
     }
     
     @PUT
     @Path("{id: \\d+}")
     public BoletaDTO updateBoleta(@PathParam("id") Long id, BoletaDTO dto) {
+        // TODO si la boleta no existe debe disparar WebApplicationException 404
+	
         BoletaEntity entity = dto.toEntity();
         entity.setId(id);
         return new BoletaDTO(logic.updateBoleta(entity));
@@ -83,6 +92,8 @@ public class BoletaResource {
     @DELETE
     @Path("{id: \\d+}")
     public void deleteBoleta(@PathParam("id") Long id) {
+        // TODO si la boleta no existe debe disparar WebApplicationException 404
+	
         logic.deleteBoleta(id);
     }
     

@@ -22,6 +22,10 @@ import java.util.List;
 /**
  * @author IVAN
  */
+//TODO segun el diagrama de clases, las conferencias son dependientes dela feria. 
+//TODO El PATH debe ser /ferias/:idFeria/conferencias y cada método debe recibir un @PathParam( "idFeria" ) Long idFeria
+// TODO cada método debe validar que la feria con el idFeria exista o disparar WebApplicationException 404
+
 @Path( "/conferencias" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
@@ -53,6 +57,7 @@ public class ConferenciaResource
 	@Path( "{id: \\d+}" )
 	public ConferenciaDTO getConferencia( @PathParam( "id" ) Long id )
 	{
+            // TODO si la conferencia no existe debe disparar WebApplicationException 404
 		return new ConferenciaDetailDTO( conferenciaLogic.getConferencia( id ) );
 	}
 	
@@ -67,6 +72,8 @@ public class ConferenciaResource
 	public ConferenciaDTO updateConferencia(
 			@PathParam( "id" ) Long id, ConferenciaDTO dto ) throws BusinessLogicException
 	{
+            // TODO si la conferencia no existe debe disparar WebApplicationException 404
+		
 		ConferenciaEntity entity = dto.toEntity( );
 		entity.setId( id );
 		return new ConferenciaDTO( conferenciaLogic.updateConferencia( entity ) );
@@ -76,6 +83,8 @@ public class ConferenciaResource
 	@Path( "{id: \\d+}" )
 	public void deleteSConferencia( @PathParam( "id" ) Long id )
 	{
+            // TODO si la conferencia no existe debe disparar WebApplicationException 404
+		
 		conferenciaLogic.deleteConferencia( id );
 	}
 }

@@ -33,6 +33,7 @@ import javax.inject.Inject;
  *
  * @author Miller
  */
+//TODO faltan reglas de negocio para la creación de la feria: fechas, nombre, lugar, etc.
 @Stateless
 public class FeriaLogic {
     
