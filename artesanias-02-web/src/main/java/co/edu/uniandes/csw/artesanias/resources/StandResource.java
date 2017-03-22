@@ -28,6 +28,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * @author ja.espinosa12
@@ -96,9 +97,18 @@ public class StandResource
          */
 	@GET
 	@Path( "{id: \\d+}" )
-	public StandDTO getStand( @PathParam( "id" ) Long id )
+	public StandDTO getStand( @PathParam( "pabellonId" ) Long pabellonId,
+			@PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-		return new StandDTO( logic.getStand( id ) );
+            StandDTO gt = new StandDTO( logic.getStand( pabellonId, id ) );
+            if( gt != null)
+            {
+                return gt;
+            }
+            else
+            {
+                throw new BusinessLogicException( String.format( "El stand %s no pertenece al pabelllon %s ", id, pabellonId ), Response.Status.NOT_FOUND );
+            }
 	}
 	
         /**
