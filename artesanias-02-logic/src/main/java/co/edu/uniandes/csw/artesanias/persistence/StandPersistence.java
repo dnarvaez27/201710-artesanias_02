@@ -49,9 +49,13 @@ public class StandPersistence
          * @param id
          * @return StandEntity
          */
-	public StandEntity find( Long id )
+	public StandEntity find( Long pabellonId, Long id )
 	{
-		return em.find( StandEntity.class, id );
+		TypedQuery<StandEntity> q = em.createQuery( "SELECT R FROM StandEntity R WHERE R.id = :id AND R.pabellon.id = :pabellonId", StandEntity.class );
+		q.setParameter( "id", id );
+		q.setParameter( "pabellonId", pabellonId );
+		List<StandEntity> res = q.getResultList( );
+		return res.size( ) > 0 ? res.get( 0 ) : null;
 	}
 	
         /**
