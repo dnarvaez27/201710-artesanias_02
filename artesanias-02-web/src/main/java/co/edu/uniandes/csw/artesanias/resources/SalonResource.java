@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.PabellonDTO;
 import co.edu.uniandes.csw.artesanias.dtos.SalonDTO;
 import co.edu.uniandes.csw.artesanias.dtos.detail.SalonDetailDTO;
+import co.edu.uniandes.csw.artesanias.ejbs.ConferenciaLogic;
 import co.edu.uniandes.csw.artesanias.ejbs.SalonLogic;
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
@@ -35,11 +36,14 @@ import javax.ws.rs.core.MediaType;
  */
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
-
+@Path("/salones")
 public class SalonResource
 {
 	@Inject
 	private SalonLogic logic;
+        
+        @Inject
+        private ConferenciaLogic logicConferencia;
 	
 	@Context
 	private HttpServletResponse response;
@@ -95,18 +99,20 @@ public class SalonResource
 	
 	@DELETE
 	@Path( "{id: \\d+}" )
-	public void deleteSalon( @PathParam( "id" ) Long id,@PathParam( "pabellonId" ) Long pabellonId )
+	public void deleteSalon( @PathParam( "id" ) Long idSalon,@PathParam( "pabellonId" ) Long pabellonId )
 	{
-		logic.deleteSalon( id );
+		logic.deleteSalon( idSalon );
 	}
         
         
 	
-//	@Path( "{salonId: \\d+}" )
-//	public Class<ConferenciaResource> getConferenciaFromSalonResource( )
-//	{
-//		return ConferenciaResource.class;
-//	}
+	@Path( "{salonId: \\d+}/conferencias" )
+	public Class<ConferenciaResource> getConferenciaFromSalonResource(@PathParam( "id" ) Long idSalon )
+	{
+            return ConferenciaResource.class;
+            
+		//return logicConferencia.getConferenciasFromsalon(idSalon);
+	}
         
 //        @Path( "{salonId: \\d+}" )
 //	public Class<ConferenciaResource> getConferenciaFromFeriaResource( )

@@ -56,6 +56,8 @@ public class ConferenciaResource
                 
             return listEntity2DTO( conferenciaLogic.getConferenciasFromFeria(feriaId ) );
 	}
+        
+       
 	
 	@GET
 	@Path( "{id: \\d+}" )

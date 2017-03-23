@@ -149,6 +149,7 @@ public class PabellonResource
 	@Path( "{pabellonId: \\d+}/salones" )
 	public Class<SalonResource> getSalonResource( )
 	{
+            
 		return SalonResource.class;
 	}
 }

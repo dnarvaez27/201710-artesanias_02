@@ -72,8 +72,8 @@ public class ConferenciaPersistence
 
     public List<ConferenciaEntity> findAllFromSalon(Long id) {
         
-       TypedQuery<ConferenciaEntity> q = em.createQuery( "SELECT A FROM ConferenciaEntity A WHERE A.s = :conferenciaId", ConferenciaEntity.class );
-		q.setParameter( "conferenciaId", id );
+       TypedQuery<ConferenciaEntity> q = em.createQuery( "SELECT A FROM ConferenciaEntity A WHERE A.salon.id = :salonId", ConferenciaEntity.class );
+		q.setParameter( "salonId", id );
 		return q.getResultList( );
     }
 
