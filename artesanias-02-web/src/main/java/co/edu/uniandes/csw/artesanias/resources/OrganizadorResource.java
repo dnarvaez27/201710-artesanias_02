@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.artesanias.resources;
 import co.edu.uniandes.csw.artesanias.dtos.OrganizadorDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.OrganizadorLogic;
 import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,18 +61,18 @@ public class OrganizadorResource
 	
 	@GET
 	@Path( "{id: \\d+}" )
-	public OrganizadorDTO getOrganizador( @PathParam( "id" ) Long id )
+	public OrganizadorDTO getOrganizador( @PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-            // TODO si elorganizador no existe debe disparar WebApplicationException 404
+            
 	
 		return new OrganizadorDTO( logic.getOrganizador( id ) );
 	}
 	
 	@PUT
 	@Path( "{id: \\d+}" )
-	public OrganizadorDTO updateOrganizador( @PathParam( "id" ) Long id, OrganizadorDTO dto )
+	public OrganizadorDTO updateOrganizador( @PathParam( "id" ) Long id, OrganizadorDTO dto ) throws BusinessLogicException
 	{
-            // TODO si elorganizador no existe debe disparar WebApplicationException 404
+            
 	
 		OrganizadorEntity entity = dto.toEntity( );
 		entity.setId( id );
@@ -80,9 +81,9 @@ public class OrganizadorResource
 	
 	@DELETE
 	@Path( "{id: \\d+}" )
-	public void deleteOrganizador( @PathParam( "id" ) Long id )
+	public void deleteOrganizador( @PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-            // TODO si elorganizador no existe debe disparar WebApplicationException 404
+            
 	
 		logic.deleteOrganizador( id );
 	}
@@ -101,7 +102,7 @@ public class OrganizadorResource
 	@Path( "{organizadorId: \\d+}/ferias" )
 	public Class<FeriaResource> getFeriaResource( )
 	{
-            // TODO si el organizador no existe debe disparar WebApplicationException 404
+            
 	
 		return FeriaResource.class;
 	}

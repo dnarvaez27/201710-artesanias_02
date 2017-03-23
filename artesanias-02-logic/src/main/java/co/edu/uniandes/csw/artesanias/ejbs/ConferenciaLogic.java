@@ -12,6 +12,7 @@ import co.edu.uniandes.csw.artesanias.persistence.ConferenciaPersistence;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.websocket.server.PathParam;
 import javax.ws.rs.core.Response;
 
 /**
@@ -28,9 +29,14 @@ public class ConferenciaLogic
 		return persistence.findAll( );
 	}
 	
-	public ConferenciaEntity getConferencia( Long id )
+	public ConferenciaEntity getConferencia( Long id )throws BusinessLogicException
 	{
-		return persistence.find( id );
+            ConferenciaEntity conf = persistence.find( id );
+            if (conf!=null) {
+                return conf;
+            }
+
+            throw new BusinessLogicException("No existe la conferencia buscada", Response.Status.NOT_FOUND);
 	}
 	
 	public ConferenciaEntity createConferencia( ConferenciaEntity entity ) throws BusinessLogicException
@@ -46,9 +52,15 @@ public class ConferenciaLogic
 		return persistence.update( entity );
 	}
 	
-	public void deleteConferencia( Long id )
+	public void deleteConferencia( Long id ) throws BusinessLogicException
 	{
-		persistence.delete( id );
+            ConferenciaEntity conf = persistence.find( id );
+            if (conf!=null) {
+                persistence.delete( id );
+            }
+
+            throw new BusinessLogicException("No existe la conferencia buscada", Response.Status.NOT_FOUND);
+		
 	}
 	
 	private void check( ConferenciaEntity entity ) throws BusinessLogicException
@@ -62,4 +74,13 @@ public class ConferenciaLogic
 			throw new BusinessLogicException( "El tema de la conferencia no debe estar vacio", Response.Status.BAD_REQUEST );
 		}
 	}
+
+    public List<ConferenciaEntity> getConferenciasFromsalon( Long idSalon) {
+        
+        return persistence.findAllFromSalon(idSalon);
+    }
+
+    public List<ConferenciaEntity> getConferenciasFromFeria(Long feriaId) {
+       return persistence.findAllFromFeria(feriaId);
+    }
 }

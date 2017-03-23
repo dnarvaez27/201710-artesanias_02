@@ -103,6 +103,7 @@ public class FeriaResource {
     
     //TODO falta GET /ferias/:id/artesanos los artesanos de la feria :id
     //TODO falta GET /ferias/:id/espacios los artesanos de la feria :id
+    //TODO falta GET /ferias/:id/conferencias las conferencias de la feria :id
     
     //TODO verificar los subrecursos conferencia y boleta
     
