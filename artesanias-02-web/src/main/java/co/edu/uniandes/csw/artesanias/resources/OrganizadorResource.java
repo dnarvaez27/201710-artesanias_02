@@ -5,8 +5,11 @@
  */
 package co.edu.uniandes.csw.artesanias.resources;
 
+import co.edu.uniandes.csw.artesanias.dtos.FeriaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.OrganizadorDTO;
+import co.edu.uniandes.csw.artesanias.ejbs.FeriaLogic;
 import co.edu.uniandes.csw.artesanias.ejbs.OrganizadorLogic;
+import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 
@@ -38,6 +41,8 @@ public class OrganizadorResource
 	@Inject
 	private OrganizadorLogic logic;
 	
+        @Inject
+        private FeriaLogic logicFeria;
 	@Context
 	private HttpServletResponse response;
 	
@@ -100,10 +105,19 @@ public class OrganizadorResource
 	}
 	
 	@Path( "{organizadorId: \\d+}/ferias" )
-	public Class<FeriaResource> getFeriaResource( )
+	public List<FeriaDTO> getFeriaResource( @PathParam( "id" ) Long idOrganizador)
 	{
+             List<FeriaEntity>list1 = logicFeria.getFeriasFromOrganizador();
             
+            List<FeriaDTO> list = new ArrayList<>( );
+		for( FeriaEntity entity : list1 )
+		{
+			list.add( new FeriaDTO( entity ) );
+		}
+		
+            
+            return list;
 	
-		return FeriaResource.class;
+		
 	}
 }
