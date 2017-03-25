@@ -28,7 +28,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,7 +58,22 @@ public class FeriaEntity implements Serializable {
     /**
      * Nombre de la feria.
      */
+    @Column(nullable = false)
     private String nombre;
+    
+    /**
+     * Descuentos que ofrece la feria.
+     * descuentos[0] = descuento para menores
+     * descuentos[1] = descuento regular
+     * descuentos[2] = descuento para mayores
+     * descuentos[x] = 1-descuento; [0.0, 1.0]
+     */
+    private Double[] descuentos;
+    
+    /**
+     * El total de boletas que ofrece la feria
+     */
+    private Integer totalBoletas;
 
     /**
      * Fecha de inicio de la feria.
@@ -73,32 +90,39 @@ public class FeriaEntity implements Serializable {
     /**
      * Espacio donde se da la feria.
      */
-    @ManyToOne(targetEntity = EspacioEntity.class)
+    @ManyToOne(targetEntity = EspacioEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "espacio_id")
     private EspacioEntity espacio;
 
     /**
      * Conjunto de artesanos que asistirán a la feria.
      */
-    @ManyToMany
+    @ManyToMany(targetEntity = ArtesanoEntity.class)
     @JoinTable(
       name="ferias_artesanos",
       joinColumns=@JoinColumn(name="feria_id", referencedColumnName="id"),
       inverseJoinColumns=@JoinColumn(name="artesano_id", referencedColumnName="id"))
     private List<ArtesanoEntity> artesanos;
+    
+    @ManyToMany(targetEntity = OrganizadorEntity.class, fetch = FetchType.LAZY)
+    @JoinTable(
+      name="ferias_organizadores",
+      joinColumns=@JoinColumn(name="feria_id", referencedColumnName="id"),
+      inverseJoinColumns=@JoinColumn(name="organizador_id", referencedColumnName="id"))
+    private List<OrganizadorEntity> organizadores;
 
     /**
      * Conjunto de boletas vendidas de la feria.
      */
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "feria",
-            targetEntity = BoletaEntity.class)
+            targetEntity = BoletaEntity.class, fetch = FetchType.LAZY)
     private List<BoletaEntity> boletas;
 
     /**
      * Conjunto de conferencias que se van a realizar en la feria.
      */
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "feria",
-            targetEntity = ConferenciaEntity.class)
+            targetEntity = ConferenciaEntity.class, fetch = FetchType.LAZY)
     private List<ConferenciaEntity> conferencias;
 
     //--------------------------------------------------------------------------
@@ -138,6 +162,41 @@ public class FeriaEntity implements Serializable {
         this.nombre = nombre;
     }
 
+    /**
+     * Devuelve el arreglo de descuentos de la feria.
+     * @return arreglo de descuentos de la feria.
+     */
+    public Double[] getDescuentos() {
+        return descuentos;
+    }
+
+    /**
+     * Cambia el arreglo de descuentos de la feria.
+     * post: Se cambió el arreglo de descuentos de la feria.
+     * @param descuentos nuevo arreglo de descuentos de la feria.
+     */
+    public void setDescuentos(Double[] descuentos) {
+        this.descuentos = descuentos;
+    }
+
+    /**
+     * Devuelve el total de boletas que ofrece la feria.
+     * @return total de boletas que ofrece la feria.
+     */
+    public Integer getTotalBoletas() {
+        return totalBoletas;
+    }
+
+    /**
+     * Cambia el total de boletas que ofrece la feria.
+     * post: Se cambió el total de boletas que ofrece la feria.
+     * @param totalBoletas nuevo total de boletas que ofrece la feria.
+     */
+    public void setTotalBoletas(Integer totalBoletas) {
+        if (totalBoletas >= boletas.size())
+            this.totalBoletas = totalBoletas;
+    }
+    
     /**
      * Devuelve la fecha de inicio de la feria.
      * @return fecha de inicio de la feria.
@@ -208,6 +267,23 @@ public class FeriaEntity implements Serializable {
         this.artesanos = artesanos;
     }
 
+    /**
+     * Devuelve el conjunto de organizadores que organizan la feria.
+     * @return conjunto de organizadores que organizan la feria.
+     */
+    public List<OrganizadorEntity> getOrganizadores() {
+        return organizadores;
+    }
+
+    /**
+     * Cambia el conjunto de organizadores que organizan la feria.
+     * post: Se cambió el conjunto de organizadores que organizan la feria.
+     * @param organizadores nuevo conjunto de organizadores que organizan la feria.
+     */
+    public void setOrganizadores(List<OrganizadorEntity> organizadores) {
+        this.organizadores = organizadores;
+    }
+    
     /**
      * Devuelve el conjunto de boletas vendidas de la feria.
      * @return conjunto de boletas vendidas de la feria.

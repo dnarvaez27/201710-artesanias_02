@@ -26,6 +26,7 @@ package co.edu.uniandes.csw.artesanias.resources;
 import co.edu.uniandes.csw.artesanias.dtos.BoletaDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.BoletaLogic;
 import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
@@ -46,56 +47,56 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Miller
  */
-
-//TODO segun el diagrama de clases, las boletas son dependientes de la feria. 
-//TODO El PATH debe ser /ferias/:idFeria/boletas y cada método debe recibir un @PathParam( "idFeria" ) Long idFeria
-// TODO cada método debe validar que la feria con el idFeria exista o disparar WebApplicationException 404
-
-@Path("/boletas")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class BoletaResource {
+    
+    //--------------------------------------------------------------------------
+    // Atributos
+    //--------------------------------------------------------------------------
     
     @Inject private BoletaLogic logic;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("limit") private Integer maxRecords;
     
+    //--------------------------------------------------------------------------
+    // Métodos
+    //--------------------------------------------------------------------------
+    
     @POST
-    public BoletaDTO createBoleta(BoletaEntity entity) {
+    public BoletaDTO createBoleta(BoletaEntity entity) throws BusinessLogicException {
         return new BoletaDTO(logic.createBoleta(entity));
     }
     
     @GET
-    public List<BoletaDTO> getBoletas() {
-        return listEntity2DTO(logic.getBoletas());
+    public List<BoletaDTO> getBoletas(@PathParam("idFeria") Long idFeria) throws BusinessLogicException {
+        return listEntity2DTO(logic.getBoletas(idFeria));
     }
     
     @GET
     @Path("{id: \\d+}")
-    public BoletaDTO getBoleta(@PathParam("id") Long id ) {
-        // TODO si la boleta no existe debe disparar WebApplicationException 404
-		
-        return new BoletaDTO(logic.getBoleta(id));
+    public BoletaDTO getBoleta(@PathParam("idFeria") Long idFeria, @PathParam("id") Long id ) throws BusinessLogicException {
+        return new BoletaDTO(logic.getBoleta(idFeria, id));
     }
     
     @PUT
     @Path("{id: \\d+}")
-    public BoletaDTO updateBoleta(@PathParam("id") Long id, BoletaDTO dto) {
-        // TODO si la boleta no existe debe disparar WebApplicationException 404
-	
+    public BoletaDTO updateBoleta(@PathParam("idFeria") Long idFeria, @PathParam("id") Long id, BoletaDTO dto) throws BusinessLogicException {
         BoletaEntity entity = dto.toEntity();
         entity.setId(id);
-        return new BoletaDTO(logic.updateBoleta(entity));
+        return new BoletaDTO(logic.updateBoleta(idFeria, entity));
     }
     
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteBoleta(@PathParam("id") Long id) {
-        // TODO si la boleta no existe debe disparar WebApplicationException 404
-	
-        logic.deleteBoleta(id);
+    public void deleteBoleta(@PathParam("idFeria") Long idFeria, @PathParam("id") Long id) throws BusinessLogicException {
+        logic.deleteBoleta(idFeria, id);
     }
+    
+    //--------------------------------------------------------------------------
+    // Métodos Auxiliares
+    //--------------------------------------------------------------------------
     
     private List<BoletaDTO> listEntity2DTO(List<BoletaEntity> entities) {
         List<BoletaDTO> rta = new LinkedList<BoletaDTO>();

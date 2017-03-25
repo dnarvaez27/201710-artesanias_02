@@ -24,17 +24,19 @@
 package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.persistence.BoletaPersistence;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
 /**
  * Logica de la entidad boleta.
  * @author Miller
+ * Reglas de negocio:
+ * 
  */
-
-// TODO debe haber alguna regla de negocio que verifique que hay boletas disponibles.
 @Stateless
 public class BoletaLogic {
     
@@ -42,29 +44,123 @@ public class BoletaLogic {
     // Atributos
     //--------------------------------------------------------------------------
     
+    /**
+     * Persistencia de BoletaEntity
+     */
     @Inject private BoletaPersistence persistence;
     
     //--------------------------------------------------------------------------
     // Métodos
     //--------------------------------------------------------------------------
     
-    public BoletaEntity getBoleta(Long id) {
-        return persistence.find(id);
+    public BoletaEntity getBoleta(Long idFeria, Long id) throws BusinessLogicException {
+        checkId(idFeria);
+        checkId(id);
+        BoletaEntity e = persistence.find(idFeria, id);
+        if (e == null)
+            throw new BusinessLogicException("No existe la boleta buscada", Response.Status.NOT_FOUND);
+        return persistence.find(idFeria, id);
     }
     
-    public List<BoletaEntity> getBoletas() {
-        return persistence.findAll();
+    public List<BoletaEntity> getBoletas(Long idFeria) throws BusinessLogicException {
+        checkId(idFeria);
+        return persistence.findAll(idFeria);
     }
     
-    public BoletaEntity createBoleta(BoletaEntity entity) {
+    /**
+     * 
+     * @param entity
+     * @return
+     * @throws BusinessLogicException 
+     */
+    public BoletaEntity createBoleta(BoletaEntity entity) throws BusinessLogicException {
+        checkData(entity);
+        if (entity.getFeria().getTotalBoletas() < persistence.count(entity.getFeria().getId()))
+            throw new BusinessLogicException("No hay boletas disponibles", Response.Status.BAD_REQUEST);
         return persistence.create(entity);
     }
     
-    public BoletaEntity updateBoleta(BoletaEntity entity) {
+    /**
+     * Actualiza los valores de la boleta con el id dado y que pertenece a la feria dada.
+     * @param idFeria id de la feria que contiene a la boleta
+     * @param entity entidad con la información para actualizar la boleta.
+     * @return la entidad de la boleta actualizada.
+     * @throws BusinessLogicException si el id de la feria no es válido o los datos que
+     * se desean actualizar no son válidos.
+     */
+    public BoletaEntity updateBoleta(Long idFeria, BoletaEntity entity) throws BusinessLogicException {
+        checkId(idFeria);
+        BoletaEntity e = persistence.find(idFeria, entity.getId());
+        if (e == null)
+            throw new BusinessLogicException("No existe la boleta buscada", Response.Status.NOT_FOUND);
+        if (entity.getFeria() == null)
+            entity.setFeria(e.getFeria());
+        if (e.getInicio() == null)
+            entity.setInicio(e.getInicio());
+        if (e.getFin() == null)
+            entity.setFin(e.getFin());
+        if (e.getTipo() == null)
+            entity.setTipo(e.getTipo());
+        if (e.getPrecio() == null)
+            entity.setPrecio(e.getPrecio());
+        checkData(entity);
         return persistence.update(entity);
     }
     
-    public void deleteBoleta(Long id) {
-        persistence.delete(id);
+    /**
+     * Elimina la boleta con el id dado que pertenece a la feria con el id dado.
+     * @param idFeria id de la feria que contiene la boleta.
+     * @param id de la boleta.
+     * @throws BusinessLogicException si los id's no son válidos o la boleta no existe.
+     */
+    public void deleteBoleta(Long idFeria, Long id) throws BusinessLogicException {
+        checkId(idFeria);
+        checkId(id);
+        if (persistence.find(idFeria, id) == null)
+            throw new BusinessLogicException("No existe la boleta buscada", Response.Status.NOT_FOUND);
+        persistence.delete(idFeria, id);
+    }
+    
+    //--------------------------------------------------------------------------
+    // Métodos Auxiliares
+    //--------------------------------------------------------------------------
+    
+    /**
+     * Revisa la validez del id dado
+     * @param id a ser revisado
+     * @throws BusinessLogicException si el id es nulo o menor a 0.
+     */
+    private void checkId(Long id) throws BusinessLogicException {
+        if (id == null || id < 0)
+            throw new BusinessLogicException("El id ingresado no es válido.", Response.Status.BAD_REQUEST);
+    }
+    
+    /**
+     * Revisa las reglas de negocio.
+     * @param e entidad a ser revisada.
+     * @throws BusinessLogicException si no se cumple alguna regla de negocio.
+     */
+    private void checkData(BoletaEntity e) throws BusinessLogicException {
+        checkId(e.getId());
+        if (e.getFeria() == null)
+            throw new BusinessLogicException("La boleta debe pertenecer a una feria.", Response.Status.BAD_REQUEST);
+        if (e.getInicio() == null)
+            throw new BusinessLogicException("La boleta debe tener una fecha de inicio.", Response.Status.BAD_REQUEST);
+        if (e.getFin() == null)
+            throw new BusinessLogicException("La boleta debe tener una fecha de fin.", Response.Status.BAD_REQUEST);
+        if (e.getInicio().compareTo(e.getFin()) >= 0)
+            throw new BusinessLogicException("La fecha de inicio debe ser estrictamente menor a la de fin.", Response.Status.BAD_REQUEST);
+        if (e.getFeria().getInicio().compareTo(e.getInicio()) > 0)
+            throw new BusinessLogicException("La fecha de inicio debe ser mayor a la fecha de inicio de la feria", Response.Status.BAD_REQUEST);
+        if (e.getFeria().getFin().compareTo(e.getFin()) < 0)
+            throw new BusinessLogicException("La fecha de fin debe ser menor a la de fin de la feria.", Response.Status.BAD_REQUEST);
+        if (e.getTipo() == null)
+            throw new BusinessLogicException("La boleta debe tener un tipo.", Response.Status.BAD_REQUEST);
+        if (e.getTipo() >= 0 && e.getTipo() <= 2)
+            throw new BusinessLogicException("El tipo de boleta debe estar entre 0 y 2", Response.Status.BAD_REQUEST);
+        if (e.getPrecio() == null)
+            throw new BusinessLogicException("La boleta debe tener un precio", Response.Status.BAD_REQUEST);
+        if (e.getPrecio() < 0)
+            throw new BusinessLogicException("El precio de la boleta no puede ser negativo", Response.Status.BAD_REQUEST);
     }
 }

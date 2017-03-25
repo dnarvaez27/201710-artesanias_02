@@ -48,17 +48,17 @@ public class BoletaEntity implements Serializable {
     /**
      * Descuento para menores de edad.
      */
-    public final static double MENORES = 0.7;
+    public final static int MENORES = 0;
 
     /**
      * Precio regular de la boleta.
      */
-    public final static double REGULAR = 1.0;
+    public final static int REGULAR = 1;
     
     /**
      * Descuento para mayores de 65 años.
      */
-    public final static double MAYORES = 0.8;
+    public final static int MAYORES = 2;
 
         
     //--------------------------------------------------------------------------
@@ -76,7 +76,7 @@ public class BoletaEntity implements Serializable {
     /**
      * Tipo de boleta.
      */
-    private Double tipo;
+    private Integer tipo;
 
     /**
      * Fecha de inicio de la boleta.
@@ -126,7 +126,7 @@ public class BoletaEntity implements Serializable {
      * Devuelve el tipo de la boleta.
      * @return tipo de la boleta.
      */
-    public Double getTipo() {
+    public Integer getTipo() {
         return tipo;
     }
 
@@ -135,9 +135,8 @@ public class BoletaEntity implements Serializable {
      * post: Se cambio el tipo de la boleta.
      * @param tipo nuevo tipo de la boleta.
      */
-    public void setTipo(Double tipo) {
-        if (tipo == MENORES || tipo == REGULAR || tipo == MAYORES)
-            this.tipo = tipo;
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
     }
 
     /**
@@ -179,7 +178,7 @@ public class BoletaEntity implements Serializable {
      * @return precio de la boleta.
      */
     public Double getPrecio() {
-        return precio*tipo;
+        return precio*feria.getDescuentos()[tipo];
     }
 
     /**
