@@ -24,7 +24,7 @@ public class EspectadorEntity extends UsuarioEntity implements Serializable
 	/**
 	 * Boletas que el Espectador ha comprado
 	 */
-	@OneToMany( targetEntity = BoletaEntity.class, fetch = FetchType.LAZY )
+	@OneToMany( targetEntity = BoletaEntity.class, mappedBy = "espectador", fetch = FetchType.LAZY )
 	private List<BoletaEntity> boletas;
 	
 	/**

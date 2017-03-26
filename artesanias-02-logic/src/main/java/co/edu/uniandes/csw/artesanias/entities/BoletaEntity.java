@@ -96,10 +96,16 @@ public class BoletaEntity implements Serializable {
     private Double precio;
     
     /**
-     * Feria de la boleta
+     * Feria de la boleta.
      */
     @ManyToOne( targetEntity = FeriaEntity.class, fetch = FetchType.LAZY )
     private FeriaEntity feria;
+    
+    /**
+     * Dueño de la boleta.
+     */
+    @ManyToOne( targetEntity = EspectadorEntity.class, fetch = FetchType.LAZY)
+    private EspectadorEntity espectador;
         
     //--------------------------------------------------------------------------
     // Métodos
@@ -205,6 +211,23 @@ public class BoletaEntity implements Serializable {
      */
     public void setFeria(FeriaEntity feria) {
         this.feria = feria;
+    }
+
+    /**
+     * Devuelve el dueño de la boleta.
+     * @return dueño de la boleta.
+     */
+    public EspectadorEntity getEspectador() {
+        return espectador;
+    }
+
+    /**
+     * Cambia la dueño de la boleta.
+     * post: Se cambio el dueño de la boleta.
+     * @param espectador nuevo dueño de la boleta.
+     */
+    public void setEspectador(EspectadorEntity espectador) {
+        this.espectador = espectador;
     }
     
     //--------------------------------------------------------------------------
