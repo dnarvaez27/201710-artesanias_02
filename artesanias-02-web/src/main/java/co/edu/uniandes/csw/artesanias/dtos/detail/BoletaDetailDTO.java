@@ -24,18 +24,40 @@
 package co.edu.uniandes.csw.artesanias.dtos.detail;
 
 import co.edu.uniandes.csw.artesanias.dtos.BoletaDTO;
+import co.edu.uniandes.csw.artesanias.dtos.FeriaDTO;
 import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Miller
  */
+@XmlRootElement
 public class BoletaDetailDTO extends BoletaDTO {
+    
+    private FeriaDTO feria;
 
     public BoletaDetailDTO() {super();}
 
-    public BoletaDetailDTO(BoletaEntity entity) {super(entity);}
+    public BoletaDetailDTO(BoletaEntity entity) {
+        super(entity);
+        if (entity == null)
+            return;
+        this.feria = new FeriaDTO(entity.getFeria());
+    }
+
+    public FeriaDTO getFeria() {
+        return feria;
+    }
+
+    public void setFeria(FeriaDTO feria) {
+        this.feria = feria;
+    }
     
-    public BoletaEntity toEntity() {return super.toEntity();}
+    public BoletaEntity toEntity() {
+        BoletaEntity entity = super.toEntity();
+        entity.setFeria(this.feria.toEntity());
+        return entity;
+    }
 
 }

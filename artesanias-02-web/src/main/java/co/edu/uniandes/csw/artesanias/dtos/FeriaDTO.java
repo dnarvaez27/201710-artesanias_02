@@ -48,6 +48,21 @@ public class FeriaDTO implements Serializable {
      * Nombre de la feria.
      */
     private String nombre;
+    
+    
+    /**
+     * Descuentos que ofrece la feria.
+     * descuentos[0] = descuento para menores
+     * descuentos[1] = descuento regular
+     * descuentos[2] = descuento para mayores
+     * descuentos[x] = 1-descuento; [0.0, 1.0]
+     */
+    private Double[] descuentos;
+    
+    /**
+     * El total de boletas que ofrece la feria
+     */
+    private Integer totalBoletas;
 
     /**
      * Fecha de inicio de la feria.
@@ -74,6 +89,8 @@ public class FeriaDTO implements Serializable {
         if (entity == null) return;
         this.id = entity.getId();
         this.nombre = entity.getNombre();
+        this.totalBoletas = entity.getTotalBoletas();
+        this.descuentos = entity.getDescuentos();
         this.inicio = entity.getInicio();
         this.fin = entity.getFin();
     }
@@ -113,6 +130,40 @@ public class FeriaDTO implements Serializable {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    
+    /**
+     * Devuelve el arreglo de descuentos de la feria.
+     * @return arreglo de descuentos de la feria.
+     */
+    public Double[] getDescuentos() {
+        return descuentos;
+    }
+
+    /**
+     * Cambia el arreglo de descuentos de la feria.
+     * post: Se cambió el arreglo de descuentos de la feria.
+     * @param descuentos nuevo arreglo de descuentos de la feria.
+     */
+    public void setDescuentos(Double[] descuentos) {
+        this.descuentos = descuentos;
+    }
+
+    /**
+     * Devuelve el total de boletas que ofrece la feria.
+     * @return total de boletas que ofrece la feria.
+     */
+    public Integer getTotalBoletas() {
+        return totalBoletas;
+    }
+
+    /**
+     * Cambia el total de boletas que ofrece la feria.
+     * post: Se cambió el total de boletas que ofrece la feria.
+     * @param totalBoletas nuevo total de boletas que ofrece la feria.
+     */
+    public void setTotalBoletas(Integer totalBoletas) {
+        this.totalBoletas = totalBoletas;
     }
 
     /**
@@ -161,6 +212,8 @@ public class FeriaDTO implements Serializable {
         FeriaEntity entity = new FeriaEntity();
         entity.setId(this.id);
         entity.setNombre(this.nombre);
+        entity.setTotalBoletas(this.totalBoletas);
+        entity.setDescuentos(this.descuentos);
         entity.setInicio(this.inicio);
         entity.setFin(this.fin);
         return entity;

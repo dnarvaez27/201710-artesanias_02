@@ -14,6 +14,7 @@ import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -107,7 +108,7 @@ public class OrganizadorResource
 	@Path( "{organizadorId: \\d+}/ferias" )
 	public List<FeriaDTO> getFeriaResource( @PathParam( "id" ) Long idOrganizador)
 	{
-             List<FeriaEntity>list1 = logicFeria.getFeriasFromOrganizador();
+            List<FeriaEntity>list1 = new LinkedList<>();//logicFeria.getFeriasFromOrganizador();
             
             List<FeriaDTO> list = new ArrayList<>( );
 		for( FeriaEntity entity : list1 )

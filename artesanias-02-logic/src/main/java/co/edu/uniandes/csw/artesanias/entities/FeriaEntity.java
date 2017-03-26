@@ -68,23 +68,27 @@ public class FeriaEntity implements Serializable {
      * descuentos[2] = descuento para mayores
      * descuentos[x] = 1-descuento; [0.0, 1.0]
      */
+    @Column(nullable = false)
     private Double[] descuentos;
     
     /**
      * El total de boletas que ofrece la feria
      */
+    @Column(nullable = false)
     private Integer totalBoletas;
 
     /**
      * Fecha de inicio de la feria.
      */
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(nullable = false)
     private Date inicio;
 
     /**
      * Fecha de fin de la feria.
      */
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(nullable = false)
     private Date fin;
 
     /**
@@ -193,8 +197,7 @@ public class FeriaEntity implements Serializable {
      * @param totalBoletas nuevo total de boletas que ofrece la feria.
      */
     public void setTotalBoletas(Integer totalBoletas) {
-        if (totalBoletas >= boletas.size())
-            this.totalBoletas = totalBoletas;
+        this.totalBoletas = totalBoletas;
     }
     
     /**

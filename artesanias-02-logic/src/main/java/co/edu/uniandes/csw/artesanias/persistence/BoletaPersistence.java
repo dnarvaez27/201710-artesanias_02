@@ -63,7 +63,9 @@ public class BoletaPersistence {
                 , BoletaEntity.class);
         q.setParameter("idF", idFeria);
         q.setParameter("id", id);
-        return q.getResultList().get(0);
+        List<BoletaEntity> r = q.getResultList();
+        System.out.println(r.size());
+        return r.size() == 0 ? null : r.get(0);
     }
     
     /**
@@ -117,6 +119,7 @@ public class BoletaPersistence {
                 "select count(0) from BoletaEntity u where u.feria.id = :idF group by u.feria.id"
                 , Integer.class);
         q.setParameter("idF", idFeria);
-        return q.getResultList().get(0);
+        List<Integer> r = q.getResultList();
+        return r.size() == 0 ? 0 : r.get(0);
     }
 }

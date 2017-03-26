@@ -26,6 +26,7 @@ package co.edu.uniandes.csw.artesanias.resources;
 import co.edu.uniandes.csw.artesanias.dtos.FeriaDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.FeriaLogic;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
@@ -46,9 +47,6 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Miller
  */
-
-// TODO Segun organizadorResource , ferias es un subrecurso cuyo path es @Path( "{organizadorId: \\d+}/ferias" ) o se define como un subrecurso de la clase organizador.
-// TODO Cada método debde recibir como PathParam a organizadorId
 @Path("/ferias")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -60,28 +58,24 @@ public class FeriaResource {
     @QueryParam("limit") private Integer maxRecords;
     
     @POST
-    public FeriaDTO createFeria(FeriaEntity entity) {
+    public FeriaDTO createFeria(FeriaEntity entity) throws BusinessLogicException {
         return new FeriaDTO(feriaLogic.createFeria(entity));
     }
-    //TODO debe traer las ferias no los artesanos. Por qué el método se llama getArtesanos? 
+    
     @GET
-    public List<FeriaDTO> getArtesanos() {
+    public List<FeriaDTO> getFerias() {
         return listEntity2DTO(feriaLogic.getFerias());
     }
     
     @GET
     @Path("{id: \\d+}")
-    //TODO debe traer la feria no el artesano. Por qué el método se llama getArtesano? 
-    public FeriaDTO getArtesano(@PathParam("id") Long id ) {
-        //TODO si la feria id no existe debe disparar WebApplicationException con 404
+    public FeriaDTO getFeria(@PathParam("id") Long id) throws BusinessLogicException {
         return new FeriaDTO(feriaLogic.getFeria(id));
     }
     
     @PUT
     @Path("{id: \\d+}")
-     //TODO debe actualizar la feria no el artesano. Por qué el método se llama updateArtesano? 
-    public FeriaDTO updateArtesano(@PathParam("id") Long id, FeriaDTO dto) {
-        //TODO si la feria id no existe debe disparar WebApplicationException con 404
+    public FeriaDTO updateFeria(@PathParam("id") Long id, FeriaDTO dto) throws BusinessLogicException {
         FeriaEntity entity = dto.toEntity();
         entity.setId(id);
         return new FeriaDTO(feriaLogic.updateFeria(entity));
@@ -89,9 +83,13 @@ public class FeriaResource {
     
     @DELETE
     @Path("{id: \\d+}")
-     //TODO debe borrar la feria no el artesano. Por qué el método se llama deleteArtesano? 
-    public void deleteArtesano(@PathParam( "id" ) Long id ) {
+    public void deleteFeria(@PathParam( "id" ) Long id) throws BusinessLogicException {
         feriaLogic.deleteFeria(id);
+    }
+    
+    @Path( "{idFeria: \\d+}/boletas" )
+    public Class<BoletaResource> getBoletaResource() {
+        return BoletaResource.class;
     }
     
     private List<FeriaDTO> listEntity2DTO(List<FeriaEntity> entities) {
