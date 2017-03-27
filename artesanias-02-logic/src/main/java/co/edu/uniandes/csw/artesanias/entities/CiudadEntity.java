@@ -24,20 +24,26 @@
 package co.edu.uniandes.csw.artesanias.entities;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Entidad de las ciudades.
  * @author ma.trujillo10
  */
 @Entity
+@Table(name="ciudad", uniqueConstraints={
+    @UniqueConstraint(columnNames = {"nombre", "pais"})})
 public class CiudadEntity implements Serializable {
     
     //--------------------------------------------------------------------------
@@ -55,11 +61,13 @@ public class CiudadEntity implements Serializable {
     /**
      * Nombre de la ciudad.
      */
+    @Column(nullable=false)
     private String nombre;
 
     /**
      * Nombre del pais al que pertenece la ciudad.
      */
+    @Column(nullable=false)
     private String pais;
 
     /**
@@ -70,7 +78,7 @@ public class CiudadEntity implements Serializable {
      */
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudad",
             targetEntity = EspacioEntity.class)
-    private List<EspacioEntity> espacios;
+    private List<EspacioEntity> espacios = new LinkedList<EspacioEntity>();
 
     /**
      * Conjunto de artesanos que se originan en la ciudad.
@@ -78,7 +86,7 @@ public class CiudadEntity implements Serializable {
      * ArtesanoEntity.
      */
     @OneToMany(mappedBy = "ciudad", targetEntity = ArtesanoEntity.class)
-    private List<ArtesanoEntity> artesanos;
+    private List<ArtesanoEntity> artesanos = new LinkedList<ArtesanoEntity>();
 
     //--------------------------------------------------------------------------
     // Métodos

@@ -25,6 +25,7 @@ package co.edu.uniandes.csw.artesanias.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -35,19 +36,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Entidad de las ferias.
  * @author ma.trujillo10
  */
 @Entity
+@Table(name="feria", uniqueConstraints={
+    @UniqueConstraint(columnNames = {"inicio", "fin", "espacio"})})
 public class FeriaEntity implements Serializable {
-
+    
     /**
      * Id de la feria.
      */
@@ -102,18 +106,13 @@ public class FeriaEntity implements Serializable {
      * Conjunto de artesanos que asistirán a la feria.
      */
     @ManyToMany(targetEntity = ArtesanoEntity.class)
-    @JoinTable(
-      name="ferias_artesanos",
-      joinColumns=@JoinColumn(name="feria_id", referencedColumnName="id"),
-      inverseJoinColumns=@JoinColumn(name="artesano_id", referencedColumnName="id"))
-    private List<ArtesanoEntity> artesanos;
+    private List<ArtesanoEntity> artesanos = new LinkedList<ArtesanoEntity>();
     
+    /**
+     * Conjunto de organizadores de la feria.
+     */
     @ManyToMany(targetEntity = OrganizadorEntity.class, fetch = FetchType.LAZY)
-    @JoinTable(
-      name="ferias_organizadores",
-      joinColumns=@JoinColumn(name="feria_id", referencedColumnName="id"),
-      inverseJoinColumns=@JoinColumn(name="organizador_id", referencedColumnName="id"))
-    private List<OrganizadorEntity> organizadores;
+    private List<OrganizadorEntity> organizadores = new LinkedList<OrganizadorEntity>();
 
     /**
      * Conjunto de boletas vendidas de la feria.

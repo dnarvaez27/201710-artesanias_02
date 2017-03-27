@@ -26,12 +26,14 @@ package co.edu.uniandes.csw.artesanias.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
@@ -39,6 +41,7 @@ import javax.persistence.Temporal;
  * @author ma.trujillo10
  */
 @Entity
+@Table(name = "boleta")
 public class BoletaEntity implements Serializable {
     
     //--------------------------------------------------------------------------
@@ -76,35 +79,40 @@ public class BoletaEntity implements Serializable {
     /**
      * Tipo de boleta.
      */
+    @Column(nullable = false)
     private Integer tipo;
 
     /**
      * Fecha de inicio de la boleta.
      */
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(nullable = false)
     private Date inicio;
 
     /**
      * Fecha de fin de la boleta.
      */
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(nullable = false)
     private Date fin;
 
     /**
      * Fecha de la boleta.
      */
+    @Column(nullable = false)
     private Double precio;
     
-    /**
+    /**4
      * Feria de la boleta.
      */
-    @ManyToOne( targetEntity = FeriaEntity.class, fetch = FetchType.LAZY )
+    @ManyToOne(targetEntity = FeriaEntity.class, fetch = FetchType.LAZY )
+    @Column(nullable = false)
     private FeriaEntity feria;
     
     /**
      * Dueño de la boleta.
      */
-    @ManyToOne( targetEntity = EspectadorEntity.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = EspectadorEntity.class, fetch = FetchType.LAZY)
     private EspectadorEntity espectador;
         
     //--------------------------------------------------------------------------
@@ -184,7 +192,7 @@ public class BoletaEntity implements Serializable {
      * @return precio de la boleta.
      */
     public Double getPrecio() {
-        return precio*feria.getDescuentos()[tipo];
+        return precio;
     }
 
     /**
