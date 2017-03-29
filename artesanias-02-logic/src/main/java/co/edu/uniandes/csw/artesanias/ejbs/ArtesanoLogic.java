@@ -28,7 +28,7 @@ public class ArtesanoLogic
 	 */
 	public ArtesanoEntity createArtesano( ArtesanoEntity entity ) throws BusinessLogicException
 	{
-		checkInfo( entity );
+		checkNNValues( entity );
 		return persistence.create( entity );
 	}
 	
@@ -67,12 +67,23 @@ public class ArtesanoLogic
 	 */
 	public ArtesanoEntity updateArtesano( ArtesanoEntity entity ) throws BusinessLogicException
 	{
-		checkInfo( entity );
+		ArtesanoEntity info = getArtesano( entity.getId( ) );
+		boolean nombre = entity.getNombre( ) == null || entity.getNombre( ).isEmpty( );
+		boolean telefono = entity.getTelefono( ) == null || entity.getTelefono( ).isEmpty( );
+		boolean ciudad = entity.getCiudad( ) == null;
+		boolean ident = entity.getIdentificacion( ) == null || entity.getIdentificacion( )
+		                                                             .isEmpty( );
+		
+		entity.setNombre( nombre ? info.getNombre( ) : entity.getNombre( ) );
+		entity.setIdentificacion( ident ? info.getIdentificacion( ) : entity.getIdentificacion( ) );
+		entity.setTelefono( telefono ? info.getTelefono( ) : entity.getTelefono( ) );
+		entity.setCiudad( ciudad ? info.agetCiudad( ) : entity.getCiudad( ) );
+		checkNNValues( entity );
 		return persistence.update( entity );
 	}
 	
 	/**
-	 * Deletes an instance of Artesano from the Data Base.
+	 * Deletes an instance o f Artesano from the Data Base.
 	 *
 	 * @param id Identifier of the instance to remove.
 	 */
@@ -81,7 +92,7 @@ public class ArtesanoLogic
 		persistence.delete( id );
 	}
 	
-	private void checkInfo( ArtesanoEntity entity ) throws BusinessLogicException
+	private void checkNNValues( ArtesanoEntity entity ) throws BusinessLogicException
 	{
 		boolean nombre = entity.getNombre( ) == null || entity.getNombre( ).isEmpty( );
 		boolean ident = entity.getIdentificacion( ) == null || entity.getIdentificacion( )
