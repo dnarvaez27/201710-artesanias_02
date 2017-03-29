@@ -47,7 +47,7 @@ public class BoletaDTO {
     /**
      * Tipo de boleta.
      */
-    private Double tipo;
+    private Integer tipo;
 
     /**
      * Fecha de inicio de la boleta.
@@ -107,7 +107,7 @@ public class BoletaDTO {
      * Devuelve el tipo de la boleta.
      * @return tipo de la boleta.
      */
-    public Double getTipo() {
+    public Integer getTipo() {
         return tipo;
     }
 
@@ -116,7 +116,7 @@ public class BoletaDTO {
      * post: Se cambio el tipo de la boleta.
      * @param tipo nuevo tipo de la boleta.
      */
-    public void setTipo(Double tipo) {
+    public void setTipo(Integer tipo) {
         this.tipo = tipo;
     }
 

@@ -33,51 +33,93 @@ import java.util.List;
 @Entity
 public class StandEntity implements Serializable
 {
+        /**
+         * Id único de cada Stand
+         */
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;
 	
+        /**
+         * número del stand
+         */
 	private Integer numero;
 	
+        /**
+         * Dimensiones del stand
+         */
 	private String dimensiones;
 	
+        /**
+         * Descripción del stand
+         */
 	private String descripcion;
 	
+        /**
+         * Precio del stand
+         */
 	private Double precio;
 	
+        /**
+         * Pabellón al que pertenece el stand
+         */
 	@ManyToOne( targetEntity = PabellonEntity.class )
 	private PabellonEntity pabellon;
 	
+        /**
+         * Lista de artesanos en el stand
+         */
 	@OneToMany( fetch = FetchType.LAZY, targetEntity = ArtesanoEntity.class, mappedBy = "stand" )
 	private List<ArtesanoEntity> artesanos;
 	
+        /**
+         * Define el id del stand
+         * @param id 
+         */
 	public void setId( Long id )
 	{
 		this.id = id;
 	}
 	
+        /**
+         * Define el número del stand
+         * @param numero 
+         */
 	public void setNumero( Integer numero )
 	{
 		this.numero = numero;
 	}
 	
+        /**
+         * Define las dimensiones del stand
+         * @param pDimensiones 
+         */
 	public void setDimensiones( String pDimensiones )
 	{
 		this.dimensiones = pDimensiones;
 	}
 	
+        /**
+         * Define la descripción del stand
+         * @param pDescripcion 
+         */
 	public void setDescripcion( String pDescripcion )
 	{
 		this.descripcion = pDescripcion;
 	}
 	
+        /**
+         * Define el precio del stand
+         * @param pPrecio 
+         */
 	public void setPrecio( Double pPrecio )
 	{
 		this.precio = pPrecio;
 	}
 	
 	/**
-	 * @return the id
+         * Retorna el id del stand
+	 * @return  id 
 	 */
 	public Long getId( )
 	{
@@ -85,7 +127,8 @@ public class StandEntity implements Serializable
 	}
 	
 	/**
-	 * @return the numero
+         * Retorna el número del stand
+	 * @return numero 
 	 */
 	public Integer getNumero( )
 	{
@@ -93,7 +136,8 @@ public class StandEntity implements Serializable
 	}
 	
 	/**
-	 * @return the dimensiones
+         * Retorna las dimensiones del stand
+	 * @return dimensiones
 	 */
 	public String getDimensiones( )
 	{
@@ -101,7 +145,8 @@ public class StandEntity implements Serializable
 	}
 	
 	/**
-	 * @return the descripcion
+         * Retorna la descripción del stand
+	 * @return descripcion
 	 */
 	public String getDescripcion( )
 	{
@@ -109,27 +154,26 @@ public class StandEntity implements Serializable
 	}
 	
 	/**
-	 * @return the precio
+         * Retorn el precio del stand
+	 * @return precio
 	 */
 	public Double getPrecio( )
 	{
 		return precio;
 	}
 	
-	/**
-	 * Retrieves the pabellon of the StandEntity
-	 *
-	 * @return The pabellon of the StandEntity
-	 */
+        /**
+         * Retorna el pabellón al que pertenece el stand
+	 * @return pabellon
+         */
 	public PabellonEntity getPabellon( )
 	{
 		return pabellon;
 	}
 	
 	/**
-	 * Updates the pabellon of the StandEntity by the one given by parameter
-	 *
-	 * @param pabellon The new pabellon of the StandEntity
+	 * Define el pabellón al que pertenece el stand
+	 * @param pabellon 
 	 */
 	public void setPabellon( PabellonEntity pabellon )
 	{
@@ -137,9 +181,8 @@ public class StandEntity implements Serializable
 	}
 	
 	/**
-	 * Retrieves the artesano of the StandEntity
-	 *
-	 * @return The artesano of the StandEntity
+	 * Retorna una lista de ArtesanoEntity
+	 * @return artesanos
 	 */
 	public List<ArtesanoEntity> getArtesanos( )
 	{

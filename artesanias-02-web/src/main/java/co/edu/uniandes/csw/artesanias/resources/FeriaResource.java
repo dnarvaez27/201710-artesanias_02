@@ -26,6 +26,7 @@ package co.edu.uniandes.csw.artesanias.resources;
 import co.edu.uniandes.csw.artesanias.dtos.FeriaDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.FeriaLogic;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
@@ -57,24 +58,24 @@ public class FeriaResource {
     @QueryParam("limit") private Integer maxRecords;
     
     @POST
-    public FeriaDTO createFeria(FeriaEntity entity) {
+    public FeriaDTO createFeria(FeriaEntity entity) throws BusinessLogicException {
         return new FeriaDTO(feriaLogic.createFeria(entity));
     }
     
     @GET
-    public List<FeriaDTO> getArtesanos() {
+    public List<FeriaDTO> getFerias() {
         return listEntity2DTO(feriaLogic.getFerias());
     }
     
     @GET
     @Path("{id: \\d+}")
-    public FeriaDTO getArtesano(@PathParam("id") Long id ) {
+    public FeriaDTO getFeria(@PathParam("id") Long id) throws BusinessLogicException {
         return new FeriaDTO(feriaLogic.getFeria(id));
     }
     
     @PUT
     @Path("{id: \\d+}")
-    public FeriaDTO updateArtesano(@PathParam("id") Long id, FeriaDTO dto) {
+    public FeriaDTO updateFeria(@PathParam("id") Long id, FeriaDTO dto) throws BusinessLogicException {
         FeriaEntity entity = dto.toEntity();
         entity.setId(id);
         return new FeriaDTO(feriaLogic.updateFeria(entity));
@@ -82,8 +83,13 @@ public class FeriaResource {
     
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteArtesano(@PathParam( "id" ) Long id ) {
+    public void deleteFeria(@PathParam( "id" ) Long id) throws BusinessLogicException {
         feriaLogic.deleteFeria(id);
+    }
+    
+    @Path( "{idFeria: \\d+}/boletas" )
+    public Class<BoletaResource> getBoletaResource() {
+        return BoletaResource.class;
     }
     
     private List<FeriaDTO> listEntity2DTO(List<FeriaEntity> entities) {
@@ -92,4 +98,11 @@ public class FeriaResource {
             rta.add(new FeriaDTO(entity));
         return rta;
     }
+    
+    //TODO falta GET /ferias/:id/artesanos los artesanos de la feria :id
+    //TODO falta GET /ferias/:id/espacios los artesanos de la feria :id
+    //TODO falta GET /ferias/:id/conferencias las conferencias de la feria :id
+    
+    //TODO verificar los subrecursos conferencia y boleta
+    
 }

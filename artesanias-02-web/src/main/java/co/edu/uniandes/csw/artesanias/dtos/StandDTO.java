@@ -16,21 +16,43 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class StandDTO
 {
+        /**
+         * Id único para el stand
+         */
 	private Long id;
 	
+        /**
+         * Número del stand
+         */
 	private Integer numero;
 	
+        /**
+         * Dimensiones del stand
+         */
 	private String dimensiones;
 	
+        /**
+         * Descripción del stand
+         */
 	private String descripcion;
 	
+        /**
+         * Precio del stand
+         */
 	private Double precio;
 	
+        /**
+         * Constructor vacío
+         */
 	public StandDTO( )
 	{
 		
 	}
 	
+        /**
+         * Construye un stand con base a un StandEntity
+         * @param entity 
+         */
 	public StandDTO( StandEntity entity )
 	{
 		if( entity != null )
@@ -123,6 +145,10 @@ public class StandDTO
 		this.precio = precio;
 	}
 	
+        /**
+         * Convierte el stand actual en un StandEntity
+         * @return entity
+         */
 	public StandEntity toEntity( )
 	{
 		StandEntity entity = new StandEntity( );

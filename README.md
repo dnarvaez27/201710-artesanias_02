@@ -1,16 +1,16 @@
-<img src="https://dl.dropboxusercontent.com/u/109346191/WEB/Artesanias.png" height="250"/>
+<img src="https://github.com/Uniandes-isis2603/artesanias_02/blob/master/Documentacion/Artesanias.png" height="250"/>
 
-#Welcome to Artesanias!
+# Welcome to the artesanias wiki!
 
-###About the Project
+### About the Project
 El Ministerio de la Cultura de Colombia organiza ferias artesanales o de artesanías en distintas ciudades del país y en ciudades alrededor del mundo donde el país tiene embajadas importantes. El Propósito es apoyar a los artesanos nacionales, mostrar la cultura y calidad de las artesanías que se realizan. Estas ferias son una ventana para el comercio y el intercambio de saberes artesanales. Quizás la feria más importante es la que se realiza a fin de año en Bogotá en donde participan artesanos de todas las regiones del país (alrededor de 1500) y también de otros países que se presentan en el pabellón internacional. La feria que se hace en Berlín es muy concurrida. Allí se presentan más o menos 150 artesanos de distintas regiones de Colombia. La organización de una feria artesanal es un proceso complejo y por esta razón el ministerio de Cultura quiere contar con una aplicación que le ayuda en la organización de los ferias y en su ejecución.
 
 ###### Project 
 * [Requerimientos](#requerimientos)
-* [Integrantes] (https://github.com/Uniandes-isis2603/artesanias_02/wiki/Integrantes)
-* [Diagramas] (https://github.com/Uniandes-isis2603/artesanias_02/wiki/Diagramas)
-* [Diseño REST] (https://github.com/Uniandes-isis2603/artesanias_02/wiki/API%20REST)
-* [Diseño Entities] (https://github.com/Uniandes-isis2603/artesanias_02/wiki/Entities)
+* [Integrantes](https://github.com/Uniandes-isis2603/artesanias_02/wiki/Integrantes)
+* [Diagramas](https://github.com/Uniandes-isis2603/artesanias_02/wiki/Diagramas)
+* [Diseño REST](https://github.com/Uniandes-isis2603/artesanias_02/wiki/API%20REST)
+* [Diseño Entities](https://github.com/Uniandes-isis2603/artesanias_02/wiki/Entities)
 
 ### Requerimientos
 * Una feria artesanal tiene un nombre, unas fechas, una ciudad (puede ser en el exterior), el lugar donde se realizará y los artesanos que participarán. El lugar tiene un conjunto de puestos (stands) bien localizados y delimitados. Cada puesto tiene una ubicación, un tamaño, un precio de arriendo por día y una descripción de características como si tiene paredes para colgar obras, tipo de iluminación, etc.

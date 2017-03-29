@@ -38,14 +38,30 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class StandPersistence
 {
+    /**
+     * Entity Manager encargado de la persistencia de Entities
+     */
 	@PersistenceContext( unitName = "artesaniasPU" )
 	protected EntityManager em;
 	
-	public StandEntity find( Long id )
+        /**
+         * Retorna el StandEntity con el id ingresado
+         * @param id
+         * @return StandEntity
+         */
+	public StandEntity find( Long pabellonId, Long id )
 	{
-		return em.find( StandEntity.class, id );
+		TypedQuery<StandEntity> q = em.createQuery( "SELECT R FROM StandEntity R WHERE R.id = :id AND R.pabellon.id = :pabellonId", StandEntity.class );
+		q.setParameter( "id", id );
+		q.setParameter( "pabellonId", pabellonId );
+		List<StandEntity> res = q.getResultList( );
+		return res.size( ) > 0 ? res.get( 0 ) : null;
 	}
 	
+        /**
+         * Retorna una lista con todos los StandEntity
+         * @return stands
+         */
 	public List<StandEntity> findAll( )
 	{
 		TypedQuery<StandEntity> q = em.createQuery( "select u from StandEntity u", StandEntity.class );
@@ -53,6 +69,11 @@ public class StandPersistence
 		return stands;
 	}
 	
+        /**
+         * Retorna una lista con todos los StandEntity en el pabellon
+         * @param pabellonId
+         * @return lista de StandEntity
+         */
 	public List<StandEntity> findAllFromPabellon( Long pabellonId )
 	{
 		TypedQuery<StandEntity> q = em.createQuery( "SELECT S FROM StandEntity S WHERE S.pabellon.id = :pabellonId", StandEntity.class );
@@ -60,17 +81,31 @@ public class StandPersistence
 		return q.getResultList( );
 	}
 	
+        /**
+         * Genera un nuevo StandEntity
+         * @param entity
+         * @return entity
+         */
 	public StandEntity create( StandEntity entity )
 	{
 		em.persist( entity );
 		return entity;
 	}
 	
+        /**
+         * Actualiza el StandEntity ingresado
+         * @param entity
+         * @return StandEntity
+         */
 	public StandEntity update( StandEntity entity )
 	{
 		return em.merge( entity );
 	}
 	
+        /**
+         * Elimina el StandEntity con id ingresado
+         * @param id 
+         */
 	public void delete( Long id )
 	{
 		StandEntity entity = em.find( StandEntity.class, id );

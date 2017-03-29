@@ -22,8 +22,14 @@ import java.util.List;
 @XmlRootElement
 public class PabellonDetailDTO extends PabellonDTO
 {
+        /**
+         * lista de salones en el pabellón
+         */
 	private List<SalonDTO> salones;
 	
+        /**
+         * Lista de stands en el pabellón
+         */
 	private List<StandDTO> stands;
 	
 	public PabellonDetailDTO( )
@@ -31,6 +37,10 @@ public class PabellonDetailDTO extends PabellonDTO
 		super( );
 	}
 	
+        /**
+         * Genera un nuevo pabellón con el PabellonEntity ingresado
+         * @param entity 
+         */
 	public PabellonDetailDTO( PabellonEntity entity )
 	{
 		super( entity );
@@ -50,6 +60,10 @@ public class PabellonDetailDTO extends PabellonDTO
 		}
 	}
 	
+        /**
+         * Convierte el pabellón actual a un Pabellonentity
+         * @return entity
+         */
 	public PabellonEntity toEntity( )
 	{
 		PabellonEntity entity = super.toEntity( );

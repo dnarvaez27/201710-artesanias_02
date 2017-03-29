@@ -5,11 +5,16 @@
  */
 package co.edu.uniandes.csw.artesanias.resources;
 
+import co.edu.uniandes.csw.artesanias.dtos.FeriaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.OrganizadorDTO;
+import co.edu.uniandes.csw.artesanias.ejbs.FeriaLogic;
 import co.edu.uniandes.csw.artesanias.ejbs.OrganizadorLogic;
+import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +33,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author IVAN
  */
+
 @Path( "/organizadores" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
@@ -36,6 +42,8 @@ public class OrganizadorResource
 	@Inject
 	private OrganizadorLogic logic;
 	
+        @Inject
+        private FeriaLogic logicFeria;
 	@Context
 	private HttpServletResponse response;
 	
@@ -59,15 +67,19 @@ public class OrganizadorResource
 	
 	@GET
 	@Path( "{id: \\d+}" )
-	public OrganizadorDTO getOrganizador( @PathParam( "id" ) Long id )
+	public OrganizadorDTO getOrganizador( @PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
+            
+	
 		return new OrganizadorDTO( logic.getOrganizador( id ) );
 	}
 	
 	@PUT
 	@Path( "{id: \\d+}" )
-	public OrganizadorDTO updateOrganizador( @PathParam( "id" ) Long id, OrganizadorDTO dto )
+	public OrganizadorDTO updateOrganizador( @PathParam( "id" ) Long id, OrganizadorDTO dto ) throws BusinessLogicException
 	{
+            
+	
 		OrganizadorEntity entity = dto.toEntity( );
 		entity.setId( id );
 		return new OrganizadorDTO( logic.updateOrganizador( entity ) );
@@ -75,8 +87,10 @@ public class OrganizadorResource
 	
 	@DELETE
 	@Path( "{id: \\d+}" )
-	public void deleteOrganizador( @PathParam( "id" ) Long id )
+	public void deleteOrganizador( @PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
+            
+	
 		logic.deleteOrganizador( id );
 	}
 	
@@ -92,8 +106,19 @@ public class OrganizadorResource
 	}
 	
 	@Path( "{organizadorId: \\d+}/ferias" )
-	public Class<FeriaResource> getFeriaResource( )
+	public List<FeriaDTO> getFeriaResource( @PathParam( "id" ) Long idOrganizador)
 	{
-		return FeriaResource.class;
+            List<FeriaEntity>list1 = new LinkedList<>();//logicFeria.getFeriasFromOrganizador();
+            
+            List<FeriaDTO> list = new ArrayList<>( );
+		for( FeriaEntity entity : list1 )
+		{
+			list.add( new FeriaDTO( entity ) );
+		}
+		
+            
+            return list;
+	
+		
 	}
 }

@@ -35,17 +35,32 @@ import javax.persistence.*;
 @Entity
 public class PabellonEntity implements Serializable
 {
+        /**
+        * Id único de cada pabellón
+        */
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;
 	
+        /**
+         * Tipo del pabellón
+         */
 	private String tipo;
 	
+        /**
+         * capacidad del pabellón
+         */
 	private Integer capacidad;
 	
+        /**
+         * Lista de stands en el pabellon
+         */
 	@OneToMany( cascade = CascadeType.ALL, mappedBy = "pabellon", targetEntity = StandEntity.class, fetch = FetchType.LAZY )
 	private List<StandEntity> stands = new LinkedList<>( );
 	
+        /**
+         * lista de salones en el pabellon
+         */
 	@OneToMany( cascade = CascadeType.ALL, mappedBy = "pabellon", targetEntity = SalonEntity.class, fetch = FetchType.LAZY )
 	private List<SalonEntity> salones = new LinkedList<>( );
 	

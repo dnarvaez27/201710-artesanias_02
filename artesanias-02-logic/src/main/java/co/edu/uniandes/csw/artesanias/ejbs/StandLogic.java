@@ -41,9 +41,14 @@ public class StandLogic
 	@Inject
 	private StandPersistence persistence;
 	
-	public StandEntity getStand( Long id )
+	public StandEntity getStand( Long pabellonId, Long id ) throws BusinessLogicException
 	{
-		return persistence.find( id );
+		StandEntity res = persistence.find( pabellonId, id );
+		if( res != null )
+		{
+			return res;
+		}
+		throw new BusinessLogicException( String.format( "El stand %s no pertenece al pabelllon %s ", id, pabellonId ), Response.Status.NOT_FOUND );
 	}
 	
 	public List<StandEntity> getStands( )

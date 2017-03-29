@@ -21,8 +21,14 @@ import java.util.List;
 @XmlRootElement
 public class StandDetailDTO extends StandDTO
 {
+        /**
+         * lista de artesanos pertenecientes al stand
+         */
 	private List<ArtesanoDTO> artesanos;
 	
+        /**
+         * Pabellon al cual pertenece el stand
+         */
 	private PabellonDTO pabellon;
 	
 	public StandDetailDTO( )
@@ -30,6 +36,10 @@ public class StandDetailDTO extends StandDTO
 		super( );
 	}
 	
+        /**
+         * Genera un nuevo stand con el StandEntity ingresado
+         * @param entity 
+         */
 	public StandDetailDTO( StandEntity entity )
 	{
 		super( entity );
@@ -45,6 +55,10 @@ public class StandDetailDTO extends StandDTO
 		}
 	}
 	
+        /**
+         * Convierte el stand actual a un StandEntity
+         * @return entity
+         */
 	public StandEntity toEntity( )
 	{
 		StandEntity entity = super.toEntity( );

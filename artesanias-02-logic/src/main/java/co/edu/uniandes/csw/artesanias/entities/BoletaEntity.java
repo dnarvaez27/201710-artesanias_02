@@ -26,12 +26,14 @@ package co.edu.uniandes.csw.artesanias.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
@@ -39,6 +41,7 @@ import javax.persistence.Temporal;
  * @author ma.trujillo10
  */
 @Entity
+@Table(name = "boleta")
 public class BoletaEntity implements Serializable {
     
     //--------------------------------------------------------------------------
@@ -48,17 +51,17 @@ public class BoletaEntity implements Serializable {
     /**
      * Descuento para menores de edad.
      */
-    public final static double MENORES = 0.7;
+    public final static int MENORES = 0;
 
     /**
      * Precio regular de la boleta.
      */
-    public final static double REGULAR = 1.0;
+    public final static int REGULAR = 1;
     
     /**
      * Descuento para mayores de 65 años.
      */
-    public final static double MAYORES = 0.8;
+    public final static int MAYORES = 2;
 
         
     //--------------------------------------------------------------------------
@@ -76,30 +79,41 @@ public class BoletaEntity implements Serializable {
     /**
      * Tipo de boleta.
      */
-    private Double tipo;
+    @Column(nullable = false)
+    private Integer tipo;
 
     /**
      * Fecha de inicio de la boleta.
      */
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(nullable = false)
     private Date inicio;
 
     /**
      * Fecha de fin de la boleta.
      */
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(nullable = false)
     private Date fin;
 
     /**
      * Fecha de la boleta.
      */
+    @Column(nullable = false)
     private Double precio;
     
-    /**
-     * Feria de la boleta
+    /**4
+     * Feria de la boleta.
      */
-    @ManyToOne( targetEntity = FeriaEntity.class, fetch = FetchType.LAZY )
+    @ManyToOne(targetEntity = FeriaEntity.class, fetch = FetchType.LAZY )
+    @Column(nullable = false)
     private FeriaEntity feria;
+    
+    /**
+     * Dueño de la boleta.
+     */
+    @ManyToOne(targetEntity = EspectadorEntity.class, fetch = FetchType.LAZY)
+    private EspectadorEntity espectador;
         
     //--------------------------------------------------------------------------
     // Métodos
@@ -126,7 +140,7 @@ public class BoletaEntity implements Serializable {
      * Devuelve el tipo de la boleta.
      * @return tipo de la boleta.
      */
-    public Double getTipo() {
+    public Integer getTipo() {
         return tipo;
     }
 
@@ -135,9 +149,8 @@ public class BoletaEntity implements Serializable {
      * post: Se cambio el tipo de la boleta.
      * @param tipo nuevo tipo de la boleta.
      */
-    public void setTipo(Double tipo) {
-        if (tipo == MENORES || tipo == REGULAR || tipo == MAYORES)
-            this.tipo = tipo;
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
     }
 
     /**
@@ -179,7 +192,7 @@ public class BoletaEntity implements Serializable {
      * @return precio de la boleta.
      */
     public Double getPrecio() {
-        return precio*tipo;
+        return precio;
     }
 
     /**
@@ -206,6 +219,23 @@ public class BoletaEntity implements Serializable {
      */
     public void setFeria(FeriaEntity feria) {
         this.feria = feria;
+    }
+
+    /**
+     * Devuelve el dueño de la boleta.
+     * @return dueño de la boleta.
+     */
+    public EspectadorEntity getEspectador() {
+        return espectador;
+    }
+
+    /**
+     * Cambia la dueño de la boleta.
+     * post: Se cambio el dueño de la boleta.
+     * @param espectador nuevo dueño de la boleta.
+     */
+    public void setEspectador(EspectadorEntity espectador) {
+        this.espectador = espectador;
     }
     
     //--------------------------------------------------------------------------

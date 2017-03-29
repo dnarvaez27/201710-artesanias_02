@@ -23,6 +23,7 @@
  */
 package co.edu.uniandes.csw.artesanias.persistence;
 
+import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
 
 import java.util.List;
@@ -58,6 +59,8 @@ public class SalonPersistence
 		q.setParameter( "pabellonId", pabellonId );
 		return q.getResultList( );
 	}
+        
+      
 	
 	public SalonEntity create( SalonEntity entity )
 	{

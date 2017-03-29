@@ -28,27 +28,46 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * @author ja.espinosa12
  */
+
+//TODO de acuerdo con apbellon, stand es un subrecurso de pabellon y el path es: @Path( "{pabellonId: \\d+}/stands" )
+// TODO en los métodos que reciben el id del stand se debe verificar que exista o sino disparar WebApplicationExcepton 404
+	
 @Path( "/stands" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
 public class StandResource
 {
+        /**
+         * lógica correspondiente a los stands
+         */
 	@Inject
 	private StandLogic logic;
 	
+        /**
+         * Servicio de respuesta HTTP
+         */
 	@Context
 	private HttpServletResponse response;
 	
+        
 	@QueryParam( "page" )
 	private Integer page;
 	
 	@QueryParam( "limit" )
 	private Integer maxRec;
 	
+        /**
+         * Crea un nuevo stand con base al dto ingresado en el pabellón dado
+         * @param pabellonId
+         * @param dto
+         * @return StandDTO
+         * @throws BusinessLogicException 
+         */
 	@POST
 	public StandDTO createStand( @PathParam( "pabellonId" )
 			                             Long pabellonId, StandDetailDTO dto ) throws BusinessLogicException
@@ -60,19 +79,46 @@ public class StandResource
 		return new StandDTO( entity );
 	}
 	
+        /**
+         * Retorna todos los stands en el pabellón dado
+         * @param pabellonId
+         * @return Lista de StandDTO
+         */
 	@GET
 	public List<StandDTO> getStands( @PathParam( "pabellonId" ) Long pabellonId )
 	{
 		return listEntity2DTO( logic.getStandsFromPabellon( pabellonId ) );
 	}
 	
+        /**
+         * Retorna el stand con id dado
+         * @param id
+         * @return StandDTO
+         */
 	@GET
 	@Path( "{id: \\d+}" )
-	public StandDTO getStand( @PathParam( "id" ) Long id )
+	public StandDTO getStand( @PathParam( "pabellonId" ) Long pabellonId,
+			@PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-		return new StandDTO( logic.getStand( id ) );
+            StandDTO gt = new StandDTO( logic.getStand( pabellonId, id ) );
+            if( gt != null)
+            {
+                return gt;
+            }
+            else
+            {
+                throw new BusinessLogicException( String.format( "El stand %s no pertenece al pabelllon %s ", id, pabellonId ), Response.Status.NOT_FOUND );
+            }
 	}
 	
+        /**
+         * Actualiza el stand con id igresado en el pabellón dado con base al dto dado
+         * @param pabellonId
+         * @param id
+         * @param dto
+         * @returnStandDTO
+         * @throws BusinessLogicException 
+         */
 	@PUT
 	@Path( "{id: \\d+}" )
 	public StandDTO updateStand(
@@ -87,6 +133,10 @@ public class StandResource
 		return new StandDTO( logic.updateStand( entity ) );
 	}
 	
+        /**
+         * Elimina el stand con id ingresado
+         * @param id 
+         */
 	@DELETE
 	@Path( "{id: \\d+}" )
 	public void deleteStand( @PathParam( "id" ) Long id )
@@ -94,6 +144,11 @@ public class StandResource
 		logic.deleteStand( id );
 	}
 	
+        /**
+         * Retorna una lista de StandDTO con base en una lista de StandEntity
+         * @param entities
+         * @return rta
+         */
 	private List<StandDTO> listEntity2DTO( List<StandEntity> entities )
 	{
 		List<StandDTO> rta = new LinkedList<>( );

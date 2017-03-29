@@ -24,12 +24,14 @@
 package co.edu.uniandes.csw.artesanias.persistence;
 
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
+import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  * @author ia.salazar
@@ -67,4 +69,17 @@ public class ConferenciaPersistence
 		ConferenciaEntity entity = em.find( ConferenciaEntity.class, id );
 		em.remove( entity );
 	}
+
+    public List<ConferenciaEntity> findAllFromSalon(Long id) {
+        
+       TypedQuery<ConferenciaEntity> q = em.createQuery( "SELECT A FROM ConferenciaEntity A WHERE A.salon.id = :salonId", ConferenciaEntity.class );
+		q.setParameter( "salonId", id );
+		return q.getResultList( );
+    }
+
+    public List<ConferenciaEntity> findAllFromFeria(Long feriaId) {
+        TypedQuery<ConferenciaEntity> q = em.createQuery("SELECT A FROM ConferenciaEntity A WHERE A.feria.id = :feriaId",  ConferenciaEntity.class);
+		q.setParameter( "feriaId", feriaId );
+		return q.getResultList( );
+    }
 }

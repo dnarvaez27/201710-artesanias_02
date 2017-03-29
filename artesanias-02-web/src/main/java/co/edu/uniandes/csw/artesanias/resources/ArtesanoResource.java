@@ -76,6 +76,8 @@ public class ArtesanoResource
 	@Path( "{id: \\d+}" )
 	public ArtesanoDTO getArtesano( @PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
+            // TODO si el artesano no existe debe disparar WebApplicationException 404
+	
 		return new ArtesanoDTO( logic.getArtesano( id ) );
 	}
 	
@@ -91,7 +93,9 @@ public class ArtesanoResource
 	@Path( "{id: \\d+}" )
 	public ArtesanoDTO updateArtesano(
 			@PathParam( "id" ) Long id, ArtesanoDTO dto ) throws BusinessLogicException
-	{
+	{	  // TODO si el artesano no existe debe disparar WebApplicationException 404
+	
+
 		ArtesanoEntity entity = dto.toEntity( );
 		entity.setId( id );
 		return new ArtesanoDTO( logic.updateArtesano( entity ) );
@@ -106,6 +110,8 @@ public class ArtesanoResource
 	@Path( "{id: \\d+}" )
 	public void deleteArtesano( @PathParam( "id" ) Long id )
 	{
+              // TODO si el artesano no existe debe disparar WebApplicationException 404
+	
 		logic.deleteArtesano( id );
 	}
 	
@@ -134,6 +140,8 @@ public class ArtesanoResource
 	@Path( "{artesanoId: \\d+}/reviews" )
 	public Class<ReviewResource> getReviewResource( )
 	{
+              // TODO si el artesano no existe debe disparar WebApplicationException 404
+	
 		return ReviewResource.class;
 	}
 	
@@ -145,6 +153,8 @@ public class ArtesanoResource
 	@Path( "{artesanoId: \\d+}/artesanias" )
 	public Class<ArtesaniasResource> getArtesaniasResource( )
 	{
+             // TODO si el review  no existe debe disparar WebApplicationException 404
+	
 		return ArtesaniasResource.class;
 	}
 }

@@ -24,8 +24,10 @@
 package co.edu.uniandes.csw.artesanias.entities;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,12 +35,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Entidad de los espacios.
  * @author ma.trujillo10
  */
 @Entity
+@Table(name="espacio", uniqueConstraints={
+    @UniqueConstraint(columnNames = {"direccion", "ciudad"})})
 public class EspacioEntity implements Serializable {
     
     //--------------------------------------------------------------------------
@@ -56,21 +62,25 @@ public class EspacioEntity implements Serializable {
     /**
      * Nombre del espacio.
      */
+    @Column(nullable=false)
     private String nombre;
     
     /**
      * Dirección del espacio.
      */
+    @Column(nullable=false)
     private String direccion;
     
     /**
      * Telefono del espacio.
      */
+    @Column(unique=true, nullable=false)
     private String telefono;
     
     /**
      * Capacidad del espacio.
      */
+    @Column(nullable=false)
     private Integer capacidad;
     
     /**
@@ -80,6 +90,7 @@ public class EspacioEntity implements Serializable {
      */
     @ManyToOne(targetEntity = CiudadEntity.class)
     @JoinColumn(name = "ciudad_id")
+    @Column(nullable=false)
     private CiudadEntity ciudad;
     
     /**
@@ -88,7 +99,7 @@ public class EspacioEntity implements Serializable {
      * FeriaEntity.
      */
     @OneToMany(mappedBy = "espacio")
-    private List<FeriaEntity> ferias;
+    private List<FeriaEntity> ferias = new LinkedList<FeriaEntity>();
     
     //--------------------------------------------------------------------------
     // Métodos

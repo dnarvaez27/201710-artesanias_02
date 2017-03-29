@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.persistence.SalonPersistence;
 
+
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -70,4 +71,6 @@ public class SalonLogic
 			throw new BusinessLogicException( "La capacidad del Salón debe ser mayor a 0", Response.Status.BAD_REQUEST );
 		}
 	}
+
+   
 }

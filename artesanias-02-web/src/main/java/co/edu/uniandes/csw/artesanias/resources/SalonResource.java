@@ -9,11 +9,13 @@ import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.PabellonDTO;
 import co.edu.uniandes.csw.artesanias.dtos.SalonDTO;
 import co.edu.uniandes.csw.artesanias.dtos.detail.SalonDetailDTO;
+import co.edu.uniandes.csw.artesanias.ejbs.ConferenciaLogic;
 import co.edu.uniandes.csw.artesanias.ejbs.SalonLogic;
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
+import java.util.ArrayList;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,10 +37,14 @@ import javax.ws.rs.core.MediaType;
  */
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
+@Path("/salones")
 public class SalonResource
 {
 	@Inject
 	private SalonLogic logic;
+        
+        @Inject
+        private ConferenciaLogic logicConferencia;
 	
 	@Context
 	private HttpServletResponse response;
@@ -61,7 +67,8 @@ public class SalonResource
 	
 	@GET
 	@Path( "{id: \\d+}" )
-	public SalonDTO getSalon( @PathParam( "id" ) Long id )
+        
+	public SalonDTO getSalon( @PathParam( "id" ) Long id,  @PathParam( "pabellonId") Long pabellonId )
 	{
 		return new SalonDTO( logic.getSalon( id ) );
 	}
@@ -73,6 +80,7 @@ public class SalonResource
 		PabellonEntity en = new PabellonEntity( );
 		en.setId( pabellonId );
 		dto.setPabellon( new PabellonDTO( en ) );
+                dto.getPabellon();
 		SalonEntity entity = logic.createSalon( dto.toEntity( ) );
 		return new SalonDTO( entity );
 	}
@@ -93,14 +101,34 @@ public class SalonResource
 	
 	@DELETE
 	@Path( "{id: \\d+}" )
-	public void deleteSalon( @PathParam( "id" ) Long id )
+	public void deleteSalon( @PathParam( "id" ) Long idSalon,@PathParam( "pabellonId" ) Long pabellonId )
 	{
-		logic.deleteSalon( id );
+		logic.deleteSalon( idSalon );
 	}
-	
-	@Path( "{salonId: \\d+}" )
-	public Class<ConferenciaResource> getConferenciaResource( )
+        
+        
+	@GET
+	@Path( "{salonId: \\d+}/conferencias" )
+	public List<ConferenciaDTO> getConferenciaFromSalonResource(@PathParam( "id" ) Long idSalon )
 	{
-		return ConferenciaResource.class;
+            List<ConferenciaEntity>list1 =logicConferencia.getConferenciasFromsalon(idSalon);
+            
+            List<ConferenciaDTO> list = new ArrayList<>( );
+		for( ConferenciaEntity entity : list1 )
+		{
+			list.add( new ConferenciaDTO( entity ) );
+		}
+		
+            
+            return list;
+            
+		//return logicConferencia.getConferenciasFromsalon(idSalon);
 	}
+        
+//        @Path( "{salonId: \\d+}" )
+//	public Class<ConferenciaResource> getConferenciaFromFeriaResource( )
+//	{
+//		return ConferenciaResource.class;
+//	}
+        
 }

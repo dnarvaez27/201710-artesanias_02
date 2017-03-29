@@ -18,6 +18,9 @@ import java.util.List;
  *
  * @author d.narvaez11
  */
+// TODO actualizar el diagrama de clases para que se llame Espectador y no Cliente
+// TODO en los métodos que reciben el id del espectador se debe verificar que exista o sino disparar WebApplicationExcepton 404
+
 @Path( "/espectadores" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
@@ -126,6 +129,9 @@ public class EspectadorResource
 		return list;
 	}
 	
+        
+        //TODO actualizar el diagrama de clases para reflejar que la boleta es un subrecurso de espectador. 
+        //TODO Verificar que el expectador exista antes de llamar el subrecurso.
 	/**
 	 * Retorna el Sub-Recurso de las Boletas que ha adquirido el espectador
 	 *

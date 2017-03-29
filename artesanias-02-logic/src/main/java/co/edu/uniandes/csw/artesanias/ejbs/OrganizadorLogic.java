@@ -24,11 +24,13 @@
 package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.persistence.OrganizadorPersistence;
 
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
 /**
  * @author IVAN
@@ -44,9 +46,13 @@ public class OrganizadorLogic
 		return persistence.findAll( );
 	}
 	
-	public OrganizadorEntity getOrganizador( Long id )
+	public OrganizadorEntity getOrganizador( Long id )throws BusinessLogicException
 	{
-		return persistence.find( id );
+            OrganizadorEntity org = persistence.find( id );
+            if (org!=null) {
+                return org;
+            }
+		throw new BusinessLogicException("El organizador no se encuentra", Response.Status.NOT_FOUND);
 	}
 	
 	public OrganizadorEntity createOrganizador( OrganizadorEntity entity )
@@ -54,13 +60,25 @@ public class OrganizadorLogic
 		return persistence.create( entity );
 	}
 	
-	public OrganizadorEntity updateOrganizador( OrganizadorEntity entity )
+	public OrganizadorEntity updateOrganizador( OrganizadorEntity entity ) throws BusinessLogicException
 	{
-		return persistence.update( entity );
+             OrganizadorEntity org = persistence.find( entity.getId() );
+            if (org!=null) {
+                return persistence.update( entity );
+            }
+		throw new BusinessLogicException("El organizador no se encuentra", Response.Status.NOT_FOUND);
+		
 	}
 	
-	public void deleteOrganizador( Long id )
+	public void deleteOrganizador( Long id ) throws BusinessLogicException
 	{
-		persistence.delete( id );
+             OrganizadorEntity org = persistence.find( id );
+            if (org!=null) {
+                persistence.delete( id );
+            }
+		throw new BusinessLogicException("El organizador no se encuentra", Response.Status.NOT_FOUND);
+		
 	}
+		
+	
 }

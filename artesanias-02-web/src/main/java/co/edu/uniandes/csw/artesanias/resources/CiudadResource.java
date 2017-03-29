@@ -69,13 +69,17 @@ public class CiudadResource {
     @GET
     @Path("{id: \\d+}")
     public CiudadDTO getArtesano(@PathParam("id") Long id ) {
+        // TODO si la ciudad no existe debe disparar WebApplicationException 404
+	
         return new CiudadDTO(logic.getCiudad(id));
     }
     
     @PUT
     @Path("{id: \\d+}")
     public CiudadDTO updateArtesano(@PathParam("id") Long id, CiudadDTO dto) {
-        CiudadEntity entity = dto.toEntity();
+          // TODO si la ciudad no existe debe disparar WebApplicationException 404
+	
+          CiudadEntity entity = dto.toEntity();
         entity.setId(id);
         return new CiudadDTO(logic.updateCiudad(entity));
     }
@@ -83,7 +87,9 @@ public class CiudadResource {
     @DELETE
     @Path("{id: \\d+}")
     public void deleteArtesano(@PathParam("id") Long id) {
-        logic.deleteCiudad(id);
+          // TODO si la ciudad no existe debe disparar WebApplicationException 404
+	
+          logic.deleteCiudad(id);
     }
     
     private List<CiudadDTO> listEntity2DTO(List<CiudadEntity> entities) {
