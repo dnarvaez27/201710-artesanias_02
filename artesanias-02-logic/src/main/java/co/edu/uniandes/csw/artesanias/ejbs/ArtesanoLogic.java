@@ -77,7 +77,7 @@ public class ArtesanoLogic
 		entity.setNombre( nombre ? info.getNombre( ) : entity.getNombre( ) );
 		entity.setIdentificacion( ident ? info.getIdentificacion( ) : entity.getIdentificacion( ) );
 		entity.setTelefono( telefono ? info.getTelefono( ) : entity.getTelefono( ) );
-		entity.setCiudad( ciudad ? info.agetCiudad( ) : entity.getCiudad( ) );
+		entity.setCiudad( ciudad ? info.getCiudad( ) : entity.getCiudad( ) );
 		checkNNValues( entity );
 		return persistence.update( entity );
 	}
