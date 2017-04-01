@@ -29,9 +29,9 @@ public class ConferenciaLogic
 		return persistence.findAll( );
 	}
 	
-	public ConferenciaEntity getConferencia( Long id )throws BusinessLogicException
+	public ConferenciaEntity getConferencia( Long idConferencia,Long id )throws BusinessLogicException
 	{
-            ConferenciaEntity conf = persistence.find( id );
+            ConferenciaEntity conf = persistence.find( idConferencia,id );
             if (conf!=null) {
                 return conf;
             }
@@ -52,9 +52,9 @@ public class ConferenciaLogic
 		return persistence.update( entity );
 	}
 	
-	public void deleteConferencia( Long id ) throws BusinessLogicException
+	public void deleteConferencia(Long feriaId, Long id ) throws BusinessLogicException
 	{
-            ConferenciaEntity conf = persistence.find( id );
+            ConferenciaEntity conf = persistence.find( feriaId,id );
             if (conf!=null) {
                 persistence.delete( id );
             }

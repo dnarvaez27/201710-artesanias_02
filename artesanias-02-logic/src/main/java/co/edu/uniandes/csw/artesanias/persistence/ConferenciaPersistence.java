@@ -42,9 +42,13 @@ public class ConferenciaPersistence
 	@PersistenceContext( unitName = "artesaniasPU" )
 	protected EntityManager em;
 	
-	public ConferenciaEntity find( Long id )
+	public ConferenciaEntity find( Long idConferencia, Long id )
 	{
-		return em.find( ConferenciaEntity.class, id );
+            Query q = em.createQuery( "select u from ConferenciaEntity u WHERE u.id=idConferencia AND u.feria.id=id" );
+		q.setParameter( "id", id );
+		q.setParameter( "idConferencia", idConferencia );
+		List<ConferenciaEntity> res = q.getResultList( );
+		return res.size( ) > 0 ? res.get( 0 ) : null;
 	}
 	
 	public List<ConferenciaEntity> findAll( )
