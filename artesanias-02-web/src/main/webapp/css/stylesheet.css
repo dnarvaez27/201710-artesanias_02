@@ -2,7 +2,13 @@ a {
     color: #831b2a
 }
 
-.nav-tabs > li > a:hover {
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus {
     color: #ffffff;
     background-color: #831b2a
+}
+
+.box-show
+{
+    padding-bottom: 30px;
 }

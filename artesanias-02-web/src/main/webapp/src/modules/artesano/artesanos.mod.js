@@ -5,23 +5,24 @@
     var basePath = 'src/modules/artesano/'
     $urlRouterProvider.otherwise('/artesanosList')
 
-    $stateProvider.state('artesanos', {
-      url: '/artesanos',
-      abstract: true,
-      resolve: {
-        artesanos: ['$http', function ($http) {
-          return $http.get('data/artesanos.json')
-        }]
-      },
-      views: {
-        'mainView': {
-          templateUrl: basePath + 'artesanos.html',
-          controller: ['$scope', 'artesanos', function ($scope, artesanos) {
-            $scope.artesanosRecords = artesanos.data
+    $stateProvider
+      .state('artesanos', {
+        url: '/artesanos',
+        abstract: true,
+        resolve: {
+          artesanos: ['$http', function ($http) {
+            return $http.get('data/artesanos.json')
           }]
+        },
+        views: {
+          'mainView': {
+            templateUrl: basePath + 'artesanos.html',
+            controller: ['$scope', 'artesanos', function ($scope, artesanos) {
+              $scope.artesanosRecords = artesanos.data
+            }]
+          }
         }
-      }
-    })
+      })
       .state('artesanosList', {
         url: '/list',
         parent: 'artesanos',
@@ -33,7 +34,7 @@
       })
       .state('artesanoDetail', {
         url: '/{artesanoId:int}/detail',
-        parent: 'artesanos',
+        parent: 'artesanosList',
         param: {
           artesanoId: null
         },
