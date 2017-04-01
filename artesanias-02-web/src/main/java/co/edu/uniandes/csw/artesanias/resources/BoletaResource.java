@@ -24,6 +24,7 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.BoletaDTO;
+import co.edu.uniandes.csw.artesanias.dtos.EspectadorDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.BoletaLogic;
 import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
@@ -79,6 +80,12 @@ public class BoletaResource {
     public BoletaDTO getBoleta(@PathParam("idFeria") Long idFeria, @PathParam("id") Long id ) throws BusinessLogicException {
         return new BoletaDTO(logic.getBoleta(idFeria, id));
     }
+    
+    @GET
+    @Path("{id: \\d+}/espectador")
+    public EspectadorDTO getEspectador(@PathParam("idFeria") Long idFeria, @PathParam("id") Long id) throws BusinessLogicException {
+        return new EspectadorDTO(logic.getEspectador(idFeria, id));
+    } 
     
     @PUT
     @Path("{id: \\d+}")

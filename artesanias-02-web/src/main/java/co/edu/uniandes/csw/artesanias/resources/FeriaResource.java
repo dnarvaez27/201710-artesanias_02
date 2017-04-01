@@ -24,7 +24,10 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.FeriaDTO;
+import co.edu.uniandes.csw.artesanias.ejbs.ArtesanoLogic;
+import co.edu.uniandes.csw.artesanias.ejbs.EspacioLogic;
 import co.edu.uniandes.csw.artesanias.ejbs.FeriaLogic;
+import co.edu.uniandes.csw.artesanias.ejbs.OrganizadorLogic;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import java.util.LinkedList;
@@ -53,6 +56,10 @@ import javax.ws.rs.core.MediaType;
 public class FeriaResource {
     
     @Inject private FeriaLogic feriaLogic;
+    @Inject private OrganizadorLogic organizadorLogic;
+    @Inject private EspacioLogic espacioLogic;
+    @Inject private ArtesanoLogic artesanoLogic;
+    
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("limit") private Integer maxRecords;
@@ -92,6 +99,11 @@ public class FeriaResource {
         return BoletaResource.class;
     }
     
+    @Path( "{idFeria: \\d+}/conferencias" )
+    public Class<ConferenciaResource> getConferenciaResource() {
+        return ConferenciaResource.class;
+    }
+    
     private List<FeriaDTO> listEntity2DTO(List<FeriaEntity> entities) {
         List<FeriaDTO> rta = new LinkedList<FeriaDTO>();
         for (FeriaEntity entity : entities)
@@ -101,8 +113,4 @@ public class FeriaResource {
     
     //TODO falta GET /ferias/:id/artesanos los artesanos de la feria :id
     //TODO falta GET /ferias/:id/espacios los artesanos de la feria :id
-    //TODO falta GET /ferias/:id/conferencias las conferencias de la feria :id
-    
-    //TODO verificar los subrecursos conferencia y boleta
-    
 }
