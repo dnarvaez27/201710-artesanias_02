@@ -60,10 +60,10 @@ public class ConferenciaSalonResource
 	
 	@GET
 	@Path( "{id: \\d+}" )
-	public ConferenciaDTO getConferencia( @PathParam( "id" ) Long id ) throws BusinessLogicException
+	public ConferenciaDTO getConferencia(@PathParam("salonId")Long salonId, @PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
            
-		return new ConferenciaDetailDTO( conferenciaLogic.getConferencia( id ) );
+		return new ConferenciaDetailDTO( conferenciaLogic.getConferencia( id,salonId ) );
 	}
 	
 	@POST
@@ -86,10 +86,10 @@ public class ConferenciaSalonResource
 	
 	@DELETE
 	@Path( "{id: \\d+}" )
-	public void deleteSConferencia( @PathParam( "id" ) Long id ) throws BusinessLogicException
+	public void deleteSConferencia( @PathParam("salonId")Long salonId,@PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
             
 		
-		conferenciaLogic.deleteConferencia( id );
+		conferenciaLogic.deleteConferencia( id,salonId );
 	}
 }
