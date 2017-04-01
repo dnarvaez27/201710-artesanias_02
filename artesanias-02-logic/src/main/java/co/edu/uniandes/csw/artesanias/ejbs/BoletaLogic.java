@@ -24,6 +24,7 @@
 package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
+import co.edu.uniandes.csw.artesanias.entities.EspectadorEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.persistence.BoletaPersistence;
 import java.util.List;
@@ -131,6 +132,15 @@ public class BoletaLogic {
         if (persistence.find(idFeria, id) == null)
             throw new BusinessLogicException("No existe la boleta buscada", Response.Status.NOT_FOUND);
         persistence.delete(idFeria, id);
+    }
+    
+    public EspectadorEntity getEspectador(Long idFeria, Long id) throws BusinessLogicException {
+        checkId(idFeria);
+        checkId(id);
+        BoletaEntity e = persistence.find(idFeria, id);
+        if (e == null)
+            throw new BusinessLogicException("No existe la boleta buscada", Response.Status.NOT_FOUND);
+        return e.getEspectador();
     }
     
     //--------------------------------------------------------------------------
