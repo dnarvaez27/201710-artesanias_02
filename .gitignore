@@ -61,8 +61,6 @@ local.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
-*.war
 *.ear
 *.zip
 *.tar.gz
@@ -81,3 +79,4 @@ gen
 /artesanias-02-web/target/
 
 .DS_Store
+bower_components/
