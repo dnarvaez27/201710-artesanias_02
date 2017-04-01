@@ -84,4 +84,6 @@ public class ConferenciaLogic
         
         return persistence.findAllFromSalon(idSalon);
     }
+
+   
 }

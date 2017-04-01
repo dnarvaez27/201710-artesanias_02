@@ -31,6 +31,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import org.hibernate.validator.util.ReflectionHelper;
 
 /**
  * @author IVAN
@@ -107,22 +108,13 @@ public class SalonResource
 	}
         
         
-	@GET
+	
 	@Path( "{salonId: \\d+}/conferencias" )
-	public List<ConferenciaDTO> getConferenciaFromSalonResource(@PathParam( "id" ) Long idSalon )
+	public ConferenciaSalonResource getConferenciaFromSalonResource(@PathParam( "id" ) Long idSalon )
 	{
-            List<ConferenciaEntity>list1 =logicConferencia.getConferenciasFromsalon(idSalon);
+           
             
-            List<ConferenciaDTO> list = new ArrayList<>( );
-		for( ConferenciaEntity entity : list1 )
-		{
-			list.add( new ConferenciaDTO( entity ) );
-		}
-		
-            
-            return list;
-            
-		//return logicConferencia.getConferenciasFromsalon(idSalon);
+		return new ConferenciaSalonResource();
 	}
         
 //        @Path( "{salonId: \\d+}" )

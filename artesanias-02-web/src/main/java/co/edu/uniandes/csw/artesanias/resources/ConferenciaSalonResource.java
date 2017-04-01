@@ -27,10 +27,9 @@ import java.util.List;
 
 
 
-@Path( "ferias/{feriaId: \\d+}/conferencias" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
-public class ConferenciaResource
+public class ConferenciaSalonResource
 {
 	@Inject
 	private ConferenciaLogic conferenciaLogic;
@@ -49,12 +48,12 @@ public class ConferenciaResource
 	}
 	
 	@GET
-	public List<ConferenciaDTO> getConferenciasFromFeria( @PathParam("feriaId") Long feriaId) 
+	public List<ConferenciaDTO> getConferenciasFromSalon( @PathParam("salonId") Long salonId) 
 	{
 		
 		
                 
-            return listEntity2DTO( conferenciaLogic.getConferenciasFromFeria(feriaId ) );
+            return listEntity2DTO( conferenciaLogic.getConferenciasFromsalon(salonId));
 	}
         
        
