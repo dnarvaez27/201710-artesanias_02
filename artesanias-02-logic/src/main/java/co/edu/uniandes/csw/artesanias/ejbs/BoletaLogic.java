@@ -184,5 +184,7 @@ public class BoletaLogic {
             throw new BusinessLogicException("La boleta debe tener un precio", Response.Status.BAD_REQUEST);
         if (e.getPrecio() < 0.0)
             throw new BusinessLogicException("El precio de la boleta no puede ser negativo", Response.Status.BAD_REQUEST);
+        if (e.getEspectador() == null)
+            throw new BusinessLogicException("La boleta debe tener un espectador", Response.Status.BAD_REQUEST);
     }
 }
