@@ -47,6 +47,7 @@ SOFTWARE.
 <body class="span4">
     <div class="container-fluid">
 
+        <!--Header-->
         <div class="row panel-heading">
             <div class="col-lg-9">
                 <div class="mainTitle">
@@ -65,8 +66,9 @@ SOFTWARE.
             </div>
         </div>
 
-        <!--Menu Lateral-->
+        <!--Menu Lateral & MainView-->
         <div class="row">
+            <!--Menu Lateral-->
             <div class=" panel col-lg-1">
                 <ul class="nav nav-tabs ">
                     <li role="presentation"><a href="">Ferias</a></li>
@@ -76,10 +78,11 @@ SOFTWARE.
                     <li role="presentation"><a href="">Ciudades</a></li>
                 </ul>
             </div>
+            <!--MainView-->
             <div class="col-lg-10 span4" ui-view="mainView"></div>
         </div>
 
-
+        <!--Footer-->
         <div class="footer text-center">
             <p class="footerTitle">Seneka Kernel</p>
         </div>
