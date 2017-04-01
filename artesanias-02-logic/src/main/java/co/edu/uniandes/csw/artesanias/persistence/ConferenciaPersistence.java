@@ -50,7 +50,14 @@ public class ConferenciaPersistence
 		List<ConferenciaEntity> res = q.getResultList( );
 		return res.size( ) > 0 ? res.get( 0 ) : null;
 	}
-	
+	public ConferenciaEntity findFromSalon( Long idSalon, Long id )
+	{
+            Query q = em.createQuery( "select u from ConferenciaEntity u WHERE u.id=idConferencia AND u.salon.id=idSalon" );
+		q.setParameter( "id", id );
+		q.setParameter( "idConferencia", idSalon );
+		List<ConferenciaEntity> res = q.getResultList( );
+		return res.size( ) > 0 ? res.get( 0 ) : null;
+	}
 	public List<ConferenciaEntity> findAll( )
 	{
 		Query q = em.createQuery( "select u from ConferenciaEntity u" );
