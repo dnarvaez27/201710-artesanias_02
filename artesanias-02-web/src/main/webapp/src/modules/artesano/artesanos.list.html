@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2" ng-repeat="artesano in artesanosRecords | filter:currentAuthor.name">
+            <div >
+                <a href="" ui-sref="artesanoDetail({artesanoId: artesano.id})">
+                    <img class="img-responsive" ng-src='{{artesano.image}}' alt="{{artesano.nombre}}"/>
+                </a>
+                <div class="caption text-center">
+                    <p>{{artesano.nombre}}</p>
+                    <p ng-repeat="author in artesano.authors">
+                        <a ui-sref="authorDetail({authorId: author.id})" class="thumb">{{author.nombre}}</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

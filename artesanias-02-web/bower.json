@@ -1,23 +1,23 @@
 {
   "name": "artesanias",
+  "version": "1.0.0",
+  "main": "src/main/webapp/index.html",
+  "devDependencies": {},
   "homepage": "https://github.com/Uniandes-isis2603/artesanias_02",
-  "authors": [
-    "Seneca Kernel"
-  ],
   "description": "",
-  "main": "scr/main/webapp/index.html",
+  "license": "MIT",
+  "private": true,
   "dependencies": {
     "angular": "^1.5.8",
     "bootstrap": "^3.3.7",
     "angular-ui-router": "~0.2.14",
     "angular-bootstrap": "^0.13.4"
   },
-  "license": "MIT",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
+    "src/main/webapp/bower_components",
     "test",
     "tests"
   ]

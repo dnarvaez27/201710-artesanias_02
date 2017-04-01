@@ -1,11 +1,12 @@
 (function (ng) {
   var app = angular.module('mainApp', [
-    // Dependencias Externas
+    // External dependencies
     'ui.router',
-    // Dependencias de Modulos Internos
-  ]);
+    // Internal modules dependencies
+    'artesanoModule'
+  ])
   // Resuelve problemas de las promesas
   app.config(['$qProvider', function ($qProvider) {
-    $qProvider.errorOnUnhandledRejections(false);
-  }]);
-})(window.angular);
+    $qProvider.errorOnUnhandledRejections(false)
+  }])
+})(window.angular)

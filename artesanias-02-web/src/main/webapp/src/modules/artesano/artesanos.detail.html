@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="thumb">
+                    <img class="img-responsive" ng-src="{{currentArtesano.image}}"/>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <dl>
+                    <dt>{{currentArtesano.nombre}}</dt>
+                </dl>
+                <ul class="nav nav-tabs">
+                    <li role="presentation"><a href="#">Profile</a></li>
+                    <li role="presentation"><a href="#">Messages</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="childrenView"></div>

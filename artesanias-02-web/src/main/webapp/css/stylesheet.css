@@ -1,0 +1,8 @@
+a {
+    color: #831b2a
+}
+
+.nav-tabs > li > a:hover {
+    color: #ffffff;
+    background-color: #831b2a
+}
