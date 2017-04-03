@@ -1,8 +1,8 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2" ng-repeat="artesano in artesanosRecords | filter:currentArtesano.name">
-            <div class="box-show">
-                <a href="" ui-sref="artesanoDetail({artesanoId: artesano.id})">
+            <div class="thumbnail" style="padding-bottom: 30px; min-height: 300px; padding-left: 10px; padding-right: 10px">
+                <a ui-sref="artesanoDetail({artesanoId: artesano.id})">
                     <div class="caption text-center">
                         <p>{{artesano.nombre}}</p>
                     </div>

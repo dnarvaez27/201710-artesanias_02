@@ -1,0 +1,14 @@
+<div class="container-fluid">
+    <div class="row">
+        <h2>Reviews</h2>
+    </div>
+    <div class="row pre-scrollable">
+        <div ng-repeat="review in currentArtesano.reviews">
+            <div class="thumbnail col-lg-12">
+                <span class="col-lg-1 badge">{{review.puntuacion}}</span>
+                <p class="col-lg-11">{{review.comentario}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="childrenView"></div>

@@ -1,5 +1,9 @@
-<div class="panel panel-default">
-    <div class="panel-body" style="background-color: #e5e5e5">
+<div class="panel panel-default" style="position: relative;">
+    <div class="blur" ng-style="{ 'background-image':'url(' + currentArtesano.image + ')' }">
+        <!--style="position: absolute; width:100%;height:100%;">-->
+    </div>
+    <div style="position: relative;">
+        <!--<div class="panel-body" style="background-color: #e5e5e5;">-->
         <div class="row">
             <div class="col-md-3">
                 <div class="thumb">
@@ -7,15 +11,23 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <dl>
-                    <dt>{{currentArtesano.nombre}}</dt>
-                </dl>
+                <h3>{{currentArtesano.nombre}}</h3>
                 <ul class="nav nav-tabs">
-                    <li role="presentation"><a href="#">Perfil</a></li>
-                    <li role="presentation"><a href="#">Artesanias</a></li>
+                    <li role="presentation"><a ui-sref="artesanoDetailArtesanias">Artesanias</a></li>
+                    <li role="presentation"><a ui-sref="artesanoDetailReviews">Reviews</a></li>
                 </ul>
+                <div>
+                    <p><strong>Identificación:</strong> {{currentArtesano.identificacion}}</p>
+                    <p><strong>Teléfono:</strong> {{currentArtesano.telefono}}</p>
+                    <p><strong>Ciudad:</strong> {{currentArtesano.ciudad.nombre}}</p>
+                </div>
             </div>
+            <div class="col-md-6" ui-view="detail"></div>
         </div>
+        <!--</div>-->
     </div>
 </div>
 <div ui-view="childrenView"></div>
+<!--<div back-img="{{currentArtesano.image}}" style="border: solid 1px red; height: 500px;">-->
+
+</div>

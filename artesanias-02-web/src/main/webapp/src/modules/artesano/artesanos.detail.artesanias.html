@@ -1,0 +1,14 @@
+<div class="container-fluid">
+    <div class="row">
+        <h2>Artesanias</h2>
+        <div class="pre-scrollable">
+            <div ng-repeat="artesania in currentArtesano.artesanias | filter:currentArtesano.artesanias.nombre">
+                <div class="thumbnail col-lg-4" style="min-height: 200px">
+                    <p class="text-center caption"> {{artesania.nombre}}</p>
+                    <img src="{{artesania.image}}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="childrenView"></div>
