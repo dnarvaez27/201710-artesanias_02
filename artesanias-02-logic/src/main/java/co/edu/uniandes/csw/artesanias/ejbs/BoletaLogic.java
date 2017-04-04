@@ -63,10 +63,7 @@ public class BoletaLogic {
     public BoletaEntity getBoleta(Long idFeria, Long id) throws BusinessLogicException {
         checkId(idFeria);
         checkId(id);
-        BoletaEntity e = persistence.find(idFeria, id);
-        if (e == null)
-            throw new BusinessLogicException("No existe la boleta buscada", Response.Status.NOT_FOUND);
-        return e;
+        return persistence.find(idFeria, id);
     }
     
     /**
@@ -104,8 +101,6 @@ public class BoletaLogic {
     public BoletaEntity updateBoleta(Long idFeria, BoletaEntity entity) throws BusinessLogicException {
         checkId(idFeria);
         BoletaEntity e = persistence.find(idFeria, entity.getId());
-        if (e == null)
-            throw new BusinessLogicException("No existe la boleta buscada", Response.Status.NOT_FOUND);
         if (entity.getFeria() == null)
             entity.setFeria(e.getFeria());
         if (e.getInicio() == null)
@@ -129,11 +124,16 @@ public class BoletaLogic {
     public void deleteBoleta(Long idFeria, Long id) throws BusinessLogicException {
         checkId(idFeria);
         checkId(id);
-        if (persistence.find(idFeria, id) == null)
-            throw new BusinessLogicException("No existe la boleta buscada", Response.Status.NOT_FOUND);
         persistence.delete(idFeria, id);
     }
     
+    /**
+     * 
+     * @param idFeria
+     * @param id
+     * @return
+     * @throws BusinessLogicException 
+     */
     public EspectadorEntity getEspectador(Long idFeria, Long id) throws BusinessLogicException {
         checkId(idFeria);
         checkId(id);
@@ -141,6 +141,11 @@ public class BoletaLogic {
         if (e == null)
             throw new BusinessLogicException("No existe la boleta buscada", Response.Status.NOT_FOUND);
         return e.getEspectador();
+    }
+    
+    public BoletaEntity setEspectador(Long id, EspectadorEntity entity) {
+        
+        return null;
     }
     
     //--------------------------------------------------------------------------

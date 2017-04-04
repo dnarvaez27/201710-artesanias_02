@@ -102,6 +102,8 @@ public class BoletaResource {
             @PathParam("id") Long id ) throws BusinessLogicException {
         if (feriaLogic.getFeria(idFeria) == null)
             throw new WebApplicationException("La feria no existe", 404);
+        if (logic.getBoleta(idFeria, id) == null)
+            throw new WebApplicationException("La boleta no existe", 404);
         return new BoletaDTO(logic.getBoleta(idFeria, id));
     }
     
@@ -111,6 +113,8 @@ public class BoletaResource {
             @PathParam("id") Long id) throws BusinessLogicException {
         if (feriaLogic.getFeria(idFeria) == null)
             throw new WebApplicationException("La feria no existe", 404);
+        if (logic.getBoleta(idFeria, id) == null)
+            throw new WebApplicationException("La boleta no existe", 404);
         return new EspectadorDTO(logic.getEspectador(idFeria, id));
     } 
     
@@ -120,6 +124,8 @@ public class BoletaResource {
             @PathParam("id") Long id, BoletaDTO dto) throws BusinessLogicException {
         if (feriaLogic.getFeria(idFeria) == null)
             throw new WebApplicationException("La feria no existe", 404);
+        if (logic.getBoleta(idFeria, id) == null)
+            throw new WebApplicationException("La boleta no existe", 404);
         BoletaEntity entity = dto.toEntity();
         entity.setId(id);
         return new BoletaDTO(logic.updateBoleta(idFeria, entity));
@@ -131,6 +137,8 @@ public class BoletaResource {
             @PathParam("id") Long id) throws BusinessLogicException {
         if (feriaLogic.getFeria(idFeria) == null)
             throw new WebApplicationException("La feria no existe", 404);
+        if (logic.getBoleta(idFeria, id) == null)
+            throw new WebApplicationException("La boleta no existe", 404);
         logic.deleteBoleta(idFeria, id);
     }
     
