@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2" ng-repeat="organizador in organizadoresRecords | filter:currentFeria.Id">
+            <div class="thumbnail" style="padding-bottom: 30px; min-height: 300px; padding-left: 10px; padding-right: 10px">
+                <a ui-sref="feriaDetail({feriaId:feria.id})">
+                    <div class="caption text-center">
+                        <p>{{feria.Id}}</p>
+                    </div>
+                    <img class="img-responsive" ng-src='{{feria.image}}' alt="{{feria.numero}}" height="50%"/>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12" ui-view="detailView"></div>
+    </div>
+</div>

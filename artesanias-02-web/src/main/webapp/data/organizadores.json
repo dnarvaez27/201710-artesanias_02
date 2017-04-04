@@ -1,0 +1,73 @@
+[
+    
+
+    {
+  "id": 1,
+  "feriasDTOs": 
+         [ 
+         {"idFeria":1,
+         "nombre": "",
+         "inicio":"" ,
+         "fin": ""},
+     
+         {"id":2,
+         "nombre": "",
+         "inicio":"" ,
+         "fin": ""},
+            
+         {"id":3,
+         "nombre": "",
+         "inicio":"" ,
+         "fin": ""}
+         ]
+            
+    
+    }
+    ,
+    {
+  "id": 2,      
+  "feriasDTOs": 
+         [ 
+         {"idFeria":1,
+         "nombre": "",
+         "inicio":"" ,
+         "fin": ""},
+     
+         {"id":2,
+         "nombre": "",
+         "inicio":"" ,
+         "fin": ""},
+            
+         {"id":3,
+         "nombre": "",
+         "inicio":"" ,
+         "fin": ""}
+         ]
+
+    }
+    ,
+    {
+  "id": 3,      
+  "feriasDTOs": 
+         [ 
+         {"idFeria":1,
+         "nombre": "",
+         "inicio":"" ,
+         "fin": ""},
+     
+         {"id":2,
+         "nombre": "",
+         "inicio":"" ,
+         "fin": ""},
+            
+         {"id":3,
+         "nombre": "",
+         "inicio":"" ,
+         "fin": ""}
+         ]
+
+    }
+    
+    
+]
+ 
