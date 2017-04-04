@@ -1,0 +1,14 @@
+<div class="container-fluid">
+    <div class="row">
+        <h2>Stands</h2>
+        <div class="pre-scrollable">
+            <div ng-repeat="stand in currentPabellon.stands | filter:currentPabellon.stands.numero">
+                <div class="thumbnail col-lg-4" style="min-height: 200px">
+                    <p class="text-center caption"> {{stand.numero}}</p>
+                    <img src="{{stand.image}}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="childrenView"></div>
