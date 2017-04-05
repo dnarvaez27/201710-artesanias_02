@@ -64,6 +64,8 @@ public class EspacioDTO {
      */
     private Integer capacidad;
     
+    private String image;
+    
     //--------------------------------------------------------------------------
     // Constructor
     //--------------------------------------------------------------------------
@@ -80,6 +82,7 @@ public class EspacioDTO {
         this.direccion = entity.getDireccion();
         this.telefono = entity.getTelefono();
         this.capacidad = entity.getCapacidad();
+        this.image = entity.getImage();
     }
     
     //--------------------------------------------------------------------------
@@ -170,6 +173,14 @@ public class EspacioDTO {
     public void setCapacidad(Integer capacidad) {
         this.capacidad = capacidad;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
     
     //--------------------------------------------------------------------------
     // Métodos
@@ -186,6 +197,7 @@ public class EspacioDTO {
         entity.setDireccion(this.direccion);
         entity.setTelefono(this.telefono);
         entity.setCapacidad(this.capacidad);
+        entity.setImage(this.image);
         return entity;
     }
 }

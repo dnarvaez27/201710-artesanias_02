@@ -53,6 +53,8 @@ public class CiudadDTO {
      */
     private String pais;
     
+    private String image;
+    
     //--------------------------------------------------------------------------
     // Constructor
     //--------------------------------------------------------------------------
@@ -67,6 +69,8 @@ public class CiudadDTO {
         this.id = entity.getId();
         this.nombre = entity.getNombre();
         this.pais = entity.getPais();
+        this.image = entity.getImage();
+        
     }
     
     //--------------------------------------------------------------------------
@@ -123,6 +127,14 @@ public class CiudadDTO {
     public void setPais(String pais) {
         this.pais = pais;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
     
     //--------------------------------------------------------------------------
     // Métodos
@@ -137,6 +149,7 @@ public class CiudadDTO {
         entity.setId(this.id);
         entity.setNombre(this.nombre);
         entity.setPais(this.pais);
+        entity.setImage(this.image);
         return entity;
     }
 }

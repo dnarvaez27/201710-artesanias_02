@@ -70,6 +70,8 @@ public class CiudadEntity implements Serializable {
     @Column(nullable=false)
     private String pais;
 
+    private String image;
+    
     /**
      * Conjunto de espacios que se encuentran en la ciudad.
      * Relación bidireccional con EspacioEntity. En caso de eliminar la ciudad, 
@@ -175,6 +177,14 @@ public class CiudadEntity implements Serializable {
      */
     public void setArtesanos(List<ArtesanoEntity> artesanos) {
         this.artesanos = artesanos;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
     
     //--------------------------------------------------------------------------

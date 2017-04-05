@@ -74,6 +74,7 @@ public class FeriaDTO implements Serializable {
      */
     private Date fin;
     
+    private String image;
     
     //--------------------------------------------------------------------------
     // Constructor
@@ -93,6 +94,7 @@ public class FeriaDTO implements Serializable {
         this.descuentos = entity.getDescuentos();
         this.inicio = entity.getInicio();
         this.fin = entity.getFin();
+        this.image = entity.getImage();
     }
     
     //--------------------------------------------------------------------------
@@ -199,6 +201,14 @@ public class FeriaDTO implements Serializable {
     public void setFin(Date fin) {
         this.fin = fin;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
     
     //--------------------------------------------------------------------------
     // Métodos
@@ -216,6 +226,7 @@ public class FeriaDTO implements Serializable {
         entity.setDescuentos(this.descuentos);
         entity.setInicio(this.inicio);
         entity.setFin(this.fin);
+        entity.setImage(this.image);
         return entity;
     }
 }

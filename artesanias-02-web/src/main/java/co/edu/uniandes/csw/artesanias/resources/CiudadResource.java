@@ -92,7 +92,15 @@ public class CiudadResource {
           logic.deleteCiudad(id);
     }
     
+    @Path( "{idCiudad: \\d+}/artesanos" )
+    public Class<ArtesanoResource> getArtesanoResource() {
+        return ArtesanoResource.class;
+    }
     
+    @Path( "{idCiudad: \\d+}/espacios" )
+    public Class<EspacioResource> getEspacioResource() {
+        return EspacioResource.class;
+    }
     
     private List<CiudadDTO> listEntity2DTO(List<CiudadEntity> entities) {
         List<CiudadDTO> rta = new LinkedList<CiudadDTO>();

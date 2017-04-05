@@ -78,6 +78,10 @@ public class BoletaResource {
     @POST
     public BoletaDTO createBoleta(BoletaEntity entity) 
             throws BusinessLogicException {
+        if (entity.getFeria() == null)
+            throw new WebApplicationException("La feria no existe", 404);
+        if (entity.getEspectador() == null)
+            throw new WebApplicationException("El espectador no existe", 404);
         FeriaEntity ef = feriaLogic.getFeria(entity.getFeria().getId());
         EspectadorEntity ee = espectadorLogic.getEspectador(
                 entity.getEspectador().getId());
@@ -114,7 +118,7 @@ public class BoletaResource {
     }
     
     @GET
-    @Path("{id: \\d+}/espectador")
+    @Path("{id: \\d+}/espectadores")
     public EspectadorDetailDTO getEspectador(@PathParam("idFeria") Long idFeria, 
             @PathParam("id") Long id) throws BusinessLogicException {
         if (feriaLogic.getFeria(idFeria) == null)
@@ -173,7 +177,7 @@ public class BoletaResource {
     }
     
     @GET
-    @Path("{id: \\d+}/feria")
+    @Path("{id: \\d+}/ferias")
     public FeriaDetailDTO getFeria(@PathParam("idEspectador") Long idEspectador, 
             @PathParam("id") Long id) throws BusinessLogicException {
         if (espectadorLogic.getEspectador(idEspectador) == null)

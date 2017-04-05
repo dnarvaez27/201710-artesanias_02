@@ -1,0 +1,27 @@
+<div ng-app="mainApp" class="panel panel-default" style="position: relative;">
+    <div class="blur" style="position: absolute;width:100%;height: 300px;">
+        <img ng-src="{{currentFeria.image}}" class="detail-bg">
+    </div>
+    <div style="position: absolute; width: 100%; height: 100%; background-color: black; opacity: 0.4 ">
+    </div>
+    <div style="position: relative">
+        <div style="position: relative;">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="thumb">
+                        <img class="img-responsive img-detail" ng-src="{{currentFeria.image}}"/>
+                    </div>
+                </div>
+                <div class="detail-fg col-md-3">
+                    <h3>{{currentFeria.nombre}}</h3>
+                    <h3>Inicio: {{currentFeria.inicio|date:'yyyy-MM-dd HH:mm'}}</h3>
+                    <h3>Fin: {{currentFeria.fin|date:'yyyy-MM-dd HH:mm'}}</h3>
+                    <h3>Total Boletas: {{currentFeria.totalBoletas}}</h3>
+                    <h3><a ui-sref="">{{currentFeria.espacio.nombre}}</a></h3>
+                    <h3><a ui-sref="">Conferencias</a></h3>
+                    <h3><a ui-sref="">Boletas</a></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
