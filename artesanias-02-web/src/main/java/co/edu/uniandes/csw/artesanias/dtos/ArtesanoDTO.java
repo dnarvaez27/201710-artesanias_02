@@ -35,6 +35,11 @@ public class ArtesanoDTO implements Serializable
 	private String telefono;
 	
 	/**
+	 * Imagen del Artesano
+	 */
+	private String image;
+	
+	/**
 	 * Builds an empty ArtesanoDTO
 	 */
 	public ArtesanoDTO( )
@@ -55,6 +60,7 @@ public class ArtesanoDTO implements Serializable
 			this.nombre = entity.getNombre( );
 			this.identificacion = entity.getIdentificacion( );
 			this.telefono = entity.getTelefono( );
+			this.image = entity.getImage( );
 		}
 	}
 	
@@ -68,7 +74,28 @@ public class ArtesanoDTO implements Serializable
 		entity.setNombre( this.nombre );
 		entity.setIdentificacion( this.identificacion );
 		entity.setTelefono( this.telefono );
+		entity.setImage( this.image );
 		return entity;
+	}
+	
+	/**
+	 * Retrieves the image of the ArtesanoDTO
+	 *
+	 * @return The image of the ArtesanoDTO
+	 */
+	public String getImage( )
+	{
+		return image;
+	}
+	
+	/**
+	 * Updates the image of the ArtesanoDTO by the one given by parameter
+	 *
+	 * @param image The new image of the ArtesanoDTO
+	 */
+	public void setImage( String image )
+	{
+		this.image = image;
 	}
 	
 	/**

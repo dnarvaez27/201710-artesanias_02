@@ -12,8 +12,7 @@ import java.util.List;
 /**
  * @author d.narvaez11
  */
-//TODO las verificaciones de existencia son responsabilidad de los recursos no de la lógica
-			
+
 @Stateless
 public class ArtesanoLogic
 {
@@ -71,8 +70,7 @@ public class ArtesanoLogic
 		boolean nombre = entity.getNombre( ) == null || entity.getNombre( ).isEmpty( );
 		boolean telefono = entity.getTelefono( ) == null || entity.getTelefono( ).isEmpty( );
 		boolean ciudad = entity.getCiudad( ) == null;
-		boolean ident = entity.getIdentificacion( ) == null || entity.getIdentificacion( )
-		                                                             .isEmpty( );
+		boolean ident = entity.getIdentificacion( ) == null || entity.getIdentificacion( ).isEmpty( );
 		
 		entity.setNombre( nombre ? info.getNombre( ) : entity.getNombre( ) );
 		entity.setIdentificacion( ident ? info.getIdentificacion( ) : entity.getIdentificacion( ) );
@@ -95,11 +93,11 @@ public class ArtesanoLogic
 	private void checkNNValues( ArtesanoEntity entity ) throws BusinessLogicException
 	{
 		boolean nombre = entity.getNombre( ) == null || entity.getNombre( ).isEmpty( );
-		boolean ident = entity.getIdentificacion( ) == null || entity.getIdentificacion( )
-		                                                             .isEmpty( );
-		if( nombre || ident )
+		boolean ident = entity.getIdentificacion( ) == null || entity.getIdentificacion( ).isEmpty( );
+		boolean city = entity.getCiudad( ) == null;
+		if( nombre || ident || city )
 		{
-			throw new BusinessLogicException( String.format( "%s del Artesano no puede estar vacío", nombre ? "El nombre" : "La identificacion" ), Response.Status.BAD_REQUEST );
+			throw new BusinessLogicException( String.format( "%s del Artesano no puede estar vacío", nombre ? "El nombre" : ident ? "La identificacion" : "La ciudad " ), Response.Status.BAD_REQUEST );
 		}
 	}
 }

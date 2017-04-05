@@ -1,9 +1,14 @@
 package co.edu.uniandes.csw.artesanias.dtos.detail;
 
-import co.edu.uniandes.csw.artesanias.dtos.*;
+import co.edu.uniandes.csw.artesanias.dtos.ArtesaniaDTO;
+import co.edu.uniandes.csw.artesanias.dtos.ArtesanoDTO;
+import co.edu.uniandes.csw.artesanias.dtos.CiudadDTO;
+import co.edu.uniandes.csw.artesanias.dtos.ReviewDTO;
+import co.edu.uniandes.csw.artesanias.dtos.asociacion.ArtesanoFeriaDTO;
 import co.edu.uniandes.csw.artesanias.entities.ArtesaniaEntity;
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
 import co.edu.uniandes.csw.artesanias.entities.ReviewEntity;
+import co.edu.uniandes.csw.artesanias.entities.asociaciones.ArtesanoFeriaAssociation;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.LinkedList;
@@ -37,7 +42,7 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 	/**
 	 * Stand al cual esta asignado el Artesano
 	 */
-	private StandDTO stand;
+	private List<ArtesanoFeriaDTO> ferias;
 	
 	/**
 	 * Builds an empty Artesano Detail
@@ -60,6 +65,7 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 		{
 			this.artesanias = new LinkedList<>( );
 			this.reviews = new LinkedList<>( );
+			this.ferias = new LinkedList<>( );
 			
 			for( ArtesaniaEntity artesaniaEntity : entity.getArtesanias( ) )
 			{
@@ -69,8 +75,11 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 			{
 				reviews.add( new ReviewDTO( reviewEntity ) );
 			}
+			for( ArtesanoFeriaAssociation artesanoFeriaAssociation : entity.getFerias( ) )
+			{
+				ferias.add( new ArtesanoFeriaDTO( artesanoFeriaAssociation ) );
+			}
 			
-			stand = new StandDTO( entity.getStand( ) );
 			if( entity.getCiudad( ) != null )
 			{
 				ciudad = new CiudadDTO( entity.getCiudad( ) );
@@ -87,6 +96,7 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 		
 		List<ArtesaniaEntity> artesaniasEntities = new LinkedList<>( );
 		List<ReviewEntity> reviewsEntities = new LinkedList<>( );
+		List<ArtesanoFeriaAssociation> artesanoFeriaEntities = new LinkedList<>( );
 		
 		for( ArtesaniaDTO artesania : artesanias )
 		{
@@ -96,11 +106,14 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 		{
 			reviewsEntities.add( review.toEntity( ) );
 		}
-		
+		for( ArtesanoFeriaDTO feria : ferias )
+		{
+			artesanoFeriaEntities.add( feria.toEntity( ) );
+		}
 		entity.setArtesanias( artesaniasEntities );
 		entity.setReviews( reviewsEntities );
 		entity.setCiudad( ciudad != null ? this.ciudad.toEntity( ) : null );
-		entity.setStand( stand != null ? this.stand.toEntity( ) : null );
+		entity.setFerias( artesanoFeriaEntities );
 		
 		return entity;
 	}
@@ -166,22 +179,22 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 	}
 	
 	/**
-	 * Retrieves the stand of the ArtesanoDetailDTO
+	 * Retrieves the ferias of the ArtesanoDetailDTO
 	 *
-	 * @return The stand of the ArtesanoDetailDTO
+	 * @return The ferias of the ArtesanoDetailDTO
 	 */
-	public StandDTO getStand( )
+	public List<ArtesanoFeriaDTO> getFerias( )
 	{
-		return stand;
+		return ferias;
 	}
 	
 	/**
-	 * Updates the stand of the ArtesanoDetailDTO by the one given by parameter
+	 * Updates the ferias of the ArtesanoDetailDTO by the one given by parameter
 	 *
-	 * @param stand The new stand of the ArtesanoDetailDTO
+	 * @param ferias The new ferias of the ArtesanoDetailDTO
 	 */
-	public void setStand( StandDTO stand )
+	public void setFerias( List<ArtesanoFeriaDTO> ferias )
 	{
-		this.stand = stand;
+		this.ferias = ferias;
 	}
 }
