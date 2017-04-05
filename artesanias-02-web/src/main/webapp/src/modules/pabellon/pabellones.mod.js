@@ -57,13 +57,13 @@
           }
         }
       })
-      .state('pabellonDetailStands', {
-        url: '/stands',
+      .state('pabellonDetailSalones', {
+        url: '/salones',
         parent: 'pabellonDetail',
         param: {},
         views: {
           'detail': {
-            templateUrl: basePath + 'pabellones.detail.stands.html'
+            templateUrl: basePath + 'pabellones.detail.salones.html'
           }
         }
       })

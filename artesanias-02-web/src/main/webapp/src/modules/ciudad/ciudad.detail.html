@@ -1,0 +1,25 @@
+<div class="panel panel-default"> 
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="thumb">
+                    <img class="img-responsive" ng-src="{{currentCiudad.image}}"/>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <dl>     
+                    <dt>{{currentCiudad.nombre}}</dt>
+                    
+                    <dt> ID</dt>
+                    <dd>{{currentCiudad.id}}</dd>
+                    <hr>
+                    <dt>País</dt>
+                    <dd>{{currentCiudad.pais}}</dd>
+                   
+            </div>
+             <div ui-view="childrenView"></div>
+        </div>
+    </div>
+   
+</div>
