@@ -1,31 +1,29 @@
-<div class="panel panel-default" style="position: relative;">
-    <div class="blur" ng-style="{ 'background-image':'url(' + currentPabellon.image + ')' }">
-        <!--style="position: absolute; width:100%;height:100%;">-->
-    </div>
-    <div style="position: relative;">
-        <!--<div class="panel-body" style="background-color: #e5e5e5;">-->
+<div class="panel panel-default"> 
+    <div class="panel-body">
         <div class="row">
             <div class="col-md-3">
                 <div class="thumb">
                     <img class="img-responsive" ng-src="{{currentPabellon.image}}"/>
                 </div>
+
             </div>
             <div class="col-md-3">
-                <h3>{{currentPabellon.tipo}}</h3>
-                <ul class="nav nav-tabs">
-                    <li role="presentation"><a ui-sref="pabellonDetailStands">Stands</a></li>
-                </ul>
-                <div>
-                    <p><strong>Tipo:</strong> {{currentpabellon.tipo}}</p>
-                    <p><strong>Capacidad:</strong> {{currentPabellon.capacidad}}</p>
-                </div>
-            </div>
-            <div class="col-md-6" ui-view="detail"></div>
-        </div>
-        <!--</div>-->
-    </div>
-</div>
-<div ui-view="childrenView"></div>
-<!--<div back-img="{{currentPabellon.image}}" style="border: solid 1px red; height: 500px;">-->
+                <dl>     
+                    <dt>{{currentPabellon.tipo}}</dt>
 
+                    <hr>
+                    <dt>ID</dt>
+                    <dd>{{currentPabellon.id}}</dd>
+
+                    <hr>
+                    <dt>Capacidad</dt>
+                    <dd>{{currentPabellon.capacidad}}</dd>
+                    <hr>
+
+                </dl>
+              
+            </div>
+            <div ui-view="childrenView"></div>
+        </div>
+    </div>
 </div>

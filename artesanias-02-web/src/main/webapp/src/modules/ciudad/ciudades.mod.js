@@ -1,27 +1,27 @@
 (function (ng) {
     var mod = ng.module("ciudadModule", ['ui.router']);
-    mod.constant("ciudadesContext", "api/ciudad");
+    mod.constant("ciudadesContext", "api/ciudades");
     mod.config(['$stateProvider',  '$urlRouterProvider', function ( $stateProvider, $urlRouterProvider) {
-            var basePath = 'src/modules/ciudad/';
-            $urlRouterProvider.otherwise("/ciudadList");
+            var basePath = 'src/modules/ciudades/';
+            $urlRouterProvider.otherwise("/ciudadesList");
 
             $stateProvider.state('ciudades', {
                 url: '/ciudades',
                 abstract: true,
                 resolve: {
-                    ciudades: ['$http', 'ciudadContext', function ($http, ciudadContext) {
-                            return $http.get(ciudadContext);
+                    ciudades: ['$http', 'ciudadesContext', function ($http, ciudadesContext) {
+                            return $http.get(ciudadesContext);
                         }]
                 },
                 views: {
                     'mainView': {
                         templateUrl: basePath + 'ciudades.html',
                         controller: ['$scope', 'ciudades', function ($scope, ciudades) {
-                                $scope.ciudadRecords = ciudad.data;
+                                $scope.ciudadesRecords = ciudades.data;
                             }]
                     }
                 }
-            }).state('ciudadList', {
+            }).state('ciudadesList', {
                 url: '/list',
                 parent: 'ciudades',
                 views: {
@@ -36,8 +36,8 @@
                     ciudadId: null
                 },
                 resolve:  {
-                    currentCiudad: ['$http', 'ciudadContext', '$stateParams', function ($http, ciudadContext, $params) {
-                            return $http.get(ciudadContext+'/'+$params.ciudadId);
+                    currentCiudad: ['$http', 'ciudadesContext', '$stateParams', function ($http, ciudadesContext, $params) {
+                            return $http.get(ciudadesContext+'/'+$params.ciudadId);
                         }]
                 },
                 views: {
