@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.artesanias.resources;
 import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.detail.ConferenciaDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ConferenciaLogic;
+import co.edu.uniandes.csw.artesanias.ejbs.FeriaLogic;
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
@@ -34,6 +35,8 @@ public class ConferenciaResource
 {
 	@Inject
 	private ConferenciaLogic conferenciaLogic;
+        @Inject
+        private FeriaLogic feriaLogic;
 	
 	@Context
 	private HttpServletResponse response;
@@ -49,9 +52,11 @@ public class ConferenciaResource
 	}
 	
 	@GET
-	public List<ConferenciaDTO> getConferenciasFromFeria( @PathParam("feriaId") Long feriaId) 
+	public List<ConferenciaDTO> getConferenciasFromFeria( @PathParam("feriaId") Long feriaId) throws BusinessLogicException
 	{
-		
+		if (feriaLogic.getFeria(feriaId)==null){
+                    throw new WebApplicationException("No existe la feria", 404);
+                }
 		
                 
             return listEntity2DTO( conferenciaLogic.getConferenciasFromFeria(feriaId ) );
@@ -64,6 +69,9 @@ public class ConferenciaResource
 	public ConferenciaDTO getConferencia( @PathParam("feriaId")Long feriaId, @PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
            
+            if(feriaLogic.getFeria(feriaId)==null){
+                    throw new WebApplicationException("No existe la feria", 404);
+            }
 		return new ConferenciaDetailDTO( conferenciaLogic.getConferencia( id ,feriaId) );
 	}
 	
@@ -75,10 +83,13 @@ public class ConferenciaResource
 	
 	@PUT
 	@Path( "{id: \\d+}" )
-	public ConferenciaDTO updateConferencia(
+	public ConferenciaDTO updateConferencia( @PathParam("feriaId")Long feriaId,
 			@PathParam( "id" ) Long id, ConferenciaDTO dto ) throws BusinessLogicException
 	{
             
+             if(feriaLogic.getFeria(feriaId)==null){
+                    throw new WebApplicationException("No existe la feria", 404);
+            }
 		
 		ConferenciaEntity entity = dto.toEntity( );
 		entity.setId( id );
@@ -89,7 +100,9 @@ public class ConferenciaResource
 	@Path( "{id: \\d+}" )
 	public void deleteSConferencia(@PathParam("feriaId")Long feriaId, @PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-            
+             if(feriaLogic.getFeria(feriaId)==null){
+                    throw new WebApplicationException("No existe la feria", 404);
+            }
 		
 		conferenciaLogic.deleteConferencia( feriaId,id );
 	}

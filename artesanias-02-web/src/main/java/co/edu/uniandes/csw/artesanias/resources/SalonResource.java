@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.artesanias.dtos.PabellonDTO;
 import co.edu.uniandes.csw.artesanias.dtos.SalonDTO;
 import co.edu.uniandes.csw.artesanias.dtos.detail.SalonDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ConferenciaLogic;
+import co.edu.uniandes.csw.artesanias.ejbs.PabellonLogic;
 import co.edu.uniandes.csw.artesanias.ejbs.SalonLogic;
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
@@ -29,6 +30,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import org.hibernate.validator.util.ReflectionHelper;
@@ -46,6 +48,9 @@ public class SalonResource
         
         @Inject
         private ConferenciaLogic logicConferencia;
+        
+        @Inject
+        private PabellonLogic pabellonLogic;
 	
 	@Context
 	private HttpServletResponse response;
@@ -61,8 +66,12 @@ public class SalonResource
 	}
 	
 	@GET
-	public List<SalonDTO> getSalones( @PathParam( "pabellonId" ) Long pabellonId )
+	public List<SalonDTO> getSalones( @PathParam( "pabellonId" ) Long pabellonId )throws BusinessLogicException
 	{
+            if (pabellonLogic.getPabellon(pabellonId)==null) {
+                throw new WebApplicationException("No existe el pabellon", 404);
+                   
+            }
 		return listEntity2DTO( logic.getSalonesFromPabellon( pabellonId ) );
 	}
 	
@@ -78,6 +87,10 @@ public class SalonResource
 	public SalonDTO createSalon( @PathParam( "pabellonId" )
 			                             Long pabellonId, SalonDetailDTO dto ) throws BusinessLogicException
 	{
+             if (pabellonLogic.getPabellon(pabellonId)==null) {
+                throw new WebApplicationException("No existe el pabellon", 404);
+                   
+            }
 		PabellonEntity en = new PabellonEntity( );
 		en.setId( pabellonId );
 		dto.setPabellon( new PabellonDTO( en ) );
@@ -92,6 +105,10 @@ public class SalonResource
 			@PathParam( "pabellonId" ) Long pabellonId,
 			@PathParam( "id" ) Long id, SalonDTO dto ) throws BusinessLogicException
 	{
+             if (pabellonLogic.getPabellon(pabellonId)==null) {
+                throw new WebApplicationException("No existe el pabellon", 404);
+                   
+            }
 		PabellonEntity pab = new PabellonEntity( );
 		pab.setId( pabellonId );
 		SalonEntity entity = dto.toEntity( );
@@ -104,6 +121,10 @@ public class SalonResource
 	@Path( "{id: \\d+}" )
 	public void deleteSalon( @PathParam( "id" ) Long idSalon,@PathParam( "pabellonId" ) Long pabellonId )
 	{
+             if (pabellonLogic.getPabellon(pabellonId)==null) {
+                throw new WebApplicationException("No existe el pabellon", 404);
+                   
+            }
 		logic.deleteSalon( idSalon );
 	}
         

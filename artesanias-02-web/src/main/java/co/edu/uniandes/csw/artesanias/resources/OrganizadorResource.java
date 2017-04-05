@@ -105,6 +105,7 @@ public class OrganizadorResource
 		return list;
 	}
 	
+        @GET
 	@Path( "{organizadorId: \\d+}/ferias" )
 	public List<FeriaDTO> getFeriaResource( @PathParam( "id" ) Long idOrganizador)
 	{

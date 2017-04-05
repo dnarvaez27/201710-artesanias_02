@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.artesanias.resources;
 import co.edu.uniandes.csw.artesanias.dtos.ConferenciaDTO;
 import co.edu.uniandes.csw.artesanias.dtos.detail.ConferenciaDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ConferenciaLogic;
+import co.edu.uniandes.csw.artesanias.ejbs.SalonLogic;
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
@@ -33,7 +34,8 @@ public class ConferenciaSalonResource
 {
 	@Inject
 	private ConferenciaLogic conferenciaLogic;
-	
+	@Inject
+        private SalonLogic salonLogic;
 	@Context
 	private HttpServletResponse response;
 	
@@ -48,9 +50,11 @@ public class ConferenciaSalonResource
 	}
 	
 	@GET
-	public List<ConferenciaDTO> getConferenciasFromSalon( @PathParam("salonId") Long salonId) 
+	public List<ConferenciaDTO> getConferenciasFromSalon( @PathParam("salonId") Long salonId) throws BusinessLogicException
 	{
-		
+		          if (salonLogic.getSalon(salonId)==null) {
+                throw new WebApplicationException("No existe el salon", 404);
+            }
 		
                 
             return listEntity2DTO( conferenciaLogic.getConferenciasFromsalon(salonId));
@@ -62,7 +66,9 @@ public class ConferenciaSalonResource
 	@Path( "{id: \\d+}" )
 	public ConferenciaDTO getConferencia(@PathParam("salonId")Long salonId, @PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-           
+                 if (salonLogic.getSalon(salonId)==null) {
+                throw new WebApplicationException("No existe el salon", 404);
+            }
 		return new ConferenciaDetailDTO( conferenciaLogic.getConferencia( id,salonId ) );
 	}
 	
@@ -74,11 +80,13 @@ public class ConferenciaSalonResource
 	
 	@PUT
 	@Path( "{id: \\d+}" )
-	public ConferenciaDTO updateConferencia(
+	public ConferenciaDTO updateConferencia(@PathParam("salonId")Long salonId,
 			@PathParam( "id" ) Long id, ConferenciaDTO dto ) throws BusinessLogicException
 	{
             
-		
+		      if (salonLogic.getSalon(salonId)==null) {
+                throw new WebApplicationException("No existe el salon", 404);
+            }
 		ConferenciaEntity entity = dto.toEntity( );
 		entity.setId( id );
 		return new ConferenciaDTO( conferenciaLogic.updateConferencia( entity ) );
@@ -88,7 +96,9 @@ public class ConferenciaSalonResource
 	@Path( "{id: \\d+}" )
 	public void deleteSConferencia( @PathParam("salonId")Long salonId,@PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-            
+                  if (salonLogic.getSalon(salonId)==null) {
+                throw new WebApplicationException("No existe el salon", 404);
+            }
 		
 		conferenciaLogic.deleteConferencia( id,salonId );
 	}

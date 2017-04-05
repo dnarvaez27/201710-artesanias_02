@@ -18,7 +18,7 @@ public class SalonEntity implements Serializable
 	
 	private Integer capacidad;
 	
-	@OneToOne( targetEntity = ConferenciaEntity.class, fetch = FetchType.LAZY )
+	@OneToMany( targetEntity = ConferenciaEntity.class, fetch = FetchType.LAZY )
 	private ConferenciaEntity conferencia;
 	
 	@ManyToOne( targetEntity = PabellonEntity.class, fetch = FetchType.LAZY )

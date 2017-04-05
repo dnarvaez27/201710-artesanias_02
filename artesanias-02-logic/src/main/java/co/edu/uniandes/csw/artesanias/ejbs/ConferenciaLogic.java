@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.websocket.server.PathParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 /**
@@ -41,6 +42,13 @@ public class ConferenciaLogic
 	
 	public ConferenciaEntity createConferencia( ConferenciaEntity entity ) throws BusinessLogicException
 	{
+           List<ConferenciaEntity> conf = persistence.findAll();
+            for (ConferenciaEntity conferenciaEntity1 : conf) {
+                if (conferenciaEntity1.getSalon().getId()==entity.getSalon().getId()&&conferenciaEntity1.getHoraInicio().equalsIgnoreCase(entity.getHoraInicio())&&conferenciaEntity1.getFechaInicio().equals(entity.getFechaInicio())) {
+                    
+                    throw new WebApplicationException("ya existe una conferencia",401);
+                }
+            }
 		check( entity );
 		persistence.create( entity );
 		return entity;

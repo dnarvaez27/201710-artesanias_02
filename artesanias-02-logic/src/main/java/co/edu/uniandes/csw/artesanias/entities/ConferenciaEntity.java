@@ -31,7 +31,7 @@ public class ConferenciaEntity implements Serializable
 	@ManyToOne( targetEntity = FeriaEntity.class, fetch = FetchType.LAZY )
 	private FeriaEntity feria;
 	
-	@OneToOne( targetEntity = SalonEntity.class, fetch = FetchType.LAZY )
+	@ManyToOne( targetEntity = SalonEntity.class, fetch = FetchType.LAZY )
 	private SalonEntity salon;
 	
 	public void setId( Long id )
