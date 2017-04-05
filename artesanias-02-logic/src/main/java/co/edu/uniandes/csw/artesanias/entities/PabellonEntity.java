@@ -33,6 +33,7 @@ import javax.persistence.*;
  * @author ja.espinoza
  */
 @Entity
+@Table(name= "pabellon")
 public class PabellonEntity implements Serializable
 {
         /**
@@ -45,13 +46,19 @@ public class PabellonEntity implements Serializable
         /**
          * Tipo del pabellón
          */
+        @Column(nullable = false)
 	private String tipo;
 	
         /**
          * capacidad del pabellón
          */
+        @Column(nullable = false)
 	private Integer capacidad;
 	
+        @ManyToOne(targetEntity = EspacioEntity.class, fetch = FetchType.LAZY)
+        @JoinColumn(name = "id_espacio")
+        private EspacioEntity espacio;
+        
         /**
          * Lista de stands en el pabellon
          */
@@ -84,6 +91,16 @@ public class PabellonEntity implements Serializable
 		this.salones = salones;
 	}
 	
+        public EspacioEntity getEspacio()
+        {
+            return espacio;
+        }
+        
+        public void setEspacio( EspacioEntity espacio )
+        {
+            this.espacio = espacio;
+        }
+        
 	/**
 	 * Retrieves the stands of the PabellonEntity
 	 *

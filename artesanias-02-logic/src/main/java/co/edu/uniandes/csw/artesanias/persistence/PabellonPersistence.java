@@ -48,20 +48,25 @@ public class PabellonPersistence
          * @param id
          * @return PabellonEntity
          */
-	public PabellonEntity find( Long id )
+	public PabellonEntity find( Long idEspacio, Long id )
 	{
-		return em.find( PabellonEntity.class, id );
+		TypedQuery<PabellonEntity> q= em.createQuery(
+                "select u from PabellonEntity u where u.espacio.id = :idE and u.id = :id"
+                , PabellonEntity.class);
+        q.setParameter("idF", idEspacio);
+        q.setParameter("id", id);
+        List<PabellonEntity> r = q.getResultList();
+        System.out.println(r.size());
+        return r.size() == 0 ? null : r.get(0);
 	}
 	
         /**
          * Retorna una lista con todos los PabellonEntity
          * @return pabellones
          */
-	public List<PabellonEntity> findAll( )
+	public List<PabellonEntity> findAll( Long idEspacio )
 	{
-		TypedQuery<PabellonEntity> q = em.createQuery( "select u from PabellonEntity u", PabellonEntity.class );
-		List<PabellonEntity> pabellones = q.getResultList( );
-		return pabellones;
+		return em.createQuery("select u from PabellonEntity u where u.espacio.id = "+ idEspacio).getResultList();
 	}
 	
         /**

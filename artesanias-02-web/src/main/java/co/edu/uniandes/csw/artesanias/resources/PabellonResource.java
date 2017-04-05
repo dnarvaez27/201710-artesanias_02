@@ -6,6 +6,8 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.PabellonDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.PabellonDetailDTO;
+import co.edu.uniandes.csw.artesanias.ejbs.EspacioLogic;
 import co.edu.uniandes.csw.artesanias.ejbs.PabellonLogic;
 import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
@@ -23,6 +25,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -42,6 +45,9 @@ public class PabellonResource
          */
 	@Inject
 	private PabellonLogic logic;
+        
+        @Inject
+        private EspacioLogic espacioLogic;
 	
         /**
          * Servicio de respuesta HTTP
@@ -72,10 +78,12 @@ public class PabellonResource
          * @return lista de PabellonDTO
          */
 	@GET
-	public List<PabellonDTO> getPabellones( )
-	{
-		return listEntity2DTO( logic.getPabellones( ) );
-	}
+	public List<PabellonDTO> getPabellones(@PathParam("idEspacio") Long idEspacio) 
+            throws BusinessLogicException {
+        if (espacioLogic.getEspacio(idEspacio) == null)
+            throw new WebApplicationException("El espacio no existe", 404);
+        return listEntity2DTO(logic.getPabellones(idEspacio));
+    }
 	
         /**
          * Retorna el pabellón con id dado
@@ -84,25 +92,26 @@ public class PabellonResource
          */
 	@GET
 	@Path( "{id: \\d+}" )
-	public PabellonDTO getPabellon( @PathParam( "id" ) Long id )
-	{
-		return new PabellonDTO( logic.getPabellon( id ) );
-	}
-	
-        /**
-         * Actualiza el pabellón con id dado con base al dto ingresado
-         * @param id
-         * @param dto
-         * @return PabellonDTO
-         * @throws BusinessLogicException 
-         */
+	public PabellonDetailDTO getPabellon(@PathParam("idEspacio") Long idEspacio, 
+            @PathParam("id") Long id ) throws BusinessLogicException {
+        if (espacioLogic.getEspacio(idEspacio) == null)
+            throw new WebApplicationException("El espacio no existe", 404);
+        if (logic.getPabellon(idEspacio, id) == null)
+            throw new WebApplicationException("El pabellon no existe", 404);
+        return new PabellonDetailDTO(logic.getPabellon(idEspacio, id));
+        }
+        
 	@PUT
 	@Path( "{id: \\d+}" )
-	public PabellonDTO updatePabellon( @PathParam( "id" ) Long id, PabellonDTO dto ) throws BusinessLogicException
-	{
-		PabellonEntity entity = dto.toEntity( );
-		entity.setId( id );
-		return new PabellonDTO( logic.updatePabellon( entity ) );
+	public PabellonDTO updatePabellon(@PathParam("idEspacio") Long idEspacio, 
+            @PathParam("id") Long id, PabellonDTO dto) throws BusinessLogicException {
+        if (espacioLogic.getEspacio(idEspacio) == null)
+            throw new WebApplicationException("El espacio no existe", 404);
+        if (logic.getPabellon(idEspacio, id) == null)
+            throw new WebApplicationException("El pabellon no existe", 404);
+        PabellonEntity entity = dto.toEntity();
+        entity.setId(id);
+        return new PabellonDTO(logic.updatePabellon(entity));
 	}
 	
         /**
@@ -111,10 +120,13 @@ public class PabellonResource
          */
 	@DELETE
 	@Path( "{id: \\d+}" )
-	public void deletePabellon( @PathParam( "id" ) Long id )
-	{
-		logic.deletePabellon( id );
-	}
+	public void deletePabellon(@PathParam("idEspacio") Long idEspacio, @PathParam("id") Long id) throws BusinessLogicException {
+        if (espacioLogic.getEspacio(idEspacio) == null)
+            throw new WebApplicationException("El espacio no existe", 404);
+        if (logic.getPabellon(idEspacio, id) == null)
+            throw new WebApplicationException("El pabellon no existe", 404);
+        logic.deletePabellon(id);
+        }
 	
         /**
          * Retorna una lista de PabellonDTO con base a la lista de PabellonEntity ingresada

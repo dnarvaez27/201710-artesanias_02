@@ -41,14 +41,17 @@ public class PabellonLogic
 	@Inject
 	private PabellonPersistence persistence;
 	
-	public PabellonEntity getPabellon( Long id )
+	public PabellonEntity getPabellon( Long idEspacio, Long id ) throws BusinessLogicException
 	{
-		return persistence.find( id );
+                checkId(idEspacio);
+                checkId(id);
+		return persistence.find( idEspacio, id );
 	}
 	
-	public List<PabellonEntity> getPabellones( )
+	public List<PabellonEntity> getPabellones( Long idEspacio ) throws BusinessLogicException
 	{
-		return persistence.findAll( );
+                checkId(idEspacio);
+		return persistence.findAll( idEspacio );
 	}
 	
 	public PabellonEntity createPabellon( PabellonEntity entity ) throws BusinessLogicException
@@ -63,8 +66,9 @@ public class PabellonLogic
 		return persistence.update( entity );
 	}
 	
-	public void deletePabellon( Long id )
+	public void deletePabellon( Long id ) throws BusinessLogicException
 	{
+                checkId(id);
 		persistence.delete( id );
 	}
 	
@@ -75,4 +79,13 @@ public class PabellonLogic
 			throw new BusinessLogicException( "La capacidad del Pabellon debe ser mayor a 0", Response.Status.BAD_REQUEST );
 		}
 	}
+        /**
+     * Revisa la validez del id dado
+     * @param id a ser revisado
+     * @throws BusinessLogicException si el id es nulo o menor a 0.
+     */
+    private void checkId(Long id) throws BusinessLogicException {
+        if (id == null || id < 0)
+            throw new BusinessLogicException("El id ingresado no es válido.", Response.Status.BAD_REQUEST);
+    }
 }

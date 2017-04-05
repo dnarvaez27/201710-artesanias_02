@@ -21,10 +21,6 @@ import java.util.List;
 @XmlRootElement
 public class StandDetailDTO extends StandDTO
 {
-        /**
-         * lista de artesanos pertenecientes al stand
-         */
-	private List<ArtesanoDTO> artesanos;
 	
         /**
          * Pabellon al cual pertenece el stand
@@ -43,14 +39,8 @@ public class StandDetailDTO extends StandDTO
 	public StandDetailDTO( StandEntity entity )
 	{
 		super( entity );
-		artesanos = new LinkedList<>( );
 		if( entity != null )
 		{
-			for( ArtesanoEntity artesanoEntity : entity.getArtesanos( ) )
-			{
-				artesanos.add( new ArtesanoDTO( artesanoEntity ) );
-			}
-			
 			pabellon = new PabellonDTO( entity.getPabellon( ) );
 		}
 	}
@@ -63,36 +53,8 @@ public class StandDetailDTO extends StandDTO
 	{
 		StandEntity entity = super.toEntity( );
 		List<ArtesanoEntity> artesanoEntities = new LinkedList<>( );
-		if( artesanos != null )
-		{
-			for( ArtesanoDTO artesano : artesanos )
-			{
-				artesanoEntities.add( artesano.toEntity( ) );
-			}
-		}
-		entity.setArtesanos( artesanoEntities );
 		entity.setPabellon( pabellon.toEntity( ) );
 		return entity;
-	}
-	
-	/**
-	 * Retrieves the artesanos of the StandDetailDTO
-	 *
-	 * @return The artesanos of the StandDetailDTO
-	 */
-	public List<ArtesanoDTO> getArtesanos( )
-	{
-		return artesanos;
-	}
-	
-	/**
-	 * Updates the artesanos of the StandDetailDTO by the one given by parameter
-	 *
-	 * @param artesanos The new artesanos of the StandDetailDTO
-	 */
-	public void setArtesanos( List<ArtesanoDTO> artesanos )
-	{
-		this.artesanos = artesanos;
 	}
 	
 	/**

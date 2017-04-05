@@ -94,6 +94,10 @@ public class EspacioEntity implements Serializable
 	 */
 	@OneToMany( mappedBy = "espacio" )
 	private List<FeriaEntity> ferias = new LinkedList<FeriaEntity>( );
+        
+        @OneToMany(cascade = CascadeType.ALL, mappedBy = "espacio",
+            targetEntity = PabellonEntity.class, fetch = FetchType.LAZY)
+        private List<PabellonEntity> pabellones;
 	
 	//--------------------------------------------------------------------------
 	// Métodos
@@ -245,6 +249,15 @@ public class EspacioEntity implements Serializable
 	{
 		this.ferias = ferias;
 	}
+        
+        public List<PabellonEntity> getPabellones()
+        {
+            return pabellones;
+        }
+        
+        public void setPabellones(List<PabellonEntity> pabellones) {
+        this.pabellones = pabellones;
+        }
 	
 	//--------------------------------------------------------------------------
 	// Métodos del objeto

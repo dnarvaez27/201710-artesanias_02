@@ -66,11 +66,6 @@ public class StandEntity implements Serializable
 	@ManyToOne( targetEntity = PabellonEntity.class )
 	private PabellonEntity pabellon;
 	
-        /**
-         * Lista de artesanos en el stand
-         */
-	@OneToMany( fetch = FetchType.LAZY, targetEntity = ArtesanoEntity.class, mappedBy = "stand" )
-	private List<ArtesanoEntity> artesanos;
 	
         /**
          * Define el id del stand
@@ -178,25 +173,6 @@ public class StandEntity implements Serializable
 	public void setPabellon( PabellonEntity pabellon )
 	{
 		this.pabellon = pabellon;
-	}
-	
-	/**
-	 * Retorna una lista de ArtesanoEntity
-	 * @return artesanos
-	 */
-	public List<ArtesanoEntity> getArtesanos( )
-	{
-		return artesanos;
-	}
-	
-	/**
-	 * Updates the artesano of the StandEntity by the one given by parameter
-	 *
-	 * @param artesanos The new artesano of the StandEntity
-	 */
-	public void setArtesanos( List<ArtesanoEntity> artesanos )
-	{
-		this.artesanos = artesanos;
 	}
 	
 	@Override
