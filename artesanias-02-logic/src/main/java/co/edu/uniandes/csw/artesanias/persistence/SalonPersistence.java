@@ -78,4 +78,12 @@ public class SalonPersistence
 		SalonEntity entity = em.find( SalonEntity.class, id );
 		em.remove( entity );
 	}
+
+    public SalonEntity checkPabellon(Long pabellonId, Long salonId) {
+       TypedQuery<SalonEntity> q = em.createQuery( "SELECT S FROM SalonEntity S WHERE S.pabellon.id = :pabellonId AND S.id=salonId", SalonEntity.class );
+		q.setParameter( "pabellonId", pabellonId );
+                q.setParameter( "salonId", salonId );
+		List<SalonEntity> list= q.getResultList( );
+               return list.get(0);
+    }
 }

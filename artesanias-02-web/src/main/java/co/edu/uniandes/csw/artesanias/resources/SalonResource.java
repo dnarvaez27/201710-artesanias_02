@@ -68,10 +68,10 @@ public class SalonResource
 	@GET
 	public List<SalonDTO> getSalones( @PathParam( "pabellonId" ) Long pabellonId )throws BusinessLogicException
 	{
-            if (pabellonLogic.getPabellon(pabellonId)==null) {
-                throw new WebApplicationException("No existe el pabellon", 404);
-                   
-            }
+//            if (SalonLogic.checkPabellon(pabellonId)==null) {
+//                throw new WebApplicationException("No existe el pabellon", 404);
+//                   
+//            }
 		return listEntity2DTO( logic.getSalonesFromPabellon( pabellonId ) );
 	}
 	
@@ -87,7 +87,7 @@ public class SalonResource
 	public SalonDTO createSalon( @PathParam( "pabellonId" )
 			                             Long pabellonId, SalonDetailDTO dto ) throws BusinessLogicException
 	{
-             if (pabellonLogic.getPabellon(pabellonId)==null) {
+             if (logic.checkPabellon(pabellonId,dto.getId())==null) {
                 throw new WebApplicationException("No existe el pabellon", 404);
                    
             }
@@ -105,7 +105,7 @@ public class SalonResource
 			@PathParam( "pabellonId" ) Long pabellonId,
 			@PathParam( "id" ) Long id, SalonDTO dto ) throws BusinessLogicException
 	{
-             if (pabellonLogic.getPabellon(pabellonId)==null) {
+            if (logic.checkPabellon(pabellonId,dto.getId())==null) {
                 throw new WebApplicationException("No existe el pabellon", 404);
                    
             }
@@ -121,7 +121,7 @@ public class SalonResource
 	@Path( "{id: \\d+}" )
 	public void deleteSalon( @PathParam( "id" ) Long idSalon,@PathParam( "pabellonId" ) Long pabellonId )
 	{
-             if (pabellonLogic.getPabellon(pabellonId)==null) {
+            if (logic.checkPabellon(pabellonId,idSalon)==null) {
                 throw new WebApplicationException("No existe el pabellon", 404);
                    
             }

@@ -21,8 +21,16 @@ import javax.ws.rs.core.Response;
 @Stateless
 public class SalonLogic
 {
+
+    public SalonEntity checkPabellon(Long pabellonId,Long salonId) {
+       
+        return persistence.checkPabellon(pabellonId,salonId);
+    }
 	@Inject
 	private SalonPersistence persistence;
+        
+        
+       
 	
 	/**
 	 * @return la lista de los salones.
@@ -70,6 +78,7 @@ public class SalonLogic
 		{
 			throw new BusinessLogicException( "La capacidad del Salón debe ser mayor a 0", Response.Status.BAD_REQUEST );
 		}
+                
 	}
 
    
