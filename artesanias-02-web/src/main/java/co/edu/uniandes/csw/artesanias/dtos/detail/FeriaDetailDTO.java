@@ -1,3 +1,4 @@
+package co.edu.uniandes.csw.artesanias.dtos.detail;
 /*
  * The MIT License
  *

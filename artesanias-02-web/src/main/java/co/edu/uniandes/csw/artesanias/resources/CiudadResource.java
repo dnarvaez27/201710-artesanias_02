@@ -24,6 +24,7 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.CiudadDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.CiudadDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.CiudadLogic;
 import co.edu.uniandes.csw.artesanias.entities.CiudadEntity;
 import java.util.LinkedList;
@@ -39,6 +40,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -57,40 +59,40 @@ public class CiudadResource {
     @QueryParam("limit") private Integer maxRecords;
     
     @POST
-    public CiudadDTO createFeria(CiudadEntity entity) {
+    public CiudadDTO createCiudad(CiudadEntity entity) {
         return new CiudadDTO(logic.createCiudad(entity));
     }
     
     @GET
-    public List<CiudadDTO> getArtesanos() {
+    public List<CiudadDTO> getCiudades() {
         return listEntity2DTO(logic.getCiudades());
     }
     
     @GET
     @Path("{id: \\d+}")
-    public CiudadDTO getArtesano(@PathParam("id") Long id ) {
-        // TODO si la ciudad no existe debe disparar WebApplicationException 404
-	
-        return new CiudadDTO(logic.getCiudad(id));
+    public CiudadDetailDTO getCiudad(@PathParam("id") Long id) {
+        if (logic.getCiudad(id) == null)
+            throw new WebApplicationException("La ciudad buscada no existe", 404);
+        return new CiudadDetailDTO(logic.getCiudad(id));
     }
     
     @PUT
     @Path("{id: \\d+}")
-    public CiudadDTO updateArtesano(@PathParam("id") Long id, CiudadDTO dto) {
-          // TODO si la ciudad no existe debe disparar WebApplicationException 404
-	
-          CiudadEntity entity = dto.toEntity();
+    public CiudadDTO updateCiudad(@PathParam("id") Long id, CiudadDTO dto) {
+        CiudadEntity entity = dto.toEntity();
         entity.setId(id);
+        if (logic.getCiudad(id) == null)
+            throw new WebApplicationException("La ciudad buscada no existe", 404);
         return new CiudadDTO(logic.updateCiudad(entity));
     }
     
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteArtesano(@PathParam("id") Long id) {
-          // TODO si la ciudad no existe debe disparar WebApplicationException 404
-	
+    public void deleteCiudad(@PathParam("id") Long id) {
           logic.deleteCiudad(id);
     }
+    
+    
     
     private List<CiudadDTO> listEntity2DTO(List<CiudadEntity> entities) {
         List<CiudadDTO> rta = new LinkedList<CiudadDTO>();

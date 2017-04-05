@@ -60,10 +60,10 @@ public class BoletaLogic {
      * @return entidad boleta con el id dado.
      * @throws BusinessLogicException si no existe la boleta o el id no es válido.
      */
-    public BoletaEntity getBoleta(Long idFeria, Long id) throws BusinessLogicException {
+    public BoletaEntity getBoletaF(Long idFeria, Long id) throws BusinessLogicException {
         checkId(idFeria);
         checkId(id);
-        return persistence.find(idFeria, id);
+        return persistence.findF(idFeria, id);
     }
     
     /**
@@ -72,9 +72,33 @@ public class BoletaLogic {
      * @return lista de boletas de una feria.
      * @throws BusinessLogicException si el id de la feria no es válido.
      */
-    public List<BoletaEntity> getBoletas(Long idFeria) throws BusinessLogicException {
+    public List<BoletaEntity> getBoletasF(Long idFeria) throws BusinessLogicException {
         checkId(idFeria);
-        return persistence.findAll(idFeria);
+        return persistence.findAllF(idFeria);
+    }
+    
+    /**
+     * Se devuelve la entidad boleta con el id dado.
+     * @param idEspectador id del espectador que tiene la boleta con el id dado.
+     * @param id de la boleta a buscar.
+     * @return entidad boleta con el id dado.
+     * @throws BusinessLogicException si no existe la boleta o el id no es válido.
+     */
+    public BoletaEntity getBoletaE(Long idEspectador, Long id) throws BusinessLogicException {
+        checkId(idEspectador);
+        checkId(id);
+        return persistence.findE(idEspectador, id);
+    }
+    
+    /**
+     * Devuelve el conjunto de boletas de una feria.
+     * @param idEspectador id del espectador del que se desea saber el conjunto de boletas
+     * @return lista de boletas de una feria.
+     * @throws BusinessLogicException si el id de la feria no es válido.
+     */
+    public List<BoletaEntity> getBoletasE(Long idEspectador) throws BusinessLogicException {
+        checkId(idEspectador);
+        return persistence.findAllE(idEspectador);
     }
     
     /**
@@ -91,16 +115,14 @@ public class BoletaLogic {
     }
     
     /**
-     * Actualiza los valores de la boleta con el id dado y que pertenece a la feria dada.
-     * @param idFeria id de la feria que contiene a la boleta
+     * Actualiza los valores de la boleta con el id dado.
      * @param entity entidad con la información para actualizar la boleta.
      * @return la entidad de la boleta actualizada.
-     * @throws BusinessLogicException si el id de la feria no es válido o los datos que
-     * se desean actualizar no son válidos.
+     * @throws BusinessLogicException si los datos que se desean actualizar no 
+     * son válidos.
      */
-    public BoletaEntity updateBoleta(Long idFeria, BoletaEntity entity) throws BusinessLogicException {
-        checkId(idFeria);
-        BoletaEntity e = persistence.find(idFeria, entity.getId());
+    public BoletaEntity updateBoleta(BoletaEntity entity) throws BusinessLogicException {
+        BoletaEntity e = persistence.find(entity.getId());
         if (entity.getFeria() == null)
             entity.setFeria(e.getFeria());
         if (e.getInicio() == null)
@@ -117,35 +139,12 @@ public class BoletaLogic {
     
     /**
      * Elimina la boleta con el id dado que pertenece a la feria con el id dado.
-     * @param idFeria id de la feria que contiene la boleta.
      * @param id de la boleta.
      * @throws BusinessLogicException si los id's no son válidos o la boleta no existe.
      */
-    public void deleteBoleta(Long idFeria, Long id) throws BusinessLogicException {
-        checkId(idFeria);
+    public void deleteBoleta(Long id) throws BusinessLogicException {
         checkId(id);
-        persistence.delete(idFeria, id);
-    }
-    
-    /**
-     * 
-     * @param idFeria
-     * @param id
-     * @return
-     * @throws BusinessLogicException 
-     */
-    public EspectadorEntity getEspectador(Long idFeria, Long id) throws BusinessLogicException {
-        checkId(idFeria);
-        checkId(id);
-        BoletaEntity e = persistence.find(idFeria, id);
-        if (e == null)
-            throw new BusinessLogicException("No existe la boleta buscada", Response.Status.NOT_FOUND);
-        return e.getEspectador();
-    }
-    
-    public BoletaEntity setEspectador(Long id, EspectadorEntity entity) {
-        
-        return null;
+        persistence.delete(id);
     }
     
     //--------------------------------------------------------------------------

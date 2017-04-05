@@ -24,7 +24,9 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.BoletaDTO;
-import co.edu.uniandes.csw.artesanias.dtos.EspectadorDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.FeriaDetailDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.BoletaDetailDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.EspectadorDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.BoletaLogic;
 import co.edu.uniandes.csw.artesanias.ejbs.EspectadorLogic;
 import co.edu.uniandes.csw.artesanias.ejbs.FeriaLogic;
@@ -88,58 +90,122 @@ public class BoletaResource {
         return new BoletaDTO(logic.createBoleta(entity));
     }
     
+    //--------------------------------------------------------------------------
+    // Métodos Dependiendo de feria
+    //--------------------------------------------------------------------------
+    
     @GET
-    public List<BoletaDTO> getBoletas(@PathParam("idFeria") Long idFeria) 
+    public List<BoletaDTO> getBoletasF(@PathParam("idFeria") Long idFeria) 
             throws BusinessLogicException {
         if (feriaLogic.getFeria(idFeria) == null)
             throw new WebApplicationException("La feria no existe", 404);
-        return listEntity2DTO(logic.getBoletas(idFeria));
+        return listEntity2DTO(logic.getBoletasF(idFeria));
     }
     
     @GET
     @Path("{id: \\d+}")
-    public BoletaDTO getBoleta(@PathParam("idFeria") Long idFeria, 
+    public BoletaDetailDTO getBoletaF(@PathParam("idFeria") Long idFeria, 
             @PathParam("id") Long id ) throws BusinessLogicException {
         if (feriaLogic.getFeria(idFeria) == null)
             throw new WebApplicationException("La feria no existe", 404);
-        if (logic.getBoleta(idFeria, id) == null)
+        if (logic.getBoletaF(idFeria, id) == null)
             throw new WebApplicationException("La boleta no existe", 404);
-        return new BoletaDTO(logic.getBoleta(idFeria, id));
+        return new BoletaDetailDTO(logic.getBoletaF(idFeria, id));
     }
     
     @GET
     @Path("{id: \\d+}/espectador")
-    public EspectadorDTO getEspectador(@PathParam("idFeria") Long idFeria, 
+    public EspectadorDetailDTO getEspectador(@PathParam("idFeria") Long idFeria, 
             @PathParam("id") Long id) throws BusinessLogicException {
         if (feriaLogic.getFeria(idFeria) == null)
             throw new WebApplicationException("La feria no existe", 404);
-        if (logic.getBoleta(idFeria, id) == null)
+        BoletaEntity b = logic.getBoletaF(idFeria, id);
+        if (b == null)
             throw new WebApplicationException("La boleta no existe", 404);
-        return new EspectadorDTO(logic.getEspectador(idFeria, id));
-    } 
+        return new EspectadorDetailDTO(b.getEspectador());
+    }
     
     @PUT
     @Path("{id: \\d+}")
-    public BoletaDTO updateBoleta(@PathParam("idFeria") Long idFeria, 
+    public BoletaDTO updateBoletaF(@PathParam("idFeria") Long idFeria, 
             @PathParam("id") Long id, BoletaDTO dto) throws BusinessLogicException {
         if (feriaLogic.getFeria(idFeria) == null)
             throw new WebApplicationException("La feria no existe", 404);
-        if (logic.getBoleta(idFeria, id) == null)
+        if (logic.getBoletaF(idFeria, id) == null)
             throw new WebApplicationException("La boleta no existe", 404);
         BoletaEntity entity = dto.toEntity();
         entity.setId(id);
-        return new BoletaDTO(logic.updateBoleta(idFeria, entity));
+        return new BoletaDTO(logic.updateBoleta(entity));
     }
     
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteBoleta(@PathParam("idFeria") Long idFeria, 
+    public void deleteBoletaF(@PathParam("idFeria") Long idFeria, 
             @PathParam("id") Long id) throws BusinessLogicException {
         if (feriaLogic.getFeria(idFeria) == null)
             throw new WebApplicationException("La feria no existe", 404);
-        if (logic.getBoleta(idFeria, id) == null)
+        if (logic.getBoletaF(idFeria, id) == null)
             throw new WebApplicationException("La boleta no existe", 404);
-        logic.deleteBoleta(idFeria, id);
+        logic.deleteBoleta(id);
+    }
+    
+    //--------------------------------------------------------------------------
+    // Métodos Dependiendo de espectador
+    //--------------------------------------------------------------------------
+    
+    @GET
+    public List<BoletaDTO> getBoletasE(@PathParam("idEspectador") Long idEspectador) 
+            throws BusinessLogicException {
+        if (espectadorLogic.getEspectador(idEspectador) == null)
+            throw new WebApplicationException("El espectador no existe", 404);
+        return listEntity2DTO(logic.getBoletasF(idEspectador));
+    }
+    
+    @GET
+    @Path("{id: \\d+}")
+    public BoletaDetailDTO getBoletaE(@PathParam("idEspectador") Long idEspectador, 
+            @PathParam("id") Long id ) throws BusinessLogicException {
+        if (espectadorLogic.getEspectador(idEspectador) == null)
+            throw new WebApplicationException("El espectador no existe", 404);
+        if (logic.getBoletaE(idEspectador, id) == null)
+            throw new WebApplicationException("La boleta no existe", 404);
+        return new BoletaDetailDTO(logic.getBoletaE(idEspectador, id));
+    }
+    
+    @GET
+    @Path("{id: \\d+}/feria")
+    public FeriaDetailDTO getFeria(@PathParam("idEspectador") Long idEspectador, 
+            @PathParam("id") Long id) throws BusinessLogicException {
+        if (espectadorLogic.getEspectador(idEspectador) == null)
+            throw new WebApplicationException("El espectador no existe", 404);
+        BoletaEntity b = logic.getBoletaE(idEspectador, id);
+        if (b == null)
+            throw new WebApplicationException("La boleta no existe", 404);
+        return new FeriaDetailDTO(b.getFeria());
+    }
+    
+    @PUT
+    @Path("{id: \\d+}")
+    public BoletaDTO updateBoletaE(@PathParam("idEspectador") Long idEspectador, 
+            @PathParam("id") Long id, BoletaDTO dto) throws BusinessLogicException {
+        if (espectadorLogic.getEspectador(idEspectador) == null)
+            throw new WebApplicationException("El espectador no existe", 404);
+        if (logic.getBoletaE(idEspectador, id) == null)
+            throw new WebApplicationException("La boleta no existe", 404);
+        BoletaEntity entity = dto.toEntity();
+        entity.setId(id);
+        return new BoletaDTO(logic.updateBoleta(entity));
+    }
+    
+    @DELETE
+    @Path("{id: \\d+}")
+    public void deleteBoletaE(@PathParam("idEspectador") Long idEspectador, 
+            @PathParam("id") Long id) throws BusinessLogicException {
+        if (espectadorLogic.getEspectador(idEspectador) == null)
+            throw new WebApplicationException("El espectador no existe", 404);
+        if (logic.getBoletaE(idEspectador, id) == null)
+            throw new WebApplicationException("La boleta no existe", 404);
+        logic.deleteBoleta(id);
     }
     
     //--------------------------------------------------------------------------

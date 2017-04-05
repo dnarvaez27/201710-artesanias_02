@@ -24,6 +24,7 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.FeriaDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.FeriaDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ArtesanoLogic;
 import co.edu.uniandes.csw.artesanias.ejbs.EspacioLogic;
 import co.edu.uniandes.csw.artesanias.ejbs.FeriaLogic;
@@ -76,8 +77,8 @@ public class FeriaResource {
     
     @GET
     @Path("{id: \\d+}")
-    public FeriaDTO getFeria(@PathParam("id") Long id) throws BusinessLogicException {
-        return new FeriaDTO(feriaLogic.getFeria(id));
+    public FeriaDetailDTO getFeria(@PathParam("id") Long id) throws BusinessLogicException {
+        return new FeriaDetailDTO(feriaLogic.getFeria(id));
     }
     
     @PUT
@@ -110,7 +111,4 @@ public class FeriaResource {
             rta.add(new FeriaDTO(entity));
         return rta;
     }
-    
-    //TODO falta GET /ferias/:id/artesanos los artesanos de la feria :id
-    //TODO falta GET /ferias/:id/espacios los artesanos de la feria :id
 }
