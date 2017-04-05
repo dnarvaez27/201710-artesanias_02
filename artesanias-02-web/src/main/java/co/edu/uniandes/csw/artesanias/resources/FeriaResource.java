@@ -131,7 +131,7 @@ public class FeriaResource {
     //--------------------------------------------------------------------------
     
     @GET
-    public List<FeriaDTO> getFeriasE(@PathParam("idEspacio") Long idEspacio) {
+    public List<FeriaDTO> getFeriasE(@PathParam("idEspacio") Long idEspacio) throws BusinessLogicException {
         if (espacioLogic.getEspacio(idEspacio) == null)
             throw new WebApplicationException("El espacio no existe", 404);
         return listEntity2DTO(feriaLogic.getFeriasE(idEspacio));

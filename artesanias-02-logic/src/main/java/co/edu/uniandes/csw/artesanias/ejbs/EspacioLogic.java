@@ -24,10 +24,13 @@
 package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.EspacioEntity;
+import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.persistence.EspacioPersistence;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -38,23 +41,85 @@ public class EspacioLogic {
     
     @Inject private EspacioPersistence persistence;
     
-    public EspacioEntity getEspacio(Long id) {
+    public EspacioEntity getEspacio(Long id) throws BusinessLogicException {
+        checkId(id);
         return persistence.find(id);
     }
     
-    public List<EspacioEntity> getEspacios() {
-        return persistence.findAll();
+    public EspacioEntity getEspacio(Long idCiudad, Long id) throws BusinessLogicException {
+        checkId(idCiudad);
+        checkId(id);
+        return persistence.find(id, idCiudad);
     }
     
-    public EspacioEntity createEspacio(EspacioEntity entity) {
+    public List<EspacioEntity> getEspacios(Long idCiudad) throws BusinessLogicException {
+        checkId(idCiudad);
+        return persistence.findAll(idCiudad);
+    }
+    
+    public EspacioEntity createEspacio(EspacioEntity entity) throws BusinessLogicException {
+        checkData(entity);
         return persistence.create(entity);
     }
     
-    public EspacioEntity updateEspacio(EspacioEntity entity) {
+    public EspacioEntity updateEspacio(EspacioEntity e) throws BusinessLogicException {
+        EspacioEntity entity = persistence.find(e.getId());
+        if (e.getCapacidad() == null || e.getCapacidad() <= 0)
+            e.setCapacidad(entity.getCapacidad());
+        if (e.getCiudad() == null)
+            e.setCiudad(entity.getCiudad());
+        if (e.getDireccion() == null || e.getDireccion().isEmpty())
+            e.setDireccion(entity.getDireccion());
+        if (e.getNombre() == null || e.getNombre().isEmpty())
+            e.setNombre(entity.getNombre());
+        if (e.getImage() == null || e.getImage().isEmpty())
+            e.setImage(entity.getImage());
+        if (e.getTelefono() == null || e.getTelefono().isEmpty())
+            e.setTelefono(entity.getTelefono());
+        if (e.getPabellones() == null || e.getPabellones().isEmpty())
+            e.setPabellones(entity.getPabellones());
+        checkData(e);
         return persistence.update(entity);
     }
     
-    public void deleteEspacio(Long id) {
+    public void deleteEspacio(Long id) throws BusinessLogicException {
+        checkId(id);
         persistence.delete(id);
+    }
+    
+    //--------------------------------------------------------------------------
+    // Métodos Auxiliares
+    //--------------------------------------------------------------------------
+    
+    /**
+     * Revisa la validez del id dado
+     * @param id a ser revisado
+     * @throws BusinessLogicException si el id es nulo o menor a 0.
+     */
+    private void checkId(Long id) throws BusinessLogicException {
+        if (id == null || id < 0)
+            throw new BusinessLogicException("El id ingresado no es válido.", Response.Status.BAD_REQUEST);
+    }
+    
+    private void checkData(EspacioEntity e) throws BusinessLogicException {
+        checkId(e.getId());
+        if (e.getCapacidad() == null || e.getCapacidad() <= 0)
+            throw new BusinessLogicException("la capacidad del espacio no puede ser vacío, nulo o menor o igual a 0", Response.Status.BAD_REQUEST);
+        if (e.getCiudad() == null)
+            throw new BusinessLogicException("La ciudad del espacio no puede ser nula", Response.Status.BAD_REQUEST);
+        if (e.getDireccion() == null || e.getDireccion().isEmpty())
+            throw new BusinessLogicException("La dirección del espacio no puede ser nula o vacía", Response.Status.BAD_REQUEST);
+        if (e.getNombre() == null || e.getNombre().isEmpty())
+            throw new BusinessLogicException("El nombre del espacio no puede ser nula o vacía", Response.Status.BAD_REQUEST);
+        if (e.getImage() == null || e.getImage().isEmpty())
+            throw new BusinessLogicException("La imagén del espacio no puede ser nula o vacía", Response.Status.BAD_REQUEST);
+        if (e.getTelefono() == null || e.getTelefono().isEmpty())
+            throw new BusinessLogicException("El teléfono del espacio no puede ser nula o vacía", Response.Status.BAD_REQUEST);
+        if (e.getPabellones() == null || e.getPabellones().isEmpty())
+            throw new BusinessLogicException("Los pabellones del espacio no puede ser nulos o vacíos", Response.Status.BAD_REQUEST);
+        for (PabellonEntity pabellon : e.getPabellones()) {
+            if (pabellon == null)
+                throw new BusinessLogicException("Los pabellones del espacio no puede ser nulos o vacíos", Response.Status.BAD_REQUEST);
+        }
     }
 }
