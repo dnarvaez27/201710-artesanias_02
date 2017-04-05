@@ -88,9 +88,9 @@ public class ArtesanoResource
 	
 	@GET
 	@Path( "/c" )
-	public List<ArtesanoDTO> getArtesanosFromCiudad( Long idCiudad )
+	public List<ArtesanoDTO> getArtesanosFromCiudad( Long idCiudad ) throws BusinessLogicException
 	{
-		if( logicCiudad.getCiudad( idCiudad ) == null )
+		if( logicCiudad.getCiudad(idCiudad) == null )
 		{
 			throw new WebApplicationException( "La ciudad no existe", Response.Status.NOT_FOUND );
 		}

@@ -27,6 +27,7 @@ import co.edu.uniandes.csw.artesanias.dtos.CiudadDTO;
 import co.edu.uniandes.csw.artesanias.dtos.detail.CiudadDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.CiudadLogic;
 import co.edu.uniandes.csw.artesanias.entities.CiudadEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
@@ -59,7 +60,7 @@ public class CiudadResource {
     @QueryParam("limit") private Integer maxRecords;
     
     @POST
-    public CiudadDTO createCiudad(CiudadEntity entity) {
+    public CiudadDTO createCiudad(CiudadEntity entity) throws BusinessLogicException {
         return new CiudadDTO(logic.createCiudad(entity));
     }
     
@@ -70,7 +71,7 @@ public class CiudadResource {
     
     @GET
     @Path("{id: \\d+}")
-    public CiudadDetailDTO getCiudad(@PathParam("id") Long id) {
+    public CiudadDetailDTO getCiudad(@PathParam("id") Long id) throws BusinessLogicException {
         if (logic.getCiudad(id) == null)
             throw new WebApplicationException("La ciudad buscada no existe", 404);
         return new CiudadDetailDTO(logic.getCiudad(id));
@@ -78,7 +79,7 @@ public class CiudadResource {
     
     @PUT
     @Path("{id: \\d+}")
-    public CiudadDTO updateCiudad(@PathParam("id") Long id, CiudadDTO dto) {
+    public CiudadDTO updateCiudad(@PathParam("id") Long id, CiudadDTO dto) throws BusinessLogicException {
         CiudadEntity entity = dto.toEntity();
         entity.setId(id);
         if (logic.getCiudad(id) == null)
@@ -88,7 +89,7 @@ public class CiudadResource {
     
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteCiudad(@PathParam("id") Long id) {
+    public void deleteCiudad(@PathParam("id") Long id) throws BusinessLogicException {
           logic.deleteCiudad(id);
     }
     

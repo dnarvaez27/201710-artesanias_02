@@ -24,10 +24,12 @@
 package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.CiudadEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.persistence.CiudadPersistence;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
 /**
  * Logica del recurso ciudad.
@@ -38,7 +40,8 @@ public class CiudadLogic {
     
     @Inject private CiudadPersistence persistence;
     
-    public CiudadEntity getCiudad(Long id) {
+    public CiudadEntity getCiudad(Long id) throws BusinessLogicException {
+        checkId(id);
         return persistence.find(id);
     }
     
@@ -46,15 +49,58 @@ public class CiudadLogic {
         return persistence.findAll();
     }
     
-    public CiudadEntity createCiudad(CiudadEntity entity) {
+    public CiudadEntity createCiudad(CiudadEntity entity) throws BusinessLogicException {
+        checkData(entity);
         return persistence.create(entity);
     }
     
-    public CiudadEntity updateCiudad(CiudadEntity entity) {
+    public CiudadEntity updateCiudad(CiudadEntity entity) throws BusinessLogicException {
+        CiudadEntity e = persistence.find(entity.getId());
+        if (entity.getNombre() == null || entity.getNombre().isEmpty())
+            entity.setNombre(e.getNombre());
+        if (entity.getPais() == null || entity.getPais().isEmpty())
+            entity.setPais(e.getPais());
+        if (entity.getImage() == null || entity.getImage().isEmpty())
+            entity.setImage(e.getImage());
+        if (entity.getArtesanos() == null || entity.getArtesanos().isEmpty())
+            entity.setArtesanos(e.getArtesanos());
+        if (entity.getEspacios() == null || entity.getEspacios().isEmpty())
+            entity.setEspacios(e.getEspacios());
+        checkData(entity);
         return persistence.update(entity);
     }
     
-    public void deleteCiudad(Long id) {
+    public void deleteCiudad(Long id) throws BusinessLogicException {
+        checkId(id);
         persistence.delete(id);
+    }
+    
+    //--------------------------------------------------------------------------
+    // Métodos Auxiliares
+    //--------------------------------------------------------------------------
+    
+    /**
+     * Revisa la validez del id dado
+     * @param id a ser revisado
+     * @throws BusinessLogicException si el id es nulo o menor a 0.
+     */
+    private void checkId(Long id) throws BusinessLogicException {
+        if (id == null || id < 0)
+            throw new BusinessLogicException("El id ingresado no es válido.", Response.Status.BAD_REQUEST);
+    }
+    
+    /**
+     * Revisa las reglas de negocio.
+     * @param e entidad a ser revisada.
+     * @throws BusinessLogicException si no se cumple alguna regla de negocio.
+     */
+    private void checkData(CiudadEntity e) throws BusinessLogicException {
+        checkId(e.getId());
+        if (e.getNombre() == null || e.getNombre().isEmpty())
+            throw new BusinessLogicException("El nombre de la ciudad no puede ser vacío o nulo", Response.Status.BAD_REQUEST);
+        if (e.getPais() == null || e.getPais().isEmpty())
+            throw new BusinessLogicException("El pais de la ciudad no puede ser vacío o nulo", Response.Status.BAD_REQUEST);
+        if (e.getImage() == null || e.getImage().isEmpty())
+            throw new BusinessLogicException("La imagen de la ciudad no puede ser vacío o nulo", Response.Status.BAD_REQUEST);
     }
 }
