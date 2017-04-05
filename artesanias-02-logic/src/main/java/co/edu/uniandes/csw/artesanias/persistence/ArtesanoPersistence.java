@@ -5,7 +5,6 @@ import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -44,6 +43,13 @@ public class ArtesanoPersistence
 	public ArtesanoEntity find( Long id )
 	{
 		return em.find( ArtesanoEntity.class, id );
+	}
+	
+	public List<ArtesanoEntity> findFromCiudad( Long idCiudad )
+	{
+		TypedQuery<ArtesanoEntity> q = em.createQuery( "SELECT A FROM ArtesanoEntity A WHERE A.ciudad.id = :idCiudad", ArtesanoEntity.class );
+		q.setParameter( "idCiudad", idCiudad );
+		return q.getResultList( );
 	}
 	
 	/**

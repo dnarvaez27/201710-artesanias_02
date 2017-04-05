@@ -2,7 +2,9 @@ package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.ArtesanoDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ArtesanoLogic;
+import co.edu.uniandes.csw.artesanias.ejbs.CiudadLogic;
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
+import co.edu.uniandes.csw.artesanias.entities.CiudadEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.resources.asociaciones.ArtesanoFeriasResource;
 
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,6 +32,9 @@ public class ArtesanoResource
 	 */
 	@Inject
 	private ArtesanoLogic logic;
+	
+	@Inject
+	private CiudadLogic logicCiudad;
 	
 	/**
 	 * Servicio de respuesta HTTP
@@ -55,6 +61,20 @@ public class ArtesanoResource
 		return new ArtesanoDTO( logic.createArtesano( dto.toEntity( ) ) );
 	}
 	
+	@POST
+	@Path( "/c" )
+	public ArtesanoDTO createArtesano( @PathParam( "idCiudad" ) Long idCiudad, ArtesanoDTO dto ) throws BusinessLogicException
+	{
+		CiudadEntity cEntity = logicCiudad.getCiudad( idCiudad );
+		if( cEntity == null )
+		{
+			throw new WebApplicationException( "La ciudad no existe", Response.Status.NOT_FOUND );
+		}
+		ArtesanoEntity en = dto.toEntity( );
+		en.setCiudad( cEntity );
+		return new ArtesanoDTO( logic.createArtesano( en ) );
+	}
+	
 	/**
 	 * Retorna los Artesanos que hacen parte del Sistema
 	 *
@@ -64,6 +84,17 @@ public class ArtesanoResource
 	public List<ArtesanoDTO> getArtesanos( )
 	{
 		return listEntity2DTO( logic.getArtesanos( ) );
+	}
+	
+	@GET
+	@Path( "/c" )
+	public List<ArtesanoDTO> getArtesanosFromCiudad( Long idCiudad )
+	{
+		if( logicCiudad.getCiudad( idCiudad ) == null )
+		{
+			throw new WebApplicationException( "La ciudad no existe", Response.Status.NOT_FOUND );
+		}
+		return listEntity2DTO( logic.getArtesanosFromCiudad( idCiudad ) );
 	}
 	
 	/**
