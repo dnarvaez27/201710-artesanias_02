@@ -41,6 +41,11 @@ public class ArtesanoLogic
 		return persistence.findAll( );
 	}
 	
+	public List<ArtesanoEntity> getArtesanosFromCiudad( Long ciudad )
+	{
+		return persistence.findFromCiudad( ciudad );
+	}
+	
 	/**
 	 * Retrieves the data of an instance of Artesano by its ID.
 	 *
