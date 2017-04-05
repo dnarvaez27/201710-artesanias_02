@@ -56,13 +56,13 @@ public class PabellonLogic
 	
 	public PabellonEntity createPabellon( PabellonEntity entity ) throws BusinessLogicException
 	{
-		check( entity );
+		checkData( entity );
 		return persistence.create( entity );
 	}
 	
 	public PabellonEntity updatePabellon( PabellonEntity entity ) throws BusinessLogicException
 	{
-		check( entity );
+		checkData( entity );
 		return persistence.update( entity );
 	}
 	
@@ -72,13 +72,17 @@ public class PabellonLogic
 		persistence.delete( id );
 	}
 	
-	private void check( PabellonEntity entity ) throws BusinessLogicException
-	{
-		if( entity.getCapacidad() <= 0 )
-		{
-			throw new BusinessLogicException( "La capacidad del Pabellon debe ser mayor a 0", Response.Status.BAD_REQUEST );
-		}
-	}
+	private void checkData(PabellonEntity e) throws BusinessLogicException {
+        checkId(e.getId());
+        if (e.getTipo() == null || e.getTipo().isEmpty())
+            throw new BusinessLogicException("La feria debe tener un nombre", Response.Status.NOT_FOUND);
+        if (e.getCapacidad() == null)
+            throw new BusinessLogicException("La feria debe tener un número de boletas", Response.Status.NOT_FOUND);
+        if (e.getSalones() == null)
+            throw new BusinessLogicException("La feria debe tener un espacio donde se realiza", Response.Status.NOT_FOUND);
+        if (e.getStands() == null)
+            throw new BusinessLogicException("La feria debe tener un espacio donde se realiza", Response.Status.NOT_FOUND);
+    }
         /**
      * Revisa la validez del id dado
      * @param id a ser revisado

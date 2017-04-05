@@ -4,6 +4,7 @@ import co.edu.uniandes.csw.artesanias.dtos.ArtesanoDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.ArtesanoLogic;
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.artesanias.resources.asociaciones.ArtesanoFeriasResource;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -76,8 +77,6 @@ public class ArtesanoResource
 	@Path( "{id: \\d+}" )
 	public ArtesanoDTO getArtesano( @PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-            // TODO si el artesano no existe debe disparar WebApplicationException 404
-	
 		return new ArtesanoDTO( logic.getArtesano( id ) );
 	}
 	
@@ -91,11 +90,10 @@ public class ArtesanoResource
 	 */
 	@PUT
 	@Path( "{id: \\d+}" )
-	public ArtesanoDTO updateArtesano(
-			@PathParam( "id" ) Long id, ArtesanoDTO dto ) throws BusinessLogicException
-	{	  // TODO si el artesano no existe debe disparar WebApplicationException 404
-	
-
+	public ArtesanoDTO updateArtesano( @PathParam( "id" ) Long id, ArtesanoDTO dto ) throws BusinessLogicException
+	{
+		logic.getArtesano( id );// Verifica si el artesano existe
+		
 		ArtesanoEntity entity = dto.toEntity( );
 		entity.setId( id );
 		return new ArtesanoDTO( logic.updateArtesano( entity ) );
@@ -108,10 +106,9 @@ public class ArtesanoResource
 	 */
 	@DELETE
 	@Path( "{id: \\d+}" )
-	public void deleteArtesano( @PathParam( "id" ) Long id )
+	public void deleteArtesano( @PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-              // TODO si el artesano no existe debe disparar WebApplicationException 404
-	
+		logic.getArtesano( id );// Verifica si el artesano existe
 		logic.deleteArtesano( id );
 	}
 	
@@ -132,16 +129,17 @@ public class ArtesanoResource
 		return list;
 	}
 	
+	//	SUB-RECURSOS
+	
 	/**
 	 * Retorna el Sub-Recurso de Reviews del Artesano
 	 *
 	 * @return Clase del Sub-Recurso de Reviews del Artesano
 	 */
 	@Path( "{artesanoId: \\d+}/reviews" )
-	public Class<ReviewResource> getReviewResource( )
+	public Class<ReviewResource> getReviewResource( @PathParam( "artesanoId" ) Long artesanoId ) throws BusinessLogicException
 	{
-              // TODO si el artesano no existe debe disparar WebApplicationException 404
-	
+		logic.getArtesano( artesanoId );// Verifica si el artesano existe
 		return ReviewResource.class;
 	}
 	
@@ -151,10 +149,16 @@ public class ArtesanoResource
 	 * @return Clase del Sub-Recurso de las Artesanias del Artesano
 	 */
 	@Path( "{artesanoId: \\d+}/artesanias" )
-	public Class<ArtesaniasResource> getArtesaniasResource( )
+	public Class<ArtesaniasResource> getArtesaniasResource( @PathParam( "artesanoId" ) Long artesanoId ) throws BusinessLogicException
 	{
-             // TODO si el review  no existe debe disparar WebApplicationException 404
-	
+		logic.getArtesano( artesanoId );// Verifica si el artesano existe
 		return ArtesaniasResource.class;
+	}
+	
+	@Path( "{artesanoId: \\d+}/ferias" )
+	public Class<ArtesanoFeriasResource> getFeriasResourceAso( @PathParam( "artesanoId" ) Long artesanoId ) throws BusinessLogicException
+	{
+		logic.getArtesano( artesanoId );// Verifica si el artesano existe
+		return ArtesanoFeriasResource.class;
 	}
 }

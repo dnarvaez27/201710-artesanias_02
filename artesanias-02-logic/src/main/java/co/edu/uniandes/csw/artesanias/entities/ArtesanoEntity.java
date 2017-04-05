@@ -23,6 +23,8 @@
  */
 package co.edu.uniandes.csw.artesanias.entities;
 
+import co.edu.uniandes.csw.artesanias.entities.asociaciones.ArtesanoFeriaAssociation;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -58,6 +60,11 @@ public class ArtesanoEntity implements Serializable
 	private String telefono;
 	
 	/**
+	 * Imagen del Perfil del Artesano
+	 */
+	private String image;
+	
+	/**
 	 * Artesanias hechas por el Artesano
 	 */
 	@OneToMany( cascade = CascadeType.ALL, targetEntity = ArtesaniaEntity.class, fetch = FetchType.LAZY, mappedBy = "artesano" )
@@ -76,10 +83,31 @@ public class ArtesanoEntity implements Serializable
 	private CiudadEntity ciudad;
 	
 	/**
+	 * TODO
 	 * Stand en el que un Artesano se encuentra
 	 */
-	@ManyToOne( targetEntity = StandEntity.class )
-	private StandEntity stand;
+	@OneToMany( targetEntity = ArtesanoFeriaAssociation.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "artesano" )
+	private List<ArtesanoFeriaAssociation> ferias;
+	
+	/**
+	 * Retrieves the image of the ArtesanoEntity
+	 *
+	 * @return The image of the ArtesanoEntity
+	 */
+	public String getImage( )
+	{
+		return image;
+	}
+	
+	/**
+	 * Updates the image of the ArtesanoEntity by the one given by parameter
+	 *
+	 * @param image The new image of the ArtesanoEntity
+	 */
+	public void setImage( String image )
+	{
+		this.image = image;
+	}
 	
 	/**
 	 * Retrieves the id of the ArtesanoEntity
@@ -212,6 +240,26 @@ public class ArtesanoEntity implements Serializable
 	}
 	
 	/**
+	 * Retrieves the ferias of the ArtesanoEntity
+	 *
+	 * @return The ferias of the ArtesanoEntity
+	 */
+	public List<ArtesanoFeriaAssociation> getFerias( )
+	{
+		return ferias;
+	}
+	
+	/**
+	 * Updates the ferias of the ArtesanoEntity by the one given by parameter
+	 *
+	 * @param ferias The new ferias of the ArtesanoEntity
+	 */
+	public void setFerias( List<ArtesanoFeriaAssociation> ferias )
+	{
+		this.ferias = ferias;
+	}
+	
+	/**
 	 * Updates the reviews of the ArtesanoEntity by the ones given by parameter
 	 *
 	 * @param reviews The new reviews of the ArtesanoEntity
@@ -219,26 +267,6 @@ public class ArtesanoEntity implements Serializable
 	public void setReviews( List<ReviewEntity> reviews )
 	{
 		this.reviews = reviews;
-	}
-	
-	/**
-	 * Retrieves the stand of the ArtesanoEntity
-	 *
-	 * @return The stand of the ArtesanoEntity
-	 */
-	public StandEntity getStand( )
-	{
-		return stand;
-	}
-	
-	/**
-	 * Updates the stand of the ArtesanoEntity by the one given by parameter
-	 *
-	 * @param stand The new stand of the ArtesanoEntity
-	 */
-	public void setStand( StandEntity stand )
-	{
-		this.stand = stand;
 	}
 	
 	@Override
