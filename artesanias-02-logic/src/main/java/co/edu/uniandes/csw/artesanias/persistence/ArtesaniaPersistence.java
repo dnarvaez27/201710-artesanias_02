@@ -1,11 +1,13 @@
 package co.edu.uniandes.csw.artesanias.persistence;
 
 import co.edu.uniandes.csw.artesanias.entities.ArtesaniaEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**

@@ -83,7 +83,6 @@ public class ArtesanoEntity implements Serializable
 	private CiudadEntity ciudad;
 	
 	/**
-	 * TODO
 	 * Stand en el que un Artesano se encuentra
 	 */
 	@OneToMany( targetEntity = ArtesanoFeriaAssociation.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "artesano" )

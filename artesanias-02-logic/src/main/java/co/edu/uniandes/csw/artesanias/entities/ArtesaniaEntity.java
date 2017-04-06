@@ -49,7 +49,7 @@ public class ArtesaniaEntity implements Serializable
 	/**
 	 * Descripcion de la Artesania
 	 */
-	private String descripcion;
+	private String imagen;
 	
 	/**
 	 * Artesano quien creó la artesania
@@ -102,19 +102,19 @@ public class ArtesaniaEntity implements Serializable
 	 *
 	 * @return The descripcion of the ArtesaniaEntity
 	 */
-	public String getDescripcion( )
+	public String getImagen( )
 	{
-		return descripcion;
+		return imagen;
 	}
 	
 	/**
 	 * Updates the descripcion of the ArtesaniaEntity by the one given by parameter
 	 *
-	 * @param descripcion The new descripcion of the ArtesaniaEntity
+	 * @param imagen The new descripcion of the ArtesaniaEntity
 	 */
-	public void setDescripcion( String descripcion )
+	public void setImagen( String imagen )
 	{
-		this.descripcion = descripcion;
+		this.imagen = imagen;
 	}
 	
 	/**

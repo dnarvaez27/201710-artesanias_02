@@ -66,10 +66,11 @@
         },
         views: {
           'detail': {
-            templateUrl: basePath + 'artesanos.detail.artesanias.html',
-            controller: ['$scope','artesanias', function ($scope, artesanias) {
-              $scope.currentArtesano.artesanias = artesanias.data
-            }]
+            templateUrl: basePath + 'artesanos.detail.artesanias.html'
+            // ,
+            // controller: ['$scope','artesanias', function ($scope, artesanias) {
+            //   $scope.currentArtesano.artesanias = artesanias.data
+            // }]
           }
         }
       })
@@ -83,13 +84,13 @@
         },
         views: {
           'detail': {
-            templateUrl: basePath + 'artesanos.detail.reviews.html',
-            controller: ['$scope', 'reviews', function ($scope, reviews) {
-              $scope.currentArtesano.reviews = reviews.data
-            }]
+            templateUrl: basePath + 'artesanos.detail.reviews.html'
+            // ,
+            // controller: ['$scope', 'reviews', function ($scope, reviews) {
+            //   $scope.currentArtesano.reviews = reviews.data
+            // }]
           }
         }
       })
-    //  TODO Crear Artesano
   }])
 })(window.angular)

@@ -1,6 +1,8 @@
 package co.edu.uniandes.csw.artesanias.persistence;
 
+import co.edu.uniandes.csw.artesanias.entities.ArtesaniaEntity;
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
+import co.edu.uniandes.csw.artesanias.entities.ReviewEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -42,14 +44,20 @@ public class ArtesanoPersistence
 	 */
 	public ArtesanoEntity find( Long id )
 	{
-		return em.find( ArtesanoEntity.class, id );
-	}
-	
-	public List<ArtesanoEntity> findFromCiudad( Long idCiudad )
-	{
-		TypedQuery<ArtesanoEntity> q = em.createQuery( "SELECT A FROM ArtesanoEntity A WHERE A.ciudad.id = :idCiudad", ArtesanoEntity.class );
-		q.setParameter( "idCiudad", idCiudad );
-		return q.getResultList( );
+		TypedQuery<ArtesanoEntity> q = em.createQuery( "SELECT A FROM ArtesanoEntity A where A.id = :idArtesano", ArtesanoEntity.class );
+		q.setParameter( "idArtesano", id );
+		ArtesanoEntity en = q.getSingleResult( );
+		if( en != null )
+		{
+			TypedQuery<ArtesaniaEntity> q2 = em.createQuery( "SELECT R FROM ArtesaniaEntity R WHERE R.artesano.id = :idArtesano", ArtesaniaEntity.class );
+			q2.setParameter( "idArtesano", id );
+			en.setArtesanias( q2.getResultList( ) );
+			
+			TypedQuery<ReviewEntity> q3 = em.createQuery( "SELECT R FROM ReviewEntity R WHERE R.artesano.id = :idArtesano", ReviewEntity.class );
+			q3.setParameter( "idArtesano", id );
+			en.setReviews( q3.getResultList( ) );
+		}
+		return en;
 	}
 	
 	/**
