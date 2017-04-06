@@ -75,6 +75,50 @@ public class FeriaLogic {
     }
     
     /**
+     * Se devuelve la entidad feria con el id dado.
+     * @param id de la feria a buscar.
+     * @return entidad feria con el id dado.
+     * @throws BusinessLogicException si no existe la feria o el id no es válido.
+     */
+    public FeriaEntity getFeriaE(Long idEspacio, Long id) throws BusinessLogicException {
+        checkId(id);
+        FeriaEntity r = persistence.findE(idEspacio, id);
+        if (r == null)
+            throw new BusinessLogicException("No existe la feria buscada", Response.Status.NOT_FOUND);
+        return r;
+    }
+    
+    /**
+     * Devuelve el conjunto de ferias.
+     * @return lista de ferias.
+     */
+    public List<FeriaEntity> getFeriasE(Long idEspacio) {
+        return persistence.findAllE(idEspacio);
+    }
+    
+    /**
+     * Se devuelve la entidad feria con el id dado.
+     * @param id de la feria a buscar.
+     * @return entidad feria con el id dado.
+     * @throws BusinessLogicException si no existe la feria o el id no es válido.
+     */
+    public FeriaEntity getFeriaO(Long idOrganizador, Long id) throws BusinessLogicException {
+        checkId(id);
+        FeriaEntity r = persistence.findO(idOrganizador, id);
+        if (r == null)
+            throw new BusinessLogicException("No existe la feria buscada", Response.Status.NOT_FOUND);
+        return r;
+    }
+    
+    /**
+     * Devuelve el conjunto de ferias.
+     * @return lista de ferias.
+     */
+    public List<FeriaEntity> getFeriasO(Long idOrganizador) {
+        return persistence.findAllO(idOrganizador);
+    }
+    
+    /**
      * Crea una nueva entidad feria.
      * @param entity Entidad feria a ser ingresada en la base de datos
      * @return la nueva entidad feria.

@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="col-sm-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Tipo</th>    
+                    <th>ID</th>  
+                    <th>Capacidad</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="salon in salonesRecords">
+                   
+                    <td id="{{$index}}-id">   <a ui-sref="salonDetail({salonId: salon.id})">{{salon.numero}}</a></td>
+                    <td id="{{$index}}-capacidad">   <a ui-sref="salonDetail({salonId: salon.id})">{{salon.capacidad}}</a></td>                 
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="pabellones.list.html"></a>
+</div>

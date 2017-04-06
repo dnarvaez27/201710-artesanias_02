@@ -24,7 +24,6 @@
 package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
-import co.edu.uniandes.csw.artesanias.entities.EspectadorEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.persistence.BoletaPersistence;
 import java.util.List;

@@ -3,22 +3,28 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="thumb">
-                    <img class="img-responsive" ng-src="{{currentPabellon.image}}"/>
+                    <img class="img-responsive" ng-src="{{currentConferencia.image}}"/>
                 </div>
 
             </div>
             <div class="col-md-3">
                 <dl>     
-                    <dt>{{currentPabellon.tipo}}</dt>
-
+                   
+                    <dt>Tema</dt>
+                    <dd>{{currentConferencia.tema}}</dd>
+                    <hr>
+                    <dt>Conferenciasta</dt>
+                    <dd>{{currentConferencia.conferencista}}</dd>
                     <hr>
                     <dt>ID</dt>
-                    <dd>{{currentPabellon.id}}</dd>
+                    <dd>{{currentConferencia.id}}</dd>
 
                     <hr>
                     <dt>Capacidad</dt>
-                    <dd>{{currentPabellon.capacidad}}</dd>
+                    <dd>{{currentConferencia.capacidad}}</dd>
                     <hr>
+                     <hr>
+                    
 
                 </dl>
               

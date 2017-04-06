@@ -1,0 +1,14 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2" ng-repeat="ciudad in ciudadesRecords">
+            <div class="thumbnail">
+                <a ui-sref="ciudadDetail({ciudadId: ciudad.id})">                    
+                    <img class="img-responsive" ng-src='{{ciudad.image}}' alt="{{ciudad.nombre}}" />                  
+                </a>
+                <div class="caption text-center">
+                    <p>{{ciudad.nombre}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

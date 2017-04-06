@@ -95,6 +95,8 @@ public class FeriaEntity implements Serializable {
     @Column(nullable = false)
     private Date fin;
 
+    private String image;
+    
     /**
      * Espacio donde se da la feria.
      */
@@ -233,6 +235,14 @@ public class FeriaEntity implements Serializable {
         this.fin = fin;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
     /**
      * Devuelve el espacio donde se realiza la feria.
      * @return espacio donde se realiza la feria.

@@ -26,6 +26,7 @@ package co.edu.uniandes.csw.artesanias.resources;
 import co.edu.uniandes.csw.artesanias.dtos.EspacioDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.EspacioLogic;
 import co.edu.uniandes.csw.artesanias.entities.EspacioEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
@@ -46,12 +47,6 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Miller
  */
-// TODO según el diagrama de clases espacio es un sbrecurso de ciudad. Se puede definir como subrecurso desde ciudad o el path aquí debe ser:
-// TODO  "/ciudades/{idCiudad \\+d}/espacios"
-// TODO EN cualquier caso se debe verificar que la ciudad de idCiudad efectivamente existe
-
-// TODO revisar los nombres de los métodos que  no coinciden con el del recurso 
-// TODO en los métodos que reciben el id del espacio se debe verificar que exista o sino disparar WebApplicationExcepton 404
 @Path("/espacios")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -63,24 +58,30 @@ public class EspacioResource {
     @QueryParam("limit") private Integer maxRecords;
     
     @POST
-    public EspacioDTO createFeria(EspacioEntity entity) {
+    public EspacioDTO createEspacio(EspacioEntity entity) throws BusinessLogicException {
         return new EspacioDTO(espacioLogic.createEspacio(entity));
     }
     
     @GET
-    public List<EspacioDTO> getArtesanos() {
-        return listEntity2DTO(espacioLogic.getEspacios());
+    public List<EspacioDTO> getEspacios(@PathParam("idCiudad") Long idCiudad) throws BusinessLogicException {
+        return listEntity2DTO(espacioLogic.getEspacios(idCiudad));
     }
     
     @GET
     @Path("{id: \\d+}")
-    public EspacioDTO getArtesano(@PathParam("id") Long id ) {
+    public EspacioDTO getEspacio(@PathParam("idCiudad") Long idCiudad, @PathParam("id") Long id ) throws BusinessLogicException {
+        return new EspacioDTO(espacioLogic.getEspacio(idCiudad, id));
+    }
+    
+    @GET
+    @Path("{id: \\d+}")
+    public EspacioDTO getEspacio(@PathParam("id") Long id) throws BusinessLogicException {
         return new EspacioDTO(espacioLogic.getEspacio(id));
     }
     
     @PUT
     @Path("{id: \\d+}")
-    public EspacioDTO updateArtesano(@PathParam("id") Long id, EspacioDTO dto) {
+    public EspacioDTO updateEspacio(@PathParam("id") Long id, EspacioDTO dto) throws BusinessLogicException {
         EspacioEntity entity = dto.toEntity();
         entity.setId(id);
         return new EspacioDTO(espacioLogic.updateEspacio(entity));
@@ -88,7 +89,7 @@ public class EspacioResource {
     
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteArtesano(@PathParam("id") Long id) {
+    public void deleteEspacio(@PathParam("id") Long id) throws BusinessLogicException {
         espacioLogic.deleteEspacio(id);
     }
     

@@ -4,7 +4,9 @@
         'ui.router',
         // Internal modules dependencies
         'artesanoModule',
-        'pabellonModule'
+        'pabellonModule',
+        'standModule',
+        'ciudadModule'
     ])
     // Resuelve problemas de las promesas
     app.config(['$qProvider', function ($qProvider) {
