@@ -23,6 +23,7 @@
  */
 package co.edu.uniandes.csw.artesanias.ejbs;
 
+import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
@@ -47,9 +48,14 @@ public class FeriaLogic {
     /**
      * Persistencia de FeriaEntity
      */
-    @Inject private FeriaPersistence persistence;
+    @Inject 
+    private FeriaPersistence persistence;
     
-    @Inject OrganizadorLogic organizadorLogic;
+    @Inject 
+    OrganizadorLogic organizadorLogic;
+    
+    @Inject
+    private BoletaLogic boletaLogic;
     
     //--------------------------------------------------------------------------
     // Métodos
@@ -149,6 +155,38 @@ public class FeriaLogic {
         organizadorLogic.addFeria(idFeria, idOrganizador);
         return organizadorLogic.getOrganizador(idOrganizador);
     }
+    
+    //--------------------------------------------------------------------------
+    // Métodos de boleta
+    //--------------------------------------------------------------------------
+    
+    public BoletaEntity getBoleta(Long idFeria, Long idBoleta) {
+        for (BoletaEntity b : persistence.find(idFeria).getBoletas()) {
+            if (b.getId().equals(idBoleta))
+                return b;
+        }
+        throw new IllegalArgumentException("La boleta no está asociado a la feria");
+    }
+    
+    public List<BoletaEntity> getBoletas(Long id) {
+        return persistence.find(id).getBoletas();
+    }
+    
+    public void removeBoleta(Long idFeria, Long idBoleta) {
+        BoletaEntity be = boletaLogic.getBoleta(idBoleta);
+        be.setFeria(null);
+        persistence.find(idFeria).getBoletas().remove(be);
+    }
+    
+    public BoletaEntity addBoleta(Long idFeria, Long idBoleta) {
+        BoletaEntity be = boletaLogic.getBoleta(idBoleta);
+        be.setFeria(persistence.find(idFeria));
+        return be;
+    }
+    
+    //--------------------------------------------------------------------------
+    // Métodos de artesano
+    //--------------------------------------------------------------------------
     
     //--------------------------------------------------------------------------
     // Métodos Auxiliares

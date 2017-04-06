@@ -72,7 +72,7 @@ public class PabellonLogic {
     }
     
     //--------------------------------------------------------------------------
-    // Métodos
+    // Métodos Auxiliares
     //--------------------------------------------------------------------------
 
     private void checkData(PabellonEntity e) throws BusinessLogicException {
