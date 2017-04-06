@@ -134,6 +134,17 @@ public class FeriaResource {
         return new FeriaOrganizadorResource();
     }
     
+    
+    @Path( "{idFeria: \\d+}/boletas" )
+    public FeriaBoletaResource getFeriaBoletaResource() {
+        return new FeriaBoletaResource();
+    }
+    
+    @Path( "{idFeria: \\d+}/conferencias" )
+    public FeriaConferenciaResource getFeriaConferenciaResource() {
+        return new FeriaConferenciaResource();
+    }
+    
     //--------------------------------------------------------------------------
     // Métodos Auxiliares
     //--------------------------------------------------------------------------
