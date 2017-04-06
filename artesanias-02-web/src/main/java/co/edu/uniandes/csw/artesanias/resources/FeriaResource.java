@@ -32,6 +32,7 @@ import co.edu.uniandes.csw.artesanias.entities.EspacioEntity;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.artesanias.resources.asociaciones.ArtesanoFeriasResource;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
@@ -143,6 +144,13 @@ public class FeriaResource {
     @Path( "{idFeria: \\d+}/conferencias" )
     public FeriaConferenciaResource getFeriaConferenciaResource() {
         return new FeriaConferenciaResource();
+    }
+    
+    @Path( "{idFeria: \\d+}/artesanos" )
+    public ArtesanoFeriasResource getArtesanoFeriasResource(@PathParam("id") Long id) {
+        if (feriaLogic.getFeria(id) == null)
+            throw new WebApplicationException("No existe la feria", 404);
+        return new ArtesanoFeriasResource();
     }
     
     //--------------------------------------------------------------------------
