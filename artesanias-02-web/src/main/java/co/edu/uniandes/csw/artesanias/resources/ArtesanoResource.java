@@ -22,7 +22,6 @@ import java.util.List;
  *
  * @author d.narvaez11
  */
-@Path( "/artesanos" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
 public class ArtesanoResource
@@ -62,7 +61,7 @@ public class ArtesanoResource
 	}
 	
 	@POST
-	@Path( "/c" )
+	@Path( "ciudades/{idCiudad}/artesanos" )
 	public ArtesanoDTO createArtesano( @PathParam( "idCiudad" ) Long idCiudad, ArtesanoDTO dto ) throws BusinessLogicException
 	{
 		CiudadEntity cEntity = logicCiudad.getCiudad( idCiudad );
