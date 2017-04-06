@@ -134,7 +134,7 @@ public class CiudadLogic {
         return persistence.find(id).getArtesanos();
     }
     
-    public void removeArtesano(Long idArtesano, Long idCiudad) {
+    public void removeArtesano(Long idArtesano, Long idCiudad) throws BusinessLogicException {
         ArtesanoEntity ae = artesanoLogic.getArtesano(idArtesano);
         ae.setCiudad(null);
         persistence.find(idCiudad).getArtesanos().remove(ae);
