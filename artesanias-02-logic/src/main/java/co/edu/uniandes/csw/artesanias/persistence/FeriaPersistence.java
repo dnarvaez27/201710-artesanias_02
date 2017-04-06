@@ -28,7 +28,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
 /**
  * Persistencia de la entidad feria.
@@ -67,67 +66,6 @@ public class FeriaPersistence {
     public List<FeriaEntity> findAll() {
         return em.createQuery("select u from FeriaEntity u").getResultList();
     }
-    
-    //--------------------------------------------------------------------------
-    // Métodos dependiendo de espacio
-    //--------------------------------------------------------------------------
-    
-    /**
-     * Devuelve la entidad feria con el id indicado.
-     * @param id de la feria a buscar.
-     * @return la entidad feria con el id indicado.
-     */
-    public FeriaEntity findE(Long idEspacio, Long id) {
-        TypedQuery<FeriaEntity> q= em.createQuery(
-                "select u from FeriaEntity u where u.espacio.id = :idE and u.id = :id"
-                , FeriaEntity.class);
-        q.setParameter("idE", idEspacio);
-        q.setParameter("id", id);
-        List<FeriaEntity> r = q.getResultList();
-        System.out.println(r.size());
-        return r.size() == 0 ? null : r.get(0);
-    }
-
-    /**
-     * Devuelve el conjunto de todas las entidades feria de la base de datos.
-     * @return el conjunto de todas las entidades feria de la base de datos.
-     */
-    public List<FeriaEntity> findAllE(Long idEspacio) {
-        return em.createQuery("select u from FeriaEntity u where u.espacio.id = " + idEspacio).getResultList();
-    }
-
-    //--------------------------------------------------------------------------
-    // Métodos dependiendo de organizador
-    //--------------------------------------------------------------------------
-    
-    /**
-     * Devuelve la entidad feria con el id indicado.
-     * @param id de la feria a buscar.
-     * @return la entidad feria con el id indicado.
-     */
-    public FeriaEntity findO(Long idOrganizador, Long id) {
-        TypedQuery<FeriaEntity> q= em.createQuery(
-                "select u from FeriaEntity u where u.organizadores.id = :idO and u.id = :id"
-                , FeriaEntity.class);
-        q.setParameter("idO", idOrganizador);
-        q.setParameter("id", id);
-        List<FeriaEntity> r = q.getResultList();
-        System.out.println(r.size());
-        return r.size() == 0 ? null : r.get(0);
-    }
-
-    /**
-     * Devuelve el conjunto de todas las entidades feria de la base de datos.
-     * @return el conjunto de todas las entidades feria de la base de datos.
-     */
-    public List<FeriaEntity> findAllO(Long idOrganizador) {
-        return em.createQuery("select u from FeriaEntity u where u.organizadores.id = " + idOrganizador).getResultList();
-    }
-    
-    
-    //--------------------------------------------------------------------------
-    // Métodos dependiendo de organizador
-    //--------------------------------------------------------------------------
     
     /**
      * Crea una nueva entidad feria.

@@ -59,29 +59,13 @@ public class EspacioPersistence {
     public EspacioEntity find(Long id) {
         return em.find(EspacioEntity.class, id);
     }
-    
-    /**
-     * Devuelve la entidad espacio con el id indicado.
-     * @param id de la espacio a buscar.
-     * @return la entidad espacio con el id indicado.
-     */
-    public EspacioEntity find(Long id, Long idCiudad) {
-        TypedQuery<EspacioEntity> q= em.createQuery(
-                "select u from EspacioEntity u where u.ciudad.id = :idC and u.id = :id"
-                , EspacioEntity.class);
-        q.setParameter("idC", idCiudad);
-        q.setParameter("id", id);
-        List<EspacioEntity> r = q.getResultList();
-        System.out.println(r.size());
-        return r.isEmpty() ? null : r.get(0);
-    }
 
     /**
      * Devuelve el conjunto de todas las entidades espacio de la base de datos.
      * @return el conjunto de todas las entidades espacio de la base de datos.
      */
-    public List<EspacioEntity> findAll(Long idCiudad) {
-        return em.createQuery("select u from EspacioEntity u where u.ciudad.id = " + idCiudad).getResultList();
+    public List<EspacioEntity> findAll() {
+        return em.createQuery("select u from EspacioEntity u").getResultList();
     }
 
     /**

@@ -56,55 +56,11 @@ public class BoletaPersistence {
     }
     
     /**
-     * Devuelve la entidad boleta con el id indicado.
-     * @param idFeria id de la feria de la que se quiere saber la boleta.
-     * @param id de la boleta a buscar.
-     * @return la entidad boleta con el id indicado.
-     */
-    public BoletaEntity findF(Long idFeria, Long id) {
-        TypedQuery<BoletaEntity> q= em.createQuery(
-                "select u from BoletaEntity u where u.feria.id = :idF and u.id = :id"
-                , BoletaEntity.class);
-        q.setParameter("idF", idFeria);
-        q.setParameter("id", id);
-        List<BoletaEntity> r = q.getResultList();
-        System.out.println(r.size());
-        return r.size() == 0 ? null : r.get(0);
-    }
-    
-    /**
-     * Devuelve la entidad boleta con el id indicado.
-     * @param idEspectador id del espectador del que se quiere saber la boleta.
-     * @param id de la boleta a buscar.
-     * @return la entidad boleta con el id indicado.
-     */
-    public BoletaEntity findE(Long idEspectador, Long id) {
-        TypedQuery<BoletaEntity> q= em.createQuery(
-                "select u from BoletaEntity u where u.espectador.id = :idE and u.id = :id"
-                , BoletaEntity.class);
-        q.setParameter("idF", idEspectador);
-        q.setParameter("id", id);
-        List<BoletaEntity> r = q.getResultList();
-        System.out.println(r.size());
-        return r.size() == 0 ? null : r.get(0);
-    }
-    
-    /**
      * Devuelve el conjunto de todas las entidades boleta de la base de datos.
-     * @param idFeria id de la feria de la que se quiere saber las boletas.
      * @return el conjunto de todas las entidades boleta de la base de datos.
      */
-    public List<BoletaEntity> findAllF(Long idFeria) {
-        return em.createQuery("select u from BoletaEntity u where u.feria.id = "+ idFeria).getResultList();
-    }
-    
-    /**
-     * Devuelve el conjunto de todas las entidades boleta de la base de datos.
-     * @param idEspectador id del espectador del que se quiere saber las boletas.
-     * @return el conjunto de todas las entidades boleta de la base de datos.
-     */
-    public List<BoletaEntity> findAllE(Long idEspectador) {
-        return em.createQuery("select u from BoletaEntity u where u.feria.id = "+ idEspectador).getResultList();
+    public List<BoletaEntity> findAll() {
+        return em.createQuery("select u from BoletaEntity u").getResultList();
     }
 
     /**

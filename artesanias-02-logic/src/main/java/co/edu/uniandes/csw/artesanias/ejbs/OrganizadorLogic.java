@@ -23,62 +23,82 @@
  */
 package co.edu.uniandes.csw.artesanias.ejbs;
 
+import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.artesanias.persistence.FeriaPersistence;
 import co.edu.uniandes.csw.artesanias.persistence.OrganizadorPersistence;
 
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.core.Response;
 
 /**
  * @author IVAN
  */
 @Stateless
-public class OrganizadorLogic
-{
-	@Inject
-	private OrganizadorPersistence persistence;
-	
-	public List<OrganizadorEntity> getOrganizadores( )
-	{
-		return persistence.findAll( );
-	}
-	
-	public OrganizadorEntity getOrganizador( Long id )throws BusinessLogicException
-	{
-            OrganizadorEntity org = persistence.find( id );
-            if (org!=null) {
-                return org;
-            }
-		throw new BusinessLogicException("El organizador no se encuentra", Response.Status.NOT_FOUND);
-	}
-	
-	public OrganizadorEntity createOrganizador( OrganizadorEntity entity )
-	{
-		return persistence.create( entity );
-	}
-	
-	public OrganizadorEntity updateOrganizador( OrganizadorEntity entity ) throws BusinessLogicException
-	{
-             OrganizadorEntity org = persistence.find( entity.getId() );
-            if (org!=null) {
-                return persistence.update( entity );
-            }
-		throw new BusinessLogicException("El organizador no se encuentra", Response.Status.NOT_FOUND);
-		
-	}
-	
-	public void deleteOrganizador( Long id ) throws BusinessLogicException
-	{
-             OrganizadorEntity org = persistence.find( id );
-            if (org!=null) {
-                persistence.delete( id );
-            }
-		throw new BusinessLogicException("El organizador no se encuentra", Response.Status.NOT_FOUND);
-		
-	}
-		
-	
+public class OrganizadorLogic {
+
+    @Inject
+    private OrganizadorPersistence persistence;
+
+    @Inject
+    private FeriaPersistence feriaPersistence;
+
+    //--------------------------------------------------------------------------
+    // Métodos
+    //--------------------------------------------------------------------------
+    public List<OrganizadorEntity> getOrganizadores() {
+        return persistence.findAll();
+    }
+
+    public OrganizadorEntity getOrganizador(Long id) {
+        return persistence.find(id);
+    }
+
+    public OrganizadorEntity createOrganizador(OrganizadorEntity entity) {
+        return persistence.create(entity);
+    }
+
+    public OrganizadorEntity updateOrganizador(OrganizadorEntity entity) {
+        return persistence.update(entity);
+
+    }
+
+    public void deleteOrganizador(Long id) {
+        persistence.delete(id);
+    }
+
+    //--------------------------------------------------------------------------
+    // Métodos de feria
+    //--------------------------------------------------------------------------
+    
+    public FeriaEntity getFeria(Long idOrganizador, Long idFeria) {
+        for (FeriaEntity f : persistence.find(idOrganizador).getFerias()) {
+            if (f.getId().equals(idFeria))
+                return f;
+        }
+        throw new IllegalArgumentException("La feria no está asociada al organizador");
+    }
+
+    public List<FeriaEntity> getFerias(Long id) {
+        return persistence.find(id).getFerias();
+    }
+
+    public void removeFeria(Long idFeria, Long idOrganizador) {
+        OrganizadorEntity oe = persistence.find(idOrganizador);
+        FeriaEntity fe = feriaPersistence.find(idFeria);
+        if (fe == null)
+            throw new IllegalArgumentException("La feria no existe");
+        fe.getOrganizadores().remove(oe);
+    }
+
+    public FeriaEntity addFeria(Long idFeria, Long idOrganizador) {
+        OrganizadorEntity oe = persistence.find(idOrganizador);
+        FeriaEntity fe = feriaPersistence.find(idFeria);
+        if (fe == null)
+            throw new IllegalArgumentException("La feria no existe");
+        oe.getFerias().add(fe);
+        return fe;
+    }
 }

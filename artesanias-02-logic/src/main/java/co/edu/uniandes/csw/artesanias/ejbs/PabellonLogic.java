@@ -36,60 +36,57 @@ import javax.ws.rs.core.Response;
  * @author ja.espinosa12
  */
 @Stateless
-public class PabellonLogic
-{
-	@Inject
-	private PabellonPersistence persistence;
-	
-	public PabellonEntity getPabellon( Long idEspacio, Long id ) throws BusinessLogicException
-	{
-                checkId(idEspacio);
-                checkId(id);
-		return persistence.find( idEspacio, id );
-	}
-	
-	public List<PabellonEntity> getPabellones( Long idEspacio ) throws BusinessLogicException
-	{
-                checkId(idEspacio);
-		return persistence.findAll( idEspacio );
-	}
-	
-	public PabellonEntity createPabellon( PabellonEntity entity ) throws BusinessLogicException
-	{
-		checkData( entity );
-		return persistence.create( entity );
-	}
-	
-	public PabellonEntity updatePabellon( PabellonEntity entity ) throws BusinessLogicException
-	{
-		checkData( entity );
-		return persistence.update( entity );
-	}
-	
-	public void deletePabellon( Long id ) throws BusinessLogicException
-	{
-                checkId(id);
-		persistence.delete( id );
-	}
-	
-	private void checkData(PabellonEntity e) throws BusinessLogicException {
-        checkId(e.getId());
-        if (e.getTipo() == null || e.getTipo().isEmpty())
-            throw new BusinessLogicException("La feria debe tener un nombre", Response.Status.NOT_FOUND);
-        if (e.getCapacidad() == null)
-            throw new BusinessLogicException("La feria debe tener un número de boletas", Response.Status.NOT_FOUND);
-        if (e.getSalones() == null)
-            throw new BusinessLogicException("La feria debe tener un espacio donde se realiza", Response.Status.NOT_FOUND);
-        if (e.getStands() == null)
-            throw new BusinessLogicException("La feria debe tener un espacio donde se realiza", Response.Status.NOT_FOUND);
+public class PabellonLogic {
+    
+    //--------------------------------------------------------------------------
+    // Atributos
+    //--------------------------------------------------------------------------
+
+    @Inject
+    private PabellonPersistence persistence;
+    
+    //--------------------------------------------------------------------------
+    // Métodos
+    //--------------------------------------------------------------------------
+
+    public PabellonEntity getPabellon(Long id) {
+        return persistence.find(id);
     }
-        /**
-     * Revisa la validez del id dado
-     * @param id a ser revisado
-     * @throws BusinessLogicException si el id es nulo o menor a 0.
-     */
-    private void checkId(Long id) throws BusinessLogicException {
-        if (id == null || id < 0)
-            throw new BusinessLogicException("El id ingresado no es válido.", Response.Status.BAD_REQUEST);
+
+    public List<PabellonEntity> getPabellones() {
+        return persistence.findAll();
+    }
+
+    public PabellonEntity createPabellon(PabellonEntity entity) throws BusinessLogicException {
+        checkData(entity);
+        return persistence.create(entity);
+    }
+
+    public PabellonEntity updatePabellon(PabellonEntity entity) throws BusinessLogicException {
+        checkData(entity);
+        return persistence.update(entity);
+    }
+
+    public void deletePabellon(Long id) {
+        persistence.delete(id);
+    }
+    
+    //--------------------------------------------------------------------------
+    // Métodos
+    //--------------------------------------------------------------------------
+
+    private void checkData(PabellonEntity e) throws BusinessLogicException {
+        if (e.getTipo() == null || e.getTipo().isEmpty()) {
+            throw new BusinessLogicException("La feria debe tener un nombre", Response.Status.NOT_FOUND);
+        }
+        if (e.getCapacidad() == null) {
+            throw new BusinessLogicException("La feria debe tener un número de boletas", Response.Status.NOT_FOUND);
+        }
+        if (e.getSalones() == null) {
+            throw new BusinessLogicException("La feria debe tener un espacio donde se realiza", Response.Status.NOT_FOUND);
+        }
+        if (e.getStands() == null) {
+            throw new BusinessLogicException("La feria debe tener un espacio donde se realiza", Response.Status.NOT_FOUND);
+        }
     }
 }

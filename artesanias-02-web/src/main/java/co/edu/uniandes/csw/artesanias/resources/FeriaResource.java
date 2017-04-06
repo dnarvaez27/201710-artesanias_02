@@ -96,12 +96,13 @@ public class FeriaResource {
     }
     
     @GET
+    @Path("/ferias")
     public List<FeriaDTO> getFerias() {
         return listEntity2DTO(feriaLogic.getFerias());
     }
     
     @GET
-    @Path("{id: \\d+}")
+    @Path("/ferias/{id: \\d+}")
     public FeriaDetailDTO getFeria(@PathParam("id") Long id) throws BusinessLogicException {
         if (feriaLogic.getFeria(id) == null)
             throw new WebApplicationException("La feria no existe", 404);
@@ -109,7 +110,7 @@ public class FeriaResource {
     }
     
     @PUT
-    @Path("{id: \\d+}")
+    @Path("/ferias/{id: \\d+}")
     public FeriaDTO updateFeria(@PathParam("id") Long id, FeriaDTO dto) throws BusinessLogicException {
         FeriaEntity entity = dto.toEntity();
         entity.setId(id);
@@ -119,7 +120,7 @@ public class FeriaResource {
     }
     
     @DELETE
-    @Path("{id: \\d+}")
+    @Path("/ferias/{id: \\d+}")
     public void deleteFeria(@PathParam( "id" ) Long id) throws BusinessLogicException {
         if (feriaLogic.getFeria(id) == null)
             throw new WebApplicationException("La feria no existe", 404);
@@ -131,6 +132,7 @@ public class FeriaResource {
     //--------------------------------------------------------------------------
     
     @GET
+    @Path("espacios/{idEspacio}/ferias")
     public List<FeriaDTO> getFeriasE(@PathParam("idEspacio") Long idEspacio) throws BusinessLogicException {
         if (espacioLogic.getEspacio(idEspacio) == null)
             throw new WebApplicationException("El espacio no existe", 404);

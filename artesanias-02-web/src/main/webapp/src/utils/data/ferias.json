@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "tipo": "Tipo random",
+    "capacidad": 10
+  },
+  {
+    "id": 2,
+    "tipo": "Tipo random",
+    "capacidad": 20
+  },
+  {
+    "id": 3,
+    "tipo": "Tipo random",
+    "capacidad": 30
+  },
+  {
+    "id": 4,
+    "tipo": "Tipo random",
+    "capacidad": 15
+  },
+  {
+    "id": 5,
+    "tipo": "Tipo random",
+    "capacidad": 25
+  },
+  {
+    "id": 6,
+    "tipo": "Tipo random",
+    "capacidad": 35
+  }
+]

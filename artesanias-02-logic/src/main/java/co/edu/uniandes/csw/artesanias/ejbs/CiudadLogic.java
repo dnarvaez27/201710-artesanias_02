@@ -23,7 +23,9 @@
  */
 package co.edu.uniandes.csw.artesanias.ejbs;
 
+import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
 import co.edu.uniandes.csw.artesanias.entities.CiudadEntity;
+import co.edu.uniandes.csw.artesanias.entities.EspacioEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.persistence.CiudadPersistence;
 import java.util.List;
@@ -38,10 +40,24 @@ import javax.ws.rs.core.Response;
 @Stateless
 public class CiudadLogic {
     
-    @Inject private CiudadPersistence persistence;
+    //--------------------------------------------------------------------------
+    // Atributos
+    //--------------------------------------------------------------------------
     
-    public CiudadEntity getCiudad(Long id) throws BusinessLogicException {
-        checkId(id);
+    @Inject 
+    private CiudadPersistence persistence;
+    
+    @Inject
+    private EspacioLogic espacioLogic;
+    
+    @Inject
+    private ArtesanoLogic artesanoLogic;
+    
+    //--------------------------------------------------------------------------
+    // Métodos
+    //--------------------------------------------------------------------------
+    
+    public CiudadEntity getCiudad(Long id) {
         return persistence.find(id);
     }
     
@@ -70,9 +86,58 @@ public class CiudadLogic {
         return persistence.update(entity);
     }
     
-    public void deleteCiudad(Long id) throws BusinessLogicException {
-        checkId(id);
+    public void deleteCiudad(Long id) {
         persistence.delete(id);
+    }
+    
+    //--------------------------------------------------------------------------
+    // Métodos de espacio
+    //--------------------------------------------------------------------------
+    
+    public EspacioEntity getEspacio(Long idEspacio, Long idCiudad) {
+        for (EspacioEntity e : persistence.find(idCiudad).getEspacios()) {
+            if (e.getId().equals(idEspacio))
+                return e;
+        }
+        throw new IllegalArgumentException("El espacio no está asociado a la ciudad");
+    }
+    
+    public List<EspacioEntity> getEspacios(Long id) {
+        return persistence.find(id).getEspacios();
+    }
+    
+    public void removeEspacio(Long idEspacio, Long idCiudad) {
+        EspacioEntity ee = espacioLogic.getEspacio(idEspacio);
+        ee.setCiudad(null);
+        persistence.find(idCiudad).getEspacios().remove(ee);
+    }
+    
+    public EspacioEntity addEspacio(Long idEspacio, Long idCiudad) {
+        EspacioEntity ee = espacioLogic.getEspacio(idEspacio);
+        ee.setCiudad(persistence.find(idCiudad));
+        return ee;
+    }
+    
+    //--------------------------------------------------------------------------
+    // Métodos de artesano
+    //--------------------------------------------------------------------------
+    
+    public ArtesanoEntity getArtesano(Long idArtesano, Long idCiudad) {
+        for (ArtesanoEntity a : persistence.find(idCiudad).getArtesanos()) {
+            if (a.getId().equals(idArtesano))
+                return a;
+        }
+        throw new IllegalArgumentException("El artesano no está asociado a la ciudad");
+    }
+    
+    public List<ArtesanoEntity> getArtesanos(Long id) {
+        return persistence.find(id).getArtesanos();
+    }
+    
+    public void removeArtesano(Long idArtesano, Long idCiudad) {
+        ArtesanoEntity ae = artesanoLogic.getArtesano(idArtesano);
+        ae.setCiudad(null);
+        persistence.find(idCiudad).getArtesanos().remove(ae);
     }
     
     //--------------------------------------------------------------------------
@@ -80,22 +145,11 @@ public class CiudadLogic {
     //--------------------------------------------------------------------------
     
     /**
-     * Revisa la validez del id dado
-     * @param id a ser revisado
-     * @throws BusinessLogicException si el id es nulo o menor a 0.
-     */
-    private void checkId(Long id) throws BusinessLogicException {
-        if (id == null || id < 0)
-            throw new BusinessLogicException("El id ingresado no es válido.", Response.Status.BAD_REQUEST);
-    }
-    
-    /**
      * Revisa las reglas de negocio.
      * @param e entidad a ser revisada.
      * @throws BusinessLogicException si no se cumple alguna regla de negocio.
      */
     private void checkData(CiudadEntity e) throws BusinessLogicException {
-        checkId(e.getId());
         if (e.getNombre() == null || e.getNombre().isEmpty())
             throw new BusinessLogicException("El nombre de la ciudad no puede ser vacío o nulo", Response.Status.BAD_REQUEST);
         if (e.getPais() == null || e.getPais().isEmpty())
