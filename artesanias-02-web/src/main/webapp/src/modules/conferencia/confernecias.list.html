@@ -10,10 +10,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="salon in salonesRecords">
+                <tr ng-repeat="conferencia in conferenciasRecords">
                    
-                    <td id="{{$index}}-id">   <a ui-sref="salonDetail({salonId: salon.id})">{{salon.numero}}</a></td>
-                    <td id="{{$index}}-capacidad">   <a ui-sref="salonDetail({salonId: salon.id})">{{salon.capacidad}}</a></td>                 
+                    <td id="{{$index}}-id">   <a ui-sref="conferenciaDetail({conferenciaId: conferencia.id})">{{conferencia.tema}}</a></td>
+                    <td id="{{$index}}-capacidad">   <a ui-sref="conferenciaDetail({conferenciaId: salon.id})">{{conferencia.conferencista}}</a></td>                 
                 </tr>
             </tbody>
         </table>

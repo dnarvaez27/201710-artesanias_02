@@ -38,14 +38,14 @@
                 
                 resolve:  {
                     currentBook: ['$http', 'organizadoresContext', '$stateParams', function ($http, organizadoresContext, $params) {
-                            return $http.get(organizadoresContext+'/'+$params.bookId);
+                            return $http.get(organizadoresContext+'/'+$params.organizadorId);
                         }]
                 },
                 views: {
                     'detailView': {
                         templateUrl: basePath + 'organizadores.detail.html',
                         controller: ['$scope', 'currentOrganizador', function ($scope,  currentBook) {
-                                $scope.currentOrganizador = $scope.currentOrganizador[$params.organizadorId - 1];
+                                $scope.currentOrganizador = $scope.currentOrganizador.data;
                             }]
                     }
 
