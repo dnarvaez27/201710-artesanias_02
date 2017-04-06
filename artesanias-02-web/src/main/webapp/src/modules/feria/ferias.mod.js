@@ -1,24 +1,29 @@
 (function (ng) {
-  var mod = ng.module('feriaModule', ['ui.router'])
-  mod.constant('feriasContext', 'api/ferias')
+  var mod = ng.module('feriaModule', ['ui.router']);
   mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-    var basePath = 'src/modules/ferias/'
-    $urlRouterProvider.otherwise('/feriasList')
-
+    var basePath = 'src/modules/ferias/';
+    $urlRouterProvider.otherwise('/feriasList');
     $stateProvider
       .state('ferias', {
         url: '/ferias',
         abstract: true,
+        param: {
+            context: 'api/ferias',
+            idParent: null
+        },
         resolve: {
-          ferias: ['$http', function ($http) {
-            return $http.get('data/ferias.json')
+          ferias: ['$http', '$stateParams', function ($http, $params) {
+            if ($params.context !== 'api/ferias') {
+                return $http.get($params.context+'/'+ $params.idParent+'/ferias');
+            }
+            return $http.get($params.context);
           }]
         },
         views: {
           'mainView': {
             templateUrl: basePath + 'ferias.html',
             controller: ['$scope', 'ferias', function ($scope, ferias) {
-              $scope.feriasRecords = ferias.data
+              $scope.feriasRecords = ferias.data;
             }]
           }
         }
@@ -36,16 +41,24 @@
         url: '/{idFeria:int}/detail',
         parent: 'feriasList',
         param: {
-          idFeria: null
+          idFeria: 0
+        },
+        resolve: {
+          currentFeria: ['$http', '$stateParams', function ($http, $params) {
+            if ($params.context !== 'api/ferias') {
+                return $http.get($params.context+'/'+ $params.idParent+'/ferias'+'/'+$params.idFeria);
+            }
+            return $http.get($params.context+'/'+$params.idFeria);
+          }]
         },
         views: {
           'detailView': {
             templateUrl: basePath + 'feria.detail.html',
-            controller: ['$scope', '$stateParams', function ($scope, $params) {
-              $scope.currentFeria = $scope.feriasRecords[$params.idFeria - 1]
+            controller: ['$scope', 'currentFeria', function ($scope, currentFeria) {
+              $scope.currentFeria = currentFeria.data;
             }]
           }
         }
-      })
-  }])
-})(window.angular)
+      });
+  }]);
+})(window.angular);

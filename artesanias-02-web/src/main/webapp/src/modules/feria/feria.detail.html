@@ -17,9 +17,10 @@
                     <h3>Inicio: {{currentFeria.inicio|date:'yyyy-MM-dd HH:mm'}}</h3>
                     <h3>Fin: {{currentFeria.fin|date:'yyyy-MM-dd HH:mm'}}</h3>
                     <h3>Total Boletas: {{currentFeria.totalBoletas}}</h3>
-                    <h3><a ui-sref="">{{currentFeria.espacio.nombre}}</a></h3>
-                    <h3><a ui-sref="">Conferencias</a></h3>
-                    <h3><a ui-sref="">Boletas</a></h3>
+                    <h3>Descuentos: {{currentFeria.descuentos}}</h3>
+                    <h3><a ui-sref="espacioDetail({})">{{currentFeria.espacio.nombre}}</a></h3>
+                    <h3><a ui-sref="conferneciasList()">Conferencias</a></h3>
+                    <h3><a ui-sref="boletasList({idParten: currentFeria.id})">Boletas</a></h3>
                 </div>
             </div>
         </div>

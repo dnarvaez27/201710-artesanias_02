@@ -7,16 +7,12 @@
     <div style="position: relative">
         <div style="position: relative;">
             <div class="row">
-                <div class="col-md-3">
-                    <div class="thumb">
-                        <img class="img-responsive img-detail" ng-src="{{currentFeria.image}}"/>
-                    </div>
-                </div>
                 <div class="detail-fg col-md-3">
-                    <h3>{{currentFeria.nombre}}</h3>
-                    <h3>Inicio: {{currentFeria.inicio}}</h3>
-                    <h3>Fin: {{currentFeria.fin}}</h3>
-                    <h3>Total Boletas: {{currentFeria.totalBoletas}}</h3>
+                    <h3>Precio: {{currentBoleta.precio*currentBoleta.feria.descuentos[currentBoleta.tipo]}}</h3>
+                    <h3>Inicio {{currentBoleta.inicio}}</h3>
+                    <h3>Fin: {{currentBoleta.fin}}</h3>
+                    <h3><a ui-sref="feriaDetail({idFeria: currentBoleta.feria.id})">Feria: {{currentBoleta.feria.nombre}}</a></h3>
+                    <h3><a ui-sref="espectadorDetail({idEspectador: currentBoleta.espectador.id})">Espectador: {{currentBoleta.espectador.correo}}</a></h3>
                 </div>
             </div>
         </div>
