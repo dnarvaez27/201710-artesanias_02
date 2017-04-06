@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.artesanias.resources;
 import co.edu.uniandes.csw.artesanias.dtos.detail.ArtesanoDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.CiudadLogic;
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
+import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
@@ -59,7 +60,7 @@ public class CiudadArtesanoResource {
     @DELETE
     @Path("{id: \\d+}")
     public void deleteCiudadArtesano(@PathParam("idCiudad") Long idCiudad,
-            @PathParam("id") Long id) {
+            @PathParam("id") Long id) throws BusinessLogicException {
         if (logic.getCiudad(idCiudad) == null)
             throw new WebApplicationException("No existe la ciudad", 404);
         logic.removeArtesano(id, idCiudad);

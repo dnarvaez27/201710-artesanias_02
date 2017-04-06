@@ -1,14 +1,12 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-2" ng-repeat="feria in feriasRecords | filter:currentcurrentFeria.inicio">
+        <div class="col-lg-2" ng-repeat="boleta in boletasRecords | filter:currentBoleta.inicio">
             <div class="thumbnail box_art">
-                <a ui-sref="feriaDetail({idFeria: feria.id})">
+                <a ui-sref="boletaDetail({idBoleta boleta.id})">
                     <div class="caption text-center subtitle">
-                        <p>{{feria.nombre}}</p>
-                        <p>{{feria.inicio}}</p>
-                        <p>{{feria.fin}}</p>
+                        <p>{{boleta.inicio}}</p>
+                        <p>{{boleta.fin}}</p>
                     </div>
-                    <img class="img-responsive" ng-src='{{feria.image}}'/>
                 </a>
             </div>
         </div>

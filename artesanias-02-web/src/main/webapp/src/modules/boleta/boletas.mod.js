@@ -1,48 +1,56 @@
 (function (ng) {
   var mod = ng.module('boletaModule', ['ui.router'])
-  mod.constant('boletasContext', 'api/ferias')
   mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     var basePath = 'src/modules/boletas/'
-    $urlRouterProvider.otherwise('/feriasList')
+    $urlRouterProvider.otherwise('/boletasList')
 
     $stateProvider
-      .state('ferias', {
-        url: '/ferias',
+      .state('boletas', {
+        url: '/boletas',
         abstract: true,
+        param: {
+            context: 'api/ferias',
+            idParent: 1
+        },
         resolve: {
-          ferias: ['$http', function ($http) {
-            return $http.get('data/ferias.json')
+          boletas: ['$http', '$stateParams', function ($http, $params) {
+            return $http.get($params.context+'/'+$params.idParent+'/boletas');
           }]
         },
         views: {
           'mainView': {
-            templateUrl: basePath + 'ferias.html',
-            controller: ['$scope', 'ferias', function ($scope, ferias) {
-              $scope.feriasRecords = ferias.data
+            templateUrl: basePath + 'boletas.html',
+            controller: ['$scope', 'boletas', function ($scope, boletas) {
+              $scope.boletasRecords = boletas.data
             }]
           }
         }
       })
-      .state('feriasList', {
+      .state('boletasList', {
         url: '/list',
-        parent: 'ferias',
+        parent: 'boletas',
         views: {
           'listView': {
-            templateUrl: basePath + 'ferias.list.html'
+            templateUrl: basePath + 'boletas.list.html'
           }
         }
       })
-      .state('feriaDetail', {
-        url: '/{idFeria:int}/detail',
-        parent: 'feriasList',
+      .state('boletaDetail', {
+        url: '/{idBoleta:int}/detail',
+        parent: 'boletasList',
         param: {
-          idFeria: null
+          idBoleta: null
+        },
+        resolve: {
+          currentBoleta: ['$http', '$stateParams', function ($http, $params) {
+            return $http.get($params.context+'/'+$params.idParent+'/boletas/'+$params.idBoleta);
+          }]
         },
         views: {
           'detailView': {
-            templateUrl: basePath + 'feria.detail.html',
-            controller: ['$scope', '$stateParams', function ($scope, $params) {
-              $scope.currentFeria = $scope.feriasRecords[$params.idFeria - 1]
+            templateUrl: basePath + 'boleta.detail.html',
+            controller: ['$scope', 'currentBoleta', function ($scope, currentBoleta) {
+              $scope.currentBoleta = currentBoleta;
             }]
           }
         }
