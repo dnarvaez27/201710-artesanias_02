@@ -24,6 +24,7 @@
 package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
+import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
@@ -56,6 +57,9 @@ public class FeriaLogic {
     
     @Inject
     private BoletaLogic boletaLogic;
+    
+    @Inject
+    private ConferenciaLogic conferenciaLogic;
     
     //--------------------------------------------------------------------------
     // Métodos
@@ -185,8 +189,32 @@ public class FeriaLogic {
     }
     
     //--------------------------------------------------------------------------
-    // Métodos de artesano
+    // Métodos de conferencia
     //--------------------------------------------------------------------------
+    
+    public ConferenciaEntity getConferencia(Long idFeria, Long idConferencia) {
+        for (ConferenciaEntity b : persistence.find(idFeria).getConferencias()) {
+            if (b.getId().equals(idConferencia))
+                return b;
+        }
+        throw new IllegalArgumentException("La conferencia no está asociado a la feria");
+    }
+    
+    public List<ConferenciaEntity> getConferencias(Long id) {
+        return persistence.find(id).getConferencias();
+    }
+    
+    public void removeConferencia(Long idFeria, Long idConferencia) {
+        ConferenciaEntity be = conferenciaLogic.getConferencia(idConferencia);
+        be.setFeria(null);
+        persistence.find(idFeria).getConferencias().remove(be);
+    }
+    
+    public ConferenciaEntity addConferencia(Long idFeria, Long idConferencia) {
+        ConferenciaEntity be = conferenciaLogic.getConferencia(idConferencia);
+        be.setFeria(persistence.find(idFeria));
+        return be;
+    }
     
     //--------------------------------------------------------------------------
     // Métodos Auxiliares

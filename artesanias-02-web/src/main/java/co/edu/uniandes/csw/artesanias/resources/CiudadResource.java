@@ -94,8 +94,8 @@ public class CiudadResource {
     }
     
     @Path( "{idCiudad: \\d+}/artesanos" )
-    public Class<ArtesanoResource> getArtesanoResource() {
-        return ArtesanoResource.class;
+    public CiudadArtesanoResource getCiudadArtesanoResource() {
+        return new CiudadArtesanoResource();
     }
     
     @Path( "{idCiudad: \\d+}/espacios" )
