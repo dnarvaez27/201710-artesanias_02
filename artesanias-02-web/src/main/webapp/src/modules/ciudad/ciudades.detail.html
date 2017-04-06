@@ -16,7 +16,10 @@
                     <hr>
                     <dt>País</dt>
                     <dd>{{currentCiudad.pais}}</dd>
-                   
+                </dl>
+                   <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"> <a ui-sref="artesanosList({ciudadId: currentCiudad.id})">Artesanos</a></li>                   
+                   </ul>
             </div>
              <div ui-view="childrenView"></div>
         </div>
