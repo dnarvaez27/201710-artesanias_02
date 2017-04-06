@@ -13,7 +13,7 @@
         },
         resolve: {
           ferias: ['$http', '$stateParams', function ($http, $params) {
-            if ($params.i > 0) {
+            if ($params.context !== 'api/ferias') {
                 return $http.get($params.context+'/'+ $params.idParent+'/ferias');
             }
             return $http.get($params.context);
@@ -41,18 +41,21 @@
         url: '/{idFeria:int}/detail',
         parent: 'feriasList',
         param: {
-          idFeria: null
+          idFeria: 0
         },
         resolve: {
-          currentFeria: ['$http', 'context', '$stateParams', function ($http, context, $params) {
-            return $http.get(context + '/' + $params.idFeria);
+          currentFeria: ['$http', '$stateParams', function ($http, $params) {
+            if ($params.context !== 'api/ferias') {
+                return $http.get($params.context+'/'+ $params.idParent+'/ferias'+'/'+$params.idFeria);
+            }
+            return $http.get($params.context+'/'+$params.idFeria);
           }]
         },
         views: {
           'detailView': {
             templateUrl: basePath + 'feria.detail.html',
             controller: ['$scope', 'currentFeria', function ($scope, currentFeria) {
-              $scope.currentArtesano = currentFeria.data;
+              $scope.currentFeria = currentFeria.data;
             }]
           }
         }

@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2" ng-repeat="espacio in espaciosRecords | filter:currentEspacio.nombre">
+            <div class="thumbnail box_art">
+                <a ui-sref="espacioDetail({idEspacio: espacio.id})">
+                    <div class="caption text-center subtitle">
+                        <p>{{espacio.nombre}}</p>
+                        <p>{{espacio.direccion}}</p>
+                        <p>{{espaco.telefono}}</p>
+                    </div>
+                    <img class="img-responsive" ng-src='{{espacio.image}}'/>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12" ui-view="detailView"></div>
+    </div>
+</div>
