@@ -29,74 +29,66 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
 /**
  * @author ja.espinosa12
  */
 @Stateless
-public class PabellonPersistence
-{
-        /**
-         * Entity Manager encargado de la persistencia de Entities
-         */
-	@PersistenceContext( unitName = "artesaniasPU" )
-	protected EntityManager em;
-	
-        /**
-         * Retorna el PabellonEntity buscado por su id
-         * @param id
-         * @return PabellonEntity
-         */
-	public PabellonEntity find( Long idEspacio, Long id )
-	{
-		TypedQuery<PabellonEntity> q= em.createQuery(
-                "select u from PabellonEntity u where u.espacio.id = :idE and u.id = :id"
-                , PabellonEntity.class);
-        q.setParameter("idF", idEspacio);
-        q.setParameter("id", id);
-        List<PabellonEntity> r = q.getResultList();
-        System.out.println(r.size());
-        return r.size() == 0 ? null : r.get(0);
-	}
-	
-        /**
-         * Retorna una lista con todos los PabellonEntity
-         * @return pabellones
-         */
-	public List<PabellonEntity> findAll( Long idEspacio )
-	{
-		return em.createQuery("select u from PabellonEntity u where u.espacio.id = "+ idEspacio).getResultList();
-	}
-	
-        /**
-         * Genera un PabellonEntity
-         * @param entity
-         * @return entity
-         */
-	public PabellonEntity create( PabellonEntity entity )
-	{
-		em.persist( entity );
-		return entity;
-	}
-	
-        /**
-         * Actualiza el PabellonEntity ingresado por parámetro
-         * @param entity
-         * @return PabellonEntity
-         */
-	public PabellonEntity update( PabellonEntity entity )
-	{
-		return em.merge( entity );
-	}
-	
-        /**
-         * Elimina el PabellonEntity con id ingresado
-         * @param id 
-         */
-	public void delete( Long id )
-	{
-		PabellonEntity entity = em.find( PabellonEntity.class, id );
-		em.remove( entity );
-	}
+public class PabellonPersistence {
+
+    /**
+     * Entity Manager encargado de la persistencia de Entities
+     */
+    @PersistenceContext(unitName = "artesaniasPU")
+    protected EntityManager em;
+
+    /**
+     * Retorna el PabellonEntity buscado por su id
+     *
+     * @param id
+     * @return PabellonEntity
+     */
+    public PabellonEntity find(Long id) {
+        return em.find(PabellonEntity.class, id);
+    }
+
+    /**
+     * Retorna una lista con todos los PabellonEntity
+     *
+     * @return pabellones
+     */
+    public List<PabellonEntity> findAll() {
+        return em.createQuery("select u from PabellonEntity u").getResultList();
+    }
+
+    /**
+     * Genera un PabellonEntity
+     *
+     * @param entity
+     * @return entity
+     */
+    public PabellonEntity create(PabellonEntity entity) {
+        em.persist(entity);
+        return entity;
+    }
+
+    /**
+     * Actualiza el PabellonEntity ingresado por parámetro
+     *
+     * @param entity
+     * @return PabellonEntity
+     */
+    public PabellonEntity update(PabellonEntity entity) {
+        return em.merge(entity);
+    }
+
+    /**
+     * Elimina el PabellonEntity con id ingresado
+     *
+     * @param id
+     */
+    public void delete(Long id) {
+        PabellonEntity entity = em.find(PabellonEntity.class, id);
+        em.remove(entity);
+    }
 }

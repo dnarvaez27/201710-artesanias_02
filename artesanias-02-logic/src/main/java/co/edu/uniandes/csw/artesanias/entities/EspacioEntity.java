@@ -35,7 +35,7 @@ import java.util.Objects;
  * @author ma.trujillo10
  */
 @Entity
-@Table(name = "espacio", uniqueConstraints = {
+@Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"direccion", "ciudad"})
 })
 public class EspacioEntity implements Serializable {

@@ -34,7 +34,6 @@ import java.util.Objects;
  * @author ma.trujillo10
  */
 @Entity
-@Table(name = "boleta")
 public class BoletaEntity implements Serializable {
 
     //--------------------------------------------------------------------------

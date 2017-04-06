@@ -23,7 +23,10 @@
  */
 package co.edu.uniandes.csw.artesanias.ejbs;
 
+import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
+import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
+import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.persistence.FeriaPersistence;
 import java.util.Date;
@@ -46,7 +49,17 @@ public class FeriaLogic {
     /**
      * Persistencia de FeriaEntity
      */
-    @Inject private FeriaPersistence persistence;
+    @Inject 
+    private FeriaPersistence persistence;
+    
+    @Inject 
+    OrganizadorLogic organizadorLogic;
+    
+    @Inject
+    private BoletaLogic boletaLogic;
+    
+    @Inject
+    private ConferenciaLogic conferenciaLogic;
     
     //--------------------------------------------------------------------------
     // Métodos
@@ -56,13 +69,9 @@ public class FeriaLogic {
      * Se devuelve la entidad feria con el id dado.
      * @param id de la feria a buscar.
      * @return entidad feria con el id dado.
-     * @throws BusinessLogicException si no existe la feria o el id no es válido.
      */
-    public FeriaEntity getFeria(Long id) throws BusinessLogicException {
-        checkId(id);
+    public FeriaEntity getFeria(Long id) {
         FeriaEntity r = persistence.find(id);
-        if (r == null)
-            throw new BusinessLogicException("No existe la feria buscada", Response.Status.NOT_FOUND);
         return r;
     }
     
@@ -72,50 +81,6 @@ public class FeriaLogic {
      */
     public List<FeriaEntity> getFerias() {
         return persistence.findAll();
-    }
-    
-    /**
-     * Se devuelve la entidad feria con el id dado.
-     * @param id de la feria a buscar.
-     * @return entidad feria con el id dado.
-     * @throws BusinessLogicException si no existe la feria o el id no es válido.
-     */
-    public FeriaEntity getFeriaE(Long idEspacio, Long id) throws BusinessLogicException {
-        checkId(id);
-        FeriaEntity r = persistence.findE(idEspacio, id);
-        if (r == null)
-            throw new BusinessLogicException("No existe la feria buscada", Response.Status.NOT_FOUND);
-        return r;
-    }
-    
-    /**
-     * Devuelve el conjunto de ferias.
-     * @return lista de ferias.
-     */
-    public List<FeriaEntity> getFeriasE(Long idEspacio) {
-        return persistence.findAllE(idEspacio);
-    }
-    
-    /**
-     * Se devuelve la entidad feria con el id dado.
-     * @param id de la feria a buscar.
-     * @return entidad feria con el id dado.
-     * @throws BusinessLogicException si no existe la feria o el id no es válido.
-     */
-    public FeriaEntity getFeriaO(Long idOrganizador, Long id) throws BusinessLogicException {
-        checkId(id);
-        FeriaEntity r = persistence.findO(idOrganizador, id);
-        if (r == null)
-            throw new BusinessLogicException("No existe la feria buscada", Response.Status.NOT_FOUND);
-        return r;
-    }
-    
-    /**
-     * Devuelve el conjunto de ferias.
-     * @return lista de ferias.
-     */
-    public List<FeriaEntity> getFeriasO(Long idOrganizador) {
-        return persistence.findAllO(idOrganizador);
     }
     
     /**
@@ -165,13 +130,90 @@ public class FeriaLogic {
     /**
      * Elimina la feria con el id dado.
      * @param id de la feria.
-     * @throws BusinessLogicException si el id no es válidos o la feria no existe.
      */
-    public void deleteFeria(Long id) throws BusinessLogicException {
-        checkId(id);
-        if (persistence.find(id) == null)
-            throw new BusinessLogicException("No existe la feria buscada", Response.Status.NOT_FOUND);
+    public void deleteFeria(Long id) {
         persistence.delete(id);
+    }
+    
+    //--------------------------------------------------------------------------
+    // Métodos de organizador
+    //--------------------------------------------------------------------------
+    
+    public OrganizadorEntity getOrganizador(Long idFeria, Long idOrganizador) {
+        for (OrganizadorEntity o : persistence.find(idFeria).getOrganizadores()) {
+            if (o.getId().equals(idOrganizador))
+                return o;
+        }
+        throw new IllegalArgumentException("El organizador no está asociado a la feria");
+    }
+    
+    public List<OrganizadorEntity> getOrganizadores(Long idFeria) {
+        return persistence.find(idFeria).getOrganizadores();
+    }
+    
+    public void removeOrganizador(Long idFeria, Long idOrganizador) {
+        organizadorLogic.removeFeria(idFeria, idOrganizador);
+    }
+    
+    public OrganizadorEntity addOrganizador(Long idFeria, Long idOrganizador) {
+        organizadorLogic.addFeria(idFeria, idOrganizador);
+        return organizadorLogic.getOrganizador(idOrganizador);
+    }
+    
+    //--------------------------------------------------------------------------
+    // Métodos de boleta
+    //--------------------------------------------------------------------------
+    
+    public BoletaEntity getBoleta(Long idFeria, Long idBoleta) {
+        for (BoletaEntity b : persistence.find(idFeria).getBoletas()) {
+            if (b.getId().equals(idBoleta))
+                return b;
+        }
+        throw new IllegalArgumentException("La boleta no está asociado a la feria");
+    }
+    
+    public List<BoletaEntity> getBoletas(Long id) {
+        return persistence.find(id).getBoletas();
+    }
+    
+    public void removeBoleta(Long idFeria, Long idBoleta) {
+        BoletaEntity be = boletaLogic.getBoleta(idBoleta);
+        be.setFeria(null);
+        persistence.find(idFeria).getBoletas().remove(be);
+    }
+    
+    public BoletaEntity addBoleta(Long idFeria, Long idBoleta) {
+        BoletaEntity be = boletaLogic.getBoleta(idBoleta);
+        be.setFeria(persistence.find(idFeria));
+        return be;
+    }
+    
+    //--------------------------------------------------------------------------
+    // Métodos de conferencia
+    //--------------------------------------------------------------------------
+    
+    public ConferenciaEntity getConferencia(Long idFeria, Long idConferencia) {
+        for (ConferenciaEntity b : persistence.find(idFeria).getConferencias()) {
+            if (b.getId().equals(idConferencia))
+                return b;
+        }
+        throw new IllegalArgumentException("La conferencia no está asociado a la feria");
+    }
+    
+    public List<ConferenciaEntity> getConferencias(Long id) {
+        return persistence.find(id).getConferencias();
+    }
+    
+    public void removeConferencia(Long idFeria, Long idConferencia) {
+        ConferenciaEntity be = conferenciaLogic.getConferencia(idConferencia);
+        be.setFeria(null);
+        persistence.find(idFeria).getConferencias().remove(be);
+    }
+    
+    public ConferenciaEntity addConferencia(Long idFeria, Long idConferencia) {
+        ConferenciaEntity be = conferenciaLogic.getConferencia(idConferencia);
+        be.setFeria(persistence.find(idFeria));
+        return be;
     }
     
     //--------------------------------------------------------------------------
@@ -179,22 +221,11 @@ public class FeriaLogic {
     //--------------------------------------------------------------------------
     
     /**
-     * Revisa la validez del id dado
-     * @param id a ser revisado
-     * @throws BusinessLogicException si el id es nulo o menor a 0.
-     */
-    private void checkId(Long id) throws BusinessLogicException {
-        if (id == null || id < 0)
-            throw new BusinessLogicException("El id ingresado no es válido.", Response.Status.BAD_REQUEST);
-    }
-    
-    /**
      * Revisa las reglas de negocio.
      * @param e entidad a ser revisada.
      * @throws BusinessLogicException si no se cumple alguna regla de negocio.
      */
     private void checkData(FeriaEntity e) throws BusinessLogicException {
-        checkId(e.getId());
         if (e.getNombre() == null || e.getNombre().isEmpty())
             throw new BusinessLogicException("La feria debe tener un nombre", Response.Status.NOT_FOUND);
         if (e.getTotalBoletas() == null)

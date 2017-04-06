@@ -23,6 +23,7 @@
  */
 package co.edu.uniandes.csw.artesanias.entities;
 
+import co.edu.uniandes.csw.artesanias.entities.asociaciones.ArtesanoFeriaAssociation;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
@@ -48,7 +49,7 @@ import javax.persistence.UniqueConstraint;
  * @author ma.trujillo10
  */
 @Entity
-@Table(name="feria", uniqueConstraints={
+@Table(uniqueConstraints={
     @UniqueConstraint(columnNames = {"inicio", "fin", "espacio"})})
 public class FeriaEntity implements Serializable {
     
@@ -107,8 +108,8 @@ public class FeriaEntity implements Serializable {
     /**
      * Conjunto de artesanos que asistirán a la feria.
      */
-    @ManyToMany(targetEntity = ArtesanoEntity.class)
-    private List<ArtesanoEntity> artesanos = new LinkedList<ArtesanoEntity>();
+    @ManyToMany(targetEntity = ArtesanoFeriaAssociation.class)
+    private List<ArtesanoFeriaAssociation> artesanos = new LinkedList<ArtesanoFeriaAssociation>();
     
     /**
      * Conjunto de organizadores de la feria.
@@ -264,7 +265,7 @@ public class FeriaEntity implements Serializable {
      * Devuelve el conjunto de artesanos que asistirán o asistieron a la feria.
      * @return conjunto de artesanos que asistirán a la feria.
      */
-    public List<ArtesanoEntity> getArtesanos() {
+    public List<ArtesanoFeriaAssociation> getArtesanos() {
         return artesanos;
     }
 
@@ -275,7 +276,7 @@ public class FeriaEntity implements Serializable {
      * @param artesanos nuevo conjunto de artesanos que asistirán o asistieron 
      *      a la feria.
      */
-    public void setArtesanos(List<ArtesanoEntity> artesanos) {
+    public void setArtesanos(List<ArtesanoFeriaAssociation> artesanos) {
         this.artesanos = artesanos;
     }
 

@@ -26,37 +26,32 @@ package co.edu.uniandes.csw.artesanias.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author IVAN
  */
 @Entity
-@PrimaryKeyJoinColumn( referencedColumnName = "id" )
-public class OrganizadorEntity extends UsuarioEntity implements Serializable
-{
-	private String identificacion;
-	
-	@OneToMany( targetEntity = FeriaEntity.class, fetch = FetchType.LAZY )
-	private List<FeriaEntity> ferias;
-	
-	public List<FeriaEntity> getFerias( )
-	{
-		return ferias;
-	}
-	
-	public String getIdentificacion( )
-	{
-		return identificacion;
-	}
-	
-	public void setIdentificacion( String identificacion )
-	{
-		this.identificacion = identificacion;
-	}
-	
-	public void setFerias( List<FeriaEntity> ferias )
-	{
-		this.ferias = ferias;
-	}
+@PrimaryKeyJoinColumn(referencedColumnName = "id")
+public class OrganizadorEntity extends UsuarioEntity implements Serializable {
+
+    private String identificacion;
+
+    @ManyToMany(mappedBy = "organizadores", targetEntity = FeriaEntity.class, fetch = FetchType.LAZY)
+    private List<FeriaEntity> ferias;
+
+    public List<FeriaEntity> getFerias() {
+        return ferias;
+    }
+
+    public String getIdentificacion() {
+        return identificacion;
+    }
+
+    public void setIdentificacion(String identificacion) {
+        this.identificacion = identificacion;
+    }
+
+    public void setFerias(List<FeriaEntity> ferias) {
+        this.ferias = ferias;
+    }
 }

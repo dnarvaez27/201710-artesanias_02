@@ -19,7 +19,7 @@ public class SalonEntity implements Serializable
 	private Integer capacidad;
 	
 	@OneToMany( targetEntity = ConferenciaEntity.class, fetch = FetchType.LAZY )
-	private List<ConferenciaEntity> conferencia;
+	private ConferenciaEntity conferencia;
 	
 	@ManyToOne( targetEntity = PabellonEntity.class, fetch = FetchType.LAZY )
 	private PabellonEntity pabellon;
@@ -39,7 +39,7 @@ public class SalonEntity implements Serializable
 		this.capacidad = capacidad;
 	}
 	
-	public void setConferencia( List<ConferenciaEntity> conferencia )
+	public void setConferencia( ConferenciaEntity conferencia )
 	{
 		this.conferencia = conferencia;
 	}
@@ -64,7 +64,7 @@ public class SalonEntity implements Serializable
 		return capacidad;
 	}
 	
-	public List<ConferenciaEntity> getConferencia( )
+	public ConferenciaEntity getConferencia( )
 	{
 		return conferencia;
 	}

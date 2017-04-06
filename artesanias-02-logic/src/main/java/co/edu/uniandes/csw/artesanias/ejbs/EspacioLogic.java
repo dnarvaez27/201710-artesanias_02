@@ -24,6 +24,7 @@
 package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.EspacioEntity;
+import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.artesanias.persistence.EspacioPersistence;
@@ -39,22 +40,29 @@ import javax.ws.rs.core.Response;
 @Stateless
 public class EspacioLogic {
     
-    @Inject private EspacioPersistence persistence;
+    //--------------------------------------------------------------------------
+    // Atributos
+    //--------------------------------------------------------------------------
     
-    public EspacioEntity getEspacio(Long id) throws BusinessLogicException {
-        checkId(id);
+    @Inject 
+    private EspacioPersistence persistence;
+    
+    @Inject
+    private FeriaLogic feriaLogic;
+    
+    @Inject
+    private PabellonLogic pabellonLogic;
+    
+    //--------------------------------------------------------------------------
+    // Métodos
+    //--------------------------------------------------------------------------
+    
+    public EspacioEntity getEspacio(Long id) {
         return persistence.find(id);
     }
     
-    public EspacioEntity getEspacio(Long idCiudad, Long id) throws BusinessLogicException {
-        checkId(idCiudad);
-        checkId(id);
-        return persistence.find(id, idCiudad);
-    }
-    
-    public List<EspacioEntity> getEspacios(Long idCiudad) throws BusinessLogicException {
-        checkId(idCiudad);
-        return persistence.findAll(idCiudad);
+    public List<EspacioEntity> getEspacios() {
+        return persistence.findAll();
     }
     
     public EspacioEntity createEspacio(EspacioEntity entity) throws BusinessLogicException {
@@ -82,27 +90,71 @@ public class EspacioLogic {
         return persistence.update(entity);
     }
     
-    public void deleteEspacio(Long id) throws BusinessLogicException {
-        checkId(id);
+    public void deleteEspacio(Long id) {
         persistence.delete(id);
+    }
+    
+    //--------------------------------------------------------------------------
+    // Métodos de feria
+    //--------------------------------------------------------------------------
+    
+    public FeriaEntity getFeria(Long idFeria, Long idEspacio) {
+        for (FeriaEntity f : persistence.find(idEspacio).getFerias()) {
+            if (f.getId().equals(idFeria))
+                return f;
+        }
+        throw new IllegalArgumentException("La feria no está asociado al espacio");
+    }
+    
+    public List<FeriaEntity> getFerias(Long id) {
+        return persistence.find(id).getFerias();
+    }
+    
+    public void removeFeria(Long idFeria, Long idEspacio) {
+        FeriaEntity fe = feriaLogic.getFeria(idFeria);
+        fe.setEspacio(null);
+        persistence.find(idEspacio).getFerias().remove(fe);
+    }
+    
+    public FeriaEntity addFeria(Long idFeria, Long idEspacio) {
+        FeriaEntity fe = feriaLogic.getFeria(idFeria);
+        fe.setEspacio(persistence.find(idEspacio));
+        return fe;
+    }
+    
+    //--------------------------------------------------------------------------
+    // Métodos de pabellon
+    //--------------------------------------------------------------------------
+    
+    public PabellonEntity getPabellon(Long idPabellon, Long idEspacio) {
+        for (PabellonEntity p : persistence.find(idEspacio).getPabellones()) {
+            if (p.getId().equals(idPabellon))
+                return p;
+        }
+        throw new IllegalArgumentException("El pabellon no está asociado al espacio");
+    }
+    
+    public List<PabellonEntity> getPabellones(Long id) {
+        return persistence.find(id).getPabellones();
+    }
+    
+    public void removePabellon(Long idPabellon, Long idEspacio) {
+        PabellonEntity pe = pabellonLogic.getPabellon(idPabellon);
+        pe.setEspacio(null);
+        persistence.find(idEspacio).getFerias().remove(pe);
+    }
+    
+    public PabellonEntity addPabellon(Long idPabellon, Long idEspacio) {
+        PabellonEntity pe = pabellonLogic.getPabellon(idPabellon);
+        pe.setEspacio(persistence.find(idEspacio));
+        return pe;
     }
     
     //--------------------------------------------------------------------------
     // Métodos Auxiliares
     //--------------------------------------------------------------------------
     
-    /**
-     * Revisa la validez del id dado
-     * @param id a ser revisado
-     * @throws BusinessLogicException si el id es nulo o menor a 0.
-     */
-    private void checkId(Long id) throws BusinessLogicException {
-        if (id == null || id < 0)
-            throw new BusinessLogicException("El id ingresado no es válido.", Response.Status.BAD_REQUEST);
-    }
-    
     private void checkData(EspacioEntity e) throws BusinessLogicException {
-        checkId(e.getId());
         if (e.getCapacidad() == null || e.getCapacidad() <= 0)
             throw new BusinessLogicException("la capacidad del espacio no puede ser vacío, nulo o menor o igual a 0", Response.Status.BAD_REQUEST);
         if (e.getCiudad() == null)

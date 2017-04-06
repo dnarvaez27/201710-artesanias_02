@@ -94,17 +94,17 @@ public class CiudadResource {
     }
     
     @Path( "{idCiudad: \\d+}/artesanos" )
-    public Class<ArtesanoResource> getArtesanoResource() {
-        return ArtesanoResource.class;
+    public CiudadArtesanoResource getCiudadArtesanoResource() {
+        return new CiudadArtesanoResource();
     }
     
     @Path( "{idCiudad: \\d+}/espacios" )
-    public Class<EspacioResource> getEspacioResource() {
-        return EspacioResource.class;
+    public CiudadEspacioResource getCiudadEspacioResource() {
+        return new CiudadEspacioResource();
     }
     
     private List<CiudadDTO> listEntity2DTO(List<CiudadEntity> entities) {
-        List<CiudadDTO> rta = new LinkedList<CiudadDTO>();
+        List<CiudadDTO> rta = new LinkedList<>();
         for (CiudadEntity entity : entities)
             rta.add(new CiudadDTO(entity));
         return rta;
