@@ -1,23 +1,39 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2017 Miller.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package co.edu.uniandes.csw.artesanias.resources;
 
-import co.edu.uniandes.csw.artesanias.dtos.FeriaDTO;
-import co.edu.uniandes.csw.artesanias.dtos.detail.EspacioDetailDTO;
-import co.edu.uniandes.csw.artesanias.dtos.detail.FeriaDetailDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.OrganizadorDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.FeriaLogic;
-import co.edu.uniandes.csw.artesanias.ejbs.OrganizadorLogic;
-import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
-import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -35,7 +51,6 @@ import javax.ws.rs.core.MediaType;
 public class FeriaOrganizadorResource {
     
     @Inject private FeriaLogic feriaLogic;
-    @Inject private OrganizadorLogic organizadorLogic;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("limit") private Integer maxRecords;
@@ -45,45 +60,49 @@ public class FeriaOrganizadorResource {
     //--------------------------------------------------------------------------
     
     @GET
-    public List<FeriaDTO> getFeriasO(@PathParam("idOrganizador") Long idOrganizador)
-            throws BusinessLogicException {
-        if (organizadorLogic.getOrganizador(idOrganizador) == null)
-            throw new WebApplicationException("El organizador no existe", 404);
-        return listEntity2DTO(feriaLogic.getFeriasO(idOrganizador));
-    }
-    
-    @GET
     @Path("{id: \\d+}")
-    public FeriaDetailDTO getFeriaO(@PathParam("idOrganizador") Long idOrganizador, 
-            @PathParam("id") Long id) throws BusinessLogicException {
-        if (organizadorLogic.getOrganizador(idOrganizador) == null)
-            throw new WebApplicationException("El organizador no existe", 404);
-        if (feriaLogic.getFeriaO(idOrganizador, id) == null)
+    public OrganizadorDetailDTO getFeriaOrganizador(@PathParam("idFeria") Long idFeria,
+            @PathParam("id") Long id) {
+        if (feriaLogic.getFeria(idFeria) == null)
             throw new WebApplicationException("No existe la feria", 404);
-        return new FeriaDetailDTO(feriaLogic.getFeria(id));
+        return new OrganizadorDetailDTO(feriaLogic.getOrganizador(idFeria, id));
     }
     
     @GET
-    @Path("{id: \\d+}/espacios")
-    public EspacioDetailDTO getEspacio(@PathParam("idOrganizador") Long idOrganizador, 
-            @PathParam("id") Long id) throws BusinessLogicException {
-        if (organizadorLogic.getOrganizador(idOrganizador) == null)
-            throw new WebApplicationException("El organizador no existe", 404);
-        FeriaEntity fe = feriaLogic.getFeriaO(idOrganizador, id);
-        if (fe == null)
+    public List<OrganizadorDetailDTO> getFeriaOrganizadores(@PathParam("idFeria") Long idFeria) {
+        if (feriaLogic.getFeria(idFeria) == null)
             throw new WebApplicationException("No existe la feria", 404);
-        return new EspacioDetailDTO(fe.getEspacio());
+        return listOrganizadorEntity2DetailDTO(feriaLogic.getOrganizadores(idFeria));
+    }
+    
+    @PUT
+    public List<OrganizadorDetailDTO> updateFeriaOrganizadores(@PathParam("idFeria") Long idFeria,
+            List<OrganizadorDetailDTO> organizadores) {
+        if (feriaLogic.getFeria(idFeria) == null)
+            throw new WebApplicationException("No existe la feria", 404);
+        for (OrganizadorDetailDTO o : organizadores) {
+            feriaLogic.addOrganizador(idFeria, o.getId());
+        }
+        return listOrganizadorEntity2DetailDTO(feriaLogic.getFeria(idFeria).getOrganizadores());
+    }
+    
+    @DELETE
+    @Path("{id: \\d+}")
+    public void deleteFeriaOrganizador(@PathParam("idFeria") Long idFeria,
+            @PathParam("id") Long id) {
+        if (feriaLogic.getFeria(idFeria) == null)
+            throw new WebApplicationException("No existe la feria", 404);
+        feriaLogic.removeOrganizador(idFeria, id);
     }
     
     //--------------------------------------------------------------------------
     // Métodos Auxiliares
     //--------------------------------------------------------------------------
     
-    private List<FeriaDTO> listEntity2DTO(List<FeriaEntity> entities) {
-        List<FeriaDTO> rta = new LinkedList<FeriaDTO>();
-        for (FeriaEntity entity : entities)
-            rta.add(new FeriaDTO(entity));
+    private List<OrganizadorDetailDTO> listOrganizadorEntity2DetailDTO(List<OrganizadorEntity> entities) {
+        List<OrganizadorDetailDTO> rta = new LinkedList<>();
+        for (OrganizadorEntity entity : entities)
+            rta.add(new OrganizadorDetailDTO(entity));
         return rta;
     }
-    
 }

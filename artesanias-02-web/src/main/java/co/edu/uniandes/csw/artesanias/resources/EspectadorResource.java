@@ -132,14 +132,4 @@ public class EspectadorResource
         
         //TODO actualizar el diagrama de clases para reflejar que la boleta es un subrecurso de espectador. 
         //TODO Verificar que el expectador exista antes de llamar el subrecurso.
-	/**
-	 * Retorna el Sub-Recurso de las Boletas que ha adquirido el espectador
-	 *
-	 * @return Clase del Sub-Recurso de Boletas que ha adquitido el espectador
-	 */
-	@Path( "{espectadorId: \\d+}/boletas" )
-	public Class<BoletaResource> getBoletaResource( )
-	{
-		return BoletaResource.class;
-	}
 }
