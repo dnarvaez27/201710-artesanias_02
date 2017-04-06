@@ -42,7 +42,7 @@ import javax.persistence.UniqueConstraint;
  * @author ma.trujillo10
  */
 @Entity
-@Table(name="ciudad", uniqueConstraints={
+@Table(uniqueConstraints={
     @UniqueConstraint(columnNames = {"nombre", "pais"})})
 public class CiudadEntity implements Serializable {
     

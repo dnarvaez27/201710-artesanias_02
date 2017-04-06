@@ -49,7 +49,7 @@ import javax.persistence.UniqueConstraint;
  * @author ma.trujillo10
  */
 @Entity
-@Table(name="feria", uniqueConstraints={
+@Table(uniqueConstraints={
     @UniqueConstraint(columnNames = {"inicio", "fin", "espacio"})})
 public class FeriaEntity implements Serializable {
     

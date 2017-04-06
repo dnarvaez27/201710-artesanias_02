@@ -23,7 +23,6 @@
  */
 package co.edu.uniandes.csw.artesanias.persistence;
 
-import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.SalonEntity;
 
 import java.util.List;

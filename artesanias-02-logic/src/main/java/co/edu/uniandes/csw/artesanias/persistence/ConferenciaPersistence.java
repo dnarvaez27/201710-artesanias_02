@@ -24,7 +24,6 @@
 package co.edu.uniandes.csw.artesanias.persistence;
 
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
-import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 
 import java.util.List;
 import javax.ejb.Stateless;
