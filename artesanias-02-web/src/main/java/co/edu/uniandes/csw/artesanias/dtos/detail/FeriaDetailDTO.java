@@ -23,10 +23,11 @@ package co.edu.uniandes.csw.artesanias.dtos.detail;
  * THE SOFTWARE.
  */
 import co.edu.uniandes.csw.artesanias.dtos.*;
-import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
+import co.edu.uniandes.csw.artesanias.dtos.asociacion.ArtesanoFeriaDTO;
 import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
+import co.edu.uniandes.csw.artesanias.entities.asociaciones.ArtesanoFeriaAssociation;
 import java.util.LinkedList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,7 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class FeriaDetailDTO extends FeriaDTO {
     
-    private List<ArtesanoDTO> artesanos;
+    private List<ArtesanoFeriaDTO> artesanos;
     
     private List<BoletaDTO> boletas;
     
@@ -49,8 +50,8 @@ public class FeriaDetailDTO extends FeriaDTO {
     public FeriaDetailDTO(FeriaEntity entity) {
         super(entity);
         if (entity == null) return;
-        for (ArtesanoEntity artesano : entity.getArtesanos())
-            artesanos.add(new ArtesanoDTO(artesano));
+        for (ArtesanoFeriaAssociation artesano : entity.getArtesanos())
+            artesanos.add(new ArtesanoFeriaDTO(artesano));
         for (BoletaEntity boleta : entity.getBoletas())
             boletas.add(new BoletaDTO(boleta));
         for (ConferenciaEntity conferencia : entity.getConferencias())
@@ -60,13 +61,13 @@ public class FeriaDetailDTO extends FeriaDTO {
     @Override
     public FeriaEntity toEntity() {
         FeriaEntity entity = super.toEntity();
-        List<ArtesanoEntity> lart = new LinkedList<ArtesanoEntity>();
-        for (ArtesanoDTO artesano : artesanos)
+        List<ArtesanoFeriaAssociation> lart = new LinkedList<>();
+        for (ArtesanoFeriaDTO artesano : artesanos)
             lart.add(artesano.toEntity());
-        List<BoletaEntity> lbol = new LinkedList<BoletaEntity>();
+        List<BoletaEntity> lbol = new LinkedList<>();
         for (BoletaDTO boleta : boletas)
             lbol.add(boleta.toEntity());
-        List<ConferenciaEntity> lcon = new LinkedList<ConferenciaEntity>();
+        List<ConferenciaEntity> lcon = new LinkedList<>();
         for (ConferenciaDTO conferencia : conferencias)
             lcon.add(conferencia.toEntity());
         entity.setConferencias(lcon);
@@ -75,11 +76,11 @@ public class FeriaDetailDTO extends FeriaDTO {
         return entity;
     }
 
-    public List<ArtesanoDTO> getArtesanos() {
+    public List<ArtesanoFeriaDTO> getArtesanos() {
         return artesanos;
     }
 
-    public void setArtesanos(List<ArtesanoDTO> artesanos) {
+    public void setArtesanos(List<ArtesanoFeriaDTO> artesanos) {
         this.artesanos = artesanos;
     }
 
