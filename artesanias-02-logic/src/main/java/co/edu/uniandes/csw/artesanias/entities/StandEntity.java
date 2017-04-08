@@ -59,6 +59,8 @@ public class StandEntity implements Serializable
          * Precio del stand
          */
 	private Double precio;
+        
+        private String imagen;
 	
         /**
          * Pabellón al que pertenece el stand
@@ -66,7 +68,16 @@ public class StandEntity implements Serializable
 	@ManyToOne( targetEntity = PabellonEntity.class )
 	private PabellonEntity pabellon;
 	
+        public String getImagen()
+        {
+            return imagen;
+        }
 	
+        public void setImagen( String pImage)
+        {
+            this.imagen = pImage;
+        }
+        
         /**
          * Define el id del stand
          * @param id 

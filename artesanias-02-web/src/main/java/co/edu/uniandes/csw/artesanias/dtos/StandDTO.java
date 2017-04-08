@@ -41,6 +41,8 @@ public class StandDTO
          */
 	private Double precio;
 	
+        private String imagen;
+        
         /**
          * Constructor vacío
          */
@@ -62,9 +64,20 @@ public class StandDTO
 			this.dimensiones = entity.getDimensiones( );
 			this.descripcion = entity.getDescripcion( );
 			this.precio = entity.getPrecio( );
+                        this.imagen = entity.getImagen();
 		}
 	}
 	
+        public String getImagen()
+        {
+            return imagen;
+        }
+        
+        public void setImagen( String pImage)
+        {
+            this.imagen = pImage;
+        }
+        
 	/**
 	 * @return the id
 	 */
@@ -158,6 +171,7 @@ public class StandDTO
 		entity.setDimensiones( this.getDimensiones( ) );
 		entity.setDescripcion( this.getDescripcion( ) );
 		entity.setPrecio( this.getPrecio( ) );
+                entity.setImagen(this.getImagen());
 		
 		return entity;
 	}

@@ -30,6 +30,8 @@ public class PabellonDTO
          * Capacidad del pabellón
          */
 	private Integer capacidad;
+        
+        private String imagen;
 	
         /**
          * Constructor vacío
@@ -50,9 +52,20 @@ public class PabellonDTO
 			this.id = entity.getId( );
 			this.tipo = entity.getTipo( );
 			this.capacidad = entity.getCapacidad( );
+                        this.imagen = entity.getImagen();
 		}
 	}
 	
+        public String getImagen()
+        {
+            return imagen;
+        }
+        
+        public void setImagen( String pImage)
+        {
+            this.imagen = pImage;
+        }
+        
 	/**
 	 * @return the id
 	 */
@@ -111,6 +124,7 @@ public class PabellonDTO
 		entity.setId( this.getId( ) );
 		entity.setTipo( this.getTipo( ) );
 		entity.setCapacidad( this.getCapacidad( ) );
+                entity.setImagen(this.getImagen());
 		return entity;
 	}
 	

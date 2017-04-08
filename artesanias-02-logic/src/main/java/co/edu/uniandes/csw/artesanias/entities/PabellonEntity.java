@@ -53,6 +53,8 @@ public class PabellonEntity implements Serializable
          */
         @Column(nullable = false)
 	private Integer capacidad;
+        
+        private String imagen;
 	
         @ManyToOne(targetEntity = EspacioEntity.class, fetch = FetchType.LAZY)
         @JoinColumn(name = "id_espacio")
@@ -69,7 +71,17 @@ public class PabellonEntity implements Serializable
          */
 	@OneToMany( cascade = CascadeType.ALL, mappedBy = "pabellon", targetEntity = SalonEntity.class, fetch = FetchType.LAZY )
 	private List<SalonEntity> salones = new LinkedList<>( );
+        
+        public String getImagen()
+        {
+            return imagen;
+        }
 	
+        public void setImagen( String pImage)
+        {
+            this.imagen = pImage;
+        }
+        
 	/**
 	 * Retrieves the salones of the PabellonEntity
 	 *
