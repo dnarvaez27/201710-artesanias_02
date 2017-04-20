@@ -19,7 +19,7 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 
-    <!--Modulos TODO-->
+    <!--Modulos-->
     <!--Artesanos-->
     <script src="src/modules/artesano/artesanos.mod.js" type="text/javascript"></script>
     <!-- Feria -->
@@ -56,11 +56,9 @@
     <section>
         <!-- BEGIN SIDEBAR -->
         <div class="sidebar">
-            <div class="logopanel">
-                <h1>
-                    <a href="#" class="text-center">Artesanias</a>
-                </h1>
-            </div>
+            <a href="#">
+                <div class="logopanel"></div>
+            </a>
             <div class="sidebar-inner">
                 <div class="sidebar-top big-img">
                     <div class="user-image">
@@ -70,25 +68,9 @@
                     <div class="dropdown user-login">
                         <button class="btn btn-xs dropdown-toggle btn-rounded" type="button" data-toggle="dropdown" data-hover="dropdown"
                                 data-close-others="true" data-delay="300">
-                            <i class="online"></i><span>Available</span> <i class="fa fa-angle-down"></i>
+                            <i class="online"></i><span>Available</span>
                         </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#"><i class="busy"></i><span>Busy</span></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="turquoise"></i>
-                                    <span>Invisible</span></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="away"></i>
-                                    <span>Away</span></a>
-                            </li>
-                        </ul>
                     </div>
-                </div>
-                <div class="menu-title">
-                    Navegación
                 </div>
                 <ul class="nav nav-sidebar">
                     <li class=" nav-active active">
@@ -206,8 +188,6 @@
                             </ul>
                         </li>
                         <!-- END USER DROPDOWN -->
-                        <!-- CHAT BAR ICON -->
-                        <li id="quickview-toggle"><a href="#"><i class="icon-bubbles"></i></a></li>
                     </ul>
                 </div>
                 <!-- header-right -->
@@ -216,7 +196,7 @@
 
             <!-- BEGIN PAGE CONTENT -->
             <div ui-view="mainView" style="padding-top: 50px">
-                Holaaaaaaaaaaaaaaaaaa
+                <img src="src/utils/assets/global/images/logo/logo-white.png">
             </div>
 
             <!--FOOTER-->
