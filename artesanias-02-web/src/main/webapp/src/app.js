@@ -5,7 +5,9 @@
         // Internal modules dependencies
         'artesanoModule',
         // 'pabellonModule'
-        'organizadorModule'
+        'organizadorModule',
+        'salonModule',
+        'conferenciaModule'
     ]);
     // Resuelve problemas de las promesas
     app.config(['$qProvider', function ($qProvider) {
