@@ -10,7 +10,7 @@
         <module>artesanias-02-logic</module>
         <module>artesanias-02-web</module>
     </modules>
-    
+
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -64,12 +64,12 @@
             <artifactId>podam</artifactId>
             <version>6.0.2.RELEASE</version>
         </dependency>
-		<dependency>
-              <groupId>org.jboss.shrinkwrap.resolver</groupId>
-              <artifactId>shrinkwrap-resolver-depchain</artifactId>
-              <scope>test</scope>
-              <type>pom</type>
-         </dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+            <artifactId>shrinkwrap-resolver-depchain</artifactId>
+            <scope>test</scope>
+            <type>pom</type>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -80,10 +80,10 @@
                 <executions>
                     <execution>
                         <goals>
-                           <goal>prepare-agent</goal>
-                           <goal>prepare-agent-integration</goal>
-                           <goal>report</goal>
-                           <goal>report-integration</goal>
+                            <goal>prepare-agent</goal>
+                            <goal>prepare-agent-integration</goal>
+                            <goal>report</goal>
+                            <goal>report-integration</goal>
                         </goals>
                     </execution>
                 </executions>

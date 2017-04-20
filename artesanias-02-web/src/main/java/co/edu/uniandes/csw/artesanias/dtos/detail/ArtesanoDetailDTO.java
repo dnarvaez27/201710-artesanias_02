@@ -98,17 +98,26 @@ public class ArtesanoDetailDTO extends ArtesanoDTO
 		List<ReviewEntity> reviewsEntities = new LinkedList<>( );
 		List<ArtesanoFeriaAssociation> artesanoFeriaEntities = new LinkedList<>( );
 		
-		for( ArtesaniaDTO artesania : artesanias )
+		if( artesanias != null )
 		{
-			artesaniasEntities.add( artesania.toEntity( ) );
+			for( ArtesaniaDTO artesania : artesanias )
+			{
+				artesaniasEntities.add( artesania.toEntity( ) );
+			}
 		}
-		for( ReviewDTO review : reviews )
+		if( reviews != null )
 		{
-			reviewsEntities.add( review.toEntity( ) );
+			for( ReviewDTO review : reviews )
+			{
+				reviewsEntities.add( review.toEntity( ) );
+			}
 		}
-		for( ArtesanoFeriaDTO feria : ferias )
+		if( ferias != null )
 		{
-			artesanoFeriaEntities.add( feria.toEntity( ) );
+			for( ArtesanoFeriaDTO feria : ferias )
+			{
+				artesanoFeriaEntities.add( feria.toEntity( ) );
+			}
 		}
 		entity.setArtesanias( artesaniasEntities );
 		entity.setReviews( reviewsEntities );

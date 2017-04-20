@@ -1,11 +1,15 @@
 (function (ng) {
-  var mod = ng.module('artesanoModule', ['ui.router'])
+  var mod = ng.module('artesanoModule', ['ui.router']);
 
-  mod.constant('artesanosContext', 'api/artesanos')
+  mod.constant('artesanosContext', 'api/artesanos');
 
   mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-    var basePath = 'src/modules/artesano/'
-    $urlRouterProvider.otherwise('/artesanosList')
+    var basePath = 'src/modules/artesano/';
+    var basePathArtesanias = 'src/modules/artesania/';
+    var basePathReviews = 'src/modules/review/';
+    var basePathFerias = 'src/modules/feria/';
+
+    $urlRouterProvider.otherwise('/artesanosList');
 
     $stateProvider
       .state('artesanos', {
@@ -14,14 +18,14 @@
         resolve: {
           artesanos: ['$http', 'artesanosContext', function ($http, artesanosContext) {
             // return $http.get('data/artesanos.json')
-            return $http.get(artesanosContext)
+            return $http.get(artesanosContext);
           }]
         },
         views: {
           'mainView': {
             templateUrl: basePath + 'artesanos.html',
             controller: ['$scope', 'artesanos', function ($scope, artesanos) {
-              $scope.artesanosRecords = artesanos.data
+              $scope.artesanosRecords = artesanos.data;
             }]
           }
         }
@@ -42,55 +46,50 @@
           artesanoId: null
         },
         resolve: {
-          currentArtesano: ['$http', 'artesanosContext', '$stateParams', function ($http, artesanosContext, $params) {
-            return $http.get(artesanosContext + '/' + $params.artesanoId)
-          }]
+          currentArtesano: ['$http', 'artesanosContext', '$stateParams',
+            function ($http, artesanosContext, $params) {
+              return $http.get(artesanosContext + '/' + $params.artesanoId);
+            }]
         },
         views: {
           'detailView': {
             templateUrl: basePath + 'artesanos.detail.html',
-            controller: ['$scope', '$stateParams', 'currentArtesano', function ($scope, $params, currentArtesano) {
-              // $scope.currentArtesano = $scope.artesanosRecords[$params.artesanoId - 1]
-              $scope.currentArtesano = currentArtesano.data
-            }]
+            controller: ['$scope', '$stateParams', 'currentArtesano',
+              function ($scope, $params, currentArtesano) {
+                $scope.currentArtesano = currentArtesano.data;
+                $scope.artesaniasRecords = $scope.currentArtesano.artesanias;
+                $scope.reviewsRecords = $scope.currentArtesano.reviews;
+                $scope.feriasRecords = $scope.currentArtesano.ferias;
+              }]
           }
         }
       })
       .state('artesanoDetailArtesanias', {
         url: '/artesanias',
         parent: 'artesanoDetail',
-        resolve: {
-          artesanias: ['$http', 'artesanosContext', '$stateParams', function ($http, artesanosContext, $params) {
-            return $http.get(artesanosContext + '/' + $params.artesanoId + '/artesanias')
-          }]
-        },
         views: {
           'detail': {
-            templateUrl: basePath + 'artesanos.detail.artesanias.html'
-            // ,
-            // controller: ['$scope','artesanias', function ($scope, artesanias) {
-            //   $scope.currentArtesano.artesanias = artesanias.data
-            // }]
+            templateUrl: basePathArtesanias + 'artesanias.list.html'
           }
         }
       })
       .state('artesanoDetailReviews', {
         url: '/reviews',
         parent: 'artesanoDetail',
-        resolve: {
-          reviews: ['$http', 'artesanosContext', '$stateParams', function ($http, artesanosContext, $params) {
-            return $http.get(artesanosContext + '/' + $params.artesanoId + '/reviews')
-          }]
-        },
         views: {
           'detail': {
-            templateUrl: basePath + 'artesanos.detail.reviews.html'
-            // ,
-            // controller: ['$scope', 'reviews', function ($scope, reviews) {
-            //   $scope.currentArtesano.reviews = reviews.data
-            // }]
+            templateUrl: basePathReviews + 'reviews.list.html'
           }
         }
       })
-  }])
-})(window.angular)
+      .state('artesanoDetailFerias', {
+        url: '/ferias',
+        parent: 'artesanoDetail',
+        views: {
+          'detail': {
+            templateUrl: basePathFerias + 'feria.list.html'
+          }
+        }
+      });
+  }]);
+})(window.angular);

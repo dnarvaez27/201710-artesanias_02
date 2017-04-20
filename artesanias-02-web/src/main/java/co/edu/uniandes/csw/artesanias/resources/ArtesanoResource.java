@@ -51,7 +51,7 @@ public class ArtesanoResource
 	 * @throws BusinessLogicException Si no cumple con los requisitos mínimos para su creación. (400 BAD REQUEST)
 	 */
 	@POST
-	public ArtesanoDetailDTO createArtesano( ArtesanoDTO dto ) throws BusinessLogicException
+	public ArtesanoDetailDTO createArtesano( ArtesanoDetailDTO dto ) throws BusinessLogicException
 	{
 		return new ArtesanoDetailDTO( logic.createArtesano( dto.toEntity( ) ) );
 	}

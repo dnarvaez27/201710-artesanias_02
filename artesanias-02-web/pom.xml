@@ -46,21 +46,6 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet</artifactId>
-            <version>2.5.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>2.5.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-moxy</artifactId>
-            <version>2.5.1</version>
-        </dependency>
-        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
@@ -74,7 +59,7 @@
         </dependency>
         <dependency>
             <groupId>co.edu.uniandes.csw.artesanias</groupId>
-            <artifactId>artesanias-02-logic</artifactId>
+            <artifactId>artesa-logic</artifactId>
             <version>0.1.0</version>
         </dependency>
         <dependency>
@@ -83,6 +68,11 @@
             <version>2.1.0.Final</version>
             <type>pom</type>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>co.edu.uniandes.csw.artesanias</groupId>
+            <artifactId>artesanias-02-logic</artifactId>
+            <version>0.1.0</version>
         </dependency>
     </dependencies>
     <build>

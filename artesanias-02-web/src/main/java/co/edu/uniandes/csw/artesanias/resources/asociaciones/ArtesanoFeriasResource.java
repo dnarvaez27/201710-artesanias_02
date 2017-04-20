@@ -81,7 +81,7 @@ public class ArtesanoFeriasResource
 	
 	@GET
 	@Path( "/f" )
-	public List<ArtesanoFeriaDTO> getArtesanos( @PathParam( "artesanoId" ) Long artesanoId )
+	public List<ArtesanoFeriaDTO> getFeriasFrom( @PathParam( "artesanoId" ) Long artesanoId )
 	{
 		return listEntity2DTO( logic.getFeriasFrom( artesanoId ) );
 	}
