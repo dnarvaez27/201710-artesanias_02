@@ -8,17 +8,16 @@
             $stateProvider.state('salones', {
                 url: '/salones',
                 abstract: true,
+                parent:'pabellonDetail',
                 resolve: {
-                    stands: ['$http', 'salonesContext', function ($http, salonesContext) {
+                    salones: ['$http', 'salonesContext', function ($http, salonesContext) {
                             return $http.get(salonesContext);
                         }]
                 },
                 views: {
-                    'mainView': {
+                    'childrenVIew': {
                         templateUrl: basePath + 'salones.html',
-                        controller: ['$scope', 'salones', function ($scope, salones) {
-                                $scope.standsRecords = salones.data;
-                            }]
+                        
                     }
                 }
             }).state('salonesList', {
@@ -26,7 +25,10 @@
                 parent: 'salones',
                 views: {
                     'listView': {
-                        templateUrl: basePath + 'salones.list.html'
+                        templateUrl: basePath + 'salones.list.html',
+                        controller: ['$scope', 'salones', function ($scope, salones) {
+                                $scope.salonesRecords = salones.data;
+                            }]
                     }
                 }
             }).state('salonDetail', {
@@ -36,7 +38,7 @@
                     standId: null
                 },
                 resolve:  {
-                    currentStand: ['$http', 'salonesContext', '$stateParams', function ($http, salonesContext, $params) {
+                    currentSalon: ['$http', 'salonesContext', '$stateParams', function ($http, salonesContext, $params) {
                             return $http.get(salonesContext+'/'+$params.salonId);
                         }]
                 },
@@ -44,7 +46,7 @@
                     'detailView': {
                         templateUrl: basePath + 'salones.detail.html',
                         controller: ['$scope', 'currentSalon', function ($scope,  currentSalon) {
-                                $scope.currentStand = currentSalon.data;
+                                $scope.currentSalon = currentSalon.data;
                             }]
                     }
 

@@ -8,17 +8,16 @@
             $stateProvider.state('confernecias', {
                 url: '/confernecias',
                 abstract: true,
+                parent: 'feriaDetail',
                 resolve: {
-                    stands: ['$http', 'conferneciasContext', function ($http, conferneciasContext) {
+                    conferencias: ['$http', 'conferneciasContext', function ($http, conferneciasContext) {
                             return $http.get(conferneciasContext);
                         }]
                 },
                 views: {
-                    'mainView': {
+                    'childrenView': {
                         templateUrl: basePath + 'confernecias.html',
-                        controller: ['$scope', 'confernecias', function ($scope, confernecias) {
-                                $scope.standsRecords = confernecias.data;
-                            }]
+                        
                     }
                 }
             }).state('conferneciasList', {
@@ -26,24 +25,27 @@
                 parent: 'confernecias',
                 views: {
                     'listView': {
-                        templateUrl: basePath + 'confernecias.list.html'
+                        templateUrl: basePath + 'confernecias.list.html',
+                        controller: ['$scope', 'confernecias', function ($scope, confernecias) {
+                                $scope.confereciasRecords = confernecias.data;
+                            }]
                     }
                 }
             }).state('conferneciaDetail', {
                 url: '/{conferneciaId:int}/detail',
                 parent: 'confernecia',
                 param: {
-                    standId: null
+                    conferenciaId: null
                 },
                 resolve:  {
-                    currentStand: ['$http', 'conferneciasContext', '$stateParams', function ($http, conferneciasContext, $params) {
+                    currentConferencia: ['$http', 'conferneciasContext', '$stateParams', function ($http, conferneciasContext, $params) {
                             return $http.get(conferneciasContext+'/'+$params.conferneciaId);
                         }]
                 },
                 views: {
                     'detailView': {
                         templateUrl: basePath + 'confernecias.detail.html',
-                        controller: ['$scope', 'currentSalon', function ($scope,  currentConferencia) {
+                        controller: ['$scope', 'currentConferencia', function ($scope,  currentConferencia) {
                                 $scope.currentConferencia = currentConferencia.data;
                             }]
                     }

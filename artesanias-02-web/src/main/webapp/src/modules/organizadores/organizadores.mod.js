@@ -47,14 +47,14 @@
                 views: {
                     'detailView': {
                         templateUrl: basePath + 'organizadores.detail.html',
-                        controller: ['$scope', 'currentOrganizador', function ($scope,  currentBook) {
+                        controller: ['$scope', 'currentOrganizador', function ($scope,  currentOrganizador) {
                                 $scope.currentOrganizador = $scope.currentOrganizador.data;
                             }]
                     },
                     'listView': {
                         templateUrl: baseFeriaPath + 'feira.list.html',
-                        controller: ['$scope', 'currentFeria', function ($scope, currentFeria) {
-                                $scope.currentFeria = currentFeria.data.books;
+                        controller: ['$scope', 'currentOrganizador', function ($scope, currentOrganizador) {
+                                $scope.currentFeria = currentOrganizador.data.ferias;
                             }]
                     }
                 }
