@@ -59,7 +59,7 @@
         </dependency>
         <dependency>
             <groupId>co.edu.uniandes.csw.artesanias</groupId>
-            <artifactId>artesa-logic</artifactId>
+            <artifactId>artesanias-02-logic</artifactId>
             <version>0.1.0</version>
         </dependency>
         <dependency>
@@ -69,11 +69,11 @@
             <type>pom</type>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>co.edu.uniandes.csw.artesanias</groupId>
             <artifactId>artesanias-02-logic</artifactId>
             <version>0.1.0</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
     <build>
         <plugins>

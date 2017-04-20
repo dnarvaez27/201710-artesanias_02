@@ -1,8 +1,8 @@
 (function (ng) {
-  var mod = ng.module('boletaModule', ['ui.router'])
+  var mod = ng.module('boletaModule', ['ui.router']);
   mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-    var basePath = 'src/modules/boletas/'
-    $urlRouterProvider.otherwise('/boletasList')
+    var basePath = 'src/modules/boletas/';
+    $urlRouterProvider.otherwise('/boletasList');
 
     $stateProvider
       .state('boletas', {
