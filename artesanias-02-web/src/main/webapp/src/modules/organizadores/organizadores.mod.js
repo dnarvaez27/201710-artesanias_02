@@ -3,22 +3,21 @@
     mod.constant("organizadorContext", "api/organizadores");
     mod.config(['$stateProvider',  '$urlRouterProvider', function ( $stateProvider, $urlRouterProvider) {
             var basePath = 'src/modules/organizadores/';
+            var baseFeriaPath = 'src/modules/ferias/';
             $urlRouterProvider.otherwise("/organizadoresList");
 
             $stateProvider.state('organizadores', {
                 url: '/organizadores',
                 abstract: true,
                 resolve: {
-                    books: ['$http', 'organizadoresContext', function ($http, organizadoresContext) {
+                    organizadores: ['$http', 'organizadoresContext', function ($http, organizadoresContext) {
                             return $http.get(organizadoresContext);
                         }]
                 },
                 views: {
                     'mainView': {
                         templateUrl: basePath + 'organizadores.html',
-                        controller: ['$scope', 'organizadores', function ($scope, organizadores) {
-                                $scope.organizadoresRecords = organizadores.data;
-                            }]
+                       
                     }
                 }
             }).state('organizadoresList', {
@@ -26,7 +25,11 @@
                 parent: 'organizadores',
                 views: {
                     'listView': {
-                        templateUrl: basePath + 'organizadores.list.html'
+                        templateUrl: basePath + 'organizadores.list.html',
+                         controller: ['$scope', 'organizadores', function ($scope, organizadores) {
+                                $scope.organizadoresRecords = organizadores.data;
+                            }]
+                        
                     }
                 }
             }).state('organizadorDetail', {
@@ -37,7 +40,7 @@
                 },
                 
                 resolve:  {
-                    currentBook: ['$http', 'organizadoresContext', '$stateParams', function ($http, organizadoresContext, $params) {
+                    currentOrganizador: ['$http', 'organizadoresContext', '$stateParams', function ($http, organizadoresContext, $params) {
                             return $http.get(organizadoresContext+'/'+$params.organizadorId);
                         }]
                 },
@@ -47,10 +50,16 @@
                         controller: ['$scope', 'currentOrganizador', function ($scope,  currentBook) {
                                 $scope.currentOrganizador = $scope.currentOrganizador.data;
                             }]
+                    },
+                    'listView': {
+                        templateUrl: baseFeriaPath + 'feira.list.html',
+                        controller: ['$scope', 'currentFeria', function ($scope, currentFeria) {
+                                $scope.currentFeria = currentFeria.data.books;
+                            }]
                     }
-
                 }
-
             });
         }]);
+
+              
 })(window.angular);

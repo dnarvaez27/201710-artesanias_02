@@ -3,13 +3,14 @@
         // External dependencies
         'ui.router',
         // Internal modules dependencies
-        'artesanoModule'
+        'artesanoModule',
         // 'pabellonModule'
-    ])
+        'organizadorModule'
+    ]);
     // Resuelve problemas de las promesas
     app.config(['$qProvider', function ($qProvider) {
-      $qProvider.errorOnUnhandledRejections(false)
-    }])
-})(window.angular)
+      $qProvider.errorOnUnhandledRejections(false);
+    }]);
+})(window.angular);
 
 
