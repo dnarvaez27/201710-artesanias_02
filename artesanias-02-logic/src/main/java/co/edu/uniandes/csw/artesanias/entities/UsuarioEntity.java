@@ -39,7 +39,7 @@ public abstract class UsuarioEntity implements Serializable
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;
-	
+
 	/**
 	 * Correo electronico del Usuario
 	 */

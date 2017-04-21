@@ -148,3 +148,12 @@ a {
     border-radius: 10px;
     background-color: #212121;
 }
+
+/*USUARIO*/
+.user {
+    cursor: pointer;
+}
+
+.user > a {
+    color: #212121;
+}

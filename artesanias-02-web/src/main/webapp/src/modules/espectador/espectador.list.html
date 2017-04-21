@@ -1,0 +1,47 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="user col-lg-2" ng-repeat="espectador in espectadoresRecords">
+            <a data-toggle="modal" data-target="#detail" href ng-click="getEspectador(espectador.id)">
+                <img class="img-responsive img-circle" ng-src="{{espectador.foto}}"/>
+                <span class="center-block text-center caption">{{espectador.correo}}</span>
+            </a>
+        </div>
+
+        <div id="detail" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h2>{{currentEspectador.id + " - " + currentEspectador.correo}}</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <img class="img-responsive img-circle" ng-src="{{currentEspectador.foto}}">
+                            </div>
+                            <table class="col-lg-7">
+                                <tbody>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>{{currentEspectador.correo}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Edad</td>
+                                        <td>{{currentEspectador.edad}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Contraseña</td>
+                                        <td>
+                                            <input type="password" id="pass" value="{{currentEspectador.contrasena}}" title="contrasena"
+                                                   ng-mouseover="revealPass();" ng-mouseleave="hidePass();">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

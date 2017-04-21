@@ -128,8 +128,7 @@ public class EspectadorResource
 		}
 		return list;
 	}
-	
         
-        //TODO actualizar el diagrama de clases para reflejar que la boleta es un subrecurso de espectador. 
-        //TODO Verificar que el expectador exista antes de llamar el subrecurso.
+	//TODO actualizar el diagrama de clases para reflejar que la boleta es un subrecurso de espectador.
+    //TODO Verificar que el expectador exista antes de llamar el subrecurso.
 }
