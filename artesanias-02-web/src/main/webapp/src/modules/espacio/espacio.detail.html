@@ -18,11 +18,12 @@
                     <h3>Direccion: {{currentEspacio.direccion}}</h3>
                     <h3>Telefono: {{currentEspacio.telefono}}</h3>
                     <h3>Capacidad: {{currentEspacio.capacidad}}</h3>
-                    <h3><a ui-sref="pabellonesList()">Pabellones</a></h3>
+                    <h3><a ui-sref="pabellonesList">Pabellones</a></h3>
                     <h3><a ui-sref="ciudadDetail({ciudadId: currentEspacio.ciudad.id})">{{currentEspacio.ciudad.nombre}}</a></h3>
-                    <h3><a ui-sref="feriasList({context: 'api/ciudades/currentEspacio.ciudad.id/espacios', idParent: currentEspacio.id})">Ferias</a></h3>
+                    <h4>Número de Ferias: </h4><span>{{currentEspacio.ferias.length}}</span>
                 </div>
             </div>
+            <div ui-view="childrenView"></div>
         </div>
     </div>
 </div>

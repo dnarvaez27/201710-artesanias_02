@@ -7,7 +7,10 @@
         // 'pabellonModule'
         'organizadorModule',
         'salonModule',
-        'conferenciaModule'
+        'conferenciaModule',
+        'feriaModule',
+        'espacioModule',
+        'boletaModule'
     ]);
     // Resuelve problemas de las promesas
     app.config(['$qProvider', function ($qProvider) {
