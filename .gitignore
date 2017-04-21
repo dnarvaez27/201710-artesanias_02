@@ -80,3 +80,5 @@ gen
 
 .DS_Store
 bower_components/
+nb-configuration.xml
+nbactions.xml
