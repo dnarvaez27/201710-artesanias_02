@@ -17,12 +17,15 @@
                     <h3>Inicio: {{currentFeria.inicio|date:'yyyy-MM-dd HH:mm'}}</h3>
                     <h3>Fin: {{currentFeria.fin|date:'yyyy-MM-dd HH:mm'}}</h3>
                     <h3>Total Boletas: {{currentFeria.totalBoletas}}</h3>
-                    <h3>Descuentos: {{currentFeria.descuentos}}</h3>
-                    <h3><a ui-sref="espacioDetail({})">{{currentFeria.espacio.nombre}}</a></h3>
-                    <h3><a ui-sref="conferneciasList()">Conferencias</a></h3>
+                    <ul ng-repeat="org in currentFeria.organizadores">
+                        <a ui-sref="organizadorDetail({organizadorId: org.id})">{{org.identificacion}}</a>
+                    </ul>
+                    <h3><a ui-sref="espacioDetail({idCiudad: currentFeria.espacio.ciudad.id, idEspacio: urrentFeria.espacio.id})">{{currentFeria.espacio.nombre}}</a></h3>
                     <h3><a ui-sref="boletasList({idParten: currentFeria.id})">Boletas</a></h3>
                 </div>
             </div>
+            <!--LA LISTA DE CONFERENCIAS DE LA FERIA ACTUAL-->
+            <div ui-view="childrenView"></div>
         </div>
     </div>
 </div>

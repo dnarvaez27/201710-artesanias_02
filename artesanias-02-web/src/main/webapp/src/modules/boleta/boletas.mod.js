@@ -3,7 +3,6 @@
   mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     var basePath = 'src/modules/boletas/';
     $urlRouterProvider.otherwise('/boletasList');
-
     $stateProvider
       .state('boletas', {
         url: '/boletas',
@@ -37,7 +36,7 @@
       })
       .state('boletaDetail', {
         url: '/{idBoleta:int}/detail',
-        parent: 'boletasList',
+        parent: 'boletas',
         param: {
           idBoleta: null
         },
@@ -54,6 +53,6 @@
             }]
           }
         }
-      })
-  }])
-})(window.angular)
+      });
+  }]);
+})(window.angular);

@@ -9,10 +9,10 @@
             <div class="row">
                 <div class="detail-fg col-md-3">
                     <h3>Precio: {{currentBoleta.precio*currentBoleta.feria.descuentos[currentBoleta.tipo]}}</h3>
-                    <h3>Inicio {{currentBoleta.inicio}}</h3>
-                    <h3>Fin: {{currentBoleta.fin}}</h3>
-                    <h3><a ui-sref="feriaDetail({idFeria: currentBoleta.feria.id})">Feria: {{currentBoleta.feria.nombre}}</a></h3>
-                    <h3><a ui-sref="espectadorDetail({idEspectador: currentBoleta.espectador.id})">Espectador: {{currentBoleta.espectador.correo}}</a></h3>
+                    <h3>Inicio {{currentBoleta.inicio|date:'yyyy-MM-dd HH:mm'}}</h3>
+                    <h3>Fin: {{currentBoleta.fin|date:'yyyy-MM-dd HH:mm'}}</h3>
+                    <h3>Feria: <a ui-sref="feriaDetail({idFeria: currentBoleta.feria.id})">{{currentBoleta.feria.nombre}}</a></h3>
+                    <h3>Espectador: <a ui-sref="espectadorDetail({idEspectador: currentBoleta.espectador.id})">{{currentBoleta.espectador.correo}}</a></h3>
                 </div>
             </div>
         </div>

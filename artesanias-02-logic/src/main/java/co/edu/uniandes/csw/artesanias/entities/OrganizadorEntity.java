@@ -33,6 +33,10 @@ import javax.persistence.*;
 @Entity
 @PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class OrganizadorEntity extends UsuarioEntity implements Serializable {
+    
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
+    private Long id;
 
     private String identificacion;
 
@@ -46,6 +50,10 @@ public class OrganizadorEntity extends UsuarioEntity implements Serializable {
     public String getIdentificacion() {
         return identificacion;
     }
+    public Long getId( )
+	{
+		return id;
+	}
 
     public void setIdentificacion(String identificacion) {
         this.identificacion = identificacion;
@@ -54,4 +62,8 @@ public class OrganizadorEntity extends UsuarioEntity implements Serializable {
     public void setFerias(List<FeriaEntity> ferias) {
         this.ferias = ferias;
     }
+    public void setId( Long id )
+	{
+		this.id = id;
+	}
 }
