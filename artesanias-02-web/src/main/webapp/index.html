@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" ng-app="mainApp">
+<html lang="es" ng-app="mainApp" ng-controller="mainController">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -68,37 +68,37 @@
                     </div>
                 </div>
                 <ul class="nav nav-sidebar">
-                    <li class="nav-active active">
+                    <li ng-class="{active : isActive('dashboard')}">
                         <a ui-sref="dashboard">
                             <i class="icon-home"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-parent">
-                        <a ui-sref="feriasList" onclick="alet('Hola')">
+                    <li ng-class="{active : isActive('ferias')}">
+                        <a ui-sref="feriasList">
                             <i class="icon icons-party-04"></i>
                             <span>Ferias</span>
                             <!--<span class="glyphicon glyphicon-chevron-right"></span>TODO?-->
                         </a>
                     </li>
-                    <li class="nav-parent">
+                    <li ng-class="{active : isActive('artesanos') || isActive('organizadores') || isActive('espectadores')}" class="nav-parent">
                         <a data-toggle="collapse" data-target="#usuarios_content">
                             <i class="icon-users"></i>
                             <span>Usuarios</span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul id="usuarios_content" class="children collapse">
-                            <li><a ui-sref="artesanosList">Artesanos</a>
+                            <li ng-class="{active : isActive('artesanos')}"><a ui-sref="artesanosList">Artesanos</a>
                             </li>
-                            <li>
+                            <li ng-class="{active : isActive('organizadores')}">
                                 <a ui-sref="organizadoresList">Organizadores</a>
                             </li>
-                            <li>
+                            <li ng-class="{active : isActive('espectadores')}">
                                 <a ui-sref="espectadoresList">Espectadores</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-parent">
+                    <li ng-class="{active : isActive('ciudades')}">
                         <a ui-sref="ciudadesList">
                             <i class="icon icons-realestate-living-01"></i>
                             <span>Ciudades</span>
