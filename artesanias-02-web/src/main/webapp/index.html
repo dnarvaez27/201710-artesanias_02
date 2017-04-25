@@ -12,13 +12,10 @@
     <link href="src/utils/assets/global/css/ui.css" rel="stylesheet">
     <link href="src/utils/assets/admin/layout2/css/layout.css" rel="stylesheet">
     <script src="src/utils/assets/global/plugins/modernizr/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="src/utils/assets/admin/layout2/css/styles.css"/>
-
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-
     <!--Modulos-->
     <!--Artesanos-->
     <script src="src/modules/artesano/artesanos.mod.js" type="text/javascript"></script>
@@ -36,25 +33,15 @@
     <script src="src/modules/conferencia/conferencias.mod.js" type="text/javascript"></script>
     <!--conferencia-->
     <script src="src/modules/salon/salones.mod.js" type="text/javascript"></script>
+    <!--Ciudad-->
+    <script src="src/modules/ciudad/ciudades.mod.js" type="text/javascript"></script>
     <!--espectadores-->
     <script src="src/modules/espectador/espectador.mod.js" type="text/javascript"></script>
+    <!--DashBoard-->
+    <script src="src/modules/dashboard/dashboard.mod.js" type="text/javascript"></script>
     <!--App-->
     <script src="src/app.js" type="text/javascript"></script>
 </head>
-<!-- LAYOUT: Apply "submenu-hover" class to body element to have sidebar submenu show on mouse hover -->
-<!-- LAYOUT: Apply "sidebar-collapsed" class to body element to have collapsed sidebar -->
-<!-- LAYOUT: Apply "sidebar-top" class to body element to have sidebar on top of the page -->
-<!-- LAYOUT: Apply "sidebar-hover" class to body element to show sidebar only when your mouse is on left / right corner -->
-<!-- LAYOUT: Apply "submenu-hover" class to body element to show sidebar submenu on mouse hover -->
-<!-- LAYOUT: Apply "fixed-sidebar" class to body to have fixed sidebar -->
-<!-- LAYOUT: Apply "fixed-topbar" class to body to have fixed topbar -->
-<!-- LAYOUT: Apply "rtl" class to body to put the sidebar on the right side -->
-<!-- LAYOUT: Apply "boxed" class to body to have your page with 1200px max width -->
-
-<!-- THEME STYLE: Apply "theme-sdtl" for Sidebar Dark / Topbar Light -->
-<!-- THEME STYLE: Apply  "theme sdtd" for Sidebar Dark / Topbar Dark -->
-<!-- THEME STYLE: Apply "theme sltd" for Sidebar Light / Topbar Dark -->
-<!-- THEME STYLE: Apply "theme sltl" for Sidebar Light / Topbar Light -->
 <body class="sidebar-condensed fixed-topbar fixed-sidebar theme-sdtl color-default dashboard">
     <!--[if lt IE 7]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser.
@@ -73,7 +60,7 @@
                         <img src="src/utils/assets/global/images/user.png" class="img-responsive img-circle" alt="friend 8">
                     </div>
                     <h4 class="text-center">Admin</h4>
-                    <div class="dropdown user-login">
+                    <div class="user-login">
                         <button class="btn btn-xs dropdown-toggle btn-rounded" type="button" data-toggle="dropdown" data-hover="dropdown"
                                 data-close-others="true" data-delay="300">
                             <i class="online"></i><span>Available</span>
@@ -81,41 +68,39 @@
                     </div>
                 </div>
                 <ul class="nav nav-sidebar">
-                    <li class=" nav-active active">
-                        <a href="#">
-                            <i class="glyphicon  glyphicon-home"></i>
+                    <li class="nav-active active">
+                        <a ui-sref="dashboard">
+                            <i class="icon-home"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-parent">
-                        <a ui-sref="feriasList">
-                            <i class="glyphicon glyphicon-tent"></i>
+                        <a ui-sref="feriasList" onclick="alet('Hola')">
+                            <i class="icon icons-party-04"></i>
                             <span>Ferias</span>
                             <!--<span class="glyphicon glyphicon-chevron-right"></span>TODO?-->
                         </a>
                     </li>
                     <li class="nav-parent">
-                        <a data-toggle="collapse" data-target="#usuarios_content" href="#">
-                            <i class="glyphicon glyphicon-user"></i>
+                        <a data-toggle="collapse" data-target="#usuarios_content">
+                            <i class="icon-users"></i>
                             <span>Usuarios</span>
-                            <!--<span class="fa arrow"></span>TODO?-->
+                            <span class="fa arrow"></span>
                         </a>
-                        <ul id="usuarios_content" class="collapse">
-                            <li>
-                                <a ui-sref="artesanosList">Artesanos</a>
+                        <ul id="usuarios_content" class="children collapse">
+                            <li><a ui-sref="artesanosList">Artesanos</a>
                             </li>
                             <li>
                                 <a ui-sref="organizadoresList">Organizadores</a>
                             </li>
                             <li>
-                                <a ui-sref="espectadoresList">Espectadores
-                                </a>
+                                <a ui-sref="espectadoresList">Espectadores</a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-parent">
-                        <a href="#">
-                            <i class="glyphicon glyphicon-road"></i>
+                        <a ui-sref="ciudadesList">
+                            <i class="icon icons-realestate-living-01"></i>
                             <span>Ciudades</span>
                             <!--<span class="fa arrow"></span> TODO?-->
                         </a>
@@ -200,12 +185,9 @@
                 <!-- header-right -->
             </div>
             <!-- END TOPBAR -->
-
             <!-- BEGIN PAGE CONTENT -->
             <div ui-view="mainView" style="padding-top: 50px">
-                <img src="src/utils/assets/global/images/logo/logo-white.png">
             </div>
-
             <!--FOOTER-->
             <div class="page-content page-thin">
                 <div class="footer">
@@ -253,8 +235,8 @@
     <script src="src/utils/assets/global/js/sidebar_hover.js"></script> <!-- Sidebar on Hover -->
     <script src="src/utils/assets/global/js/application.js"></script> <!-- Main Application Script -->
     <script src="src/utils/assets/global/js/plugins.js"></script> <!-- Main Plugin Initialization Script -->
-    <script src="src/utils/assets/global/js/quickview.js"></script> <!-- Chat Script -->
-    <script src="src/utils/assets/global/js/pages/search.js"></script> <!-- Search Script -->
+    <!--<script src="src/utils/assets/global/js/quickview.js"></script> <!-- Chat Script -->
+    <!--<script src="src/utils/assets/global/js/pages/search.js"></script> <!-- Search Script -->
     <!-- BEGIN PAGE SCRIPT -->
     <script src="src/utils/assets/global/plugins/bootstrap-editable/js/bootstrap-editable.min.js"></script> <!-- Inline Edition X-editable -->
     <script src="src/utils/assets/global/plugins/bootstrap-context-menu/bootstrap-contextmenu.min.js"></script> <!-- Context Menu -->
