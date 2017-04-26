@@ -1,8 +1,8 @@
 (function (ng) {
   var mod = ng.module('boletaModule', ['ui.router']);
   mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-    var basePath = 'src/modules/boletas/';
-    $urlRouterProvider.otherwise('/boletasList');
+    var basePath = 'src/modules/boleta/';
+    $urlRouterProvider.otherwise('/boletas/list');
     $stateProvider
       .state('boletas', {
         url: '/boletas',
@@ -20,7 +20,7 @@
           'mainView': {
             templateUrl: basePath + 'boletas.html',
             controller: ['$scope', 'boletas', function ($scope, boletas) {
-              $scope.boletasRecords = boletas.data
+              $scope.boletasRecords = boletas.data;
             }]
           }
         }
@@ -30,7 +30,7 @@
         parent: 'boletas',
         views: {
           'listView': {
-            templateUrl: basePath + 'boletas.list.html'
+            templateUrl: basePath + 'boleta.list.html'
           }
         }
       })

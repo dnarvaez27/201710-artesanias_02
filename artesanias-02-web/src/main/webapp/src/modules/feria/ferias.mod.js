@@ -1,23 +1,23 @@
 (function (ng) {
     var mod = ng.module('feriaModule', ['ui.router']);
-    mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-            var basePath = 'src/modules/ferias/';
+    mod.config(['$stateProvider', '$urlRouterProvider', 
+        function ($stateProvider, $urlRouterProvider) {
+            var basePath = 'src/modules/feria/';
             var baseConferenciaPath = 'src/modules/conferencia/';
-            $urlRouterProvider.otherwise('/feriasList');
+            $urlRouterProvider.otherwise('/ferias/list');
             $stateProvider
             .state('ferias', {
                 url: '/ferias',
                 abstract: true,
                 param: {
-                    context: 'api/ferias',
+                    context: null,
                     idParent: null
                 },
                 resolve: {
                     ferias: ['$http', '$stateParams', function ($http, $params) {
-                            if ($params.context !== 'api/ferias') {
-                                return $http.get($params.context + '/' + $params.idParent + '/ferias');
-                            }
-                            return $http.get($params.context);
+                            if (typeof $params.context === "undefined" || $params.context === null)
+                                return $http.get('api/ferias');
+                            return $http.get($params.context + '/' + $params.idParent + '/ferias');
                         }]
                 },
                 views: {
@@ -34,7 +34,7 @@
                 parent: 'ferias',
                 views: {
                     'listView': {
-                        templateUrl: basePath + 'ferias.list.html'
+                        templateUrl: basePath + 'feria.list.html'
                     }
                 }
             })

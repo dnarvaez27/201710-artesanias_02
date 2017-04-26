@@ -1,17 +1,19 @@
 (function (ng) {
-  var app = angular.module('mainApp', [
+  var app = ng.module('mainApp', [
     // External dependencies
     'ui.router',
     // Internal modules dependencies
+    'feriaModule',
     'artesanoModule',
     'espectadorModule',
-    // 'pabellonModule'
+    'ciudadModule',
     'organizadorModule',
     'salonModule',
     'conferenciaModule',
-    'feriaModule',
     'espacioModule',
-    'boletaModule'
+    'boletaModule',
+    'dashboardModule'
+    
   ]);
   // Resuelve problemas de las promesas
   app.config(['$qProvider', function ($qProvider) {

@@ -1,10 +1,9 @@
 (function (ng) {
     var mod = ng.module("ciudadModule", ['ui.router']);
     mod.constant("ciudadesContext", "api/ciudades");
-    mod.config(['$stateProvider',  '$urlRouterProvider', function ( $stateProvider, $urlRouterProvider) {
-            var basePath = 'src/modules/ciudades/';
-            $urlRouterProvider.otherwise("/ciudadesList");
-
+    mod.config(['$stateProvider',  '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+            var basePath = 'src/modules/ciudad/';
+            $urlRouterProvider.otherwise("/ciudades/list");
             $stateProvider.state('ciudades', {
                 url: '/ciudades',
                 abstract: true,

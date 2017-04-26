@@ -3,9 +3,9 @@
     mod.constant("ciudadesContext", "api/ciudades");
     mod.constant("espaciosContext", "espacios");
     mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-            var basePath = 'src/modules/espacios/';
+            var basePath = 'src/modules/espacio/';
             var baseFeriaPath = 'src/modules/feria/';
-            $urlRouterProvider.otherwise('/espaciosList');
+            $urlRouterProvider.otherwise('/espacios/list');
             $stateProvider
             .state('espacios', {
                 url: '/espacios',
@@ -33,7 +33,7 @@
                 parent: 'espacios',
                 views: {
                     'listView': {
-                        templateUrl: basePath + 'espacios.list.html'
+                        templateUrl: basePath + 'espacio.list.html'
                     }
                 }
             })
