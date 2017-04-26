@@ -17,6 +17,9 @@
                 views: {
                     'mainView': {
                         templateUrl: basePath + 'organizadores.html',
+                controller: ['$scope', 'organizadores', function ($scope, organizadores) {
+                                $scope.organizadoresRecords = organizadores.data;
+                            }]
                        
                     }
                 }
@@ -26,15 +29,36 @@
                 views: {
                     'listView': {
                         templateUrl: basePath + 'organizadores.list.html',
-                         controller: ['$scope', 'organizadores', function ($scope, organizadores) {
-                                $scope.organizadoresRecords = organizadores.data;
-                            }]
-                        
-                    }
-                }
-            }).state('organizadorDetail', {
+                        controller: ['$http', 'organizadoresContext',
+                function ($http, organizadoresContext) {
+
+                  function add (id, organizador) {
+                    $http.post(organizadoresContext + '/' + id, organizador);
+                  }
+
+                  function del (id) {
+                    $http.delete(organizadoresContext + '/' + id);
+                  }
+
+                  //TODO
+                  function crea () {
+                    var name = document.getElementById('nombre').innerHTML;
+                    var ide = document.getElementById('identificacion').innerHTML;
+
+                    var nuevoArtesano = {
+                      nombre: name,
+                      identificacion: ide
+                    };
+
+                    $http.post(organizadoresContext, nuevoArtesano);
+
+                  }
+                }]
+            }
+          }
+        }).state('organizadorDetail', {
                 url: '/{organizadorId:int}/detail',
-                parent: 'organizadores',
+                parent: 'organizadoresList',
                 param: {
                     organizadorId: null
                 },
@@ -48,7 +72,7 @@
                     'detailView': {
                         templateUrl: basePath + 'organizadores.detail.html',
                         controller: ['$scope', 'currentOrganizador', function ($scope,  currentOrganizador) {
-                                $scope.currentOrganizador = $scope.currentOrganizador.data;
+                                $scope.currentOrganizador = currentOrganizador.data;
                             }]
                     },
                     'listView': {
