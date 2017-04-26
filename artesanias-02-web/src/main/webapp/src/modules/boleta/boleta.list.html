@@ -1,17 +1,24 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-2" ng-repeat="boleta in boletasRecords | filter:currentBoleta.inicio">
-            <div class="thumbnail box_art">
-                <a ui-sref="boletaDetail({idBoleta boleta.id})">
-                    <div class="caption text-center subtitle">
-                        <p>{{boleta.inicio}}</p>
-                        <p>{{boleta.fin}}</p>
+        <h2 class="detail-fg">Boletas</h2>
+        <div class="pre-scrollable" id="style-2">
+            <div class="force-overflow">
+                <div ng-repeat="boleta in boletasRecords">
+                    <!--Wrapper-->
+                    <div class="col-lg-12" style="position:relative; min-height: 180px; ">
+                        <a ui-sref="boletaDetail({context: 'api/ferias', idParent: 1, idBoleta: boleta.id})">
+                        <!--Box Transparency-->
+                        <div class="col-lg-12 thumbnail" style="min-height: 150px;opacity: 0.3;position:absolute;"></div>
+                        <!--Info-->
+                        <div class="col-lg-12 thumbnail" style="position: relative; background-color: transparent; border: transparent">
+                            <p>Precio <strong> {{boleta.precio}}</strong></p>
+                            <p>Inicio:<strong> {{boleta.inicio|date:'dd/MMMM/yyyy'}}</strong></p>
+                            <p>Fin<strong> {{boleta.fin|date:'dd/MMMM/yyyy'}}</strong></p>
+                        </div>
+                        </a>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12" ui-view="detailView"></div>
     </div>
 </div>

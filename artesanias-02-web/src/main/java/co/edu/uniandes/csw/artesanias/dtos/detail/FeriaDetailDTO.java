@@ -50,6 +50,9 @@ public class FeriaDetailDTO extends FeriaDTO {
     public FeriaDetailDTO(FeriaEntity entity) {
         super(entity);
         if (entity == null) return;
+        artesanos = new LinkedList<>();
+        boletas = new LinkedList<>();
+        conferencias = new LinkedList<>();
         for (ArtesanoFeriaAssociation artesano : entity.getArtesanos())
             artesanos.add(new ArtesanoFeriaDTO(artesano));
         for (BoletaEntity boleta : entity.getBoletas())

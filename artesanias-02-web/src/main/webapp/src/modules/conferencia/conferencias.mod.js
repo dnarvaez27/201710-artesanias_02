@@ -3,10 +3,10 @@
     mod.constant("conferneciasContext", "api/confernecias");
     mod.config(['$stateProvider',  '$urlRouterProvider', function ( $stateProvider, $urlRouterProvider) {
             var basePath = 'src/modules/confernecias/';
-            $urlRouterProvider.otherwise("/conferneciasList");
+            $urlRouterProvider.otherwise("/conferencias/list");
 
-            $stateProvider.state('confernecias', {
-                url: '/confernecias',
+            $stateProvider.state('conferencias', {
+                url: '/conferencias',
                 abstract: true,
                 parent: 'feriaDetail',
                 resolve: {
@@ -16,13 +16,13 @@
                 },
                 views: {
                     'childrenView': {
-                        templateUrl: basePath + 'confernecias.html',
+                        templateUrl: basePath + 'conferencias.html',
                         
                     }
                 }
-            }).state('conferneciasList', {
+            }).state('conferenciasList', {
                 url: '/list',
-                parent: 'confernecias',
+                parent: 'conferencias',
                 views: {
                     'listView': {
                         templateUrl: basePath + 'confernecias.list.html',
@@ -31,9 +31,9 @@
                             }]
                     }
                 }
-            }).state('conferneciaDetail', {
+            }).state('conferenciaDetail', {
                 url: '/{conferneciaId:int}/detail',
-                parent: 'confernecia',
+                parent: 'conferencias',
                 param: {
                     conferenciaId: null
                 },
@@ -44,7 +44,7 @@
                 },
                 views: {
                     'detailView': {
-                        templateUrl: basePath + 'confernecias.detail.html',
+                        templateUrl: basePath + 'conferencias.detail.html',
                         controller: ['$scope', 'currentConferencia', function ($scope,  currentConferencia) {
                                 $scope.currentConferencia = currentConferencia.data;
                             }]

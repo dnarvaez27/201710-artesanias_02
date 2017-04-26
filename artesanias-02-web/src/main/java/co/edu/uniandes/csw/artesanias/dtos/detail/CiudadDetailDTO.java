@@ -49,6 +49,8 @@ public class CiudadDetailDTO extends CiudadDTO {
 
     public CiudadDetailDTO(CiudadEntity entity) {
         super(entity);
+        espacios = new LinkedList<EspacioDTO>();
+        artesanos = new LinkedList<ArtesanoDTO>();
         if (entity == null) return;
         for (EspacioEntity e : entity.getEspacios())
             espacios.add(new EspacioDTO(e));

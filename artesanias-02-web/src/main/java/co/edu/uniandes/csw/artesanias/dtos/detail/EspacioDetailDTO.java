@@ -52,6 +52,8 @@ public class EspacioDetailDTO extends EspacioDTO {
         super(entity);
         if (entity == null)
             return;
+        ferias = new LinkedList<>();
+        pabellones = new LinkedList<>();
         for (FeriaEntity feria : entity.getFerias())
             ferias.add(new FeriaDTO(feria));
         for (PabellonEntity pabellon : entity.getPabellones())

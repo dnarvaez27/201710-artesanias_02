@@ -40,9 +40,9 @@
             })
             .state('feriaDetail', {
                 url: '/{idFeria:int}/detail',
-                parent: 'ferias',
+                parent: 'feriasList',
                 param: {
-                    idFeria: 0
+                    idFeria: null
                 },
                 resolve: {
                     currentFeria: ['$http', '$stateParams', function ($http, $params) {
@@ -54,6 +54,8 @@
                         templateUrl: basePath + 'feria.detail.html',
                         controller: ['$scope', 'currentFeria', function ($scope, currentFeria) {
                                 $scope.currentFeria = currentFeria.data;
+                                $scope.boletasRecords = currentFeria.data.boletas;
+                                $scope.conferenciaRecords = currentFeria.data.conferencias;
                             }]
                     },
                     'listView': {
@@ -62,6 +64,24 @@
                                 $scope.conferenciaRecords = currentFeria.data.conferencias;
                             }]
                     }
+                }
+            })
+            .state('feriaBoletaList', {
+                url: '/boletas',
+                parent: 'feriaDetail',
+                views: {
+                  'detail': {
+                    templateUrl: 'src/modules/boleta/boleta.list.html'
+                  }
+                }
+            })
+            .state('feriaConferenciaList', {
+                url: '/conferencias',
+                parent: 'feriaDetail',
+                views: {
+                  'detail': {
+                    templateUrl: 'src/modules/conferencia/conferencias.list.html'
+                  }
                 }
             });
         }]);
