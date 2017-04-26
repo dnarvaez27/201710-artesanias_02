@@ -19,6 +19,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -51,6 +52,39 @@ public class PabellonPersistenceTest {
     UserTransaction utx;
     
     private List<PabellonEntity> data = new ArrayList<PabellonEntity>();
+    
+    @Before
+    public void setUp(){
+        try{
+            utx.begin();
+            em.joinTransaction();
+            clearData();
+            insertData();
+            utx.commit();
+        }
+        catch( Exception e){
+            try{
+                utx.rollback();
+            } catch( Exception e1){
+                e1.printStackTrace();
+                fail("configuration data base fail");
+            }
+        }
+    }
+    
+    private void clearData(){
+        em.createQuery("delete from PabellonEntity").executeUpdate();
+    }
+    
+    private void insertData(){
+        PodamFactory factory = new PodamFactoryImpl();
+        for(int i = 0; i < 3; i++)
+        {
+            PabellonEntity entity = factory.manufacturePojo(PabellonEntity.class);
+            em.persist(entity);
+            data.add(entity);
+        }
+    }
     
     @Test
     public void createPabellonTest() {
