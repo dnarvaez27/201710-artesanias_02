@@ -2,10 +2,10 @@
   var mod = ng.module('dashboardModule', ['ui.router']);
   mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
             var basePath = 'src/modules/dashboard/';
-            $urlRouterProvider.otherwise('/dashboard');
+            $urlRouterProvider.otherwise('/');
             $stateProvider
-            .state('dashboard', {
-                url: '/dashboard',
+            .state('/', {
+                url: '/',
                 abstract: true,
                 views: {
                     'mainView': {
