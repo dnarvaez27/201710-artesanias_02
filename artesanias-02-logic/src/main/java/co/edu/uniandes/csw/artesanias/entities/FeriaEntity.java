@@ -40,17 +40,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.UniqueConstraint;
 
 /**
  * Entidad de las ferias.
  * @author ma.trujillo10
  */
 @Entity
-@Table(uniqueConstraints={
-    @UniqueConstraint(columnNames = {"inicio", "fin", "espacio"})})
 public class FeriaEntity implements Serializable {
     
     /**
@@ -74,7 +70,13 @@ public class FeriaEntity implements Serializable {
      * descuentos[x] = 1-descuento; [0.0, 1.0]
      */
     @Column(nullable = false)
-    private Double[] descuentos;
+    private Double descuentoMenores;
+
+    @Column(nullable = false)
+    private Double descuentoRegular;
+    
+    @Column(nullable = false)
+    private Double descuentoMayores;
     
     /**
      * El total de boletas que ofrece la feria
@@ -168,21 +170,28 @@ public class FeriaEntity implements Serializable {
         this.nombre = nombre;
     }
 
-    /**
-     * Devuelve el arreglo de descuentos de la feria.
-     * @return arreglo de descuentos de la feria.
-     */
-    public Double[] getDescuentos() {
-        return descuentos;
+    public Double getDescuentoMenores() {
+        return descuentoMenores;
     }
 
-    /**
-     * Cambia el arreglo de descuentos de la feria.
-     * post: Se cambió el arreglo de descuentos de la feria.
-     * @param descuentos nuevo arreglo de descuentos de la feria.
-     */
-    public void setDescuentos(Double[] descuentos) {
-        this.descuentos = descuentos;
+    public void setDescuentoMenores(Double descuentoMenores) {
+        this.descuentoMenores = descuentoMenores;
+    }
+
+    public Double getDescuentoRegular() {
+        return descuentoRegular;
+    }
+
+    public void setDescuentoRegular(Double descuentoRegular) {
+        this.descuentoRegular = descuentoRegular;
+    }
+
+    public Double getDescuentoMayores() {
+        return descuentoMayores;
+    }
+
+    public void setDescuentoMayores(Double descuentoMayores) {
+        this.descuentoMayores = descuentoMayores;
     }
 
     /**

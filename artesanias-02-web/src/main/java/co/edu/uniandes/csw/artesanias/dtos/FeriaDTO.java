@@ -57,7 +57,11 @@ public class FeriaDTO implements Serializable {
      * descuentos[2] = descuento para mayores
      * descuentos[x] = 1-descuento; [0.0, 1.0]
      */
-    private Double[] descuentos;
+    private Double descuentoMenores;
+
+    private Double descuentoRegular;
+    
+    private Double descuentoMayores;
     
     /**
      * El total de boletas que ofrece la feria
@@ -91,7 +95,9 @@ public class FeriaDTO implements Serializable {
         this.id = entity.getId();
         this.nombre = entity.getNombre();
         this.totalBoletas = entity.getTotalBoletas();
-        this.descuentos = entity.getDescuentos();
+        this.descuentoMenores = entity.getDescuentoMenores();
+        this.descuentoRegular = entity.getDescuentoRegular();
+        this.descuentoMayores = entity.getDescuentoMayores();
         this.inicio = entity.getInicio();
         this.fin = entity.getFin();
         this.image = entity.getImage();
@@ -134,21 +140,28 @@ public class FeriaDTO implements Serializable {
         this.nombre = nombre;
     }
     
-    /**
-     * Devuelve el arreglo de descuentos de la feria.
-     * @return arreglo de descuentos de la feria.
-     */
-    public Double[] getDescuentos() {
-        return descuentos;
+    public Double getDescuentoMenores() {
+        return descuentoMenores;
     }
 
-    /**
-     * Cambia el arreglo de descuentos de la feria.
-     * post: Se cambió el arreglo de descuentos de la feria.
-     * @param descuentos nuevo arreglo de descuentos de la feria.
-     */
-    public void setDescuentos(Double[] descuentos) {
-        this.descuentos = descuentos;
+    public void setDescuentoMenores(Double descuentoMenores) {
+        this.descuentoMenores = descuentoMenores;
+    }
+
+    public Double getDescuentoRegular() {
+        return descuentoRegular;
+    }
+
+    public void setDescuentoRegular(Double descuentoRegular) {
+        this.descuentoRegular = descuentoRegular;
+    }
+
+    public Double getDescuentoMayores() {
+        return descuentoMayores;
+    }
+
+    public void setDescuentoMayores(Double descuentoMayores) {
+        this.descuentoMayores = descuentoMayores;
     }
 
     /**
@@ -223,7 +236,9 @@ public class FeriaDTO implements Serializable {
         entity.setId(this.id);
         entity.setNombre(this.nombre);
         entity.setTotalBoletas(this.totalBoletas);
-        entity.setDescuentos(this.descuentos);
+        entity.setDescuentoMenores(this.descuentoMenores);
+        entity.setDescuentoRegular(this.descuentoRegular);
+        entity.setDescuentoMayores(this.descuentoMayores);
         entity.setInicio(this.inicio);
         entity.setFin(this.fin);
         entity.setImage(this.image);

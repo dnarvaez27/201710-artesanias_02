@@ -60,8 +60,8 @@ public class CiudadResource {
     @QueryParam("limit") private Integer maxRecords;
     
     @POST
-    public CiudadDTO createCiudad(CiudadEntity entity) throws BusinessLogicException {
-        return new CiudadDTO(logic.createCiudad(entity));
+    public CiudadDTO createCiudad(CiudadDTO dto) throws BusinessLogicException {
+        return new CiudadDTO(logic.createCiudad(dto.toEntity()));
     }
     
     @GET

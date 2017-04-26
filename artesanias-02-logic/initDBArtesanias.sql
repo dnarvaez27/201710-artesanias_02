@@ -13,10 +13,10 @@ DELETE FROM ESPECTADORENTITY;
 DELETE FROM CIUDADENTITY;
 
 -- Ciudades
-INSERT INTO CIUDADENTITY (IMAGE, NOMBRE, PAIS) VALUES (null, 'Bogotá', 'Colombia');
-INSERT INTO CIUDADENTITY (IMAGE, NOMBRE, PAIS) VALUES (null, 'Barranquilla', 'Colombia');
-INSERT INTO CIUDADENTITY (IMAGE, NOMBRE, PAIS) VALUES (null, 'New Orleans', 'Estados Unidos');
-INSERT INTO CIUDADENTITY (IMAGE, NOMBRE, PAIS) VALUES (null, 'Humpolec', 'República Checa');
+INSERT INTO CIUDADENTITY (IMAGE, NOMBRE, PAIS) VALUES ('https://www.las2orillas.co/wp-content/uploads/2017/02/Bogota1.jpg', 'Bogotá', 'Colombia');
+INSERT INTO CIUDADENTITY (IMAGE, NOMBRE, PAIS) VALUES ('https://www.bodehogar.co/wp-content/uploads/2016/05/barranquilla_03.jpg', 'Barranquilla', 'Colombia');
+INSERT INTO CIUDADENTITY (IMAGE, NOMBRE, PAIS) VALUES ('https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/NOLA_Header.jpg/300px-NOLA_Header.jpg', 'New Orleans', 'Estados Unidos');
+INSERT INTO CIUDADENTITY (IMAGE, NOMBRE, PAIS) VALUES ('https://upload.wikimedia.org/wikipedia/commons/3/38/Humpolec_%286%29.jpg', 'Humpolec', 'República Checa');
 
 -- Espacios
 insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (148, 'Nelson Crossing', 'src\utils\img\espacios\Espacio 1.jpg', 'Manley', '33-(749)963-3480', 1);
@@ -130,7 +130,19 @@ insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('Organizador
 INSERT INTO ORGANIZADORENTITY (ID, IDENTIFICACION) VALUES (15,'15');
 insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', 'nKdiNE', 'mcarpenter9@is.gd', null);
 
--- TODO Ferias
+-- Ferias
+
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.8, 0.7, 1.0, '12/30/2016', 
+'https://asociacionpinarjardin.files.wordpress.com/2015/08/feria_artesania.jpg?w=350&h=200&crop=1', 
+'10/01/2016', 'Feria Artesanal 1', 400, 1);
+
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.8, 0.7, 1.0, '12/29/2016', 
+'https://4.bp.blogspot.com/-7r_E1sjcTnk/V03Mo_7kBMI/AAAAAAAAOC8/SapDnAzDmSslwwSn1mM5U6KtbkGHZS9NgCLcB/s1600/13220632_10208372178254965_937545471013262712_o.jpg', 
+'10/02/2016', 'Feria Artesanal 2', 500, 3);
 
 -- Conferencias
 insert into CONFERENCIAENTITY (CONFERENCISTA, FECHAFIN, FECHAINICIO, HORAFIN, HORAINICIO, TEMA, FERIA_ID, SALON_ID) values ('Kathleen Fields', '12/8/2016', '10/28/2016', '2:30', '7:53', 'Open-architected multi-state moratorium', 1, 4);
@@ -146,4 +158,25 @@ insert into CONFERENCIAENTITY (CONFERENCISTA, FECHAFIN, FECHAINICIO, HORAFIN, HO
 
 -- TODO Boletas
 
+insert into BOLETAENTITY (fin, inicio, precio, tipo, espectador_id, id_feria)
+values ('12/30/2016', '10/01/2016', 30.0, 1, 1, 1);
+insert into BOLETAENTITY (fin, inicio, precio, tipo, espectador_id, id_feria)
+values ('12/30/2016', '10/01/2016', 30.0, 1, 2, 1);
+insert into BOLETAENTITY (fin, inicio, precio, tipo, espectador_id, id_feria)
+values ('12/30/2016', '10/01/2016', 30.0, 1, 3, 1);
+insert into BOLETAENTITY (fin, inicio, precio, tipo, espectador_id, id_feria)
+values ('12/30/2016', '10/01/2016', 30.0, 1, 4, 1);
+insert into BOLETAENTITY (fin, inicio, precio, tipo, espectador_id, id_feria)
+values ('12/20/2016', '10/10/2016', 20.0, 1, 5, 1);
+
+insert into BOLETAENTITY (fin, inicio, precio, tipo, espectador_id, id_feria)
+values ('12/30/2016', '10/01/2016', 30.0, 1, 6, 2);
+
 -- TODO Many-To-Many
+
+insert into artesanoferiaassociation (fecha, artesano_id, feria_id, stand_id)
+values ('12/20/2016', 1, 1, 1);
+insert into artesanoferiaassociation (fecha, artesano_id, feria_id, stand_id)
+values ('12/21/2016', 2, 1, 2);
+insert into artesanoferiaassociation (fecha, artesano_id, feria_id, stand_id)
+values ('12/22/2016', 3, 1, 3);

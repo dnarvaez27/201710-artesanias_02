@@ -107,8 +107,12 @@ public class FeriaLogic {
             entity.setNombre(e.getNombre());
         if (entity.getTotalBoletas() == null)
             entity.setTotalBoletas(e.getTotalBoletas());
-        if (entity.getDescuentos() == null)
-            entity.setDescuentos(e.getDescuentos());
+        if (entity.getDescuentoMenores() == null)
+            entity.setDescuentoMenores(e.getDescuentoMenores());
+        if (entity.getDescuentoRegular() == null)
+            entity.setDescuentoRegular(e.getDescuentoRegular());
+        if (entity.getDescuentoMayores() == null)
+            entity.setDescuentoMayores(e.getDescuentoMayores());
         if (entity.getEspacio() == null)
             entity.setEspacio(e.getEspacio());
         if (entity.getInicio() == null)
@@ -232,14 +236,8 @@ public class FeriaLogic {
             throw new BusinessLogicException("La feria debe tener un número de boletas", Response.Status.NOT_FOUND);
         if (e.getTotalBoletas() <= 0)
             throw new BusinessLogicException("La feria debe tener un número estrictamente mayor a 0 de boletas", Response.Status.NOT_FOUND);
-        if (e.getDescuentos() == null)
+        if (e.getDescuentoMenores() == null || e.getDescuentoRegular() == null || e.getDescuentoMayores() == null)
             throw new BusinessLogicException("La feria debe tener los descuentos estableciodos", Response.Status.NOT_FOUND);
-        if (e.getDescuentos().length != 3)
-            throw new BusinessLogicException("La feria debe tener 3 descuentos diferentes", Response.Status.NOT_FOUND);
-        for (Double d : e.getDescuentos()) {
-            if (d < 0 || d > 1)
-                throw new BusinessLogicException("Los descuentos deben ser números entre 0 y 1", Response.Status.NOT_FOUND);
-        }
         if (e.getEspacio() == null)
             throw new BusinessLogicException("La feria debe tener un espacio donde se realiza", Response.Status.NOT_FOUND);
         if (e.getInicio() == null)
