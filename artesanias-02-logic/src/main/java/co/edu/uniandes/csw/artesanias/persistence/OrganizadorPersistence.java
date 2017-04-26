@@ -48,7 +48,7 @@ public class OrganizadorPersistence
 	
 	public List<OrganizadorEntity> findAll( )
 	{
-		Query q = em.createQuery( "select u from OrganizadorEntity u" );
+		Query q = em.createQuery( "SELECT U FROM ArtesanoEntity U" ,OrganizadorEntity.class);
 		return q.getResultList( );
 	}
 	
