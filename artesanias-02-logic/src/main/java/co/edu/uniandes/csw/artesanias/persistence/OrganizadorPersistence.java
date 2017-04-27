@@ -38,7 +38,7 @@ import javax.persistence.Query;
 @Stateless
 public class OrganizadorPersistence
 {
-	@PersistenceContext( name = "artesaniasPU" )
+	@PersistenceContext( name = "organizadoresPU" )
 	protected EntityManager em;
 	
 	public OrganizadorEntity find( Long id )
@@ -48,7 +48,7 @@ public class OrganizadorPersistence
 	
 	public List<OrganizadorEntity> findAll( )
 	{
-		Query q = em.createQuery( "SELECT U FROM ArtesanoEntity U" ,OrganizadorEntity.class);
+		Query q = em.createQuery( "SELECT U FROM OrganizadorEntity U" ,OrganizadorEntity.class);
 		return q.getResultList( );
 	}
 	
