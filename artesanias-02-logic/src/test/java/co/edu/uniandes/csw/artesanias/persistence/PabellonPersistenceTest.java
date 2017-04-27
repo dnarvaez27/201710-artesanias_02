@@ -45,7 +45,7 @@ public class PabellonPersistenceTest {
     @Inject
     private PabellonPersistence pabellonPersistence;
     
-    @PersistenceContext
+    @PersistenceContext(unitName = "artesaniasPU")
     private EntityManager em;
     
     @Inject
