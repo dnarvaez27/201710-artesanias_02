@@ -54,6 +54,10 @@ public class FeriaOrganizadorResource {
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("limit") private Integer maxRecords;
+
+    public FeriaOrganizadorResource(FeriaLogic feriaLogic) {
+        this.feriaLogic = feriaLogic;
+    }
     
     //--------------------------------------------------------------------------
     // Métodos dependiendo de los organizadores

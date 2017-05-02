@@ -132,18 +132,18 @@ public class FeriaResource {
     
     @Path( "{idFeria: \\d+}/organizadores" )
     public FeriaOrganizadorResource getFeriaOrganizadorResource() {
-        return new FeriaOrganizadorResource();
+        return new FeriaOrganizadorResource(this.feriaLogic);
     }
     
     
     @Path( "{idFeria: \\d+}/boletas" )
     public FeriaBoletaResource getFeriaBoletaResource() {
-        return new FeriaBoletaResource();
+        return new FeriaBoletaResource(this.feriaLogic);
     }
     
     @Path( "{idFeria: \\d+}/conferencias" )
     public FeriaConferenciaResource getFeriaConferenciaResource() {
-        return new FeriaConferenciaResource();
+        return new FeriaConferenciaResource(this.feriaLogic);
     }
     
     @Path( "{idFeria: \\d+}/artesanos" )

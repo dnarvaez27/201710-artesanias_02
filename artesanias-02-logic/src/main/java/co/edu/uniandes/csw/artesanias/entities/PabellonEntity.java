@@ -27,6 +27,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.*;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * @author ja.espinoza
@@ -56,6 +57,7 @@ public class PabellonEntity implements Serializable
         
         private String imagen;
 	
+        @PodamExclude
         @ManyToOne(targetEntity = EspacioEntity.class, fetch = FetchType.LAZY)
         @JoinColumn(name = "id_espacio")
         private EspacioEntity espacio;
@@ -63,12 +65,14 @@ public class PabellonEntity implements Serializable
         /**
          * Lista de stands en el pabellon
          */
+        @PodamExclude
 	@OneToMany( cascade = CascadeType.ALL, mappedBy = "pabellon", targetEntity = StandEntity.class, fetch = FetchType.LAZY )
 	private List<StandEntity> stands = new LinkedList<>( );
 	
         /**
          * lista de salones en el pabellon
          */
+        @PodamExclude
 	@OneToMany( cascade = CascadeType.ALL, mappedBy = "pabellon", targetEntity = SalonEntity.class, fetch = FetchType.LAZY )
 	private List<SalonEntity> salones = new LinkedList<>( );
         

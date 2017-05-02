@@ -36,6 +36,10 @@ public class FeriaBoletaResource {
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("limit") private Integer maxRecords;
+
+    public FeriaBoletaResource(FeriaLogic logic) {
+        this.logic = logic;
+    }
     
     //--------------------------------------------------------------------------
     // Métodos dependiendo de las boletas

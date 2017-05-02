@@ -38,6 +38,10 @@ public class FeriaConferenciaResource {
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("limit") private Integer maxRecords;
+
+    public FeriaConferenciaResource(FeriaLogic logic) {
+        this.logic = logic;
+    }
     
     //--------------------------------------------------------------------------
     // Métodos dependiendo de las conferencias

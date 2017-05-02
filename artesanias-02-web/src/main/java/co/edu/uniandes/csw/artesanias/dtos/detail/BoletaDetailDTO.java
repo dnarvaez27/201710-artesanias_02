@@ -24,6 +24,7 @@
 package co.edu.uniandes.csw.artesanias.dtos.detail;
 
 import co.edu.uniandes.csw.artesanias.dtos.BoletaDTO;
+import co.edu.uniandes.csw.artesanias.dtos.EspectadorDTO;
 import co.edu.uniandes.csw.artesanias.dtos.FeriaDTO;
 import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -36,6 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class BoletaDetailDTO extends BoletaDTO {
     
     private FeriaDTO feria;
+    
+    private EspectadorDTO espectador;
 
     public BoletaDetailDTO() {super();}
 
@@ -44,6 +47,7 @@ public class BoletaDetailDTO extends BoletaDTO {
         if (entity == null)
             return;
         this.feria = new FeriaDTO(entity.getFeria());
+        this.espectador = new EspectadorDTO(entity.getEspectador());
     }
 
     public FeriaDTO getFeria() {
@@ -53,10 +57,19 @@ public class BoletaDetailDTO extends BoletaDTO {
     public void setFeria(FeriaDTO feria) {
         this.feria = feria;
     }
+
+    public EspectadorDTO getEspectador() {
+        return espectador;
+    }
+
+    public void setEspectador(EspectadorDTO espectador) {
+        this.espectador = espectador;
+    }
     
     public BoletaEntity toEntity() {
         BoletaEntity entity = super.toEntity();
         entity.setFeria(this.feria.toEntity());
+        entity.setEspectador(this.espectador.toEntity());
         return entity;
     }
 
