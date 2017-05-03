@@ -9,14 +9,16 @@
             .state('ferias', {
                 url: '/ferias',
                 abstract: true,
-                param: {
+                params: {
                     context: null,
                     idParent: null
                 },
                 resolve: {
                     ferias: ['$http', '$stateParams', function ($http, $params) {
-                            if (typeof $params.context === "undefined" || $params.context === null)
+                            if (typeof $params.context === "undefined" || $params.context === "undefined")
                                 return $http.get('api/ferias');
+                            if (typeof $params.context === "object")
+                                return $http.get($params.context[0] + '/' + $params.idParent + '/ferias/' + $params.context[1]);
                             return $http.get($params.context + '/' + $params.idParent + '/ferias');
                         }]
                 },

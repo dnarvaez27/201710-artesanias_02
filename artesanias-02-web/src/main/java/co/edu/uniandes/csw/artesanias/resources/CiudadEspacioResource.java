@@ -78,8 +78,8 @@ public class CiudadEspacioResource {
     }
     
     @Path("{id: \\d+}/ferias")
-    public EspacioFeriaResource getEspacioFeriaResource() {
-        return new EspacioFeriaResource();
+    public Class<EspacioFeriaResource> getEspacioFeriaResource() {
+        return EspacioFeriaResource.class;
     }
     
     //--------------------------------------------------------------------------

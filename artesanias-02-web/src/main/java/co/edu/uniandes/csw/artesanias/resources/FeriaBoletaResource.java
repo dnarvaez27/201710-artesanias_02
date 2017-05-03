@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.artesanias.resources;
 
 import co.edu.uniandes.csw.artesanias.dtos.detail.BoletaDetailDTO;
+import co.edu.uniandes.csw.artesanias.dtos.detail.EspectadorDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.FeriaLogic;
 import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
 import java.util.LinkedList;
@@ -81,6 +82,19 @@ public class FeriaBoletaResource {
         logic.removeBoleta(idFeria, id);
     }
     
+    @GET
+    @Path("{id: \\d+}/espectador")
+    public EspectadorDetailDTO getBoletaEspectador(@PathParam("idFeria") Long idFeria,
+            @PathParam("id") Long id) {
+        if (logic.getFeria(idFeria) == null)
+            throw new WebApplicationException("No existe la feria", 404);
+        BoletaEntity b = logic.getBoleta(idFeria, id);
+        if (b == null)
+            throw new WebApplicationException("No existe la boleta", 404);
+        return new EspectadorDetailDTO(b.getEspectador());
+    }
+    
+            
     //--------------------------------------------------------------------------
     // Métodos Auxiliares
     //--------------------------------------------------------------------------
