@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.host.url>http://157.253.238.75:9000</sonar.host.url>
         <sonar.sourceEncoding>${project.build.sourceEncoding}</sonar.sourceEncoding>
-        <sonar.exclusions>src/main/webapp/bower_components/**, src/main/webapp/src/utils/assets</sonar.exclusions>
+        <sonar.exclusions>src/main/webapp/bower_components/**, src/main/webapp/src/utils/assets/**</sonar.exclusions>
     </properties>
     <dependencyManagement>
         <dependencies>
