@@ -1,6 +1,7 @@
 (function (ng) {
     var mod = ng.module("conferenciaModule", ['ui.router']);
     mod.constant("conferneciasContext", "api/confernecias");
+    mod.constant();
     mod.config(['$stateProvider',  '$urlRouterProvider', function ( $stateProvider, $urlRouterProvider) {
             var basePath = 'src/modules/confernecias/';
             $urlRouterProvider.otherwise("/conferencias/list");

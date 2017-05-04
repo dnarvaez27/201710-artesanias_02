@@ -126,13 +126,13 @@ public class ConferenciaDTO
 	{
 		ConferenciaEntity entity = new ConferenciaEntity( );
 		
-		entity.setId( this.getId( ) );
-		entity.setTema( this.getTema( ) );
-		entity.setFechaFin( this.getFechaFin( ) );
-		entity.setFechaInicio( this.getFechaInicio( ) );
-		entity.setConferencista( this.getConferencista( ) );
-		entity.setHoraInicio( this.getHoraInicio( ) );
-		entity.setHoraFin( this.getHoraFin( ) );
+		entity.setId( this.id );
+		entity.setTema( this.tema );
+		entity.setFechaFin( this.fechaFin );
+		entity.setFechaInicio( this.fechaInicio );
+		entity.setConferencista( this.conferencista );
+		entity.setHoraInicio( this.horaInicio );
+		entity.setHoraFin( this.horaFin );
 		
 		return entity;
 	}
