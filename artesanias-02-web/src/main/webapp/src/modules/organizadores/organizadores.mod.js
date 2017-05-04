@@ -32,34 +32,34 @@
                                 $scope.organizadoresRecords = organizadores.data;
                             }]
             }
-          }})
-//        }).state('organizadorDetail', {
-//                url: '/{organizadorId:int}/detail',
-//                parent: 'organizadoresList',
-//                param: {
-//                    organizadorId: null
-//                },
-//                
-//                resolve:  {
-//                    currentOrganizador: ['$http', 'organizadorContext', '$stateParams', function ($http, organizadorContext, $params) {
-//                            return $http.get(organizadorContext+'/'+$params.organizadorId);
-//                        }]
-//                },
-//                views: {
-//                    'detailView': {
-//                        templateUrl: basePath + 'organizadores.detail.html',
-//                        controller: ['$scope', 'currentOrganizador', function ($scope,  currentOrganizador) {
-//                                $scope.currentOrganizador = currentOrganizador.data;
-//                            }]
-//                    },
-//                    'listView': {
-//                        templateUrl: baseFeriaPath + 'feira.list.html',
-//                        controller: ['$scope', 'currentOrganizador', function ($scope, currentOrganizador) {
-//                                $scope.currentFeria = currentOrganizador.data.ferias;
-//                            }]
-//                    }
-//                }
-//            });
+          }
+        }).state('organizadorDetail', {
+                url: '/{organizadorId:int}/detail',
+                parent: 'organizadoresList',
+                param: {
+                    organizadorId: null
+                },
+                
+                resolve:  {
+                    currentOrganizador: ['$http', 'organizadorContext', '$stateParams', function ($http, organizadorContext, $params) {
+                            return $http.get(organizadorContext+'/'+$params.organizadorId);
+                        }]
+                },
+                views: {
+                    'detailView': {
+                        templateUrl: basePath + 'organizadores.detail.html',
+                        controller: ['$scope', 'currentOrganizador', function ($scope,  currentOrganizador) {
+                                $scope.currentOrganizador = currentOrganizador.data;
+                            }]
+                    },
+                    'list': {
+                        templateUrl: baseFeriaPath + 'feira.list.html',
+                        controller: ['$scope', 'currentOrganizador', function ($scope, currentOrganizador) {
+                                $scope.currentFeria = currentOrganizador.data.ferias;
+                            }]
+                    }
+                }
+            });
         }]);
 
               

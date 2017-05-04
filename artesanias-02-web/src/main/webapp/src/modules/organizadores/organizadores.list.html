@@ -90,3 +90,44 @@ TODO Get Form info
         </div>
     </div>
 </div>
+    
+    <div class="modal fade" role="dialog" id="crearOrganizador">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Crear Organizador</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!--Imagen-->
+                    <div class="col-lg-3 thumbnail" style="max-height: inherit; min-height: inherit;margin: 5px;"></div>
+                    <!--Formulario-->
+                    <form class="col-lg-8">
+                        <!--Nombre-->
+                        <div class="form-group">
+                            <label for="nombre">correo</label>
+                            <input type="text" class="form-control" id="nombre">
+                        </div>
+                        <!--Identificacion-->
+                        <div class="form-group">
+                            <label for="identificacion">Identificacion</label>
+                            <input type="text" class="form-control" id="identificacion">
+                        </div>
+                        <!--Telefono-->
+                        <div class="form-group">
+                            <label for="telefono">contraseña</label>
+                            <input type="text" class="form-control" id="telefono">
+                        </div>
+                        <button class="btn btn-default">Cargar Imagen</button>
+                        <!--Botones de Confirmación-->
+                        <div class="row ">
+                            <button class="option col-sm-5 col-lg-5 btn btn-default btn-success" type="submit">Aceptar</button>
+                            <button class="option col-sm-5 col-lg-5 btn btn-default btn-danger" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
