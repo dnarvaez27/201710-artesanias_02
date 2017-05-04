@@ -1,10 +1,11 @@
-<div class="container-fluid">
+<!--<div class="container-fluid">
     <div class="row">
         <div class="text-center container">
             <button data-target="#crearOrganizador" data-toggle="modal" class="btn btn-add">
                 +
             </button>
         </div>
+        <th>HOLA CAMBIO DE ESTADO</th>
     </div>
 
     <div class="row">
@@ -24,8 +25,8 @@
     </div>
 </div>
 
-<!--TODO Externalizar (?)-->
-<!--TODO Get Form info-->
+TODO Externalizar (?)
+TODO Get Form info
 <div class="modal fade" role="dialog" id="crearArtesano">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -35,32 +36,55 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <!--Imagen-->
+                    Imagen
                     <div class="col-lg-3 thumbnail" style="max-height: inherit; min-height: inherit;margin: 5px;"></div>
-                    <!--Formulario-->
+                    Formulario
                     <form class="col-lg-8">
-                        <!--Nombre-->
+                        Nombre
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
                             <input type="text" class="form-control" id="nombre">
                         </div>
-                        <!--Identificacion-->
+                        Identificacion
                         <div class="form-group">
                             <label for="identificacion">Identificacion</label>
                             <input type="text" class="form-control" id="identificacion">
                         </div>
-                        <!--Telefono-->
+                        Telefono
                         <div class="form-group">
                             <label for="telefono">Teléfono</label>
                             <input type="text" class="form-control" id="telefono">
                         </div>
                         <button class="btn btn-default">Cargar Imagen</button>
-                        <!--Botones de Confirmación-->
+                        Botones de Confirmación
                         <div class="row ">
                             <button class="option col-sm-5 col-lg-5 btn btn-default btn-success" type="submit">Aceptar</button>
                             <button class="option col-sm-5 col-lg-5 btn btn-default btn-danger" data-dismiss="modal">Cancelar</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="text-center container">
+            <button data-target="#crearOrganizador" data-toggle="modal" class="btn btn-add">
+                +
+            </button>
+        </div>
+    </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2" ng-repeat="organizador in organizadoresRecords">
+            <div class="thumbnail">
+                <a ui-sref="organizadorDetail({organizadorId: organizador.id})">                    
+                    <img class="img-responsive" ng-src='{{organizador.foto}}' alt="{{organizador.identificacion}}" />                  
+                </a>
+                <div class="caption text-center">
+                    <p>{{ciudad.correo}}</p>
                 </div>
             </div>
         </div>
