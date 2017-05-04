@@ -113,23 +113,23 @@ INSERT INTO REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) VALUES ('Donec da
 INSERT INTO REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) VALUES ('Phasellus in felis. Donec semper sapien a libero. Nam dui.', 0.3, 2);
 
 -- Organizadores
-insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', 'DfE1j8JD', 'emedina0@thetimes.co.uk', 'src\utils\img\espectadores\organizador 1.jpg');
+insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', 'DfE1j8JD', 'emedina0@thetimes.co.uk', 'src\utils\img\organizadores\organizador 1.jpg');
 INSERT INTO ORGANIZADORENTITY (ID, IDENTIFICACION) VALUES (7,'7');
-insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', 'GRwerZ', 'gsimmons1@mail.ru', 'src\utils\img\espectadores\organizador 2.jpg');
+insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', 'GRwerZ', 'gsimmons1@mail.ru', 'src\utils\img\organizadores\organizador 2.jpg');
 INSERT INTO ORGANIZADORENTITY (ID, IDENTIFICACION) VALUES (8,'8');
-insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', '6XyQgDj0Eq73', 'fgonzalez2@simplemachines.org', 'src\utils\img\espectadores\organizador 3.jpg');
+insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', '6XyQgDj0Eq73', 'fgonzalez2@simplemachines.org', 'src\utils\img\organizadores\organizador 3.jpg');
 INSERT INTO ORGANIZADORENTITY (ID, IDENTIFICACION) VALUES (9,'9');
-insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', '3dX2WeTTZwQ0', 'towens3@prweb.com', 'src\utils\img\espectadores\organizador 4.jpg');
+insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', '3dX2WeTTZwQ0', 'towens3@prweb.com', 'src\utils\img\organizadores\organizador 4.jpg');
 INSERT INTO ORGANIZADORENTITY (ID, IDENTIFICACION) VALUES (10,'10');
-insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', '4Yiudn', 'jkelly4@usa.gov', 'src\utils\img\espectadores\organizador 5.jpg');
+insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', '4Yiudn', 'jkelly4@usa.gov', 'src\utils\img\organizadores\organizador 5.jpg');
 INSERT INTO ORGANIZADORENTITY (ID, IDENTIFICACION) VALUES (11,'11');
-insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', 'XySRYG1', 'smurray5@independent.co.uk', 'src\utils\img\espectadores\organizador 6.jpg');
+insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', 'XySRYG1', 'smurray5@independent.co.uk', 'src\utils\img\organizadores\organizador 6.jpg');
 INSERT INTO ORGANIZADORENTITY (ID, IDENTIFICACION) VALUES (12,'13');
-insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', 'd3GkkbvWpmu3', 'pgonzales6@tripadvisor.com', 'src\utils\img\espectadores\organizador 7.jpg');
+insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', 'd3GkkbvWpmu3', 'pgonzales6@tripadvisor.com', 'src\utils\img\organizadores\organizador 7.jpg');
 INSERT INTO ORGANIZADORENTITY (ID, IDENTIFICACION) VALUES (13,'13');
-insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', 'kzB3qxDPq', 'dbowman7@plala.or.jp', 'src\utils\img\espectadores\organizador 8.jpg');
+insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', 'kzB3qxDPq', 'dbowman7@plala.or.jp', 'src\utils\img\organizadores\organizador 8.jpg');
 INSERT INTO ORGANIZADORENTITY (ID, IDENTIFICACION) VALUES (14,'14');
-insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', 'vYwEcY4', 'drichardson8@howstuffworks.com', 'src\utils\img\espectadores\organizador 9.jpg');
+insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', 'vYwEcY4', 'drichardson8@howstuffworks.com', 'src\utils\img\organizadores\organizador 9.jpg');
 INSERT INTO ORGANIZADORENTITY (ID, IDENTIFICACION) VALUES (15,'15');
 
 
