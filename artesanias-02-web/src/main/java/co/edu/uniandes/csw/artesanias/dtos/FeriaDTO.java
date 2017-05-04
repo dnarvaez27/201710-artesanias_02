@@ -95,9 +95,9 @@ public class FeriaDTO implements Serializable {
         this.id = entity.getId();
         this.nombre = entity.getNombre();
         this.totalBoletas = entity.getTotalBoletas();
-        this.descuentoMenores = entity.getDescuentoMenores();
-        this.descuentoRegular = entity.getDescuentoRegular();
-        this.descuentoMayores = entity.getDescuentoMayores();
+//        this.descuentoMenores = entity.getDescuentoMenores();
+//        this.descuentoRegular = entity.getDescuentoRegular();
+//        this.descuentoMayores = entity.getDescuentoMayores();
         this.inicio = entity.getInicio();
         this.fin = entity.getFin();
         this.image = entity.getImage();
@@ -236,9 +236,9 @@ public class FeriaDTO implements Serializable {
         entity.setId(this.id);
         entity.setNombre(this.nombre);
         entity.setTotalBoletas(this.totalBoletas);
-        entity.setDescuentoMenores(this.descuentoMenores);
-        entity.setDescuentoRegular(this.descuentoRegular);
-        entity.setDescuentoMayores(this.descuentoMayores);
+//        entity.setDescuentoMenores(this.descuentoMenores);
+//        entity.setDescuentoRegular(this.descuentoRegular);
+//        entity.setDescuentoMayores(this.descuentoMayores);
         entity.setInicio(this.inicio);
         entity.setFin(this.fin);
         entity.setImage(this.image);

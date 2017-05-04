@@ -27,7 +27,7 @@ import java.util.List;
  
 
 
-
+@Path( "salones/{salonId: \\d+}/conferencias" )
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
 public class ConferenciaSalonResource

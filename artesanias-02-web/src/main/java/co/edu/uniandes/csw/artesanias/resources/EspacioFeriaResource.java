@@ -43,7 +43,7 @@ public class EspacioFeriaResource {
     
     @GET
     @Path("{id: \\d+}")
-    public FeriaDetailDTO getCiudadEspacio(@PathParam("idEspacio") Long idEspacio,
+    public FeriaDetailDTO getFeriaEspacio(@PathParam("idEspacio") Long idEspacio,
             @PathParam("id") Long id) {
         if (logic.getEspacio(idEspacio) == null)
             throw new WebApplicationException("No existe el espacio", 404);
@@ -51,14 +51,14 @@ public class EspacioFeriaResource {
     }
     
     @GET
-    public List<FeriaDetailDTO> getCiudadEspacios(@PathParam("idEspacio") Long idEspacio) {
+    public List<FeriaDetailDTO> getFeriasEspacio(@PathParam("idEspacio") Long idEspacio) {
         if (logic.getEspacio(idEspacio) == null)
             throw new WebApplicationException("No existe el espacio", 404);
         return listFeriaEntity2DetailDTO(logic.getFerias(idEspacio));
     }
     
     @PUT
-    public List<FeriaDetailDTO> updateCiudadEspacios(@PathParam("idEspacio") Long idEspacio,
+    public List<FeriaDetailDTO> updateFeriaEspacios(@PathParam("idEspacio") Long idEspacio,
             List<FeriaDetailDTO> ferias) {
         if (logic.getEspacio(idEspacio) == null)
             throw new WebApplicationException("No existe el espacio", 404);
@@ -70,7 +70,7 @@ public class EspacioFeriaResource {
     
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteCiudadEspacios(@PathParam("idEspacio") Long idEspacio,
+    public void deleteFeriaEspacios(@PathParam("idEspacio") Long idEspacio,
             @PathParam("id") Long id) {
         if (logic.getEspacio(idEspacio) == null)
             throw new WebApplicationException("No existe el espacio", 404);

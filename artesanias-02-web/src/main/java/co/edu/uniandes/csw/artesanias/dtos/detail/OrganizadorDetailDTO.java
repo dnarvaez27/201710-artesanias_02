@@ -24,7 +24,7 @@ public class OrganizadorDetailDTO extends OrganizadorDTO
 	
 	public OrganizadorDetailDTO( )
 	{
-		super( );
+		
 	}
 	
 	public OrganizadorDetailDTO( OrganizadorEntity entity )
@@ -32,9 +32,10 @@ public class OrganizadorDetailDTO extends OrganizadorDTO
 		super( entity );
 		if( entity != null )
 		{
+                    this.ferias = new LinkedList<>();
 			for( FeriaEntity feria : entity.getFerias( ) )
 			{
-				ferias.add( new FeriaDTO( feria ) );
+				this.ferias.add( new FeriaDTO( feria ) );
 			}
 		}
 	}

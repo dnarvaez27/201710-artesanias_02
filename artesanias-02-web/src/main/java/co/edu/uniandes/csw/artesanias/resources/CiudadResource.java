@@ -99,8 +99,8 @@ public class CiudadResource {
     }
     
     @Path( "{idCiudad: \\d+}/espacios" )
-    public CiudadEspacioResource getCiudadEspacioResource() {
-        return new CiudadEspacioResource();
+    public Class<CiudadEspacioResource> getCiudadEspacioResource() {
+        return CiudadEspacioResource.class;
     }
     
     private List<CiudadDTO> listEntity2DTO(List<CiudadEntity> entities) {

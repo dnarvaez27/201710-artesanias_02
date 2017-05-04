@@ -30,6 +30,7 @@ public class EspectadorDetailDTO extends EspectadorDTO implements Serializable
 	 */
 	public EspectadorDetailDTO( )
 	{
+            
 		// Default Constructor. Mandatory
 	}
 	

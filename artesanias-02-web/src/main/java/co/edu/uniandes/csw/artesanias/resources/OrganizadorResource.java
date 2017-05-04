@@ -105,21 +105,30 @@ public class OrganizadorResource
 		return list;
 	}
 	
-        @GET
-	@Path( "{organizadorId: \\d+}/ferias" )
-	public List<FeriaDTO> getFeriaResource( @PathParam( "id" ) Long idOrganizador)
+    /**
+     *
+     * @param idOrganizador
+     * @return
+     */
+    @Path( "{organizadorId: \\d+}/ferias" )
+	public Class<FeriaOrganizadorResource> getFeriaResource( @PathParam( "id" ) Long idOrganizador)
 	{
-            List<FeriaEntity>list1 = new LinkedList<>();//logicFeria.getFeriasFromOrganizador();
             
-            List<FeriaDTO> list = new ArrayList<>( );
-		for( FeriaEntity entity : list1 )
-		{
-			list.add( new FeriaDTO( entity ) );
-		}
-		
-            
-            return list;
-	
-		
-	}
+            logic.getOrganizador(idOrganizador);
+            return FeriaOrganizadorResource.class;
+                   
+        }
+//            List<FeriaEntity>list1 = new LinkedList<>();//logicFeria.getFeriasFromOrganizador();
+//            
+//            List<FeriaDTO> list = new ArrayList<>( );
+//		for( FeriaEntity entity : list1 )
+//		{
+//			list.add( new FeriaDTO( entity ) );
+//		}
+//		
+//            
+//            return list;
+//	
+//		
+//	}
 }

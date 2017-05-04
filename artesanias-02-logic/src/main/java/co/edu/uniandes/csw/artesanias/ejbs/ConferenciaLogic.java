@@ -84,9 +84,9 @@ public class ConferenciaLogic {
         return persistence.findAllFromSalon(idSalon);
     }
 
-    public List<ConferenciaEntity> getConferenciasFromFeria(Long idSalon) {
+    public List<ConferenciaEntity> getConferenciasFromFeria(Long idFeria) {
 
-        return persistence.findAllFromSalon(idSalon);
+        return persistence.findAllFromFeria(idFeria);
     }
 
 }

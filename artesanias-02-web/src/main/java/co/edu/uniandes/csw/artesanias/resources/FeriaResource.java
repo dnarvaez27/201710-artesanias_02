@@ -147,10 +147,10 @@ public class FeriaResource {
     }
     
     @Path( "{idFeria: \\d+}/artesanos" )
-    public ArtesanoFeriasResource getArtesanoFeriasResource(@PathParam("id") Long id) {
+    public Class<ArtesanoFeriasResource> getArtesanoFeriasResource(@PathParam("idFeria") Long id) {
         if (feriaLogic.getFeria(id) == null)
             throw new WebApplicationException("No existe la feria", 404);
-        return new ArtesanoFeriasResource();
+        return ArtesanoFeriasResource.class;
     }
     
     //--------------------------------------------------------------------------
