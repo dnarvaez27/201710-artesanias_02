@@ -52,7 +52,7 @@
                                 $scope.currentOrganizador = currentOrganizador.data;
                             }]
                     },
-                    'list': {
+                    'listView': {
                         templateUrl: baseFeriaPath + 'feira.list.html',
                         controller: ['$scope', 'currentOrganizador', function ($scope, currentOrganizador) {
                                 $scope.currentFeria = currentOrganizador.data.ferias;
