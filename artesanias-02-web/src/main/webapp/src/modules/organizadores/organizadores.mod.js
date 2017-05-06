@@ -35,7 +35,7 @@
           }
         }).state('organizadorDetail', {
                 url: '/{organizadorId:int}/detail',
-                parent: 'organizadoresList',
+                parent: 'organizadores',
                 param: {
                     organizadorId: null
                 },
@@ -51,12 +51,12 @@
                         controller: ['$scope', 'currentOrganizador', function ($scope,  currentOrganizador) {
                                 $scope.currentOrganizador = currentOrganizador.data;
                             }]
-//                    },
-//                    'listView': {
-//                        templateUrl: baseFeriaPath + 'feria.list.html',
-//                        controller: ['$scope', 'currentOrganizador', function ($scope, currentOrganizador) {
-//                                $scope.currentFeria = currentOrganizador.data.ferias;
-//                            }]
+                    },
+                    'listView': {
+                        templateUrl: baseFeriaPath + 'feria.list.html',
+                        controller: ['$scope', 'currentOrganizador', function ($scope, currentOrganizador) {
+                                $scope.feriasRecords = currentOrganizador.data.ferias;
+                            }]
                     }
                 }
             });
