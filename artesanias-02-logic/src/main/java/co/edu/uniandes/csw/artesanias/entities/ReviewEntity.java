@@ -23,6 +23,8 @@
  */
 package co.edu.uniandes.csw.artesanias.entities;
 
+import uk.co.jemos.podam.common.PodamExclude;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -51,6 +53,7 @@ public class ReviewEntity implements Serializable
 	/**
 	 * Artesano al cual va dirijido el Review
 	 */
+	@PodamExclude
 	@ManyToOne( targetEntity = ArtesanoEntity.class )
 	private ArtesanoEntity artesano;
 	

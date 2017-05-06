@@ -23,6 +23,8 @@
  */
 package co.edu.uniandes.csw.artesanias.entities;
 
+import uk.co.jemos.podam.common.PodamExclude;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -54,6 +56,7 @@ public class ArtesaniaEntity implements Serializable
 	/**
 	 * Artesano quien creó la artesania
 	 */
+	@PodamExclude
 	@ManyToOne( targetEntity = ArtesanoEntity.class )
 	private ArtesanoEntity artesano;
 	

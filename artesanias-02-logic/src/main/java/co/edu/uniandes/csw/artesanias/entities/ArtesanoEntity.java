@@ -24,6 +24,7 @@
 package co.edu.uniandes.csw.artesanias.entities;
 
 import co.edu.uniandes.csw.artesanias.entities.asociaciones.ArtesanoFeriaAssociation;
+import uk.co.jemos.podam.common.PodamExclude;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -67,25 +68,29 @@ public class ArtesanoEntity implements Serializable
 	/**
 	 * Artesanias hechas por el Artesano
 	 */
+	@PodamExclude
 	@OneToMany( cascade = CascadeType.ALL, targetEntity = ArtesaniaEntity.class, fetch = FetchType.LAZY, mappedBy = "artesano" )
 	private List<ArtesaniaEntity> artesanias;
 	
 	/**
 	 * Reviews sobre el Artesano
 	 */
+	@PodamExclude
 	@OneToMany( cascade = CascadeType.ALL, targetEntity = ReviewEntity.class, fetch = FetchType.LAZY, mappedBy = "artesano" )
 	private List<ReviewEntity> reviews;
 	
 	/**
 	 * Ciudad de Origen del Artesano
 	 */
+	@PodamExclude
 	@ManyToOne( targetEntity = CiudadEntity.class )
 	private CiudadEntity ciudad;
 	
 	/**
 	 * Stand en el que un Artesano se encuentra
 	 */
-	@OneToMany( targetEntity = ArtesanoFeriaAssociation.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "artesano" )
+	@PodamExclude
+	@OneToMany( cascade = CascadeType.ALL, targetEntity = ArtesanoFeriaAssociation.class, fetch = FetchType.LAZY, mappedBy = "artesano" )
 	private List<ArtesanoFeriaAssociation> ferias;
 	
 	/**

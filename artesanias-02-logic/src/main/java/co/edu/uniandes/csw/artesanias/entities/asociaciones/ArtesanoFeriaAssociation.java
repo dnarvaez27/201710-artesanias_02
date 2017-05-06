@@ -3,6 +3,7 @@ package co.edu.uniandes.csw.artesanias.entities.asociaciones;
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.entities.StandEntity;
+import uk.co.jemos.podam.common.PodamExclude;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,14 +20,16 @@ public class ArtesanoFeriaAssociation implements Serializable
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;
 	
+	@PodamExclude
 	@ManyToOne( targetEntity = FeriaEntity.class )
 	private FeriaEntity feria;
 	
+	@PodamExclude
 	@ManyToOne( targetEntity = StandEntity.class )
 	private StandEntity stand;
 	
+	@PodamExclude
 	@ManyToOne( targetEntity = ArtesanoEntity.class )
-	@JoinColumn( nullable = false )
 	private ArtesanoEntity artesano;
 	
 	@Temporal( TemporalType.DATE )
