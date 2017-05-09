@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.artesanias.persistence;
 
-import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
+import co.edu.uniandes.csw.artesanias.entities.StandEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -13,14 +13,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
@@ -28,11 +26,9 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  *
  * @author ja.espinosa12
  */
-@RunWith(Arquillian.class)
-public class PabellonPersistenceTest 
+public class StandPersistenceTest 
 {
-    
-    public PabellonPersistenceTest() 
+    public StandPersistenceTest() 
     {
     }
 
@@ -40,13 +36,13 @@ public class PabellonPersistenceTest
     public static JavaArchive createdeployment()
     {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(PabellonEntity.class.getPackage())
-                .addPackage(PabellonPersistence.class.getPackage())
+                .addPackage(StandEntity.class.getPackage())
+                .addPackage(StandPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
     @Inject
-    private PabellonPersistence pabellonPersistence;
+    private StandPersistence standPersistence;
     
     @PersistenceContext(unitName = "artesaniasPU")
     private EntityManager em;
@@ -54,7 +50,7 @@ public class PabellonPersistenceTest
     @Inject
     UserTransaction utx;
     
-    private List<PabellonEntity> data = new ArrayList<PabellonEntity>();
+    private List<StandEntity> data = new ArrayList<StandEntity>();
     
     @Before
     public void setUp()
@@ -82,7 +78,7 @@ public class PabellonPersistenceTest
     
     private void clearData()
     {
-        em.createQuery("delete from PabellonEntity").executeUpdate();
+        em.createQuery("delete from StandEntity").executeUpdate();
     }
     
     private void insertData()
@@ -90,44 +86,41 @@ public class PabellonPersistenceTest
         PodamFactory factory = new PodamFactoryImpl();
         for(int i = 0; i < 3; i++)
         {
-            PabellonEntity entity = factory.manufacturePojo(PabellonEntity.class);
+            StandEntity entity = factory.manufacturePojo(StandEntity.class);
             em.persist(entity);
             data.add(entity);
         }
     }
     
     @Test
-    public void createPabellonTest() 
+    public void createStandTest() 
     {
         PodamFactory factory = new PodamFactoryImpl();
-        PabellonEntity newEntity = factory.manufacturePojo(PabellonEntity.class);
+        StandEntity newEntity = factory.manufacturePojo(StandEntity.class);
 
-        PabellonEntity result = pabellonPersistence.create(newEntity);
+        StandEntity result = standPersistence.create(newEntity);
         Assert.assertNotNull(result);
         
-        PabellonEntity entity = em.find(PabellonEntity.class, result.getId());
+        StandEntity entity = em.find(StandEntity.class, result.getId());
         Assert.assertNotNull(entity);  
     }
     @Test
-    public void findPabellonTest()
+    public void findStandTest()
     {
-        PabellonEntity entity = data.get( 0 );
-	PabellonEntity newEntity = pabellonPersistence.find( entity.getId( ) );
-	Assert.assertNotNull( newEntity );
-	Assert.assertEquals( entity.getCapacidad(), newEntity.getCapacidad() );
+       
     }
     
     @Test
     public void findAlltest()
     {
-        List<PabellonEntity> finded = pabellonPersistence.findAll( );
+        List<StandEntity> finded = standPersistence.findAll( );
 		Assert.assertEquals( data.size( ), finded.size( ) );
-		for( PabellonEntity pabellonEntity : finded )
+		for( StandEntity standEntity : finded )
 		{
 			boolean found = false;
-			for( PabellonEntity entity : data )
+			for( StandEntity entity : data )
 			{
-				if( pabellonEntity.getId( ).equals( entity.getId( ) ) )
+				if( standEntity.getId( ).equals( entity.getId( ) ) )
 				{
 					found = true;
 					break;
@@ -138,25 +131,25 @@ public class PabellonPersistenceTest
     }
     
     @Test
-    public void updatePabellonTest()
+    public void updateStandTest()
     {
-        PabellonEntity entity = data.get( 0 );
+        StandEntity entity = data.get( 0 );
 	PodamFactory factory = new PodamFactoryImpl( );
-	PabellonEntity upEntity = factory.manufacturePojo( PabellonEntity.class );
+	StandEntity upEntity = factory.manufacturePojo(StandEntity.class );
 	upEntity.setId( entity.getId( ) );
 		
-	pabellonPersistence.update( upEntity );
+	standPersistence.update( upEntity );
 		
-	PabellonEntity resp = em.find( PabellonEntity.class, entity.getId( ) );
-	Assert.assertEquals( upEntity.getCapacidad(), resp.getCapacidad() );
+	StandEntity resp = em.find( StandEntity.class, entity.getId( ) );
+	Assert.assertEquals( upEntity.getDescripcion(), resp.getDescripcion() );
     }
     
     @Test
-    public void deletePabellonTest()
+    public void deleteStandTest()
     {
-        PabellonEntity entity = data.get( 0 );
-	pabellonPersistence.delete( entity.getId( ) );
-	PabellonEntity deleted = em.find( PabellonEntity.class, entity.getId( ) );
+        StandEntity entity = data.get( 0 );
+	standPersistence.delete( entity.getId( ) );
+	StandEntity deleted = em.find( StandEntity.class, entity.getId( ) );
 	Assert.assertNull( deleted );
     }
 }

@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.artesanias.persistence;
 
-import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
+import co.edu.uniandes.csw.artesanias.entities.CiudadEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -13,14 +13,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
@@ -28,11 +26,10 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  *
  * @author ja.espinosa12
  */
-@RunWith(Arquillian.class)
-public class PabellonPersistenceTest 
+public class CiudadPersistenceTest 
 {
     
-    public PabellonPersistenceTest() 
+    public CiudadPersistenceTest() 
     {
     }
 
@@ -40,13 +37,13 @@ public class PabellonPersistenceTest
     public static JavaArchive createdeployment()
     {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(PabellonEntity.class.getPackage())
-                .addPackage(PabellonPersistence.class.getPackage())
+                .addPackage(CiudadEntity.class.getPackage())
+                .addPackage(CiudadPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
     @Inject
-    private PabellonPersistence pabellonPersistence;
+    private CiudadPersistence ciudadPersistence;
     
     @PersistenceContext(unitName = "artesaniasPU")
     private EntityManager em;
@@ -54,7 +51,7 @@ public class PabellonPersistenceTest
     @Inject
     UserTransaction utx;
     
-    private List<PabellonEntity> data = new ArrayList<PabellonEntity>();
+    private List<CiudadEntity> data = new ArrayList<CiudadEntity>();
     
     @Before
     public void setUp()
@@ -82,7 +79,7 @@ public class PabellonPersistenceTest
     
     private void clearData()
     {
-        em.createQuery("delete from PabellonEntity").executeUpdate();
+        em.createQuery("delete from CiudadEntity").executeUpdate();
     }
     
     private void insertData()
@@ -90,44 +87,44 @@ public class PabellonPersistenceTest
         PodamFactory factory = new PodamFactoryImpl();
         for(int i = 0; i < 3; i++)
         {
-            PabellonEntity entity = factory.manufacturePojo(PabellonEntity.class);
+            CiudadEntity entity = factory.manufacturePojo(CiudadEntity.class);
             em.persist(entity);
             data.add(entity);
         }
     }
     
     @Test
-    public void createPabellonTest() 
+    public void createCiudadTest() 
     {
         PodamFactory factory = new PodamFactoryImpl();
-        PabellonEntity newEntity = factory.manufacturePojo(PabellonEntity.class);
+        CiudadEntity newEntity = factory.manufacturePojo(CiudadEntity.class);
 
-        PabellonEntity result = pabellonPersistence.create(newEntity);
+        CiudadEntity result = ciudadPersistence.create(newEntity);
         Assert.assertNotNull(result);
         
-        PabellonEntity entity = em.find(PabellonEntity.class, result.getId());
+        CiudadEntity entity = em.find(CiudadEntity.class, result.getId());
         Assert.assertNotNull(entity);  
     }
     @Test
-    public void findPabellonTest()
+    public void findCiudadTest()
     {
-        PabellonEntity entity = data.get( 0 );
-	PabellonEntity newEntity = pabellonPersistence.find( entity.getId( ) );
+        CiudadEntity entity = data.get( 0 );
+	CiudadEntity newEntity = ciudadPersistence.find( entity.getId( ) );
 	Assert.assertNotNull( newEntity );
-	Assert.assertEquals( entity.getCapacidad(), newEntity.getCapacidad() );
+	Assert.assertEquals( entity.getNombre(), newEntity.getNombre() );
     }
     
     @Test
     public void findAlltest()
     {
-        List<PabellonEntity> finded = pabellonPersistence.findAll( );
+        List<CiudadEntity> finded = ciudadPersistence.findAll( );
 		Assert.assertEquals( data.size( ), finded.size( ) );
-		for( PabellonEntity pabellonEntity : finded )
+		for( CiudadEntity ciudadEntity : finded )
 		{
 			boolean found = false;
-			for( PabellonEntity entity : data )
+			for( CiudadEntity entity : data )
 			{
-				if( pabellonEntity.getId( ).equals( entity.getId( ) ) )
+				if( ciudadEntity.getId( ).equals( entity.getId( ) ) )
 				{
 					found = true;
 					break;
@@ -138,25 +135,25 @@ public class PabellonPersistenceTest
     }
     
     @Test
-    public void updatePabellonTest()
+    public void updateCiudadTest()
     {
-        PabellonEntity entity = data.get( 0 );
+        CiudadEntity entity = data.get( 0 );
 	PodamFactory factory = new PodamFactoryImpl( );
-	PabellonEntity upEntity = factory.manufacturePojo( PabellonEntity.class );
+	CiudadEntity upEntity = factory.manufacturePojo( CiudadEntity.class );
 	upEntity.setId( entity.getId( ) );
 		
-	pabellonPersistence.update( upEntity );
+	ciudadPersistence.update( upEntity );
 		
-	PabellonEntity resp = em.find( PabellonEntity.class, entity.getId( ) );
-	Assert.assertEquals( upEntity.getCapacidad(), resp.getCapacidad() );
+	CiudadEntity resp = em.find( CiudadEntity.class, entity.getId( ) );
+	Assert.assertEquals( upEntity.getNombre(), resp.getNombre() );
     }
     
     @Test
-    public void deletePabellonTest()
+    public void deleteCiudadTest()
     {
-        PabellonEntity entity = data.get( 0 );
-	pabellonPersistence.delete( entity.getId( ) );
-	PabellonEntity deleted = em.find( PabellonEntity.class, entity.getId( ) );
+        CiudadEntity entity = data.get( 0 );
+	ciudadPersistence.delete( entity.getId( ) );
+	CiudadEntity deleted = em.find( CiudadEntity.class, entity.getId( ) );
 	Assert.assertNull( deleted );
     }
 }
