@@ -48,9 +48,7 @@ public class ReviewPersistenceTest extends PersistenceTest<ReviewEntity>
 	@Inject
 	private ReviewPersistence persistence;
 	
-	private ArtesanoEntity artesano1;
-	
-	private ArtesanoEntity artesano2;
+	private ArtesanoEntity artesano;
 	
 	@Deployment
 	public static JavaArchive createDeployment( )
@@ -58,6 +56,9 @@ public class ReviewPersistenceTest extends PersistenceTest<ReviewEntity>
 		return ShrinkWrap.create( JavaArchive.class )
 		                 .addPackage( ReviewEntity.class.getPackage( ) )
 		                 .addPackage( ReviewPersistence.class.getPackage( ) )
+		
+		                 .addPackage( ArtesanoEntity.class.getPackage( ) )
+		
 		                 .addAsManifestResource( "META-INF/persistence.xml", "persistence.xml" )
 		                 .addAsManifestResource( "META-INF/beans.xml", "beans.xml" );
 	}
@@ -65,108 +66,92 @@ public class ReviewPersistenceTest extends PersistenceTest<ReviewEntity>
 	protected void clearData( )
 	{
 		em.createQuery( "DELETE FROM ReviewEntity" ).executeUpdate( );
+		em.createQuery( "DELETE FROM ArtesanoEntity" ).executeUpdate( );
 	}
 	
 	protected void insertData( )
 	{
 		PodamFactory factory = new PodamFactoryImpl( );
+		artesano = factory.manufacturePojo( ArtesanoEntity.class );
+		artesano.setId( 1L );
+		em.persist( artesano );
 		
-		artesano1 = artesano1 == null ? factory.manufacturePojo( ArtesanoEntity.class ) : artesano1;
-		artesano2 = artesano2 == null ? factory.manufacturePojo( ArtesanoEntity.class ) : artesano2;
-		
-		List<ReviewEntity> reviews1 = new LinkedList<>( );
-		List<ReviewEntity> reviews2 = new LinkedList<>( );
+		List<ReviewEntity> reviews = new LinkedList<>( );
 		
 		for( int i = 0; i < 10; i++ )
 		{
 			ReviewEntity entity = factory.manufacturePojo( ReviewEntity.class );
-			entity.setArtesano( i % 2 == 0 ? artesano1 : artesano2 );
-			
+			entity.setArtesano( artesano );
 			em.persist( entity );
-			data.add( entity );
 			
-			if( i % 2 == 0 )
-			{
-				reviews1.add( entity );
-			}
-			else
-			{
-				reviews2.add( entity );
-			}
+			reviews.add( entity );
 		}
-		artesano1.setReviews( reviews1 );
-		artesano2.setReviews( reviews2 );
+		artesano.setReviews( reviews );
 	}
 	
 	@Test
 	public void create( ) throws Exception
 	{
 		PodamFactory factory = new PodamFactoryImpl( );
-		
 		ReviewEntity newEntity = factory.manufacturePojo( ReviewEntity.class );
-		artesano1 = factory.manufacturePojo( ArtesanoEntity.class );
-		artesano2 = factory.manufacturePojo( ArtesanoEntity.class );
 		
 		ReviewEntity result = persistence.create( newEntity );
 		Assert.assertNotNull( result );
 		
 		ReviewEntity entity = em.find( ReviewEntity.class, result.getId( ) );
 		Assert.assertNotNull( entity );
+		
+		Assert.assertEquals( result.getComentario( ), entity.getComentario( ) );
 	}
 	
 	@Test
 	public void find( ) throws Exception
 	{
-		ReviewEntity entity = artesano1.getReviews( ).get( 0 );
-		ReviewEntity newEntity = persistence.find( artesano1.getId( ), entity.getId( ) );
+		ReviewEntity entity = artesano.getReviews( ).get( 0 );
+		ReviewEntity newEntity = persistence.find( artesano.getId( ), entity.getId( ) );
+		
 		Assert.assertNotNull( newEntity );
 		Assert.assertEquals( entity.getComentario( ), newEntity.getComentario( ) );
+	}
+	
+	private boolean existsReview( Long idReview )
+	{
+		for( ReviewEntity entity : artesano.getReviews( ) )
+		{
+			if( idReview.equals( entity.getId( ) ) )
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@Test
 	public void findAll( ) throws Exception
 	{
 		List<ReviewEntity> finded = persistence.findAll( );
-		Assert.assertEquals( data.size( ), finded.size( ) );
-		for( ReviewEntity currentEntity : finded )
+		Assert.assertEquals( artesano.getReviews( ).size( ), finded.size( ) );
+		for( ReviewEntity currentReview : finded )
 		{
-			boolean found = false;
-			for( ReviewEntity entity : data )
-			{
-				if( currentEntity.getId( ).equals( entity.getId( ) ) )
-				{
-					found = true;
-					break;
-				}
-			}
-			Assert.assertTrue( found );
+			Assert.assertTrue( existsReview( currentReview.getId( ) ) );
 		}
 	}
 	
 	@Test
 	public void findAllFromArtesano( ) throws Exception
 	{
-		List<ReviewEntity> reviews = persistence.findAllFromArtesano( artesano1.getId( ) );
-		Assert.assertEquals( artesano1.getReviews( ).size( ), reviews.size( ) );
+		List<ReviewEntity> reviews = persistence.findAllFromArtesano( artesano.getId( ) );
+		Assert.assertEquals( artesano.getReviews( ).size( ), reviews.size( ) );
 		for( ReviewEntity review : reviews )
 		{
-			boolean found = false;
-			for( ReviewEntity aReview : artesano1.getReviews( ) )
-			{
-				if( review.getId( ).equals( aReview.getId( ) ) )
-				{
-					found = true;
-					break;
-				}
-			}
-			Assert.assertTrue( found );
+			Assert.assertTrue( existsReview( review.getId( ) ) );
 		}
 	}
 	
 	@Test
 	public void update( ) throws Exception
 	{
-		ReviewEntity entity = data.get( 0 );
+		ReviewEntity entity = artesano.getReviews( ).get( 0 );
 		PodamFactory factory = new PodamFactoryImpl( );
 		ReviewEntity upEntity = factory.manufacturePojo( ReviewEntity.class );
 		upEntity.setId( entity.getId( ) );
@@ -180,7 +165,7 @@ public class ReviewPersistenceTest extends PersistenceTest<ReviewEntity>
 	@Test
 	public void delete( ) throws Exception
 	{
-		ReviewEntity entity = data.get( 0 );
+		ReviewEntity entity = artesano.getReviews( ).get( 0 );
 		persistence.delete( entity.getId( ) );
 		ReviewEntity deleted = em.find( ReviewEntity.class, entity.getId( ) );
 		Assert.assertNull( deleted );
