@@ -11,12 +11,9 @@
                 url: '/espacios',
                 abstract: true,
                 parent: 'ciudadDetail',
-                param: {
-                    idCiudad: null
-                },
                 resolve: {
                     espacios: ['$http', 'ciudadesContext', 'espaciosContext', '$stateParams', function ($http, ciudadesContext, espaciosContext, $params) {
-                            return $http.get(ciudadesContext + '/' + $params.idParent + '/' + espaciosContext);
+                            return $http.get(ciudadesContext + '/' + $params.ciudadId + '/' + espaciosContext);
                         }]
                 },
                 views: {

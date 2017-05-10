@@ -41,9 +41,11 @@ public class FeriaDetailDTO extends FeriaDTO {
     
     private List<ArtesanoFeriaDTO> artesanos;
     
-    private List<BoletaDTO> boletas;
+    private List<BoletaDetailDTO> boletas;
     
     private List<ConferenciaDTO> conferencias;
+    
+    private EspacioDetailDTO espacio;
     
     public FeriaDetailDTO() {super();}
     
@@ -56,9 +58,10 @@ public class FeriaDetailDTO extends FeriaDTO {
         for (ArtesanoFeriaAssociation artesano : entity.getArtesanos())
             artesanos.add(new ArtesanoFeriaDTO(artesano));
         for (BoletaEntity boleta : entity.getBoletas())
-            boletas.add(new BoletaDTO(boleta));
+            boletas.add(new BoletaDetailDTO(boleta));
         for (ConferenciaEntity conferencia : entity.getConferencias())
             conferencias.add(new ConferenciaDTO(conferencia));
+        espacio = new EspacioDetailDTO(entity.getEspacio());
     }
 
     @Override
@@ -76,6 +79,7 @@ public class FeriaDetailDTO extends FeriaDTO {
         entity.setConferencias(lcon);
         entity.setArtesanos(lart);
         entity.setBoletas(lbol);
+        entity.setEspacio(this.espacio.toEntity());
         return entity;
     }
 
@@ -87,11 +91,11 @@ public class FeriaDetailDTO extends FeriaDTO {
         this.artesanos = artesanos;
     }
 
-    public List<BoletaDTO> getBoletas() {
+    public List<BoletaDetailDTO> getBoletas() {
         return boletas;
     }
 
-    public void setBoletas(List<BoletaDTO> boletas) {
+    public void setBoletas(List<BoletaDetailDTO> boletas) {
         this.boletas = boletas;
     }
     
@@ -101,5 +105,13 @@ public class FeriaDetailDTO extends FeriaDTO {
 
     public void setConferencias(List<ConferenciaDTO> conferencias) {
         this.conferencias = conferencias;
+    }
+
+    public EspacioDetailDTO getEspacio() {
+        return espacio;
+    }
+
+    public void setEspacio(EspacioDetailDTO espacio) {
+        this.espacio = espacio;
     }
 }

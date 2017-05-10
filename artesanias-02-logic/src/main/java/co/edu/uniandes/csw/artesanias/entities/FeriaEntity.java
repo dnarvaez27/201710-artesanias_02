@@ -110,8 +110,8 @@ public class FeriaEntity implements Serializable {
     /**
      * Conjunto de artesanos que asistirán a la feria.
      */
-    @ManyToMany(targetEntity = ArtesanoFeriaAssociation.class)
-    private List<ArtesanoFeriaAssociation> artesanos = new LinkedList<ArtesanoFeriaAssociation>();
+    @ManyToOne(targetEntity = ArtesanoFeriaAssociation.class)
+    private ArtesanoFeriaAssociation asociacion;
     
     /**
      * Conjunto de organizadores de la feria.
@@ -274,19 +274,19 @@ public class FeriaEntity implements Serializable {
      * Devuelve el conjunto de artesanos que asistirán o asistieron a la feria.
      * @return conjunto de artesanos que asistirán a la feria.
      */
-    public List<ArtesanoFeriaAssociation> getArtesanos() {
-        return artesanos;
+    public ArtesanoFeriaAssociation getAsociacion() {
+        return asociacion;
     }
 
     /**
      * Cambia el conjunto de artesanos que asistirán o asistieron a la feria.
      * post: Se cambió el conjunto de artesanos que asistirán o asistieron a la 
      *      feria.
-     * @param artesanos nuevo conjunto de artesanos que asistirán o asistieron 
+     * @param asociacion nuevo conjunto de artesanos que asistirán o asistieron 
      *      a la feria.
      */
-    public void setArtesanos(List<ArtesanoFeriaAssociation> artesanos) {
-        this.artesanos = artesanos;
+    public void setAsociacion(ArtesanoFeriaAssociation asociacion) {
+        this.asociacion = asociacion;
     }
 
     /**

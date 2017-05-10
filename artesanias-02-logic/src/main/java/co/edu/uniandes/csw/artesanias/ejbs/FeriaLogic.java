@@ -119,8 +119,8 @@ public class FeriaLogic {
             entity.setInicio(e.getInicio());
         if (entity.getFin() == null)
             entity.setFin(e.getFin());
-        if (entity.getArtesanos() == null || entity.getArtesanos().isEmpty())
-            entity.setArtesanos(e.getArtesanos());
+        if (entity.getAsociacion() == null)
+            entity.setAsociacion(e.getAsociacion());
         if (entity.getBoletas() == null || entity.getBoletas().isEmpty())
             entity.setBoletas(e.getBoletas());
         if (entity.getOrganizadores() == null || entity.getOrganizadores().isEmpty())
