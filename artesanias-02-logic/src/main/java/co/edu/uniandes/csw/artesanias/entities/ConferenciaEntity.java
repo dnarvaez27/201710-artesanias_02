@@ -3,6 +3,7 @@ package co.edu.uniandes.csw.artesanias.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * @author ia.salazar
@@ -28,9 +29,11 @@ public class ConferenciaEntity implements Serializable
 	
 	private String horaFin;
 	
+        @PodamExclude
 	@ManyToOne( targetEntity = FeriaEntity.class, fetch = FetchType.LAZY )
 	private FeriaEntity feria;
 	
+        @PodamExclude
 	@ManyToOne( targetEntity = SalonEntity.class, fetch = FetchType.LAZY )
 	private SalonEntity salon;
 	

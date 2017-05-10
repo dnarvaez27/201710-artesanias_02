@@ -26,6 +26,7 @@ package co.edu.uniandes.csw.artesanias.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * @author IVAN
@@ -38,6 +39,7 @@ public class OrganizadorEntity extends UsuarioEntity implements Serializable {
 
     private String identificacion;
 
+    @PodamExclude
     @ManyToMany(mappedBy = "organizadores", targetEntity = FeriaEntity.class, fetch = FetchType.LAZY)
     private List<FeriaEntity> ferias;
 
