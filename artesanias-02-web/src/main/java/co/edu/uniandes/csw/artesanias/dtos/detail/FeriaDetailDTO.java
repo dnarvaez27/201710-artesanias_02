@@ -27,6 +27,7 @@ import co.edu.uniandes.csw.artesanias.dtos.asociacion.ArtesanoFeriaDTO;
 import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
 import co.edu.uniandes.csw.artesanias.entities.ConferenciaEntity;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
+import co.edu.uniandes.csw.artesanias.entities.asociaciones.ArtesanoFeriaAssociation;
 import java.util.LinkedList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,7 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class FeriaDetailDTO extends FeriaDTO {
     
-    private ArtesanoFeriaDTO asociacion;
+    private List<ArtesanoFeriaDTO> asociaciones;
     
     private List<BoletaDetailDTO> boletas;
     
@@ -53,12 +54,14 @@ public class FeriaDetailDTO extends FeriaDTO {
         if (entity == null) return;
         boletas = new LinkedList<>();
         conferencias = new LinkedList<>();
+        asociaciones = new LinkedList<>();
+        for (ArtesanoFeriaDTO asociacion : asociaciones)
+            asociaciones.add(asociacion);
         for (BoletaEntity boleta : entity.getBoletas())
             boletas.add(new BoletaDetailDTO(boleta));
         for (ConferenciaEntity conferencia : entity.getConferencias())
             conferencias.add(new ConferenciaDTO(conferencia));
         espacio = new EspacioDetailDTO(entity.getEspacio());
-        asociacion = new ArtesanoFeriaDTO(entity.getAsociacion());
     }
 
     @Override
@@ -70,19 +73,22 @@ public class FeriaDetailDTO extends FeriaDTO {
         List<ConferenciaEntity> lcon = new LinkedList<>();
         for (ConferenciaDTO conferencia : conferencias)
             lcon.add(conferencia.toEntity());
+        List<ArtesanoFeriaAssociation> laf = new LinkedList<>();
+        for (ArtesanoFeriaDTO artesanoFeria : asociaciones)
+            laf.add(artesanoFeria.toEntity());
         entity.setConferencias(lcon);
-        entity.setAsociacion(this.asociacion.toEntity());
+        entity.setAsociacion(laf);
         entity.setBoletas(lbol);
         entity.setEspacio(this.espacio.toEntity());
         return entity;
     }
 
-    public ArtesanoFeriaDTO getAsociacion() {
-        return asociacion;
+    public List<ArtesanoFeriaDTO> getAsociacion() {
+        return asociaciones;
     }
 
-    public void setAsociacion(ArtesanoFeriaDTO asociacion) {
-        this.asociacion = asociacion;
+    public void setAsociacion(List<ArtesanoFeriaDTO> asociaciones) {
+        this.asociaciones = asociaciones;
     }
 
     public List<BoletaDetailDTO> getBoletas() {

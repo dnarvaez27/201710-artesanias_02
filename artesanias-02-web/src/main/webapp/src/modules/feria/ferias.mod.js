@@ -15,7 +15,7 @@
                 },
                 resolve: {
                     ferias: ['$http', '$stateParams', function ($http, $params) {
-                            if (typeof $params.context === "undefined" || $params.context === "undefined")
+                            if (typeof $params.context === "undefined" || $params.context === null || typeof $params.idParent === "undefined" || $params.idParent === null)
                                 return $http.get('api/ferias');
                             if (typeof $params.context === "object")
                                 return $http.get($params.context[0] + '/' + $params.idParent + '/ferias/' + $params.context[1]);
@@ -42,7 +42,7 @@
             })
             .state('feriaDetail', {
                 url: '/{idFeria:int}/detail',
-                parent: 'feriasList',
+                parent: 'ferias',
                 param: {
                     idFeria: null
                 },

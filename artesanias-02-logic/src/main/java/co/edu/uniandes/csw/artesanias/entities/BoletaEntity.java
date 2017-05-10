@@ -27,6 +27,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * Entidad de las boletas.
@@ -96,12 +97,14 @@ public class BoletaEntity implements Serializable {
      */
     @ManyToOne(targetEntity = FeriaEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_feria")
+    @PodamExclude
     private FeriaEntity feria;
 
     /**
      * Dueño de la boleta.
      */
     @ManyToOne(targetEntity = EspectadorEntity.class, fetch = FetchType.LAZY)
+    @PodamExclude
     private EspectadorEntity espectador;
 
     //--------------------------------------------------------------------------

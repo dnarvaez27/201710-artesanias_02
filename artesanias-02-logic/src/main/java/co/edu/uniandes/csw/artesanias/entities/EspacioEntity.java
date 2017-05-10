@@ -28,6 +28,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * Entidad de los espacios.
@@ -84,6 +85,7 @@ public class EspacioEntity implements Serializable {
     @ManyToOne(targetEntity = CiudadEntity.class)
     @JoinColumn(name = "ciudad_id")
     //    @Column(nullable=false) // Generaba error para ejecutar
+    @PodamExclude
     private CiudadEntity ciudad;
 
     /**
@@ -91,10 +93,12 @@ public class EspacioEntity implements Serializable {
      * con FeriaEntity. El dueño de la relación es FeriaEntity.
      */
     @OneToMany(mappedBy = "espacio")
+    @PodamExclude
     private List<FeriaEntity> ferias = new LinkedList<FeriaEntity>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "espacio",
             targetEntity = PabellonEntity.class, fetch = FetchType.LAZY)
+    @PodamExclude
     private List<PabellonEntity> pabellones;
 
     //--------------------------------------------------------------------------
