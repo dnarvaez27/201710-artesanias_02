@@ -58,109 +58,119 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class FeriaResource {
-    
+
     //--------------------------------------------------------------------------
     // Atributos
     //--------------------------------------------------------------------------
-    
-    @Inject private FeriaLogic feriaLogic;
-    @Inject private OrganizadorLogic organizadorLogic;
-    @Inject private EspacioLogic espacioLogic;
-    @Context private HttpServletResponse response;
-    @QueryParam("page") private Integer page;
-    @QueryParam("limit") private Integer maxRecords;
-    
+    @Inject
+    private FeriaLogic feriaLogic;
+    @Inject
+    private OrganizadorLogic organizadorLogic;
+    @Inject
+    private EspacioLogic espacioLogic;
+    @Context
+    private HttpServletResponse response;
+    @QueryParam("page")
+    private Integer page;
+    @QueryParam("limit")
+    private Integer maxRecords;
+
     //--------------------------------------------------------------------------
     // Métodos
     //--------------------------------------------------------------------------
-    
     @POST
     public FeriaDTO createFeria(FeriaEntity entity) throws BusinessLogicException {
-        if (entity.getOrganizadores() == null || entity.getOrganizadores().isEmpty())
+        if (entity.getOrganizadores() == null || entity.getOrganizadores().isEmpty()) {
             throw new WebApplicationException("No existen los organizadores", 404);
-        if (entity.getEspacio() == null)
+        }
+        if (entity.getEspacio() == null) {
             throw new WebApplicationException("No existe el espacio", 404);
+        }
         EspacioEntity ee = espacioLogic.getEspacio(entity.getId());
-        if (ee == null)
+        if (ee == null) {
             throw new WebApplicationException("No existe el espacio", 404);
+        }
         List<OrganizadorEntity> lst = new LinkedList<>();
         for (OrganizadorEntity o : entity.getOrganizadores()) {
             OrganizadorEntity oe = organizadorLogic.getOrganizador(o.getId());
-            if (oe == null)
+            if (oe == null) {
                 throw new WebApplicationException("No existe el organizador", 404);
+            }
             lst.add(oe);
         }
         entity.setEspacio(ee);
         entity.setOrganizadores(lst);
         return new FeriaDTO(feriaLogic.createFeria(entity));
     }
-    
+
     @GET
     public List<FeriaDTO> getFerias() {
         return listEntity2DTO(feriaLogic.getFerias());
     }
-    
+
     @GET
     @Path("{id: \\d+}")
     public FeriaDetailDTO getFeria(@PathParam("id") Long id) throws BusinessLogicException {
-        if (feriaLogic.getFeria(id) == null)
+        if (feriaLogic.getFeria(id) == null) {
             throw new WebApplicationException("La feria no existe", 404);
+        }
         return new FeriaDetailDTO(feriaLogic.getFeria(id));
     }
-    
+
     @PUT
     @Path("{id: \\d+}")
     public FeriaDTO updateFeria(@PathParam("id") Long id, FeriaDTO dto) throws BusinessLogicException {
         FeriaEntity entity = dto.toEntity();
         entity.setId(id);
-        if (feriaLogic.getFeria(id) == null)
+        if (feriaLogic.getFeria(id) == null) {
             throw new WebApplicationException("La feria no existe", 404);
+        }
         return new FeriaDTO(feriaLogic.updateFeria(entity));
     }
-    
+
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteFeria(@PathParam( "id" ) Long id) throws BusinessLogicException {
-        if (feriaLogic.getFeria(id) == null)
+    public void deleteFeria(@PathParam("id") Long id) throws BusinessLogicException {
+        if (feriaLogic.getFeria(id) == null) {
             throw new WebApplicationException("La feria no existe", 404);
+        }
         feriaLogic.deleteFeria(id);
     }
-    
+
     //--------------------------------------------------------------------------
     // Métodos de subrecursos
     //--------------------------------------------------------------------------
-    
-    @Path( "{idFeria: \\d+}/organizadores" )
+    @Path("{idFeria: \\d+}/organizadores")
     public FeriaOrganizadorResource getFeriaOrganizadorResource() {
         return new FeriaOrganizadorResource(this.feriaLogic);
     }
-    
-    
-    @Path( "{idFeria: \\d+}/boletas" )
+
+    @Path("{idFeria: \\d+}/boletas")
     public FeriaBoletaResource getFeriaBoletaResource() {
         return new FeriaBoletaResource(this.feriaLogic);
     }
-    
-    @Path( "{idFeria: \\d+}/conferencias" )
+
+    @Path("{idFeria: \\d+}/conferencias")
     public FeriaConferenciaResource getFeriaConferenciaResource() {
         return new FeriaConferenciaResource(this.feriaLogic);
     }
-    
-    @Path( "{idFeria: \\d+}/artesanos" )
+
+    @Path("{idFeria: \\d+}/artesanos")
     public Class<ArtesanoFeriasResource> getArtesanoFeriasResource(@PathParam("idFeria") Long id) {
-        if (feriaLogic.getFeria(id) == null)
+        if (feriaLogic.getFeria(id) == null) {
             throw new WebApplicationException("No existe la feria", 404);
+        }
         return ArtesanoFeriasResource.class;
     }
-    
+
     //--------------------------------------------------------------------------
     // Métodos Auxiliares
     //--------------------------------------------------------------------------
-    
     private List<FeriaDTO> listEntity2DTO(List<FeriaEntity> entities) {
         List<FeriaDTO> rta = new LinkedList<FeriaDTO>();
-        for (FeriaEntity entity : entities)
+        for (FeriaEntity entity : entities) {
             rta.add(new FeriaDTO(entity));
+        }
         return rta;
     }
 }
