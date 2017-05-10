@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.artesanias.persistence;
 
 import co.edu.uniandes.csw.artesanias.entities.StandEntity;
+import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -13,12 +14,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
@@ -26,11 +29,9 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  *
  * @author ja.espinosa12
  */
+@RunWith( Arquillian.class )
 public class StandPersistenceTest 
 {
-    public StandPersistenceTest() 
-    {
-    }
 
     @Deployment
     public static JavaArchive createdeployment()
@@ -44,6 +45,9 @@ public class StandPersistenceTest
     @Inject
     private StandPersistence standPersistence;
     
+    private PabellonEntity pabellon;
+    
+    
     @PersistenceContext(unitName = "artesaniasPU")
     private EntityManager em;
     
@@ -55,33 +59,28 @@ public class StandPersistenceTest
     @Before
     public void setUp()
     {
-        try
-        {
+        try {
             utx.begin();
             em.joinTransaction();
             clearData();
             insertData();
             utx.commit();
-        }
-        catch( Exception e)
-        {
-            try
-            {
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
                 utx.rollback();
-            } 
-            catch( Exception e1){
+            } catch (Exception e1) {
                 e1.printStackTrace();
-                fail("configuration data base fail");
             }
         }
     }
     
-    private void clearData()
+    protected void clearData()
     {
         em.createQuery("delete from StandEntity").executeUpdate();
     }
     
-    private void insertData()
+    protected void insertData()
     {
         PodamFactory factory = new PodamFactoryImpl();
         for(int i = 0; i < 3; i++)
@@ -97,37 +96,37 @@ public class StandPersistenceTest
     {
         PodamFactory factory = new PodamFactoryImpl();
         StandEntity newEntity = factory.manufacturePojo(StandEntity.class);
-
         StandEntity result = standPersistence.create(newEntity);
+
         Assert.assertNotNull(result);
-        
+
         StandEntity entity = em.find(StandEntity.class, result.getId());
-        Assert.assertNotNull(entity);  
+
+        Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
     }
     @Test
     public void findStandTest()
     {
-       
+        StandEntity entity = pabellon.getStands().get( 0 );
+	StandEntity newEntity = standPersistence.find( pabellon.getId( ), entity.getId( ) );
+	Assert.assertNotNull( newEntity );
+	Assert.assertEquals( entity.getDescripcion(), newEntity.getDescripcion() );
     }
     
     @Test
     public void findAlltest()
     {
-        List<StandEntity> finded = standPersistence.findAll( );
-		Assert.assertEquals( data.size( ), finded.size( ) );
-		for( StandEntity standEntity : finded )
-		{
-			boolean found = false;
-			for( StandEntity entity : data )
-			{
-				if( standEntity.getId( ).equals( entity.getId( ) ) )
-				{
-					found = true;
-					break;
-				}
-			}
-			Assert.assertTrue( found );
-		}
+        List<StandEntity> list = standPersistence.findAll();
+        Assert.assertEquals(data.size(), list.size());
+        for (StandEntity ent : list) {
+            boolean found = false;
+            for (StandEntity entity : data) {
+                if (ent.getId().equals(entity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
     }
     
     @Test

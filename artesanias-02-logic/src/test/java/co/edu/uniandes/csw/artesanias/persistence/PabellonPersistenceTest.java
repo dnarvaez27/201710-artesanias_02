@@ -32,9 +32,6 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class PabellonPersistenceTest 
 {
     
-    public PabellonPersistenceTest() 
-    {
-    }
 
     @Deployment
     public static JavaArchive createdeployment()
@@ -80,12 +77,12 @@ public class PabellonPersistenceTest
         }
     }
     
-    private void clearData()
+    public void clearData()
     {
         em.createQuery("delete from PabellonEntity").executeUpdate();
     }
     
-    private void insertData()
+    public void insertData()
     {
         PodamFactory factory = new PodamFactoryImpl();
         for(int i = 0; i < 3; i++)

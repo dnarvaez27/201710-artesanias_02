@@ -13,12 +13,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
@@ -26,12 +28,9 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  *
  * @author ja.espinosa12
  */
+@RunWith( Arquillian.class )
 public class CiudadPersistenceTest 
 {
-    
-    public CiudadPersistenceTest() 
-    {
-    }
 
     @Deployment
     public static JavaArchive createdeployment()
@@ -77,12 +76,12 @@ public class CiudadPersistenceTest
         }
     }
     
-    private void clearData()
+    public void clearData()
     {
         em.createQuery("delete from CiudadEntity").executeUpdate();
     }
     
-    private void insertData()
+    public void insertData()
     {
         PodamFactory factory = new PodamFactoryImpl();
         for(int i = 0; i < 3; i++)
