@@ -42,7 +42,7 @@ public class OrganizadorPersistenceTest extends PersistenceTest<OrganizadorEntit
     @Override
     protected void clearData() {
         em.createQuery("DELETE FROM OrganizadorEntity ").executeUpdate();
-        em.createQuery("DELETE FROM FeriaENtity").executeUpdate();
+        em.createQuery("DELETE FROM OrganizadorEntity").executeUpdate();
     }
 
     @Override
@@ -65,7 +65,7 @@ public class OrganizadorPersistenceTest extends PersistenceTest<OrganizadorEntit
 		OrganizadorEntity result = persistence.create( newEntity );
 		Assert.assertNotNull( result );
 		
-		ArtesanoEntity entity = em.find( ArtesanoEntity.class, result.getId( ) );
+		OrganizadorEntity entity = em.find( OrganizadorEntity.class, result.getId( ) );
 		Assert.assertNotNull( entity );
 	}
 	
