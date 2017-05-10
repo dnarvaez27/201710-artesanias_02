@@ -48,7 +48,7 @@ public class SalonPersistence
 	
 	public List<SalonEntity> findAll( )
 	{
-		Query q = em.createQuery( "select u from SalonEntity u" );
+		Query q = em.createQuery( "SELECT U FROM SalonEntity U" );
 		return q.getResultList( );
 	}
 	
