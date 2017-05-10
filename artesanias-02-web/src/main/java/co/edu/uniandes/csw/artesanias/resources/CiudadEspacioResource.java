@@ -77,9 +77,14 @@ public class CiudadEspacioResource {
         logic.removeEspacio(id, idCiudad);
     }
     
-    @Path("{id: \\d+}/ferias")
+    @Path("{idEspacio: \\d+}/ferias")
     public Class<EspacioFeriaResource> getEspacioFeriaResource() {
         return EspacioFeriaResource.class;
+    }
+    
+    @Path("{idEspacio: \\d+}/pabellones")
+    public Class<PabellonResource> getPabellones() {
+        return PabellonResource.class;
     }
     
     //--------------------------------------------------------------------------

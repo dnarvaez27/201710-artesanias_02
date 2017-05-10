@@ -41,6 +41,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * Entidad de las ferias.
@@ -103,6 +104,7 @@ public class FeriaEntity implements Serializable {
     /**
      * Espacio donde se da la feria.
      */
+    @PodamExclude
     @ManyToOne(targetEntity = EspacioEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "espacio_id")
     private EspacioEntity espacio;
@@ -110,13 +112,15 @@ public class FeriaEntity implements Serializable {
     /**
      * Conjunto de artesanos que asistirán a la feria.
      */
-    @ManyToOne(targetEntity = ArtesanoFeriaAssociation.class)
-    private ArtesanoFeriaAssociation asociacion;
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = ArtesanoFeriaAssociation.class, fetch = FetchType.LAZY, mappedBy = "feria")
+    @PodamExclude
+    private List<ArtesanoFeriaAssociation> asociaciones;
     
     /**
      * Conjunto de organizadores de la feria.
      */
     @ManyToMany(targetEntity = OrganizadorEntity.class, fetch = FetchType.LAZY)
+    @PodamExclude
     private List<OrganizadorEntity> organizadores = new LinkedList<OrganizadorEntity>();
 
     /**
@@ -124,6 +128,7 @@ public class FeriaEntity implements Serializable {
      */
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "feria",
             targetEntity = BoletaEntity.class, fetch = FetchType.LAZY)
+    @PodamExclude
     private List<BoletaEntity> boletas;
 
     /**
@@ -131,6 +136,7 @@ public class FeriaEntity implements Serializable {
      */
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "feria",
             targetEntity = ConferenciaEntity.class, fetch = FetchType.LAZY)
+    @PodamExclude
     private List<ConferenciaEntity> conferencias;
 
     //--------------------------------------------------------------------------
@@ -274,19 +280,19 @@ public class FeriaEntity implements Serializable {
      * Devuelve el conjunto de artesanos que asistirán o asistieron a la feria.
      * @return conjunto de artesanos que asistirán a la feria.
      */
-    public ArtesanoFeriaAssociation getAsociacion() {
-        return asociacion;
+    public List<ArtesanoFeriaAssociation> getAsociacion() {
+        return asociaciones;
     }
 
     /**
      * Cambia el conjunto de artesanos que asistirán o asistieron a la feria.
      * post: Se cambió el conjunto de artesanos que asistirán o asistieron a la 
      *      feria.
-     * @param asociacion nuevo conjunto de artesanos que asistirán o asistieron 
+     * @param asociaciones nuevo conjunto de artesanos que asistirán o asistieron 
      *      a la feria.
      */
-    public void setAsociacion(ArtesanoFeriaAssociation asociacion) {
-        this.asociacion = asociacion;
+    public void setAsociacion(List<ArtesanoFeriaAssociation> asociaciones) {
+        this.asociaciones = asociaciones;
     }
 
     /**
