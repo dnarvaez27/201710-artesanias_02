@@ -3,6 +3,7 @@ package co.edu.uniandes.csw.artesanias.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * @author ia.salazar
@@ -18,9 +19,11 @@ public class SalonEntity implements Serializable
 	
 	private Integer capacidad;
 	
+        @PodamExclude
 	@OneToMany( targetEntity = ConferenciaEntity.class, fetch = FetchType.LAZY )
 	private List<ConferenciaEntity> conferencias;
 	
+        @PodamExclude
 	@ManyToOne( targetEntity = PabellonEntity.class, fetch = FetchType.LAZY )
 	private PabellonEntity pabellon;
 	

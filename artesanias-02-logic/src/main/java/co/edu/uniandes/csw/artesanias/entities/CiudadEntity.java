@@ -36,6 +36,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * Entidad de las ciudades.
@@ -78,6 +79,7 @@ public class CiudadEntity implements Serializable {
      * se eliminarían todos los espacios asociados. El dueño de la relación es
      * EspacioEntity.
      */
+    @PodamExclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudad",
             targetEntity = EspacioEntity.class)
     private List<EspacioEntity> espacios = new LinkedList<EspacioEntity>();
@@ -87,6 +89,7 @@ public class CiudadEntity implements Serializable {
      * Relación bidireccional con ArtesanoEntity. El dueño de la relación es
      * ArtesanoEntity.
      */
+    @PodamExclude
     @OneToMany(mappedBy = "ciudad", targetEntity = ArtesanoEntity.class)
     private List<ArtesanoEntity> artesanos = new LinkedList<ArtesanoEntity>();
 
