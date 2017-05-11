@@ -23,9 +23,7 @@
  */
 package co.edu.uniandes.csw.artesanias.persistence;
 
-import co.edu.uniandes.csw.artesanias.entities.EspacioEntity;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
-import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -48,9 +46,6 @@ public class FeriaPersistenceTest extends PersistenceTest<FeriaEntity> {
     @Inject
     private FeriaPersistence persistence;
 
-    private EspacioEntity e1;
-    private EspacioEntity e2;
-    
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -66,55 +61,33 @@ public class FeriaPersistenceTest extends PersistenceTest<FeriaEntity> {
 
     protected void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
-
-        e1 = e1 == null ? factory.manufacturePojo(EspacioEntity.class) : e1;
-        e2 = e2 == null ? factory.manufacturePojo(EspacioEntity.class) : e2;
-
-        List<FeriaEntity> ferias1 = new LinkedList<FeriaEntity>();
-        List<FeriaEntity> ferias2 = new LinkedList<FeriaEntity>();
-
         for (int i = 0; i < 10; i++) {
             FeriaEntity entity = factory.manufacturePojo(FeriaEntity.class);
-            entity.setEspacio(i % 2 == 0 ? e1 : e2);
-
             em.persist(entity);
             data.add(entity);
-
-            if (i % 2 == 0) {
-                ferias1.add(entity);
-            } else {
-                ferias2.add(entity);
-            }
         }
-        e1.setFerias(ferias1);
-        e2.setFerias(ferias2);
     }
 
     @Test
     public void create() throws Exception {
         PodamFactory factory = new PodamFactoryImpl();
-
         FeriaEntity newEntity = factory.manufacturePojo(FeriaEntity.class);
-        e1 = factory.manufacturePojo(EspacioEntity.class);
-        e2 = factory.manufacturePojo(EspacioEntity.class);
-
         FeriaEntity result = persistence.create(newEntity);
         Assert.assertNotNull(result);
-
         FeriaEntity entity = em.find(FeriaEntity.class, result.getId());
         Assert.assertNotNull(entity);
     }
 
     @Test
     public void find() throws Exception {
-        FeriaEntity entity = e1.getFerias().get(0);
+        FeriaEntity entity = data.get(0);
         FeriaEntity newEntity = persistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getId(), newEntity.getId());
-        entity = e2.getFerias().get(0);
+        Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
+        entity = data.get(1);
         newEntity = persistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getId(), newEntity.getId());
+        Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
     }
 
     @Test
