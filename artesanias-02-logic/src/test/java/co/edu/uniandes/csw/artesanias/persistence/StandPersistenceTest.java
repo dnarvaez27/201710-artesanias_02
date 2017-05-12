@@ -83,12 +83,16 @@ public class StandPersistenceTest
     protected void insertData()
     {
         PodamFactory factory = new PodamFactoryImpl();
+        pabellon = factory.manufacturePojo(PabellonEntity.class);
+        em.persist(pabellon);
         for(int i = 0; i < 3; i++)
         {
             StandEntity entity = factory.manufacturePojo(StandEntity.class);
             em.persist(entity);
+            entity.setPabellon(pabellon);
             data.add(entity);
         }
+        pabellon.setStands(data);
     }
     
     @Test
