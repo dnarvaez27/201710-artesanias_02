@@ -31,8 +31,6 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import uk.co.jemos.podam.api.PodamFactory;
-import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -63,7 +61,6 @@ public class ArtesanoPersistenceTest extends PersistenceTest<ArtesanoEntity>
 	
 	protected void insertData( )
 	{
-		PodamFactory factory = new PodamFactoryImpl( );
 		for( int i = 0; i < 10; i++ )
 		{
 			ArtesanoEntity entity = factory.manufacturePojo( ArtesanoEntity.class );
@@ -75,14 +72,21 @@ public class ArtesanoPersistenceTest extends PersistenceTest<ArtesanoEntity>
 	@Test
 	public void create( )
 	{
-		PodamFactory factory = new PodamFactoryImpl( );
 		ArtesanoEntity newEntity = factory.manufacturePojo( ArtesanoEntity.class );
 		
 		ArtesanoEntity result = persistence.create( newEntity );
 		Assert.assertNotNull( result );
 		
-		ArtesanoEntity entity = em.find( ArtesanoEntity.class, result.getId( ) );
-		Assert.assertNotNull( entity );
+		ArtesanoEntity retrieved = em.find( ArtesanoEntity.class, result.getId( ) );
+		Assert.assertNotNull( retrieved );
+		
+		Assert.assertEquals( result.getNombre( ), retrieved.getNombre( ) );
+		Assert.assertEquals( result.getCiudad( ), retrieved.getCiudad( ) );
+		Assert.assertEquals( result.getIdentificacion( ), retrieved.getIdentificacion( ) );
+		Assert.assertEquals( result.getTelefono( ), retrieved.getTelefono( ) );
+		Assert.assertEquals( result.getImage( ), retrieved.getImage( ) );
+		Assert.assertEquals( result.hashCode( ), retrieved.hashCode( ) );
+		Assert.assertTrue( result.equals( retrieved ) );
 	}
 	
 	@Test
@@ -92,6 +96,14 @@ public class ArtesanoPersistenceTest extends PersistenceTest<ArtesanoEntity>
 		ArtesanoEntity newEntity = persistence.find( entity.getId( ) );
 		Assert.assertNotNull( newEntity );
 		Assert.assertEquals( entity.getNombre( ), newEntity.getNombre( ) );
+		Assert.assertEquals( entity.getCiudad( ), newEntity.getCiudad( ) );
+		Assert.assertEquals( entity.getIdentificacion( ), newEntity.getIdentificacion( ) );
+		Assert.assertEquals( entity.getTelefono( ), newEntity.getTelefono( ) );
+		Assert.assertEquals( entity.getImage( ), newEntity.getImage( ) );
+		Assert.assertEquals( entity.hashCode( ), newEntity.hashCode( ) );
+		Assert.assertTrue( entity.equals( newEntity ) );
+		
+		Assert.assertNull( persistence.find( -1L ) );
 	}
 	
 	@Test
@@ -118,7 +130,7 @@ public class ArtesanoPersistenceTest extends PersistenceTest<ArtesanoEntity>
 	public void update( )
 	{
 		ArtesanoEntity entity = data.get( 0 );
-		PodamFactory factory = new PodamFactoryImpl( );
+		
 		ArtesanoEntity upEntity = factory.manufacturePojo( ArtesanoEntity.class );
 		upEntity.setId( entity.getId( ) );
 		
@@ -126,6 +138,13 @@ public class ArtesanoPersistenceTest extends PersistenceTest<ArtesanoEntity>
 		
 		ArtesanoEntity resp = em.find( ArtesanoEntity.class, entity.getId( ) );
 		Assert.assertEquals( upEntity.getNombre( ), resp.getNombre( ) );
+		Assert.assertEquals( upEntity.getNombre( ), resp.getNombre( ) );
+		Assert.assertEquals( upEntity.getCiudad( ), resp.getCiudad( ) );
+		Assert.assertEquals( upEntity.getIdentificacion( ), resp.getIdentificacion( ) );
+		Assert.assertEquals( upEntity.getTelefono( ), resp.getTelefono( ) );
+		Assert.assertEquals( upEntity.getImage( ), resp.getImage( ) );
+		Assert.assertEquals( upEntity.hashCode( ), resp.hashCode( ) );
+		Assert.assertTrue( upEntity.equals( resp ) );
 	}
 	
 	@Test

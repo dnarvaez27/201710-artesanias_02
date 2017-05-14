@@ -62,8 +62,13 @@ public class EspectadorBoletaResouerce {
             List<BoletaDetailDTO> boletas) {
         if (logic.getEspectador(idEspectador) == null)
             throw new WebApplicationException("No existe el espectador", 404);
-        for (BoletaDetailDTO o : boletas) {
-            logic.addBoleta(idEspectador, o.getId());
+        try{
+            for (BoletaDetailDTO o : boletas) {
+                logic.addBoleta(idEspectador, o.toEntity());
+            }
+        }
+        catch( Exception e ){
+            throw new WebApplicationException("Hubo un error actualizando las boletas", 404);
         }
         return listBoletaEntity2DetailDTO(logic.getEspectador(idEspectador).getBoletas());
     }

@@ -1,3 +1,26 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2017 d.narvaez11.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package co.edu.uniandes.csw.artesanias.persistence;
 
 import co.edu.uniandes.csw.artesanias.entities.ArtesaniaEntity;
@@ -46,9 +69,11 @@ public class ArtesanoPersistence
 	{
 		TypedQuery<ArtesanoEntity> q = em.createQuery( "SELECT A FROM ArtesanoEntity A where A.id = :idArtesano", ArtesanoEntity.class );
 		q.setParameter( "idArtesano", id );
-		ArtesanoEntity en = q.getSingleResult( );
-		if( en != null )
+		ArtesanoEntity en;
+		try
 		{
+			en = q.getSingleResult( );
+			
 			TypedQuery<ArtesaniaEntity> q2 = em.createQuery( "SELECT R FROM ArtesaniaEntity R WHERE R.artesano.id = :idArtesano", ArtesaniaEntity.class );
 			q2.setParameter( "idArtesano", id );
 			en.setArtesanias( q2.getResultList( ) );
@@ -56,6 +81,10 @@ public class ArtesanoPersistence
 			TypedQuery<ReviewEntity> q3 = em.createQuery( "SELECT R FROM ReviewEntity R WHERE R.artesano.id = :idArtesano", ReviewEntity.class );
 			q3.setParameter( "idArtesano", id );
 			en.setReviews( q3.getResultList( ) );
+		}
+		catch( Exception e )
+		{
+			en = null;
 		}
 		return en;
 	}

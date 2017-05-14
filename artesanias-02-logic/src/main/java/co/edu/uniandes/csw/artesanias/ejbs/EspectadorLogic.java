@@ -1,3 +1,26 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2017 d.narvaez11.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package co.edu.uniandes.csw.artesanias.ejbs;
 
 import co.edu.uniandes.csw.artesanias.entities.BoletaEntity;
@@ -7,8 +30,8 @@ import co.edu.uniandes.csw.artesanias.persistence.EspectadorPersistence;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.TypedQuery;
 import javax.ws.rs.core.Response;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,20 +40,11 @@ import java.util.List;
 @Stateless
 public class EspectadorLogic
 {
-	
-	//--------------------------------------------------------------------------
-	// Atributos
-	//--------------------------------------------------------------------------
-	
 	@Inject
 	private EspectadorPersistence persistence;
 	
 	@Inject
 	private BoletaLogic boletaLogic;
-	
-	//--------------------------------------------------------------------------
-	// Métodos
-	//--------------------------------------------------------------------------
 	
 	/**
 	 * Creates an Espectador in the Data Base
@@ -107,9 +121,9 @@ public class EspectadorLogic
 		throw new IllegalArgumentException( "La boleta no está asociado a la espectador" );
 	}
 	
-	public List<BoletaEntity> getBoletas( Long id )
+	public List<BoletaEntity> getBoletas( Long idEspectador )
 	{
-		return persistence.find( id ).getBoletas( );
+		return persistence.find( idEspectador ).getBoletas( );
 	}
 	
 	public void removeBoleta( Long idEspectador, Long idBoleta )
@@ -117,18 +131,25 @@ public class EspectadorLogic
 		BoletaEntity be = boletaLogic.getBoleta( idBoleta );
 		be.setEspectador( null );
 		persistence.find( idEspectador ).getBoletas( ).remove( be );
+		boletaLogic.deleteBoleta( be.getId( ) );
 	}
 	
-	public BoletaEntity addBoleta( Long idEspectador, Long idBoleta )
+	public BoletaEntity addBoleta( Long idEspectador, BoletaEntity boleta ) throws BusinessLogicException
 	{
-		BoletaEntity be = boletaLogic.getBoleta( idBoleta );
-		be.setEspectador( persistence.find( idEspectador ) );
-		return be;
+		EspectadorEntity espectador = persistence.find( idEspectador );
+		boleta.setEspectador( espectador );
+		
+		List<BoletaEntity> boletas = espectador.getBoletas( );
+		if( boletas == null )
+		{
+			boletas = new LinkedList<>( );
+		}
+		boletas.add( boleta );
+		espectador.setBoletas( boletas );
+		
+		boletaLogic.createBoleta( boleta );
+		return boleta;
 	}
-	
-	//--------------------------------------------------------------------------
-	// Métodos Auxiliares
-	//--------------------------------------------------------------------------
 	
 	private void check( EspectadorEntity entity ) throws BusinessLogicException
 	{

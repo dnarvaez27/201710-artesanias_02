@@ -92,8 +92,8 @@ public class ReviewPersistenceTest extends PersistenceTest<ReviewEntity>
 	@Test
 	public void create( ) throws Exception
 	{
-		PodamFactory factory = new PodamFactoryImpl( );
 		ReviewEntity newEntity = factory.manufacturePojo( ReviewEntity.class );
+		newEntity.setArtesano( artesano );
 		
 		ReviewEntity result = persistence.create( newEntity );
 		Assert.assertNotNull( result );
@@ -102,6 +102,10 @@ public class ReviewPersistenceTest extends PersistenceTest<ReviewEntity>
 		Assert.assertNotNull( entity );
 		
 		Assert.assertEquals( result.getComentario( ), entity.getComentario( ) );
+		Assert.assertEquals( result.getPuntuacion( ), entity.getPuntuacion( ) );
+		Assert.assertEquals( result.getArtesano( ).getId( ), entity.getArtesano( ).getId( ) );
+		Assert.assertEquals( result.hashCode( ), entity.hashCode( ) );
+		Assert.assertTrue( result.equals( entity ) );
 	}
 	
 	@Test
@@ -112,6 +116,12 @@ public class ReviewPersistenceTest extends PersistenceTest<ReviewEntity>
 		
 		Assert.assertNotNull( newEntity );
 		Assert.assertEquals( entity.getComentario( ), newEntity.getComentario( ) );
+		Assert.assertEquals( entity.getPuntuacion( ), newEntity.getPuntuacion( ) );
+		Assert.assertEquals( entity.getArtesano( ).getId( ), newEntity.getArtesano( ).getId( ) );
+		Assert.assertEquals( entity.hashCode( ), newEntity.hashCode( ) );
+		Assert.assertTrue( entity.equals( newEntity ) );
+		
+		Assert.assertNull( persistence.find( -1L, -1L ) );
 	}
 	
 	private boolean existsReview( Long idReview )
@@ -155,11 +165,16 @@ public class ReviewPersistenceTest extends PersistenceTest<ReviewEntity>
 		PodamFactory factory = new PodamFactoryImpl( );
 		ReviewEntity upEntity = factory.manufacturePojo( ReviewEntity.class );
 		upEntity.setId( entity.getId( ) );
+		upEntity.setArtesano( artesano );
 		
 		persistence.update( upEntity );
 		
 		ReviewEntity resp = em.find( ReviewEntity.class, entity.getId( ) );
 		Assert.assertEquals( upEntity.getComentario( ), resp.getComentario( ) );
+		Assert.assertEquals( upEntity.getPuntuacion( ), resp.getPuntuacion( ) );
+		Assert.assertEquals( upEntity.getArtesano( ).getId( ), resp.getArtesano( ).getId( ) );
+		Assert.assertEquals( upEntity.hashCode( ), resp.hashCode( ) );
+		Assert.assertTrue( upEntity.equals( resp ) );
 	}
 	
 	@Test

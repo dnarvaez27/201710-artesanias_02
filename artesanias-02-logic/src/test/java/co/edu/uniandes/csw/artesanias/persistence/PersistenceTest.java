@@ -24,12 +24,16 @@
 package co.edu.uniandes.csw.artesanias.persistence;
 
 import org.junit.Before;
+import uk.co.jemos.podam.api.PodamFactory;
+import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,13 +42,15 @@ import java.util.List;
  */
 public abstract class PersistenceTest<T>
 {
-	List<T> data = new LinkedList<>( );
+	protected List<T> data = new LinkedList<>( );
 	
 	@PersistenceContext( unitName = "artesaniasPU" )
-	EntityManager em;
+	protected EntityManager em;
 	
 	@Inject
 	protected UserTransaction utx;
+	
+	protected PodamFactory factory = new PodamFactoryImpl( );
 	
 	@Before
 	public void setUp( )
@@ -73,4 +79,29 @@ public abstract class PersistenceTest<T>
 	protected abstract void clearData( );
 	
 	protected abstract void insertData( );
+	
+	protected String dateToString( Date date )
+	{
+		Calendar c = Calendar.getInstance( );
+		c.setTime( date );
+		c.set( Calendar.HOUR_OF_DAY, 0 );
+		c.set( Calendar.MINUTE, 0 );
+		c.set( Calendar.SECOND, 0 );
+		
+		return String.format( "%s-%s-%s", c.get( Calendar.YEAR ), c.get( Calendar.MONTH ), c.get( Calendar.DAY_OF_MONTH ) );
+	}
+	
+	protected Date toDate( Integer year, Integer month, Integer day )
+	{
+		Calendar c = Calendar.getInstance( );
+		c.set( Calendar.YEAR, year );
+		c.set( Calendar.MONTH, month );
+		c.set( Calendar.DAY_OF_MONTH, day );
+		
+		c.set( Calendar.HOUR_OF_DAY, 0 );
+		c.set( Calendar.MINUTE, 0 );
+		c.set( Calendar.SECOND, 0 );
+		
+		return c.getTime( );
+	}
 }
