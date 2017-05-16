@@ -1,12 +1,61 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-2" ng-repeat="ciudad in ciudadesRecords">
-            <div class="thumbnail">
-                <a ui-sref="ciudadDetail({ciudadId: ciudad.id})">                    
-                    <img class="img-responsive img-circle" ng-src='{{ciudad.image}}' alt="{{ciudad.nombre}}" />                  
+        <div class="text-center container">
+            <button data-target="#crearCiudad" data-toggle="modal" class="btn btn-add">
+                +
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2" ng-repeat="ciudad in ciudadesRecords | filter:currentCiudad.name">
+            <div class="thumbnail box_art">
+                <a ui-sref="ciudadDetail({ciudadId: ciudad.id})">
+                    <div class="caption text-center subtitle">
+                        <p>{{ciudad.nombre}}</p>
+                    </div>
+                    <img class="img-responsive" ng-src='{{ciudad.image}}'/>
                 </a>
-                <div class="caption text-center">
-                    <p>{{ciudad.nombre}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12" ui-view="detailView"></div>
+    </div>
+</div>
+
+<!--TODO Externalizar (?)-->
+<!--TODO Get Form info-->
+<div class="modal fade" role="dialog" id="crearCiudad">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Crear Ciudad</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!--Imagen-->
+                    <div class="col-lg-3 thumbnail" style="max-height: inherit; min-height: inherit;margin: 5px;"></div>
+                    <!--Formulario-->
+                    <form class="col-lg-8">
+                        <!--Nombre-->
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre">
+                        </div>
+                        <!--País-->
+                        <div class="form-group">
+                            <label for="pais">País</label>
+                            <input type="text" class="form-control" id="pais">
+                        </div>
+                        <button class="btn btn-default">Cargar Imagen</button>
+                        <!--Botones de Confirmación-->
+                        <div class="row ">
+                            <button class="option col-sm-5 col-lg-5 btn btn-default btn-success" type="submit">Aceptar</button>
+                            <button class="option col-sm-5 col-lg-5 btn btn-default btn-danger" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
