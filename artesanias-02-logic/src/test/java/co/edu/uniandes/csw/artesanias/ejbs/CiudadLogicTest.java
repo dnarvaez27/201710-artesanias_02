@@ -5,10 +5,9 @@
  */
 package co.edu.uniandes.csw.artesanias.ejbs;
 
-import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
-import co.edu.uniandes.csw.artesanias.entities.StandEntity;
+import co.edu.uniandes.csw.artesanias.entities.CiudadEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.artesanias.persistence.StandPersistence;
+import co.edu.uniandes.csw.artesanias.persistence.CiudadPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -32,7 +31,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author ja.espinosa12
  */
 @RunWith(Arquillian.class)
-public class StandLogicTest {
+public class CiudadLogicTest {
     
     /**
      * 
@@ -47,7 +46,7 @@ public class StandLogicTest {
      * 
      */
     @Inject
-    private StandLogic standLogic;
+    private CiudadLogic ciudadLogic;
 
     /**
      * 
@@ -64,12 +63,8 @@ public class StandLogicTest {
     /**
      * 
      */
-    private List<StandEntity> data = new ArrayList<StandEntity>();
+    private List<CiudadEntity> data = new ArrayList<CiudadEntity>();
 
-    /**
-     * 
-     */
-    private PabellonEntity pabellon;
 
     /**
      * 
@@ -77,9 +72,9 @@ public class StandLogicTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(StandEntity.class.getPackage())
-                .addPackage(StandLogic.class.getPackage())
-                .addPackage(StandPersistence.class.getPackage())
+                .addPackage(CiudadEntity.class.getPackage())
+                .addPackage(CiudadLogic.class.getPackage())
+                .addPackage(CiudadPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -112,8 +107,7 @@ public class StandLogicTest {
      * 
      */
     private void clearData() {
-        em.createQuery("delete from StandEntity").executeUpdate();
-        em.createQuery("delete from PabellonEntity").executeUpdate();
+        em.createQuery("delete from CiudadEntity").executeUpdate();
     }
 
     /**
@@ -123,43 +117,39 @@ public class StandLogicTest {
      */
     private void insertData() {
         
-        pabellon = factory.manufacturePojo(PabellonEntity.class);
-        em.persist(pabellon);
         for (int i = 0; i < 3; i++) {
-            StandEntity entity = factory.manufacturePojo(StandEntity.class);
-            entity.setPabellon(pabellon);
-            
-
+            CiudadEntity entity = factory.manufacturePojo(CiudadEntity.class);
             em.persist(entity);
             data.add(entity);
         }
     }
     /**
-     * Prueba para crear un Stand
+     * Prueba para crear una Ciudad
      *
      * 
      */
     @Test
-    public void createStandTest() throws BusinessLogicException {
-        StandEntity newEntity = factory.manufacturePojo(StandEntity.class);
-        StandEntity result = standLogic.createStand(newEntity);
+    public void createCiudadTest() throws BusinessLogicException {
+        CiudadEntity newEntity = factory.manufacturePojo(CiudadEntity.class);
+        CiudadEntity result = ciudadLogic.createCiudad(newEntity);
         Assert.assertNotNull(result);
-        StandEntity entity = em.find(StandEntity.class, result.getId());
-        Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
+        CiudadEntity entity = em.find(CiudadEntity.class, result.getId());
+        Assert.assertEquals(newEntity.getPais(), entity.getPais());
+        Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
 
     /**
-     * Prueba para consultar la lista de Stands
+     * Prueba para consultar la lista de Ciudades
      *
      * 
      */
     @Test
-    public void getStandsTest() {
-        List<StandEntity> list = standLogic.getStands();
+    public void getCiudadesTest() {
+        List<CiudadEntity> list = ciudadLogic.getCiudades();
         Assert.assertEquals(data.size(), list.size());
-        for (StandEntity entity : list) {
+        for (CiudadEntity entity : list) {
             boolean found = false;
-            for (StandEntity storedEntity : data) {
+            for (CiudadEntity storedEntity : data) {
                 if (entity.getId().equals(storedEntity.getId())) {
                     found = true;
                 }
@@ -170,48 +160,49 @@ public class StandLogicTest {
 
     
     /**
-     * Prueba para consultar un Stand
+     * Prueba para consultar una Ciudad
      *
      * 
      */
     @Test
-    public void getStandTest() throws BusinessLogicException {
-        StandEntity entity = pabellon.getStands().get(0);
-        StandEntity resultEntity = standLogic.getStand(pabellon.getId(),entity.getId());
+    public void getCiudadTest() {
+        CiudadEntity entity = data.get(0);
+        CiudadEntity resultEntity = ciudadLogic.getCiudad(entity.getId());
         Assert.assertNotNull(resultEntity);
-        Assert.assertEquals(entity.getDescripcion(), resultEntity.getDescripcion());
+        Assert.assertEquals(entity.getPais(), resultEntity.getPais());
+        Assert.assertEquals(entity.getNombre(), resultEntity.getNombre());
     }
 
     /**
-     * Prueba para eliminar un Stand
+     * Prueba para eliminar una Ciudad
      *
      * 
      */
     @Test
-    public void deleteStandTest() {
-        StandEntity entity = data.get(1);
-        standLogic.deleteStand(entity.getId());
-        StandEntity deleted = em.find(StandEntity.class, entity.getId());
+    public void deleteCiudadTest() {
+        CiudadEntity entity = data.get(1);
+        ciudadLogic.deleteCiudad(entity.getId());
+        CiudadEntity deleted = em.find(CiudadEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
     /**
-     * Prueba para actualizar un Stand
+     * Prueba para actualizar una Ciudad
      *
      * 
      */
     @Test
-    public void updateStandTest() throws BusinessLogicException {
-        StandEntity entity = data.get(0);
-        StandEntity pojoEntity = factory.manufacturePojo(StandEntity.class);
+    public void updateCiudadTest() throws BusinessLogicException {
+        CiudadEntity entity = data.get(0);
+        CiudadEntity pojoEntity = factory.manufacturePojo(CiudadEntity.class);
 
         pojoEntity.setId(entity.getId());
 
-        standLogic.updateStand(pojoEntity);
+        ciudadLogic.updateCiudad(pojoEntity);
 
-        StandEntity resp = em.find(StandEntity.class, entity.getId());
+        CiudadEntity resp = em.find(CiudadEntity.class, entity.getId());
 
-        Assert.assertEquals(pojoEntity.getDescripcion(), resp.getDescripcion());
+        Assert.assertEquals(pojoEntity.getPais(), resp.getPais());
+        Assert.assertEquals(pojoEntity.getNombre(), resp.getNombre());
     }
-    
 }

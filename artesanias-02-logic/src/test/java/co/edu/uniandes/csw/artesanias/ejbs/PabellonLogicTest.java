@@ -139,7 +139,7 @@ public class PabellonLogicTest {
         }
     }
     /**
-     * Prueba para crear un Employee
+     * Prueba para crear un pabellon
      *
      * 
      */
@@ -154,7 +154,7 @@ public class PabellonLogicTest {
     }
 
     /**
-     * Prueba para consultar la lista de Employees
+     * Prueba para consultar la lista de pabellones
      *
      * 
      */
@@ -202,7 +202,7 @@ public class PabellonLogicTest {
     }
 
     /**
-     * Prueba para actualizar un Employee
+     * Prueba para actualizar un pabellon
      *
      * 
      */
