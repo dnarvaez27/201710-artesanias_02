@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.artesanias.dtos.detail;
 
+import co.edu.uniandes.csw.artesanias.dtos.EspacioDTO;
 import co.edu.uniandes.csw.artesanias.dtos.PabellonDTO;
 import co.edu.uniandes.csw.artesanias.dtos.SalonDTO;
 import co.edu.uniandes.csw.artesanias.dtos.StandDTO;
@@ -22,67 +23,86 @@ import java.util.List;
 @XmlRootElement
 public class PabellonDetailDTO extends PabellonDTO
 {
-        /**
-         * lista de salones en el pabellón
-         */
-	private List<SalonDTO> salones;
+    
+    /**
+     * Espacio al cuál pertenece el pabellon
+     */
+    private EspacioDTO espacio; 
+    
+    /**
+     * lista de salones en el pabellón
+     */
+    private List<SalonDTO> salones;
 	
-        /**
-         * Lista de stands en el pabellón
-         */
-	private List<StandDTO> stands;
+    /**
+     * Lista de stands en el pabellón
+     */
+    private List<StandDTO> stands;
 	
-	public PabellonDetailDTO( )
+    public PabellonDetailDTO( )
+    {
+        super();
+    }
+	
+    /**
+    * Genera un nuevo pabellón con el PabellonEntity ingresado
+    * @param entity 
+    */
+    public PabellonDetailDTO( PabellonEntity entity )
+    {
+        super(entity);
+	if( entity != null )
 	{
-		super( );
-	}
-	
-        /**
-         * Genera un nuevo pabellón con el PabellonEntity ingresado
-         * @param entity 
-         */
-	public PabellonDetailDTO( PabellonEntity entity )
-	{
-		super( entity );
-		if( entity != null )
-		{
-			salones = new LinkedList<>( );
-			for( SalonEntity salon : entity.getSalones( ) )
-			{
-				salones.add( new SalonDTO( salon ) );
-			}
+            this.espacio = new EspacioDTO(entity.getEspacio());
+            
+            salones = new LinkedList<>( );
+            for( SalonEntity salon : entity.getSalones( ) )
+            {
+		salones.add( new SalonDTO( salon ) );
+            }
 			
-			stands = new LinkedList<>( );
-			for( StandEntity stand : entity.getStands( ) )
-			{
-				stands.add( new StandDTO( stand ) );
-			}
-		}
+            stands = new LinkedList<>( );
+            for( StandEntity stand : entity.getStands( ) )
+            {
+		stands.add( new StandDTO( stand ) );
+            }
 	}
+    }
 	
-        /**
-         * Convierte el pabellón actual a un Pabellonentity
-         * @return entity
-         */
-	public PabellonEntity toEntity( )
+    /**
+     * Convierte el pabellón actual a un Pabellonentity
+     * @return entity
+     */
+    public PabellonEntity toEntity( )
+    {
+	PabellonEntity entity = super.toEntity( );
+		
+	List<SalonEntity> salonEntities = new LinkedList<>( );
+	for( SalonDTO salon : salones )
 	{
-		PabellonEntity entity = super.toEntity( );
-		
-		List<SalonEntity> salonEntities = new LinkedList<>( );
-		for( SalonDTO salon : salones )
-		{
-			salonEntities.add( salon.toEntity( ) );
-		}
-		
-		List<StandEntity> standEntities = new LinkedList<>( );
-		for( StandDTO stand : stands )
-		{
-			standEntities.add( stand.toEntity( ) );
-		}
-		
-		entity.setSalones( salonEntities );
-		entity.setStands( standEntities );
-		
-		return entity;
+            salonEntities.add( salon.toEntity( ) );
 	}
+		
+	List<StandEntity> standEntities = new LinkedList<>( );
+	for( StandDTO stand : stands )
+	{
+            standEntities.add( stand.toEntity( ) );
+	}
+		
+        entity.setSalones( salonEntities );
+	entity.setStands( standEntities );
+        entity.setEspacio(this.espacio.toEntity());
+		
+	return entity;
+    }
+    
+    public EspacioDTO getEspacio()
+    {
+        return espacio;
+    }
+    
+    public void setEspacio( EspacioDTO espacio)
+    {
+        this.espacio = espacio;
+    }
 }

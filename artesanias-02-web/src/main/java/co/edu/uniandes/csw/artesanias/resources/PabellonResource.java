@@ -5,12 +5,15 @@
  */
 package co.edu.uniandes.csw.artesanias.resources;
 
+import co.edu.uniandes.csw.artesanias.dtos.EspacioDTO;
 import co.edu.uniandes.csw.artesanias.dtos.PabellonDTO;
 import co.edu.uniandes.csw.artesanias.dtos.detail.PabellonDetailDTO;
 import co.edu.uniandes.csw.artesanias.ejbs.EspacioLogic;
 import co.edu.uniandes.csw.artesanias.ejbs.PabellonLogic;
+import co.edu.uniandes.csw.artesanias.entities.EspacioEntity;
 import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
+import java.util.ArrayList;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,13 +31,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * @author ja.espinosa12
  */
 // TODO todos los métodos deben recibir el idEspacio porque este es un subrecurso de Espacio 
 // TODO en los métodos que reciben el id del pabellon se debe verificar que exista o sino disparar WebApplicationExcepton 404
-@Path("/pabellones")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class PabellonResource {
@@ -44,9 +47,6 @@ public class PabellonResource {
      */
     @Inject
     private PabellonLogic logic;
-
-    @Inject
-    private EspacioLogic espacioLogic;
 
     /**
      * Servicio de respuesta HTTP
@@ -68,96 +68,88 @@ public class PabellonResource {
      * @throws BusinessLogicException
      */
     @POST
-    public PabellonDTO createPabellon(PabellonEntity entity) throws BusinessLogicException {
-        return new PabellonDTO(logic.createPabellon(entity));
+    public PabellonDTO createPabellon(@PathParam( "espacioId" ) Long id, PabellonDetailDTO dto ) throws BusinessLogicException
+	{
+		EspacioEntity en = new EspacioEntity( );
+		en.setId( id );
+		dto.setEspacio( new EspacioDTO( en ) );
+		PabellonEntity entity = logic.createPabellon( dto.toEntity( ) );
+		return new PabellonDTO( entity );
     }
+    @GET
+	public List<PabellonDTO> getPabellones( @PathParam( "espacioId" ) Long id )
+	{
+		return listEntity2DTO( logic.getPabellonesFromEspacio( id ) );
+	}
 
-    /**
-     * Retorna una lista con todos los pabellones
-     *
-     * @return lista de PabellonDTO
-     */
-    /*@GET
-    public List<PabellonDTO> getPabellones(@PathParam("idEspacio") Long idEspacio)
-            throws BusinessLogicException {
-        if (espacioLogic.getEspacio(idEspacio) == null) {
-            throw new WebApplicationException("El espacio no existe", 404);
-        }
-        return listEntity2DTO(logic.getPabellones(idEspacio));
-    }
-
-    /**
-     * Retorna el pabellón con id dado
-     *
-     * @param id
-     * @return PabellonDTO
-     */
-    /*@GET
-    @Path("{id: \\d+}")
-    public PabellonDetailDTO getPabellon(@PathParam("idEspacio") Long idEspacio,
-            @PathParam("id") Long id) throws BusinessLogicException {
-        if (espacioLogic.getEspacio(idEspacio) == null) {
-            throw new WebApplicationException("El espacio no existe", 404);
-        }
-        if (logic.getPabellon(idEspacio, id) == null) {
-            throw new WebApplicationException("El pabellon no existe", 404);
-        }
-        return new PabellonDetailDTO(logic.getPabellon(idEspacio, id));
-    }
-
+    @GET
+	@Path( "{id: \\d+}" )
+	public PabellonDTO getPabellon(
+			@PathParam( "espacioId" ) Long espacioId,
+			@PathParam( "id" ) Long id ) throws BusinessLogicException
+	{
+            PabellonDTO res = new PabellonDTO( logic.getPabellon( espacioId, id ) );
+            if( res != null )
+            {
+                return res;
+            }
+            else
+            {
+                throw new BusinessLogicException( String.format( "El pabellon %s no pertenece al espacio %s ", id, espacioId ), Response.Status.NOT_FOUND );
+            }
+	}
+    
     @PUT
-    @Path("{id: \\d+}")
-    public PabellonDTO updatePabellon(@PathParam("idEspacio") Long idEspacio,
-            @PathParam("id") Long id, PabellonDTO dto) throws BusinessLogicException {
-        if (espacioLogic.getEspacio(idEspacio) == null) {
-            throw new WebApplicationException("El espacio no existe", 404);
-        }
-        if (logic.getPabellon(idEspacio, id) == null) {
-            throw new WebApplicationException("El pabellon no existe", 404);
-        }
-        PabellonEntity entity = dto.toEntity();
-        entity.setId(id);
-        return new PabellonDTO(logic.updatePabellon(entity));
-    }
+	@Path( "{id: \\d+}" )
+	public PabellonDTO updatePabellon(
+			@PathParam( "espacioId" ) Long espacioId,
+			@PathParam( "id" ) Long id, PabellonDTO dto ) throws BusinessLogicException
+	{
+	
+		EspacioEntity esp = new EspacioEntity( );
+		esp.setId( espacioId );
+		PabellonEntity entity = dto.toEntity( );
+		
+		entity.setId( id );
+		entity.setEspacio( esp );
+                PabellonDTO res = new PabellonDTO(logic.updatePabellon( entity ));
+                if( res != null)
+                {
+                    return res;
+                }
+                else
+                {
+                    throw new BusinessLogicException( String.format( "El pabellon %s no pertenece al espacio %s ", id, espacioId ), Response.Status.NOT_FOUND );
+                }
+	}    
+    
+        @DELETE
+	@Path( "{id: \\d+}" )
+	public void deletePabellon(
+			@PathParam( "espacioId" ) Long espacioId,
+			@PathParam( "id" ) Long id ) throws BusinessLogicException
+	{
+            try
+		{
+			getPabellon( espacioId, id );
+			logic.deletePabellon( espacioId, id );
+		}
+		catch( BusinessLogicException e )
+		{
+			throw new BusinessLogicException( String.format( "El pabellon %s no pertenece al espacio %s", id, espacioId ), Response.Status.FORBIDDEN );
+		}
+	}
 
-    /**
-     * Elimina el pabellón con id ingresado
-     *
-     * @param id
-     */
-    /*@DELETE
-    @Path("{id: \\d+}")
-    public void deletePabellon(@PathParam("idEspacio") Long idEspacio, @PathParam("id") Long id) throws BusinessLogicException {
-        if (espacioLogic.getEspacio(idEspacio) == null) {
-            throw new WebApplicationException("El espacio no existe", 404);
-        }
-        if (logic.getPabellon(idEspacio, id) == null) {
-            throw new WebApplicationException("El pabellon no existe", 404);
-        }
-        logic.deletePabellon(id);
-    }
-
-    /**
-     * Retorna una lista de PabellonDTO con base a la lista de PabellonEntity
-     * ingresada
-     *
-     * @param entities
-     * @return rta
-     */
-    private List<PabellonDTO> listEntity2DTO(List<PabellonEntity> entities) {
-        List<PabellonDTO> rta = new LinkedList<>();
-        for (PabellonEntity entity : entities) {
-            rta.add(new PabellonDTO(entity));
-        }
-        return rta;
-    }
-
-    // TODO actualizar el diagrama de clasespara indicar que salon y satand son subrecursos de pabellon
-    /**
-     * Ruta a los stands del pabellón
-     *
-     * @return StandResource
-     */
+	private List<PabellonDTO> listEntity2DTO( List<PabellonEntity> entityList )
+	{
+		List<PabellonDTO> list = new ArrayList<>( );
+		for( PabellonEntity entity : entityList )
+		{
+			list.add( new PabellonDTO( entity ) );
+		}
+		return list;
+	}
+        
     @Path("{pabellonId: \\d+}/stands")
     public Class<StandResource> getStandResource() {
         return StandResource.class;
