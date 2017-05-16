@@ -69,7 +69,7 @@ public class PabellonLogicTest {
     /**
      * 
      */
-    private List<EspacioEntity> espacioData = new ArrayList<>();
+    private EspacioEntity espacio;
 
     /**
      * 
@@ -123,17 +123,11 @@ public class PabellonLogicTest {
      */
     private void insertData() {
         
-        
-        for (int i = 0; i < 3; i++) {
-            EspacioEntity espacio = factory.manufacturePojo(EspacioEntity.class);
-            em.persist(espacio);
-            espacioData.add(espacio);
-        }
+        espacio = factory.manufacturePojo(EspacioEntity.class);
+        em.persist(espacio);
         for (int i = 0; i < 3; i++) {
             PabellonEntity entity = factory.manufacturePojo(PabellonEntity.class);
-            entity.setEspacio(espacioData.get(0));
-            
-
+            entity.setEspacio(espacio);
             em.persist(entity);
             data.add(entity);
         }
@@ -160,7 +154,7 @@ public class PabellonLogicTest {
      */
     @Test
     public void getPabellonesTest() {
-        List<PabellonEntity> list = pabellonLogic.getPabellones();
+        List<PabellonEntity> list = pabellonLogic.getPabellones( espacio.getId());
         Assert.assertEquals(data.size(), list.size());
         for (PabellonEntity entity : list) {
             boolean found = false;
@@ -180,9 +174,9 @@ public class PabellonLogicTest {
      * 
      */
     @Test
-    public void getPabellonTest() {
+    public void getPabellonTest() throws BusinessLogicException {
         PabellonEntity entity = data.get(0);
-        PabellonEntity resultEntity = pabellonLogic.getPabellon(entity.getId());
+        PabellonEntity resultEntity = pabellonLogic.getPabellon(espacio.getId(), entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getTipo(), resultEntity.getTipo());
         Assert.assertEquals(entity.getCapacidad(), resultEntity.getCapacidad());
@@ -194,9 +188,9 @@ public class PabellonLogicTest {
      * 
      */
     @Test
-    public void deletePabellonTest() {
+    public void deletePabellonTest() throws BusinessLogicException {
         PabellonEntity entity = data.get(1);
-        pabellonLogic.deletePabellon(entity.getId());
+        pabellonLogic.deletePabellon(espacio.getId(), entity.getId());
         PabellonEntity deleted = em.find(PabellonEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }

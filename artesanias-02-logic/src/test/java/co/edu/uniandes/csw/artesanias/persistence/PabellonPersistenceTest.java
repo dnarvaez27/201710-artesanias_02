@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.artesanias.persistence;
 
+import co.edu.uniandes.csw.artesanias.entities.EspacioEntity;
 import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,8 @@ public class PabellonPersistenceTest
     }
     @Inject
     private PabellonPersistence pabellonPersistence;
+    
+    private EspacioEntity espacio;
     
     @PersistenceContext(unitName = "artesaniasPU")
     private EntityManager em;
@@ -85,12 +88,16 @@ public class PabellonPersistenceTest
     public void insertData()
     {
         PodamFactory factory = new PodamFactoryImpl();
+        espacio = factory.manufacturePojo(EspacioEntity.class);
+        em.persist(espacio);
         for(int i = 0; i < 3; i++)
         {
             PabellonEntity entity = factory.manufacturePojo(PabellonEntity.class);
             em.persist(entity);
+            entity.setEspacio(espacio);
             data.add(entity);
         }
+        espacio.setPabellones(data);
     }
     
     @Test
@@ -108,10 +115,10 @@ public class PabellonPersistenceTest
     @Test
     public void findPabellonTest()
     {
-        PabellonEntity entity = data.get( 0 );
-	PabellonEntity newEntity = pabellonPersistence.find( entity.getId( ) );
+        PabellonEntity entity = espacio.getPabellones().get( 0 );
+	PabellonEntity newEntity = pabellonPersistence.find( espacio.getId( ), entity.getId( ) );
 	Assert.assertNotNull( newEntity );
-	Assert.assertEquals( entity.getCapacidad(), newEntity.getCapacidad() );
+	Assert.assertEquals( entity.getTipo(), newEntity.getTipo() );
     }
     
     @Test
