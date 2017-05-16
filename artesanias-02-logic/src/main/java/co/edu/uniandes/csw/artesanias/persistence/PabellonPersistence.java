@@ -24,23 +24,35 @@
 package co.edu.uniandes.csw.artesanias.persistence;
 
 import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
-
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  * @author ja.espinosa12
  */
 @Stateless
 public class PabellonPersistence {
-
+    
     /**
      * Entity Manager encargado de la persistencia de Entities
      */
     @PersistenceContext(unitName = "artesaniasPU")
     protected EntityManager em;
+    
+     /**
+     * Genera un PabellonEntity
+     *
+     * @param entity
+     * @return entity
+     */
+    public PabellonEntity create(PabellonEntity entity) 
+    {
+        em.persist(entity);
+        return entity;
+    }
 
     /**
      * Retorna el PabellonEntity buscado por su id
@@ -48,8 +60,21 @@ public class PabellonPersistence {
      * @param id
      * @return PabellonEntity
      */
-    public PabellonEntity find(Long id) {
-        return em.find(PabellonEntity.class, id);
+    public PabellonEntity find(Long espacioId, Long id) 
+    {
+        TypedQuery<PabellonEntity> q = em.createQuery( "SELECT R FROM PabellonEntity R WHERE R.id = :id AND R.espacio.id = :espacioId", PabellonEntity.class );
+		q.setParameter( "id", id );
+		q.setParameter( "espacioId", espacioId );
+		PabellonEntity entity;
+		try
+		{
+			entity = q.getSingleResult( );
+		}
+		catch( Exception e )
+		{
+			entity = null;
+		}
+		return entity;
     }
 
     /**
@@ -58,20 +83,20 @@ public class PabellonPersistence {
      * @return pabellones
      */
     public List<PabellonEntity> findAll() {
-        return em.createQuery("select u from PabellonEntity u").getResultList();
+        TypedQuery<PabellonEntity> q = em.createQuery( "SELECT U FROM PabellonEntity U", PabellonEntity.class );
+		return q.getResultList( );
     }
 
     /**
-     * Genera un PabellonEntity
-     *
-     * @param entity
-     * @return entity
-     */
-    public PabellonEntity create(PabellonEntity entity) {
-        em.persist(entity);
-        return entity;
-    }
-
+	 * 
+	 */
+	public List<PabellonEntity> findAllFromEspacio( Long espacioId )
+	{
+		TypedQuery<PabellonEntity> q = em.createQuery( "SELECT R FROM PabellonEntity R WHERE R.espacio.id = :espacioId", PabellonEntity.class );
+		q.setParameter( "espacioId", espacioId );
+		return q.getResultList( );
+	}
+    
     /**
      * Actualiza el PabellonEntity ingresado por parámetro
      *

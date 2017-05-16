@@ -138,14 +138,14 @@ public class EspacioLogic {
         return persistence.find(id).getPabellones();
     }
     
-    public void removePabellon(Long idPabellon, Long idEspacio) {
-        PabellonEntity pe = pabellonLogic.getPabellon(idPabellon);
+    public void removePabellon(Long idPabellon, Long idEspacio) throws BusinessLogicException {
+        PabellonEntity pe = pabellonLogic.getPabellon(idEspacio, idPabellon);
         pe.setEspacio(null);
         persistence.find(idEspacio).getFerias().remove(pe);
     }
     
-    public PabellonEntity addPabellon(Long idPabellon, Long idEspacio) {
-        PabellonEntity pe = pabellonLogic.getPabellon(idPabellon);
+    public PabellonEntity addPabellon(Long idPabellon, Long idEspacio) throws BusinessLogicException {
+        PabellonEntity pe = pabellonLogic.getPabellon(idEspacio, idPabellon);
         pe.setEspacio(persistence.find(idEspacio));
         return pe;
     }

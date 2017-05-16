@@ -49,17 +49,27 @@ public class PabellonLogic {
     // Métodos
     //--------------------------------------------------------------------------
 
-    public PabellonEntity getPabellon(Long id) {
-        return persistence.find(id);
-    }
-
-    public List<PabellonEntity> getPabellones() {
-        return persistence.findAll();
-    }
-
     public PabellonEntity createPabellon(PabellonEntity entity) throws BusinessLogicException {
         checkData(entity);
         return persistence.create(entity);
+    }
+    
+    public List<PabellonEntity> getPabellones( Long id) {
+        return persistence.findAll();
+    }
+    
+    public List<PabellonEntity> getPabellonesFromEspacio( Long id )
+	{
+		return persistence.findAllFromEspacio( id );
+	}
+
+    public PabellonEntity getPabellon(Long espacioId, Long id) throws BusinessLogicException {
+        PabellonEntity res = persistence.find( espacioId, id );
+		if( res != null )
+		{
+			return res;
+		}
+		throw new BusinessLogicException( String.format( "El pabellon %s no pertenece al espacio %s ", id, espacioId ), Response.Status.NOT_FOUND );
     }
 
     public PabellonEntity updatePabellon(PabellonEntity entity) throws BusinessLogicException {
@@ -67,8 +77,16 @@ public class PabellonLogic {
         return persistence.update(entity);
     }
 
-    public void deletePabellon(Long id) {
-        persistence.delete(id);
+    public void deletePabellon(Long espacioId, Long id) throws BusinessLogicException {
+        try
+		{
+			getPabellon( espacioId, id ); // Verificar Exception
+			persistence.delete( id );
+		}
+		catch( BusinessLogicException e )
+		{
+			throw new BusinessLogicException( String.format( "El pabellon %s no pertenece al espacio %s", id, espacioId ), Response.Status.FORBIDDEN );
+		}
     }
     
     //--------------------------------------------------------------------------
