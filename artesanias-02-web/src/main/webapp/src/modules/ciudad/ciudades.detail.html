@@ -17,12 +17,12 @@
                 </div>
                 <div class="detail-fg col-md-3">
                     <h3>{{currentCiudad.nombre}}</h3>
-                    <ul class="nav nav-tabs">
-                        <li role="presentation"><a class="detail-fg" ui-sref="ciudadDetailEspacioss">Espacios</a></li>
-                    </ul>
                     <div class="detail-fg">
                         <p><strong>País:</strong> {{currentCiudad.pais}}</p>
                     </div>
+                    <ul class="nav nav-tabs">
+                        <li role="presentation"><a class="detail-fg" ui-sref="ciudadDetailEspacios">Espacios</a></li>
+                    </ul>
                 </div>
                 <div class="col-md-6" ui-view="detail"></div>
             </div>

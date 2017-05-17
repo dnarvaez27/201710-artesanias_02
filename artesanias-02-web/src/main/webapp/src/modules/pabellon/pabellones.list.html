@@ -1,22 +1,63 @@
 <div class="container-fluid">
-    <div class="col-sm-12">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Tipo</th>    
-                    <th>ID</th>  
-                    <th>Capacidad</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="pabellon in pabellonesRecords">
-                    <td id="{{$index}}-tipo">   <a ui-sref="pabellonDetail({pabellonId: pabellon.id})">{{pabellon.tipo}}</a></td>
-                    <td id="{{$index}}-id">   <a ui-sref="pabellonDetail({pabellonId: pabellon.id})">{{pabellon.id}}</a></td>
-                    <td id="{{$index}}-capacidad">   <a ui-sref="pabellonDetail({pabellonId: pabellon.id})">{{pabellon.capacidad}}</a></td>                 
-                </tr>
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="text-center container">
+            <button data-target="#crearPabellon" data-toggle="modal" class="btn btn-add">
+                +
+            </button>
+        </div>
     </div>
-    <a href="pabellones.list.html"></a>
+
+    <div class="row">
+        <div class="col-lg-2" ng-repeat="pabellon in pabellonesRecords | filter:currentPabellon.tipo">
+            <div class="thumbnail box_art">
+                <a ui-sref="pabellonDetail({pabellonId: pabellon.id})">
+                    <div class="caption text-center subtitle">
+                        <p>{{pabellon.tipo}}</p>
+                    </div>
+                    <img class="img-responsive" ng-src='{{pabellon.image}}'/>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12" ui-view="detailView"></div>
+    </div>
+</div>
+
+<!--TODO Externalizar (?)-->
+<!--TODO Get Form info-->
+<div class="modal fade" role="dialog" id="crearPabellon">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Crear Pabellon</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!--Imagen-->
+                    <div class="col-lg-3 thumbnail" style="max-height: inherit; min-height: inherit;margin: 5px;"></div>
+                    <!--Formulario-->
+                    <form class="col-lg-8">
+                        <!--Tipo-->
+                        <div class="form-group">
+                            <label for="tipo">Tipo</label>
+                            <input type="text" class="form-control" id="tipo">
+                        </div>
+                        <!--Capacidad-->
+                        <div class="form-group">
+                            <label for="capacidad">Capacidad</label>
+                            <input type="text" class="form-control" id="capacidad">
+                        </div>
+                        <button class="btn btn-default">Cargar Imagen</button>
+                        <!--Botones de Confirmación-->
+                        <div class="row ">
+                            <button class="option col-sm-5 col-lg-5 btn btn-default btn-success" type="submit">Aceptar</button>
+                            <button class="option col-sm-5 col-lg-5 btn btn-default btn-danger" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
