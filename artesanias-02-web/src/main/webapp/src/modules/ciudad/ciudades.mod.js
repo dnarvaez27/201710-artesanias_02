@@ -92,7 +92,7 @@
           parent: 'ciudadDetail',
           views: {
             'detail': {
-              templateUrl: basePathEspacios + 'espacios.list.html'
+              templateUrl: basePathEspacios + 'espacio.list.html'
             }
           }
         });
