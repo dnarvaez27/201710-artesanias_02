@@ -54,7 +54,7 @@ public class OrganizadorResource
 	private Integer maxRec;
 	
 	@POST
-	public OrganizadorDTO createOrganizador( OrganizadorDTO dto )
+	public OrganizadorDTO createOrganizador( OrganizadorDTO dto ) throws BusinessLogicException
 	{
 		return new OrganizadorDTO( logic.createOrganizador( dto.toEntity( ) ) );
 	}
