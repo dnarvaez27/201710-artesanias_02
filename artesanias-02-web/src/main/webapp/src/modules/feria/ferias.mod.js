@@ -59,12 +59,6 @@
                                 $scope.boletasRecords = currentFeria.data.boletas;
                                 $scope.conferenciaRecords = currentFeria.data.conferencias;
                             }]
-                    },
-                    'listView': {
-                        templateUrl: baseConferenciaPath + 'conferencias.list.html',
-                        controller: ['$scope', 'currentFeria', function ($scope, currentFeria) {
-                                $scope.conferenciaRecords = currentFeria.data.conferencias;
-                            }]
                     }
                 }
             })
