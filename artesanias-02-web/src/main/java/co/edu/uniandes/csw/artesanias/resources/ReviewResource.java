@@ -112,8 +112,6 @@ public class ReviewResource
 			@PathParam( "artesanoId" ) Long artesanoId,
 			@PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-            // TODO si el review  no existe debe disparar WebApplicationException 404
-	
 		return new ReviewDTO( logic.getReview( artesanoId, id ) );
 	}
 	
@@ -132,8 +130,6 @@ public class ReviewResource
 			@PathParam( "artesanoId" ) Long artesanoId,
 			@PathParam( "id" ) Long id, ReviewDTO dto ) throws BusinessLogicException
 	{
-             // TODO si el review  no existe debe disparar WebApplicationException 404
-	
 		ArtesanoEntity artes = new ArtesanoEntity( );
 		artes.setId( artesanoId );
 		ReviewEntity entity = dto.toEntity( );
@@ -156,8 +152,6 @@ public class ReviewResource
 			@PathParam( "artesanoId" ) Long artesanoId,
 			@PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-             // TODO si el review  no existe debe disparar WebApplicationException 404
-	
 		logic.deleteReview( artesanoId, id );
 	}
 	

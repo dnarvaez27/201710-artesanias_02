@@ -114,13 +114,13 @@ public class ArtesanoResource
 	 */
 	@PUT
 	@Path( "{id: \\d+}" )
-	public ArtesanoDTO updateArtesano( @PathParam( "id" ) Long id, ArtesanoDTO dto ) throws BusinessLogicException
+	public ArtesanoDetailDTO updateArtesano( @PathParam( "id" ) Long id, ArtesanoDetailDTO dto ) throws BusinessLogicException
 	{
 		logic.getArtesano( id );// Verifica si el artesano existe
 		
 		ArtesanoEntity entity = dto.toEntity( );
 		entity.setId( id );
-		return new ArtesanoDTO( logic.updateArtesano( entity ) );
+		return new ArtesanoDetailDTO( logic.updateArtesano( entity ) );
 	}
 	
 	/**

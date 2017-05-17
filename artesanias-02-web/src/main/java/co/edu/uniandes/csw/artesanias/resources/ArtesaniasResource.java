@@ -112,8 +112,6 @@ public class ArtesaniasResource
 			@PathParam( "artesanoId" ) Long artesanoId,
 			@PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-            // TODO si la artesania  no existe debe disparar WebApplicationException 404
-	
 		return new ArtesaniaDTO( logic.getArtesania( artesanoId, id ) );
 	}
 	
@@ -132,8 +130,6 @@ public class ArtesaniasResource
 			@PathParam( "artesanoId" ) Long artesanoId,
 			@PathParam( "id" ) Long id, ArtesaniaDTO dto ) throws BusinessLogicException
 	{
-             // TODO si la artesania  no existe debe disparar WebApplicationException 404
-	
 		ArtesanoEntity arte = new ArtesanoEntity( );
 		arte.setId( artesanoId );
 		ArtesaniaEntity entity = dto.toEntity( );
@@ -155,8 +151,6 @@ public class ArtesaniasResource
 			@PathParam( "artesanoId" ) Long artesaniaId,
 			@PathParam( "id" ) Long id ) throws BusinessLogicException
 	{
-             // TODO si la artesania  no existe debe disparar WebApplicationException 404
-	
 		logic.deleteArtesania( artesaniaId, id );
 	}
 	

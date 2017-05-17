@@ -1,66 +1,138 @@
 <div class="container-fluid">
+    <!--Boton Modal-->
     <div class="row">
-        <div class="text-center container">
-            <button data-target="#crearArtesano" data-toggle="modal" class="btn btn-add">
-                +
-            </button>
+        <div class="text-center container control-buttons">
+            <button data-target="#crearArtesano" data-toggle="modal" class="btn btn-add">&plus;</button>
+            <button class="btn btn-switch-remove" ng-click="toogleRemove()" id="btn-remove-artesanos">&times;</button>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-2" ng-repeat="artesano in artesanosRecords | filter:currentArtesano.name">
-            <div class="thumbnail box_art">
-                <a ui-sref="artesanoDetail({artesanoId: artesano.id})">
-                    <div class="caption text-center subtitle">
-                        <p>{{artesano.nombre}}</p>
+    <div class="row content-artesanos">
+
+        <div ng-repeat="artesano in artesanosRecords">
+            <div class="col-lg-2">
+                <div class="thumbnail screen-remove" ng-show="artesanosToRemove[$index]">
+                    <h3 class="name-remove">{{artesano.nombre}}</h3>
+                </div>
+                <div class="thumbnail box_art box">
+                    <a href="" ng-click="seeDetail($index)">
+                        <div class="caption text-center subtitle">
+                            <p>{{artesano.nombre}}</p>
+                        </div>
+                        <img class="img-responsive" ng-src='{{artesano.image}}'/>
+                    </a>
+                    <button class="btn btn-remove" ng-show="removeEnabled" ng-click="addToRemove($index)">&times;</button>
+                </div>
+            </div>
+            <artesano-detail style="width: 100%;display: inline-block; "
+                             ng-if="( $index + 1 ) % 6 === 0"
+                             id="{{ 'detail-' + ( ( $index + 1 ) / 6 ) }}"
+                             ng-show="isDetailRowShown($index)">
+            </artesano-detail>
+        </div>
+
+        <artesano-detail style="width: 100%;display: inline-block;"
+                         ng-if="isExtraDetailRow"
+                         id="{{'detail-' + numDetailsRows}}"
+                         ng-show="isLastRowDetail()">
+        </artesano-detail>
+    </div>
+
+    <!--Modals-->
+    <div>
+        <div class="row">
+            <div class="col-lg-12" ui-view="detailView" ng-show="isDetailShown"></div>
+        </div>
+
+        <!--Modal Crear-->
+        <div class="modal fade" role="dialog" id="crearArtesano">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Crear Artesano</h4>
                     </div>
-                    <img class="img-responsive" ng-src='{{artesano.image}}'/>
-                </a>
+                    <div class="modal-body">
+                        <div class="alert alert-danger" ng-show="alerta">
+                            <strong>Error!</strong><span id="infoError"></span>
+                        </div>
+                        <div class="row">
+                            <!--Imagen-->
+                            <div class="col-lg-3 thumbnail" style="max-height: inherit; min-height: inherit;margin: 5px;">
+                                <button class="btn btn-default">Cargar Imagen</button>
+                            </div>
+                            <!--Formulario-->
+                            <form class="col-lg-8">
+                                <!--Nombre-->
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre">
+                                </div>
+                                <!--Identificacion-->
+                                <div class="form-group">
+                                    <label for="identificacion">Identificacion</label>
+                                    <input type="text" class="form-control" id="identificacion">
+                                </div>
+                                <!--Telefono-->
+                                <div class="form-group">
+                                    <label for="telefono">Teléfono</label>
+                                    <input type="text" class="form-control" id="telefono">
+                                </div>
+                                <!--Ciudad-->
+                                <div class="form-group">
+                                    <label for="ciudad">Ciudad</label>
+                                    <select id="ciudad" ng-model="ciudadSeleccionada" class="form-control"
+                                            ng-options="c.nombre for c in cities"></select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row center-block text-center">
+                            <button class="option btn btn-success" type="submit" ng-click="crear()">
+                                Aceptar
+                            </button>
+                            <button class="option btn btn-danger" data-dismiss="modal">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12" ui-view="detailView"></div>
-    </div>
-</div>
 
-<!--TODO Externalizar (?)-->
-<!--TODO Get Form info-->
-<div class="modal fade" role="dialog" id="crearArtesano">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Crear Artesano</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <!--Imagen-->
-                    <div class="col-lg-3 thumbnail" style="max-height: inherit; min-height: inherit;margin: 5px;"></div>
-                    <!--Formulario-->
-                    <form class="col-lg-8">
-                        <!--Nombre-->
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre">
+        <!--Modal Eliminar-->
+        <div class="modal fade" role="dialog" id="eliminarArtesanos">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="shutRemoveOff()">&times;</button>
+                        <h4 class="modal-title">Eliminar Artesanos</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <h4>¿Seguro que desea eliminar a los siguientes artesanos?</h4>
+                            <div class="col-lg-12 pre-scrollable" id="style-3">
+                                <div ng-repeat="a in toBeRemoved">
+                                    <div class="thumbnail">
+                                        <span class="nombre-art">{{a.nombre}}</span>
+                                        <br>
+                                        <span class="identi-art">{{a.identificacion}}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <!--Identificacion-->
-                        <div class="form-group">
-                            <label for="identificacion">Identificacion</label>
-                            <input type="text" class="form-control" id="identificacion">
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row center-block text-center">
+                            <button class="option btn btn-success" type="submit" ng-click="removeArtesanos()">
+                                Aceptar
+                            </button>
+                            <button class="option btn btn-danger" data-dismiss="modal" ng-click="shutRemoveOff()">
+                                Cancelar
+                            </button>
                         </div>
-                        <!--Telefono-->
-                        <div class="form-group">
-                            <label for="telefono">Teléfono</label>
-                            <input type="text" class="form-control" id="telefono">
-                        </div>
-                        <button class="btn btn-default">Cargar Imagen</button>
-                        <!--Botones de Confirmación-->
-                        <div class="row ">
-                            <button class="option col-sm-5 col-lg-5 btn btn-default btn-success" type="submit">Aceptar</button>
-                            <button class="option col-sm-5 col-lg-5 btn btn-default btn-danger" data-dismiss="modal">Cancelar</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

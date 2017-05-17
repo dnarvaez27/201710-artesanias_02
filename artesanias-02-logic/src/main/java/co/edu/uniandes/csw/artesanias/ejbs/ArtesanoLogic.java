@@ -51,7 +51,25 @@ public class ArtesanoLogic
 	public ArtesanoEntity createArtesano( ArtesanoEntity entity ) throws BusinessLogicException
 	{
 		checkNNValues( entity );
+		if( existsWithIdentificacion( entity.getIdentificacion( ) ) )
+		{
+			//TODO Test
+			throw new BusinessLogicException( "Ya existe un artesano con la identificacion dada", Response.Status.FORBIDDEN );
+		}
 		return persistence.create( entity );
+	}
+	
+	private boolean existsWithIdentificacion( String identificacion )
+	{
+		List<ArtesanoEntity> artesanos = persistence.findAll( );
+		for( ArtesanoEntity artesano : artesanos )
+		{
+			if( artesano.getIdentificacion( ).equals( identificacion ) )
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -90,15 +108,25 @@ public class ArtesanoLogic
 	public ArtesanoEntity updateArtesano( ArtesanoEntity entity ) throws BusinessLogicException
 	{
 		ArtesanoEntity info = getArtesano( entity.getId( ) );
+		
 		boolean nombre = entity.getNombre( ) == null || entity.getNombre( ).isEmpty( );
 		boolean telefono = entity.getTelefono( ) == null || entity.getTelefono( ).isEmpty( );
 		boolean ciudad = entity.getCiudad( ) == null;
 		boolean ident = entity.getIdentificacion( ) == null || entity.getIdentificacion( ).isEmpty( );
+		boolean imagen = entity.getImage( ) == null || entity.getImage( ).isEmpty( );
+		boolean artesanias = entity.getArtesanias( ) == null || entity.getArtesanias( ).isEmpty( );
+		boolean reviews = entity.getReviews( ) == null || entity.getReviews( ).isEmpty( );
+		boolean ferias = entity.getFerias( ) == null || entity.getFerias( ).isEmpty( );
 		
 		entity.setNombre( nombre ? info.getNombre( ) : entity.getNombre( ) );
 		entity.setIdentificacion( ident ? info.getIdentificacion( ) : entity.getIdentificacion( ) );
 		entity.setTelefono( telefono ? info.getTelefono( ) : entity.getTelefono( ) );
 		entity.setCiudad( ciudad ? info.getCiudad( ) : entity.getCiudad( ) );
+		entity.setImage( imagen ? info.getImage( ) : entity.getImage( ) );
+		entity.setReviews( reviews ? info.getReviews( ) : entity.getReviews( ) );
+		entity.setArtesanias( artesanias ? info.getArtesanias( ) : entity.getArtesanias( ) );
+		entity.setFerias( ferias ? info.getFerias( ) : entity.getFerias( ) );
+		
 		checkNNValues( entity );
 		return persistence.update( entity );
 	}
