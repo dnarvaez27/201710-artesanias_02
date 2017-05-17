@@ -13,14 +13,31 @@
             <div class="thumbnail">
                 <a ui-sref="organizadorDetail({organizadorId: organizador.id})">                    
                     <img class="img-responsive" ng-src='{{organizador.foto}}' alt="{{organizador.identificacion}}" />                  
-                </a>
+                
                 <div class="caption text-center">
                     <p>{{organizador.correo}}</p>
                 </div>
+                <img class="img-responsive" ng-src='{{ciudad.image}}'/>
+                 </a>
             </div>
         </div>
     </div>
 </div>
+    
+     <div class="row">
+        <div class="col-lg-12" ui-view="detailView"></div>
+    </div>
+</div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     <div class="modal fade" role="dialog" id="crearOrganizador">
     <div class="modal-dialog">

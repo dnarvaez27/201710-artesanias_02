@@ -1,68 +1,35 @@
-<!--<div class="panel panel-default" style="position: relative;">
-    <div class="blur" ng-style="{ 'background-image':'url(' + currentOrganizador.foto + ')' }">
-        style="position: absolute; width:100%;height:100%;">
+
+<div ng-app="mainApp" class="panel panel-default" style="position: relative;">
+    <div class="blur" style="position: absolute;width:100%;height: 300px;">
+        <img ng-src="{{currentOrganizador.foto}}" class="detail-bg">
     </div>
-    <div style="position: relative;">
-        <div class="panel-body" style="background-color: #e5e5e5;">
-        <div class="row"> 
-           <div class="col-md-3">
-                <div class="thumb">
-                    <img class="img-responsive" ng-src="{{currentOrganizador.foto}}"/>
+    <div style="position: absolute; width: 100%; height: 100%; background-color: black; opacity: 0.4 ">
+    </div>
+    <div style="position: relative">
+
+        <div style="position: relative;">
+            <!--<div class="panel-body" style="background-color: #e5e5e5;">-->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="thumb">
+                        <img class="img-responsive img-detail" ng-src="{{currentOrganizador.foto}}"/>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <h3>{{currentOrganizador.correo}}</h3>
-                <ul class="nav nav-tabs">
-                    <li role="presentation"><a ui-sref="feriaList">Ferias</a></li>
-                    
-                </ul>
-                <div>
-                   
+                <div class="detail-fg col-md-3">
+                    <h3>{{currentOrganizador.correo}}</h3>
+                    <div class="detail-fg">
+                        <p><strong>ID</strong> {{currentOrganizador.id}}</p>
+                    </div>
+                    <ul class="nav nav-tabs">
+                        <li role="presentation"><a class="detail-fg" ui-sref="OrganizadorDetailFerias">Ferias</a></li>
+                    </ul>
                 </div>
+                <div class="col-md-6" ui-view="detail"></div>
             </div>
-            <div class="col-md-6" ui-view="detail"></div>
-        </div>
+            <!--</div>-->
         </div>
     </div>
 </div>
 <div ui-view="childrenView"></div>
 
--->
-</div>
-
-<div class="panel panel-default"> 
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="thumb">
-                    <img ng-src="{{currentOrganizador.image}}" class="detail-bg">
-                </div>
-
-            </div>
-            <div class="col-md-3">
-                <dl>     
-                    <dt>{{currentOrganizador.correo}}</dt>
-                    
-                    <dt> ID</dt>
-                    <dd>{{currentOrganizador.id}}</dd>
-                   
-                   
-                   
-            </div>
-             <div ui-view="childrenView"></div>
-        </div>
-    </div>
-   
-</div>
-
-<div class="col-lg-2" ng-repeat="feria in feriasRecords ">
-            <div class="thumbnail box_art">
-                <a ui-sref="feriaDetail({idFeria: feria.id})">
-                    <div class="caption text-center subtitle">
-                        <p>{{feria.nombre}}</p>
-                        <!--<p>{{feria.inicio | date:'yyyy-MM-dd'}}</p>
-                        <p>{{feria.fin | date:'yyyy-MM-dd'}}</p>-->
-                    </div>
-                    <img class="img-responsive" ng-src='{{feria.image}}'/>
-                </a>
-            </div>
+<button ng-click="add( currentOrganizador )"></button>
