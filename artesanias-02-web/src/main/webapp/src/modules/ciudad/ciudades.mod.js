@@ -11,7 +11,7 @@
       $urlRouterProvider.otherwise('/ciudades/list');
 
       $stateProvider
-        .state('ciudadess', {
+        .state('ciudades', {
           url: '/ciudades',
           abstract: true,
           resolve: {
@@ -82,7 +82,7 @@
               controller: ['$scope', '$stateParams', 'currentCiudad',
                 function ($scope, $params, currentCiudad) {
                   $scope.currentCiudad = currentCiudad.data;
-                  $scope.espaciossRecords = $scope.currentCiudad.espacios;
+                  $scope.espaciosRecords = $scope.currentCiudad.espacios;
                 }]
             }
           }
