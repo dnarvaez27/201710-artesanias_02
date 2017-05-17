@@ -23,6 +23,7 @@
  */
 package co.edu.uniandes.csw.artesanias.ejbs;
 
+import co.edu.uniandes.csw.artesanias.entities.EspectadorEntity;
 import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
 import co.edu.uniandes.csw.artesanias.exceptions.BusinessLogicException;
@@ -32,6 +33,7 @@ import co.edu.uniandes.csw.artesanias.persistence.OrganizadorPersistence;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
 /**
  * @author IVAN
@@ -56,7 +58,8 @@ public class OrganizadorLogic {
         return persistence.find(id);
     }
 
-    public OrganizadorEntity createOrganizador(OrganizadorEntity entity) {
+    public OrganizadorEntity createOrganizador(OrganizadorEntity entity) throws BusinessLogicException {
+        check(entity);
         return persistence.create(entity);
     }
 
@@ -101,4 +104,16 @@ public class OrganizadorLogic {
         oe.getFerias().add(fe);
         return fe;
     }
+    
+    private void check( OrganizadorEntity entity ) throws BusinessLogicException
+	{
+		if( entity.getCorreo( ) == null || entity.getCorreo( ).isEmpty( ) )
+		{
+			throw new BusinessLogicException( "El correo no puede ser vacío", Response.Status.BAD_REQUEST );
+		}
+		if( entity.getContrasena( ) == null || entity.getContrasena( ).isEmpty( ) )
+		{
+			throw new BusinessLogicException( "La contraseña no puede ser vacía", Response.Status.BAD_REQUEST );
+		}
+	}
 }

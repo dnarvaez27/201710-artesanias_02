@@ -46,7 +46,8 @@ public class ConferenciaPersistence
         }
         
         public List<ConferenciaEntity> findAll() {
-            return em.createQuery("select u from ConferenciaEntity u").getResultList();
+            TypedQuery<ConferenciaEntity> q = em.createQuery( "SELECT U FROM ConferenciaEntity U", ConferenciaEntity.class );
+		return q.getResultList( );
         }
 	
 	public ConferenciaEntity find( Long idConferencia, Long id )

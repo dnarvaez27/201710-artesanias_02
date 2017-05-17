@@ -45,9 +45,14 @@ public class SalonLogic
 		return persistence.findAllFromPabellon( pabellonId );
 	}
 	
-	public SalonEntity getSalon( Long id )
+	public SalonEntity getSalonFrompabellon( Long id,Long pabellonId )
 	{
-		return persistence.find( id );
+		return persistence.findFromPabellon(id, pabellonId );
+	}
+        
+        public SalonEntity getSalon( Long id )
+	{
+		return persistence.find(id);
 	}
 	
 	public SalonEntity createSalon( SalonEntity entity ) throws BusinessLogicException

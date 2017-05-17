@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.artesanias.persistence;
 
 import co.edu.uniandes.csw.artesanias.entities.ArtesanoEntity;
+import co.edu.uniandes.csw.artesanias.entities.FeriaEntity;
 import co.edu.uniandes.csw.artesanias.entities.OrganizadorEntity;
 import java.util.List;
 import javax.inject.Inject;
@@ -35,6 +36,7 @@ public class OrganizadorPersistenceTest extends PersistenceTest<OrganizadorEntit
 		return ShrinkWrap.create( JavaArchive.class )
 		                 .addPackage( OrganizadorEntity.class.getPackage( ) )
 		                 .addPackage( OrganizadorPersistence.class.getPackage( ) )
+                                   .addPackage( FeriaEntity.class.getPackage( ) )
 		                 .addAsManifestResource( "META-INF/persistence.xml", "persistence.xml" )
 		                 .addAsManifestResource( "META-INF/beans.xml", "beans.xml" );
 	}
@@ -42,7 +44,7 @@ public class OrganizadorPersistenceTest extends PersistenceTest<OrganizadorEntit
     @Override
     protected void clearData() {
         em.createQuery("DELETE FROM OrganizadorEntity ").executeUpdate();
-        em.createQuery("DELETE FROM OrganizadorEntity").executeUpdate();
+       
     }
 
     @Override

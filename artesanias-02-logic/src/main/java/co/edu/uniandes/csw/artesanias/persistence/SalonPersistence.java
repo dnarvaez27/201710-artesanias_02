@@ -41,10 +41,22 @@ public class SalonPersistence
 	@PersistenceContext( unitName = "artesaniasPU" )
 	protected EntityManager em;
 	
-	public SalonEntity find( Long id )
+	public SalonEntity findFromPabellon( Long id, Long pabellonId )
 	{
-		return em.find( SalonEntity.class, id );
+		TypedQuery<SalonEntity> q = em.createQuery( "SELECT R FROM SalonEntity R WHERE R.id = :id AND R.pabellon.id = :pabellonId", SalonEntity.class );
+		q.setParameter( "id", id );
+		q.setParameter( "pabellonID", pabellonId );
+		SalonEntity entity = q.getSingleResult( );
+		
+			
+		
+		
+		return entity;
 	}
+        
+         public SalonEntity find(Long id) {
+        return em.find(SalonEntity.class, id);
+    }
 	
 	public List<SalonEntity> findAll( )
 	{

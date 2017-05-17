@@ -80,7 +80,7 @@ public class SalonResource
         
 	public SalonDTO getSalon( @PathParam( "id" ) Long id,  @PathParam( "pabellonId") Long pabellonId )
 	{
-		return new SalonDTO( logic.getSalon( id ) );
+		return new SalonDTO( logic.getSalonFrompabellon(id,pabellonId ) );
 	}
 	
 	@POST
