@@ -99,7 +99,7 @@ public class SalonLogicTest extends PersistenceTest<SalonEntity>{
     }
     
      @Test
-    public void deleteStandTest() {
+    public void deleteSalon() {
         SalonEntity entity = data.get(1);
         logic.deleteSalon(entity.getId());
         SalonEntity deleted = em.find(SalonEntity.class, entity.getId());
@@ -107,7 +107,7 @@ public class SalonLogicTest extends PersistenceTest<SalonEntity>{
     }
     
      @Test
-    public void updateStandTest() throws BusinessLogicException {
+    public void updateSalon() throws BusinessLogicException {
         SalonEntity entity = data.get(0);
         SalonEntity pojoEntity = factory.manufacturePojo(SalonEntity.class);
 
