@@ -3,7 +3,6 @@
     mod.config(['$stateProvider', '$urlRouterProvider', 
         function ($stateProvider, $urlRouterProvider) {
             var basePath = 'src/modules/feria/';
-            var baseConferenciaPath = 'src/modules/conferencia/';
             $urlRouterProvider.otherwise('/ferias/list');
             $stateProvider
             .state('ferias', {
@@ -55,6 +54,7 @@
                     'detailView': {
                         templateUrl: basePath + 'feria.detail.html',
                         controller: ['$scope', 'currentFeria', function ($scope, currentFeria) {
+                                alert('Hola');
                                 $scope.currentFeria = currentFeria.data;
                                 $scope.boletasRecords = currentFeria.data.boletas;
                                 $scope.conferenciaRecords = currentFeria.data.conferencias;

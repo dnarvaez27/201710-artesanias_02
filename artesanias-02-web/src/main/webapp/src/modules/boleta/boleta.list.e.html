@@ -14,7 +14,7 @@
                             <p>Precio: <strong> {{precio | darPrecio}}</strong></p>
                             <p>Inicio:<strong> {{boleta.inicio|date:'dd/MMMM/yyyy'}}</strong></p>
                             <p>Fin:<strong> {{boleta.fin|date:'dd/MMMM/yyyy'}}</strong></p>
-                            <p>Feria <a ui-sref="feriaDetail({idFeria currentBoleta.feria.id})">{{currentBoleta.feria.nombre}}</a></h3>
+                            <p>Feria <a ui-sref="feriaDetail({idFeria: currentBoleta.feria.id})">{{currentBoleta.feria.nombre}}</a></h3>
                         </div>
                         </a>
                     </div>
