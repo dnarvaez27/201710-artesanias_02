@@ -13,7 +13,6 @@ DELETE FROM FERIAENTITY;
 DELETE FROM ESPACIOENTITY;
 DELETE FROM CIUDADENTITY;
 
-
 -- Ciudades
 INSERT INTO CIUDADENTITY (IMAGE, NOMBRE, PAIS) VALUES ('https://www.las2orillas.co/wp-content/uploads/2017/02/Bogota1.jpg', 'Bogotá', 'Colombia');
 INSERT INTO CIUDADENTITY (IMAGE, NOMBRE, PAIS) VALUES ('https://www.bodehogar.co/wp-content/uploads/2016/05/barranquilla_03.jpg', 'Barranquilla', 'Colombia');
@@ -90,26 +89,183 @@ INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) 
 INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('22821007', 'src/utils/img/artesanos/Artesano 3.jpg', 'Edward Bailey', '1-(214)359-3669', 2);
 INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('8572601', 'src/utils/img/artesanos/Artesano 4.jpg', 'Ralph Montgomery', '86-(749)218-0396', 1);
 INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('23583385', 'src/utils/img/artesanos/Artesano 5.jpg', 'Doris Tucker', '7-(840)161-5276', 3);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('16563156', 'src/utils/img/artesanos/Artesano 6.jpg', 'Ricky Pilmoor', '86-(952)223-5101', 1);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('29287496', 'src/utils/img/artesanos/Artesano 7.jpg', 'Ramonda Ewdale', '84-(278)925-1037', 2);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('23052339', 'src/utils/img/artesanos/Artesano 8.jpg', 'Garnette Stockings', '46-(917)931-9177', 2);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('22985852', 'src/utils/img/artesanos/Artesano 9.jpg', 'Renato Reinbeck', '62-(903)203-1228', 1);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('24050174', 'src/utils/img/artesanos/Artesano 10.jpg', 'Whitaker Adanet', '995-(538)915-0893', 3);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('14668492', 'src/utils/img/artesanos/Artesano 11.jpg', 'Albert Hazle', '57-(342)472-3802', 1);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('21147436', 'src/utils/img/artesanos/Artesano 12.jpg', 'Artur Pavinese', '359-(133)209-8563', 2);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('21272239', 'src/utils/img/artesanos/Artesano 13.jpg', 'Stefan Blackader', '66-(942)579-3227', 2);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('4526684', 'src/utils/img/artesanos/Artesano 14.jpg', 'Timmy Warrell', '86-(209)516-9896', 1);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('15894444', 'src/utils/img/artesanos/Artesano 15.jpg', 'Giuseppe Auckland', '48-(312)492-1052', 3);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('15964397', 'src/utils/img/artesanos/Artesano 16.jpg', 'Rene Geard', '380-(614)820-6908', 1);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('25710140', 'src/utils/img/artesanos/Artesano 17.jpg', 'Bendix Hutt', '976-(440)494-9259', 2);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('4137850', 'src/utils/img/artesanos/Artesano 18.jpg', 'Feliks Sterte', '62-(909)912-9060', 2);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('13950668', 'src/utils/img/artesanos/Artesano 19.jpg', 'Gilberta Jendrusch', '51-(366)744-2335', 1);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('5672631', 'src/utils/img/artesanos/Artesano 20.jpg', 'Marie Kerby', '46-(505)546-6933', 3);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('16924973', 'src/utils/img/artesanos/Artesano 21.jpg', 'Minnie Burnep', '1-(480)986-1480', 1);
+INSERT INTO ARTESANOENTITY (IDENTIFICACION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) VALUES ('3822286', 'src/utils/img/artesanos/Artesano 22.jpg', 'Eadith Sherington', '92-(535)231-7086', 2);
 
 -- Artesanias
 INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 1.jpg', 'Manualidades', 1);
 INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 2.jpg', 'Vasijas', 1);
 INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 3.jpg', 'Porcelana', 1);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 8.jpg', 'Manualidades', 1);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 9.jpg', 'Vasijas', 1);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 12.jpg', 'Porcelana', 1);
 INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 4.jpg', 'Collares', 2);
 INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 5.jpg', 'Maderas', 2);
 INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 6.jpg', 'Sombreros', 2);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 7.jpg', 'Collares', 2);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 10.jpg', 'Maderas', 2);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 11.jpg', 'Sombreros', 2);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 13.jpg', 'Collares', 3);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 14.jpg', 'Maderas', 3);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 1.jpg', 'Sombreros', 3);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 5.jpg', 'Collares', 3);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 8.jpg', 'Maderas', 3);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 3.jpg', 'Sombreros', 3);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 1.jpg', 'Manualidades', 4);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 2.jpg', 'Vasijas', 4);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 3.jpg', 'Porcelana', 4);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 8.jpg', 'Manualidades', 4);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 9.jpg', 'Vasijas', 4);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 12.jpg', 'Porcelana', 4);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 4.jpg', 'Collares', 5);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 5.jpg', 'Maderas', 5);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 6.jpg', 'Sombreros', 5);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 7.jpg', 'Collares', 5);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 10.jpg', 'Maderas', 5);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 11.jpg', 'Sombreros', 5);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 13.jpg', 'Collares', 6);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 14.jpg', 'Maderas', 6);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 1.jpg', 'Sombreros',6 );
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 5.jpg', 'Collares', 6);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 8.jpg', 'Maderas', 6);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 3.jpg', 'Sombreros', 6);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 1.jpg', 'Manualidades', 7);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 2.jpg', 'Vasijas', 7);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 3.jpg', 'Porcelana', 7);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 8.jpg', 'Manualidades', 7);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 9.jpg', 'Vasijas', 7);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 12.jpg', 'Porcelana', 7);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 4.jpg', 'Collares', 8);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 5.jpg', 'Maderas', 8);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 6.jpg', 'Sombreros', 8);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 7.jpg', 'Collares', 8);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 10.jpg', 'Maderas', 8);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 11.jpg', 'Sombreros', 8);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 13.jpg', 'Collares', 9);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 14.jpg', 'Maderas', 9);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 1.jpg', 'Sombreros', 9);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 5.jpg', 'Collares', 9);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 8.jpg', 'Maderas', 9);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 3.jpg', 'Sombreros', 9);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 1.jpg', 'Manualidades', 10);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 2.jpg', 'Vasijas', 10);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 3.jpg', 'Porcelana', 10);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 8.jpg', 'Manualidades', 10);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 9.jpg', 'Vasijas', 10);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 12.jpg', 'Porcelana', 10);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 4.jpg', 'Collares', 11);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 5.jpg', 'Maderas', 11);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 6.jpg', 'Sombreros', 11);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 7.jpg', 'Collares', 11);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 10.jpg', 'Maderas', 11);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 11.jpg', 'Sombreros', 11);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 13.jpg', 'Collares', 12);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 14.jpg', 'Maderas', 12);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 1.jpg', 'Sombreros', 12);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 5.jpg', 'Collares', 12);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 8.jpg', 'Maderas', 12);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 3.jpg', 'Sombreros', 12);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 1.jpg', 'Manualidades', 13);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 2.jpg', 'Vasijas', 13);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 3.jpg', 'Porcelana', 13);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 8.jpg', 'Manualidades', 13);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 9.jpg', 'Vasijas', 13);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 12.jpg', 'Porcelana', 13);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 4.jpg', 'Collares', 14);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 5.jpg', 'Maderas', 14);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 6.jpg', 'Sombreros', 14);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 7.jpg', 'Collares', 14);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 10.jpg', 'Maderas', 14);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 11.jpg', 'Sombreros', 14);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 13.jpg', 'Collares', 15);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 14.jpg', 'Maderas', 15);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 1.jpg', 'Sombreros', 15);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 5.jpg', 'Collares', 15);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 8.jpg', 'Maderas', 15);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 3.jpg', 'Sombreros', 15);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 1.jpg', 'Manualidades', 16);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 2.jpg', 'Vasijas', 16);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 3.jpg', 'Porcelana', 16);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 8.jpg', 'Manualidades', 16);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 9.jpg', 'Vasijas', 16);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 12.jpg', 'Porcelana', 16);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 4.jpg', 'Collares', 17);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 5.jpg', 'Maderas', 17);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 6.jpg', 'Sombreros', 17);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 7.jpg', 'Collares', 17);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 10.jpg', 'Maderas', 17);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 11.jpg', 'Sombreros', 17);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 13.jpg', 'Collares', 18);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 14.jpg', 'Maderas', 18);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 1.jpg', 'Sombreros', 18);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 5.jpg', 'Collares', 18);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 8.jpg', 'Maderas', 18);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 3.jpg', 'Sombreros', 18);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 1.jpg', 'Manualidades', 19);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 2.jpg', 'Vasijas', 19);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 3.jpg', 'Porcelana', 19);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 8.jpg', 'Manualidades', 19);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 9.jpg', 'Vasijas', 19);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 12.jpg', 'Porcelana', 19);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 4.jpg', 'Collares', 20);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 5.jpg', 'Maderas', 21);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 6.jpg', 'Sombreros', 21);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 7.jpg', 'Collares', 21);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 10.jpg', 'Maderas', 21);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 11.jpg', 'Sombreros', 21);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 13.jpg', 'Collares', 22);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 14.jpg', 'Maderas', 22);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 1.jpg', 'Sombreros', 22);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 5.jpg', 'Collares', 22);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 8.jpg', 'Maderas', 22);
+INSERT INTO ARTESANIAENTITY (IMAGEN, NOMBRE, ARTESANO_ID) VALUES ('src/utils/img/artesanias/Artesania 3.jpg', 'Sombreros', 22);
 
 -- Reviews
-INSERT INTO REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) VALUES ('Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti.',1.1, 1);
-INSERT INTO REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) VALUES ('Morbi a ipsum. Integer a nibh. In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam.',0.11, 1);
-INSERT INTO REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) VALUES ('Integer a nibh. In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo.',1.64, 1);
-INSERT INTO REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) VALUES ('Curabitur gravida nisi at nibh.', 2.1, 1);
-INSERT INTO REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) VALUES ('Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum .',0.76, 1);
-INSERT INTO REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) VALUES ('Donec semper sapien a libero. Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesqu Nam ultrices, ',4.15, 1);
-INSERT INTO REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) VALUES ('Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti.',4.76, 2);
-INSERT INTO REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) VALUES ('Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 0.11, 2);
-INSERT INTO REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) VALUES ('Donec dapibus.', 3.84, 2);
-INSERT INTO REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) VALUES ('Phasellus in felis. Donec semper sapien a libero. Nam dui.', 0.3, 2);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia.', 1, 9);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum.', 3, 5);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat. Praesent blandit.', 2, 11);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Mauris ullamcorper purus sit amet nulla.', 5, 19);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Aliquam non mauris.', 4, 18);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Nulla justo. Aliquam quis turpis eget elit sodales scelerisque.', 5, 5);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Nulla suscipit ligula in lacus.', 4, 10);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Nulla tellus. In sagittis dui vel nisl.', 3, 15);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 1, 5);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula.', 1, 15);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Vivamus tortor. Duis mattis egestas metus.', 4, 17);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 5, 18);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Vestibulum quam sapien, varius ut, blandit non, interdum in, ante.', 3, 3);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc.', 4, 18);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 4, 3);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Integer ac neque.', 2, 16);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Phasellus in felis.', 1, 4);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam.', 3, 13);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 5, 13);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 2, 20);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa.', 5, 8);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 2, 17);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Morbi non quam nec dui luctus rutrum. Nulla tellus.', 5, 21);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Nulla justo.', 4, 3);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Aliquam non mauris.', 5, 16);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 2, 19);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl.', 4, 10);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis.', 4, 19);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Integer ac neque. Duis bibendum.', 2, 10);
+insert into REVIEWENTITY (COMENTARIO, PUNTUACION, ARTESANO_ID) values ('Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum.', 1, 17);
 
 -- Organizadores
 insert into USUARIOENTITY (DTYPE, CONTRASENA, CORREO, FOTO) values ('OrganizadorEntity', 'DfE1j8JD', 'emedina0@thetimes.co.uk', 'src\utils\img\organizadores\organizador 1.jpg');
@@ -158,8 +314,6 @@ insert into CONFERENCIAENTITY (CONFERENCISTA, FECHAFIN, FECHAINICIO, HORAFIN, HO
 insert into CONFERENCIAENTITY (CONFERENCISTA, FECHAFIN, FECHAINICIO, HORAFIN, HORAINICIO, TEMA, FERIA_ID, SALON_ID) values ('Todd Vasquez', '12/18/2016', '12/15/2016', '16:19', '2:34', 'Intuitive clear-thinking frame', 1, 2);
 insert into CONFERENCIAENTITY (CONFERENCISTA, FECHAFIN, FECHAINICIO, HORAFIN, HORAINICIO, TEMA, FERIA_ID, SALON_ID) values ('Larry Grant', '1/16/2017', '1/17/2017', '13:31', '6:34', 'Multi-layered incremental benchmark', 1, 1);
 
--- TODO Boletas
-
 insert into BOLETAENTITY (fin, inicio, precio, tipo, espectador_id, id_feria)
 values ('12/30/2016', '10/01/2016', 30.0, 1, 1, 1);
 insert into BOLETAENTITY (fin, inicio, precio, tipo, espectador_id, id_feria)
@@ -177,8 +331,6 @@ values ('12/20/2016', '10/10/2016', 40.0, 3, 5, 1);
 
 insert into BOLETAENTITY (fin, inicio, precio, tipo, espectador_id, id_feria)
 values ('12/30/2016', '10/01/2016', 30.0, 1, 6, 2);
-
--- TODO Many-To-Many
 
 insert into artesanoferiaassociation (fecha, artesano_id, feria_id, stand_id)
 values ('12/20/2016', 1, 1, 1);

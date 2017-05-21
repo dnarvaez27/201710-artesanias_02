@@ -48,6 +48,35 @@
                   $scope.hidePass = function () {
                     document.getElementById('pass').type = 'password';
                   };
+
+                  $scope.agregarEspectador = function () {
+                    $('#agregarEspectaculo').modal('show');
+                  };
+                  $scope.confirmarAgregar = function () {
+                    var nEmail = document.getElementById('newEmail').value;
+                    var nPassw = document.getElementById('newPassword').value;
+                    var nEdad = document.getElementById('newEdad').value;
+
+                    var espectadorNuevo = {
+                      correo: nEmail,
+                      contrasena: nPassw,
+                      edad: nEdad
+                    };
+                    $http.post(espectadorContext, espectadorNuevo)
+                      .then(function (response) {
+                        $('#agregarEspectaculo').model('hide');
+                        $scope.espectadoresRecords.push(response.data);
+                      });
+                  };
+
+                  $scope.confirmarEliminarEspectador = function (index) {
+                    $scope.espectadorAEliminar = $scope.espectadoresRecords[index];
+                    $('#eliminarEspectadorConfirmacion').modal('show');
+                  };
+                  $scope.eliminarEspectador = function () {
+                    $http.delete(espectadorContext + '/' + $scope.espectadorAEliminar.id);
+                    $('#eliminarEspectadorConfirmacion').modal('hide');
+                  };
                 }]
             }
           }
@@ -75,4 +104,11 @@
           }
         });
     }]);
+
+  mod.filter('split', function () {
+    return function (input, splitChar, splitIndex) {
+      return input.split(splitChar)[splitIndex];
+    };
+  });
+
 })(window.angular);

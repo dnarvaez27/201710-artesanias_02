@@ -1,40 +1,97 @@
 <!--Wrapper-->
-<div ng-app="mainApp" class="panel panel-default" style="position: relative;">
+<div class="panel panel-default" style="position: relative;" ng-controller="artesanoDetailControlador">
     <div class="blur" style="position: absolute;width:100%;height: 300px;">
         <img ng-src="{{currentArtesano.image}}" class="detail-bg">
     </div>
-    <div style="position: absolute; width: 100%; height: 100%; background-color: black; opacity: 0.4 ">
-    </div>
+    <div style="position: absolute; width: 100%; height: 100%; background-color: black; opacity: 0.4 "></div>
     <div style="position: relative">
-
-        <div style="position: relative;">
-            <!--<div class="panel-body" style="background-color: #e5e5e5;">-->
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="thumb">
-                        <img class="img-responsive img-detail" ng-src="{{currentArtesano.image}}"/>
-                    </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="thumb">
+                    <img class="img-responsive img-detail" ng-src="{{currentArtesano.image}}"/>
                 </div>
-                <div class="detail-fg col-md-3">
-                    <h3>{{currentArtesano.nombre}}</h3>
-                    <ul class="nav nav-tabs">
-                        <li role="presentation"><a class="detail-fg" ui-sref="artesanoDetailArtesanias">Artesanias</a></li>
-                        <li role="presentation"><a class="detail-fg" ui-sref="artesanoDetailReviews">Reviews</a></li>
-                        <li role="presentation"><a class="detail-fg" ui-sref="artesanoDetailFerias">Ferias</a></li>
-                    </ul>
-                    <div class="detail-fg">
-                        <p><strong>Identificación:</strong> {{currentArtesano.identificacion}}</p>
-                        <p><strong>Teléfono:</strong> {{currentArtesano.telefono}}</p>
-                        <p><strong>Ciudad:</strong> {{currentArtesano.ciudad.nombre}}</p>
-                    </div>
-                </div>
-                <div class="col-md-6" ui-view="detail"></div>
             </div>
-            <!--</div>-->
+            <div class="detail-fg col-md-3">
+                <h3>
+                    {{currentArtesano.nombre}}
+                    <button class="btn btn-default btn-edit" ng-click="updateArtesano()">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                </h3>
+                <ul class="nav nav-tabs">
+                    <li role="presentation"><a class="detail-fg" ng-click="switchArtesanias()">Artesanias</a></li>
+                    <li role="presentation"><a class="detail-fg" ng-click="switchReviews()">Reviews</a></li>
+                    <li role="presentation"><a class="detail-fg">Ferias</a></li>
+                </ul>
+                <div class="detail-fg">
+                    <p><strong>Identificación:</strong> {{currentArtesano.identificacion}}</p>
+                    <p><strong>Teléfono:</strong> {{currentArtesano.telefono}}</p>
+                    <p><strong>Ciudad:</strong> {{currentArtesano.ciudad.nombre}}</p>
+                </div>
+            </div>
+            <div ng-show=""></div>
+            <div class="col-md-6">
+                <artesanias-list current-artesano="currentArtesano" ng-show="showArtesanias"></artesanias-list>
+                <reviews-list current-artesano="currentArtesano" ng-show="showReviews"></reviews-list>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal Update-->
+    <div class="modal fade" role="dialog" id="updateArtesano">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Actualizar Artesano</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" ng-show="alerta">
+                        <strong>Error!</strong><span id="infoError"></span>
+                    </div>
+                    <div class="row">
+                        <!--Imagen-->
+                        <div class="col-lg-3 thumbnail" style="max-height: inherit; min-height: inherit;margin: 5px;">
+                            <button class="btn btn-default">Cargar Imagen</button>
+                        </div>
+                        <!--Formulario-->
+                        <form class="col-lg-8">
+                            <!--Nombre-->
+                            <div class="form-group">
+                                <label for="upNombre">Nombre</label>
+                                <input type="text" class="form-control" id="upNombre">
+                            </div>
+                            <!--Identificacion-->
+                            <div class="form-group">
+                                <label for="upIdentificacion">Identificacion</label>
+                                <input type="text" class="form-control" id="upIdentificacion">
+                            </div>
+                            <!--Telefono-->
+                            <div class="form-group">
+                                <label for="upTelefono">Teléfono</label>
+                                <input type="text" class="form-control" id="upTelefono">
+                            </div>
+                            <!--Ciudad-->
+                            <div class="form-group">
+                                <label for="upCiudad">Ciudad</label>
+                                <select id="upCiudad" ng-model="ciudadSeleccionada" class="form-control"
+                                        ng-options="c.nombre for c in cities | orderBy: 'nombre'">
+                                </select>
+                            </div>
+                            <!--Botones de Confirmación-->
+                            <div class="row ">
+                                <button class="option col-sm-5 col-lg-5 btn btn-default btn-success" type="submit" ng-click="confirmUpdate()">
+                                    Aceptar
+                                </button>
+                                <button class="option col-sm-5 col-lg-5 btn btn-default btn-danger" data-dismiss="modal">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <div ui-view="childrenView"></div>
-
-<button ng-click="add( currentArtesano )"></button>
-<!--<div back-img="{{currentArtesano.image}}" style="border: solid 1px red; height: 500px;">-->
