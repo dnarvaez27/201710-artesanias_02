@@ -81,6 +81,7 @@ public class EspacioDTO {
         this.id = entity.getId();
         this.direccion = entity.getDireccion();
         this.telefono = entity.getTelefono();
+        this.nombre = entity.getNombre();
         this.capacidad = entity.getCapacidad();
         this.image = entity.getImage();
     }

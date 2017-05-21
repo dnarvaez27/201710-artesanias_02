@@ -11,7 +11,6 @@
         'salonModule',
         'conferenciaModule',
         'espacioModule',
-        'boletaModule',
         'dashboardModule'
 
     ]);

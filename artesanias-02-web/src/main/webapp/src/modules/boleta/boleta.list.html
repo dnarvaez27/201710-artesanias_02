@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="boletaController">
+<div class="container-fluid">
     <div class="row">
         <h2 class="detail-fg">Boletas</h2>
         <div class="pre-scrollable" id="style-2">
@@ -6,17 +6,15 @@
                 <div ng-repeat="boleta in boletasRecords">
                     <!--Wrapper-->
                     <div class="col-lg-12" style="position:relative; min-height: 180px; ">
-                        <a ui-sref="boletaDetail({context: 'api/ferias', idParent: 1, idBoleta: boleta.id})">
                         <!--Box Transparency-->
                         <div class="col-lg-12 thumbnail" style="min-height: 150px;opacity: 0.3;position:absolute;"></div>
                         <!--Info-->
                         <div class="col-lg-12 thumbnail" style="position: relative; background-color: transparent; border: transparent">
-                            <p>Precio: <strong> {{precio | darPrecio}}</strong></p>
-                            <p>Inicio:<strong> {{boleta.inicio|date:'dd/MMMM/yyyy'}}</strong></p>
-                            <p>Fin:<strong> {{boleta.fin|date:'dd/MMMM/yyyy'}}</strong></p>
-                            <p>Espectador: <a ui-sref="espectadorDetail({idEspectador: currentBoleta.espectador.id})">{{currentBoleta.espectador.correo}}</a></h3>
+                            <p><strong>Precio:</strong> {{darPrecioBoleta(boleta)}}</p>
+                            <p><strong>Inicio:</strong> {{boleta.inicio|date:'dd/MMMM/yyyy'}}</p>
+                            <p><strong>Fin:</strong> {{boleta.fin|date:'dd/MMMM/yyyy'}}</p>
+                            <p><strong>Espectador:</strong> {{boleta.espectador.correo}}</p>
                         </div>
-                        </a>
                     </div>
                 </div>
             </div>

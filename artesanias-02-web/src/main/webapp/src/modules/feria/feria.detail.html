@@ -23,10 +23,7 @@
                         <p>Inicio:<strong> {{currentFeria.inicio|date:'dd/MMMM/yyyy'}}</strong></p>
                         <p>Fin:<strong> {{currentFeria.fin|date:'dd/MMMM/yyyy'}}</strong></p>
                         <p>Total Boletas:<strong> {{currentFeria.totalBoletas}}</strong></p>
-                        <!--<ul ng-repeat="org in currentFeria.organizadores">
-                            <li><a ui-sref="organizadorDetail({organizadorId: org.id})">{{org.identificacion}}</a></li>
-                        </ul>-->
-                        <p>Espacio:<strong><a ui-sref="espacioDetail({idCiudad: currentFeria.espacio.ciudad.id, idEspacio: urrentFeria.espacio.id})"> {{currentFeria.espacio.nombre}}</a></strong></p>
+                        <p>Espacio:<strong><a ui-sref="espacioDetail({idCiudad: currentFeria.espacio.ciudad.id, idEspacio: currentFeria.espacio.id})"> {{currentFeria.espacio.nombre}}</a></strong></p>
                     </div>
                 </div>
                 <div class="col-md-6" ui-view="detail"></div>

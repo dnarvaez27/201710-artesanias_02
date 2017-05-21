@@ -170,6 +170,10 @@ insert into BOLETAENTITY (fin, inicio, precio, tipo, espectador_id, id_feria)
 values ('12/30/2016', '10/01/2016', 30.0, 1, 4, 1);
 insert into BOLETAENTITY (fin, inicio, precio, tipo, espectador_id, id_feria)
 values ('12/20/2016', '10/10/2016', 20.0, 1, 5, 1);
+insert into BOLETAENTITY (fin, inicio, precio, tipo, espectador_id, id_feria)
+values ('12/20/2016', '10/10/2016', 25.0, 2, 5, 1);
+insert into BOLETAENTITY (fin, inicio, precio, tipo, espectador_id, id_feria)
+values ('12/20/2016', '10/10/2016', 40.0, 3, 5, 1);
 
 insert into BOLETAENTITY (fin, inicio, precio, tipo, espectador_id, id_feria)
 values ('12/30/2016', '10/01/2016', 30.0, 1, 6, 2);

@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="boletaController">
+<div class="container-fluid">
     <div class="row">
         <h2 class="detail-fg">Boletas</h2>
         <div class="pre-scrollable" id="style-2">
@@ -11,10 +11,10 @@
                         <div class="col-lg-12 thumbnail" style="min-height: 150px;opacity: 0.3;position:absolute;"></div>
                         <!--Info-->
                         <div class="col-lg-12 thumbnail" style="position: relative; background-color: transparent; border: transparent">
-                            <p>Precio: <strong> {{precio | darPrecio}}</strong></p>
+                            <p>Precio: <strong> {{darPrecio}}</strong></p>
                             <p>Inicio:<strong> {{boleta.inicio|date:'dd/MMMM/yyyy'}}</strong></p>
                             <p>Fin:<strong> {{boleta.fin|date:'dd/MMMM/yyyy'}}</strong></p>
-                            <p>Feria <a ui-sref="feriaDetail({idFeria: currentBoleta.feria.id})">{{currentBoleta.feria.nombre}}</a></h3>
+                            <p>Feria <a ui-sref="feriaDetail({idFeria: currentBoleta.feria.id})">{{boleta.feria.nombre}}</a></h3>
                         </div>
                         </a>
                     </div>

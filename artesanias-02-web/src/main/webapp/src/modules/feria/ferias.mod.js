@@ -41,7 +41,7 @@
             })
             .state('feriaDetail', {
                 url: '/{idFeria:int}/detail',
-                parent: 'ferias',
+                parent: 'feriasList',
                 param: {
                     idFeria: null
                 },
@@ -54,10 +54,14 @@
                     'detailView': {
                         templateUrl: basePath + 'feria.detail.html',
                         controller: ['$scope', 'currentFeria', function ($scope, currentFeria) {
-                                alert('Hola');
                                 $scope.currentFeria = currentFeria.data;
                                 $scope.boletasRecords = currentFeria.data.boletas;
                                 $scope.conferenciaRecords = currentFeria.data.conferencias;
+                                $scope.darPrecioBoleta = function (boleta) {
+                                    return boleta.tipo === 1 ? boleta.precio*$scope.currentFeria.descuentoMenores : 
+                                            boleta.tipo === 2 ? boleta.precio*$scope.currentFeria.descuentoRegular :
+                                            boleta.precio*$scope.currentFeria.descuentoMayores;
+                                };
                             }]
                     }
                 }
