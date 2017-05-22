@@ -79,28 +79,16 @@ public class FeriaResource {
     // Métodos
     //--------------------------------------------------------------------------
     @POST
-    public FeriaDTO createFeria(FeriaEntity entity) throws BusinessLogicException {
-        if (entity.getOrganizadores() == null || entity.getOrganizadores().isEmpty()) {
-            throw new WebApplicationException("No existen los organizadores", 404);
-        }
-        if (entity.getEspacio() == null) {
+    public FeriaDetailDTO createFeria(FeriaEntity entity) throws BusinessLogicException {
+        /*if (entity.getEspacio() == null) {
             throw new WebApplicationException("No existe el espacio", 404);
         }
         EspacioEntity ee = espacioLogic.getEspacio(entity.getId());
         if (ee == null) {
             throw new WebApplicationException("No existe el espacio", 404);
-        }
-        List<OrganizadorEntity> lst = new LinkedList<>();
-        for (OrganizadorEntity o : entity.getOrganizadores()) {
-            OrganizadorEntity oe = organizadorLogic.getOrganizador(o.getId());
-            if (oe == null) {
-                throw new WebApplicationException("No existe el organizador", 404);
-            }
-            lst.add(oe);
-        }
-        entity.setEspacio(ee);
-        entity.setOrganizadores(lst);
-        return new FeriaDTO(feriaLogic.createFeria(entity));
+        }*/
+        entity.setEspacio(entity.getEspacio());
+        return new FeriaDetailDTO(feriaLogic.createFeria(entity));
     }
 
     @GET

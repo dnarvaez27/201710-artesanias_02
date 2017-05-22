@@ -36,7 +36,7 @@
             })
             .state('espacioDetail', {
                 url: '/{idEspacio:int}/detail',
-                parent: 'espacios',
+                parent: 'espaciosList',
                 param: {
                     idEspacio: 0
                 },
@@ -50,12 +50,6 @@
                         templateUrl: basePath + 'espacio.detail.html',
                         controller: ['$scope', 'currentEspacio', function ($scope, currentEspacio) {
                                 $scope.currentEspacio = currentEspacio.data;
-                            }]
-                    },
-                    'listView': {
-                        templateUrl: baseFeriaPath + 'ferias.list.html',
-                        controller: ['$scope', 'currentEspacio', function ($scope, currentEspacio) {
-                                $scope.feriaRecords = currentEspacio.data.ferias;
                             }]
                     }
                 }

@@ -1,19 +1,155 @@
 <div class="container-fluid">
+    <!--Boton Modal-->
     <div class="row">
-    </div>
-    <div class="row">
-        <div class="col-lg-2" ng-repeat="feria in feriasRecords | filter:currentFeria.inicio">
-            <div class="thumbnail box_art">
-                <a ui-sref="feriaDetail({idFeria: feria.id})">
-                    <div class="caption text-center subtitle">
-                        <p>{{feria.nombre}}</p>
-                    </div>
-                    <img class="img-responsive" ng-src='{{feria.image}}'/>
-                </a>
-            </div>
+        <div class="text-center container control-buttons">
+            <button data-target="#crearFeria" data-toggle="modal" class="btn btn-add">&plus;</button>
+            <button class="btn btn-switch-remove" ng-click="toogleRemove()" id="btn-remove-ferias">&times;</button>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12" ui-view="detailView"></div>
+
+    <div class="row content-ferias">
+
+        <div ng-repeat="feria in feriasRecords">
+            <div class="col-lg-2">
+                <div class="thumbnail screen-remove" ng-show="feriasToRemove[$index]">
+                    <h3 class="name-remove">{{feria.nombre}}</h3>
+                </div>
+                <div class="thumbnail box_art box">
+                    <a href="" ng-click="seeDetail($index)">
+                        <div class="caption text-center subtitle">
+                            <p>{{feria.nombre}}</p>
+                        </div>
+                        <img class="img-responsive" ng-src='{{feria.image}}'/>
+                    </a>
+                    <button class="btn btn-remove" ng-show="removeEnabled" ng-click="addToRemove($index)">&times;</button>
+                </div>
+            </div>
+            <feria-detail style="width: 100%;display: inline-block; "
+                             ng-if="( $index + 1 ) % 6 === 0"
+                             id="{{ 'detail-' + ( ( $index + 1 ) / 6 ) }}"
+                             ng-show="isDetailRowShown($index)">
+            </feria-detail>
+        </div>
+
+        <feria-detail style="width: 100%;display: inline-block;"
+                         ng-if="isExtraDetailRow"
+                         id="{{'detail-' + numDetailsRows}}"
+                         ng-show="isLastRowDetail()">
+        </feria-detail>
+    </div>
+
+    <!--Modals-->
+    <div>
+        <div class="row">
+            <div class="col-lg-12" ui-view="detailView" ng-show="isDetailShown"></div>
+        </div>
+
+        <!--Modal Crear-->
+        <div class="modal fade" role="dialog" id="crearFeria">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Crear Feria</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-danger" ng-show="alerta">
+                            <strong>Error!</strong><span id="infoError"></span>
+                        </div>
+                        <div class="row">
+                            <!--Imagen-->
+                            <div class="col-lg-3 thumbnail" style="max-height: inherit; min-height: inherit;margin: 5px;">
+                                <button class="btn btn-default">Cargar Imagen</button>
+                            </div>
+                            <!--Formulario-->
+                            <form class="col-lg-8">
+                                <!--Nombre-->
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre">
+                                </div>
+                                <!--Inicio-->
+                                <div class="form-group">
+                                    <label for="inicio">Inicio</label>
+                                    <input class="form-control" data-provide="datepicker" id="inicio">
+                                </div>
+                                <!--Fin-->
+                                <div class="form-group">
+                                    <label for="fin">Fin</label>
+                                    <input class="form-control" data-provide="datepicker" id="fin">
+                                </div>
+                                <!--Total Boletas-->
+                                <div class="form-group">
+                                    <label for="totalb">Total Boletas</label>
+                                    <input type="number" class="form-control" id="totalb">
+                                </div>
+                                <!--Descuento Menores-->
+                                <div class="form-group">
+                                    <label for="dmenores">Descuento Menores (%)</label>
+                                    <input type="number" class="form-control" id="dmenores" min="0" max="100">
+                                </div>
+                                <!--Descuento Mayores-->
+                                <div class="form-group">
+                                    <label for="dmayores">Descuento Mayores (%)</label>
+                                    <input type="number" class="form-control" id="dmayores" min="0" max="100">
+                                </div>
+                                <!--Espacio-->
+                                <div class="form-group">
+                                    <label for="espacio">Espacio</label>
+                                    <select id="espacio" ng-model="espacioSeleccionado" class="form-control"
+                                            ng-options="s.nombre for s in sites"></select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row center-block text-center">
+                            <button class="option btn btn-success" type="submit" ng-click="crear()">
+                                Aceptar
+                            </button>
+                            <button class="option btn btn-danger" data-dismiss="modal">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal Eliminar-->
+        <div class="modal fade" role="dialog" id="eliminarFerias">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="shutRemoveOff()">&times;</button>
+                        <h4 class="modal-title">Eliminar Ferias</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <h4>¿Seguro que desea eliminar a las siguientes ferias?</h4>
+                            <div class="col-lg-12 pre-scrollable" id="style-3">
+                                <div ng-repeat="a in toBeRemoved">
+                                    <div class="thumbnail">
+                                        <span class="nombre-art">{{a.nombre}}</span>
+                                        <br>
+                                        <span class="identi-art">{{a.identificacion}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row center-block text-center">
+                            <button class="option btn btn-success" type="submit" ng-click="removeFerias()">
+                                Aceptar
+                            </button>
+                            <button class="option btn btn-danger" data-dismiss="modal" ng-click="shutRemoveOff()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
