@@ -1,19 +1,144 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-2" ng-repeat="espacio in espaciosRecords | filter:currentEspacio.nombre">
-            <div class="thumbnail box_art">
-                <a ui-sref="espacioDetail({idEspacio: espacio.id})">
-                    <div class="caption text-center subtitle">
-                        <p>{{espacio.nombre}}</p>
-                        <p>{{espacio.direccion}}</p>
-                        <p>{{espaco.telefono}}</p>
-                    </div>
-                    <img class="img-responsive" ng-src='{{espacio.image}}'/>
-                </a>
-            </div>
+        <h2 class="col-lg-5 detail-fg">Espacios</h2>
+        <div class="pull-right btn-group-detail">
+            <button class="btn btn-add-detail" data-target="#crearArtesania" data-toggle="modal">&plus;</button>
+            <button class="btn btn-edit" ng-click="switchEditArtesanias()" id="updateArtesaniasButton"><span
+                    class="glyphicon glyphicon-pencil"></span></button>
+            <button class="btn btn-remove-detail" ng-click="switchRemoveArtesanias()" id="removeArtesaniasButton">&times;</button>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12" ui-view="detailView"></div>
+        <div class="pre-scrollable" id="style-2">
+            <div class="force-overflow">
+                <div ng-repeat="espacio in espaciosRecords">
+                    <!--Wrapper-->
+                    <div class="col-lg-12" style="position:relative; min-height: 180px; ">
+                        <!--Box Transparency-->
+                        <div class="col-lg-12 thumbnail" style="min-height: 150px;opacity: 0.3;position:absolute;"></div>
+                        <!--Info-->
+                        <div class="col-lg-12 thumbnail" style="position: relative; background-color: transparent; border: transparent">
+                            
+                            <div class="col-xs-12">    
+                                <div class="col-md-6">
+                                    <p><strong>Nombre:</strong> {{espacio.nombre}}</p>
+                                    <p><strong>Dirección:</strong> {{espacio.direccion}}</p>
+                                    <p><strong>Telefono:</strong> {{espacio.telefono}}</p>
+                                    <p><strong><a ui-sref="pabellonesList">Pabellones</a></strong></p>
+                                </div>  
+                                <div class="col-md-6">
+                                    <img class="img-responsive" height="100"  ng-src='{{espacio.image}}' style="text-align: right;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Crear-->
+    <div class="modal fade" role="dialog" id="crearArtesania">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Crear Boleta</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row center-block text-center">
+                        <!--Imagen-->
+                        <img src="" style="height: 200px;width: 327px"/><br>
+                        <button class="btn btn-add btn-upload">
+                            <span class="glyphicon glyphicon-upload"></span>
+                        </button>
+                        <form>
+                            <div class="form-group">
+                                <label for="nombreCrearArtesania">Nombre</label>
+                                <input type="text" class="form-control text-center" id="nombreCrearArtesania">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row center-block text-center">
+                        <button class="option btn btn-success" type="submit" ng-click="crearArtesania()">
+                            Aceptar
+                        </button>
+                        <button class="option btn btn-danger" data-dismiss="modal">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Actualizar-->
+    <div class="modal fade" role="dialog" id="updateArtesania">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Actualizar Boleta</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row center-block text-center">
+                        <!--Imagen-->
+                        <img src="" id="updateImagenArtesania" style="height: 200px; height: 327px"/><br>
+                        <button class="btn btn-add btn-upload">
+                            <span class="glyphicon glyphicon-upload"></span>
+                        </button>
+                        <form>
+                            <div class="form-group">
+                                <label for="updateNombreArtesania">Nombre</label>
+                                <input type="text" class="form-control text-center" id="updateNombreArtesania">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row center-block text-center">
+                        <button class="option btn btn-success" type="submit" ng-click="confirmUpdateArtesania()">
+                            Aceptar
+                        </button>
+                        <button class="option btn btn-danger" data-dismiss="modal">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Eliminar-->
+    <div class="modal fade" role="dialog" id="removeArtesanias">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="resetArtesanias()">&times;</button>
+                    <h4 class="modal-title">Eliminar Artesanias</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <h4>¿Seguro que desea eliminar las siguientes artesanias?</h4>
+                        <div class="col-lg-12 pre-scrollable" id="style-3">
+                            <div ng-repeat="a in artesaniasOnQueue">
+                                <div class="thumbnail">
+                                    <span class="nombre-art">{{a.nombre}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row center-block text-center">
+                        <button class="option btn btn-success" type="submit" ng-click="deleteArtesanias()">
+                            Aceptar
+                        </button>
+                        <button class="option btn btn-danger" data-dismiss="modal" ng-click="resetArtesanias()">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

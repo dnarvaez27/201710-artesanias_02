@@ -21,15 +21,15 @@ INSERT INTO CIUDADENTITY (IMAGE, NOMBRE, PAIS) VALUES ('https://upload.wikimedia
 
 -- Espacios
 insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (148, 'Nelson Crossing', 'src\utils\img\espacios\Espacio 1.jpg', 'Manley', '33-(749)963-3480', 1);
-insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (393, 'Menomonie Way', 'src\utils\img\espacios\Espacio 2.jpg', 'Burning Wood', '48-(807)425-5186', 1);
-insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (413, 'Cardinal Court', 'src\utils\img\espacios\Espacio 3.jpg', 'Fallview', '976-(180)782-7218', 1);
-insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (250, 'Toban Circle', 'src\utils\img\espacios\Espacio 4.jpg', 'Linden', '234-(408)827-0330', 1);
-insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (152, 'Anderson Alley', 'src\utils\img\espacios\Espacio 5.jpg', 'Golf View', '420-(110)285-0105', 2);
-insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (755, 'Maple Crossing', 'src\utils\img\espacios\Espacio 6.jpg', 'Red Cloud', '86-(929)625-1938', 2);
-insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (376, 'Spohn Avenue', 'src\utils\img\espacios\Espacio 7.jpg', 'Debs', '86-(764)759-2355', 2);
-insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (497, 'Buell Avenue', 'src\utils\img\espacios\Espacio 8.jpg', 'Forster', '62-(190)987-7055', 3);
-insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (273, 'Hooker Junction', 'src\utils\img\espacios\Espacio 9.jpg', 'Sycamore', '1-(520)661-8873', 3);
-insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (537, 'Judy Avenue', 'src\utils\img\espacios\Espacio 10.jpg', 'Bultman', '63-(794)296-2574', 3);
+insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (393, 'Menomonie Way', 'http://www.cbeventos.cl/imagenes/fondo1.fw.png', 'Burning Wood', '48-(807)425-5186', 1);
+insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (413, 'Cardinal Court', 'http://www.publiboda.com/redpb/wp-content/uploads/2015/05/IMG_1115_6_7_fused1.jpg', 'Fallview', '976-(180)782-7218', 1);
+insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (250, 'Toban Circle', 'http://www.centroeventoslaspalmeras.cl/img/licanray/7.jpg', 'Linden', '234-(408)827-0330', 1);
+insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (152, 'Anderson Alley', 'https://media-cdn.tripadvisor.com/media/photo-o/07/2a/e5/fa/centro-de-eventos-olmue.jpg', 'Golf View', '420-(110)285-0105', 2);
+insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (755, 'Maple Crossing', 'http://images.adsttc.com/media/images/5131/2c5c/b3fc/4b0d/9800/1184/newsletter/1336620936-san-francisco-1.jpg?1412053001', 'Red Cloud', '86-(929)625-1938', 2);
+insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (376, 'Spohn Avenue', 'https://images.ineventos.com/cl/2015/08/116158/centro-de-eventos-ojo-de-agua-175289-i-l.jpg', 'Debs', '86-(764)759-2355', 2);
+insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (497, 'Buell Avenue', 'http://images.adsttc.com/media/images/50b4/3a8d/b3fc/4b0c/f500/015c/large_jpg/4pp.jpg?1414178015', 'Forster', '62-(190)987-7055', 3);
+insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (273, 'Hooker Junction', 'http://www.colarte.com/graficas/colecciones/Cali/Arquitectura/CalArsa22111.jpg', 'Sycamore', '1-(520)661-8873', 3);
+insert into ESPACIOENTITY (CAPACIDAD, DIRECCION, IMAGE, NOMBRE, TELEFONO, CIUDAD_ID) values (537, 'Judy Avenue', 'http://centrodeeventos.ce.gov.br/wp-content/uploads/2014/08/CEC-Fachada-a%C3%A9rea.jpg', 'Bultman', '63-(794)296-2574', 3);
 
 -- Pabellones
 insert into PABELLON (CAPACIDAD, IMAGEN, TIPO, ID_ESPACIO) values (234, null, 'Plaza', 1);
@@ -293,14 +293,53 @@ INSERT INTO ORGANIZADORENTITY (ID, IDENTIFICACION) VALUES (15,'15');
 insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
 fin, image, inicio, nombre, totalboletas, espacio_id)
 values (0.8, 0.7, 1.0, '12/30/2016', 
-'https://asociacionpinarjardin.files.wordpress.com/2015/08/feria_artesania.jpg?w=350&h=200&crop=1', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
 '10/01/2016', 'Feria Artesanal 1', 400, 1);
-
 insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
 fin, image, inicio, nombre, totalboletas, espacio_id)
 values (0.8, 0.7, 1.0, '12/29/2016', 
-'https://4.bp.blogspot.com/-7r_E1sjcTnk/V03Mo_7kBMI/AAAAAAAAOC8/SapDnAzDmSslwwSn1mM5U6KtbkGHZS9NgCLcB/s1600/13220632_10208372178254965_937545471013262712_o.jpg', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
 '10/02/2016', 'Feria Artesanal 2', 500, 3);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.8, 0.7, 1.0, '12/30/2016', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/01/2016', 'Feria Artesanal 3', 420, 2);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.9, 0.8, 1.0, '12/29/2017', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/02/2017', 'Feria Artesanal 4', 530, 4);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.8, 0.9, 1.0, '12/30/2018', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/01/2018', 'Feria Artesanal 5', 440, 5);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.7, 0.7, 1.0, '12/29/2019', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/02/2019', 'Feria Artesanal 6', 550, 6);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.8, 0.7, 1.0, '12/30/2020', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/01/2020', 'Feria Artesanal 7', 420, 2);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.9, 0.8, 1.0, '12/29/2021', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/02/2021', 'Feria Artesanal 8', 530, 4);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.8, 0.9, 1.0, '12/30/2022', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/01/2022', 'Feria Artesanal 9', 440, 5);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.7, 0.7, 1.0, '12/29/2023', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/02/2023', 'Feria Artesanal 10', 550, 6);
 
 -- Conferencias
 insert into CONFERENCIAENTITY (CONFERENCISTA, FECHAFIN, FECHAINICIO, HORAFIN, HORAINICIO, TEMA, FERIA_ID, SALON_ID) values ('Kathleen Fields', '12/8/2016', '10/28/2016', '2:30', '7:53', 'Open-architected multi-state moratorium', 1, 4);
