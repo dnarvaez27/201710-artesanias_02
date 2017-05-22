@@ -293,14 +293,53 @@ INSERT INTO ORGANIZADORENTITY (ID, IDENTIFICACION) VALUES (15,'15');
 insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
 fin, image, inicio, nombre, totalboletas, espacio_id)
 values (0.8, 0.7, 1.0, '12/30/2016', 
-'https://asociacionpinarjardin.files.wordpress.com/2015/08/feria_artesania.jpg?w=350&h=200&crop=1', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
 '10/01/2016', 'Feria Artesanal 1', 400, 1);
-
 insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
 fin, image, inicio, nombre, totalboletas, espacio_id)
 values (0.8, 0.7, 1.0, '12/29/2016', 
-'https://4.bp.blogspot.com/-7r_E1sjcTnk/V03Mo_7kBMI/AAAAAAAAOC8/SapDnAzDmSslwwSn1mM5U6KtbkGHZS9NgCLcB/s1600/13220632_10208372178254965_937545471013262712_o.jpg', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
 '10/02/2016', 'Feria Artesanal 2', 500, 3);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.8, 0.7, 1.0, '12/30/2016', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/01/2016', 'Feria Artesanal 3', 420, 2);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.9, 0.8, 1.0, '12/29/2017', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/02/2017', 'Feria Artesanal 4', 530, 4);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.8, 0.9, 1.0, '12/30/2018', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/01/2018', 'Feria Artesanal 5', 440, 5);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.7, 0.7, 1.0, '12/29/2019', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/02/2019', 'Feria Artesanal 6', 550, 6);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.8, 0.7, 1.0, '12/30/2020', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/01/2020', 'Feria Artesanal 7', 420, 2);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.9, 0.8, 1.0, '12/29/2021', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/02/2021', 'Feria Artesanal 8', 530, 4);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.8, 0.9, 1.0, '12/30/2022', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/01/2022', 'Feria Artesanal 9', 440, 5);
+insert into FERIAENTITY (descuentomayores, descuentomenores, descuentoregular,
+fin, image, inicio, nombre, totalboletas, espacio_id)
+values (0.7, 0.7, 1.0, '12/29/2023', 
+'https://dummyimage.com/1524x2000/948e94/fff.jpg', 
+'10/02/2023', 'Feria Artesanal 10', 550, 6);
 
 -- Conferencias
 insert into CONFERENCIAENTITY (CONFERENCISTA, FECHAFIN, FECHAINICIO, HORAFIN, HORAINICIO, TEMA, FERIA_ID, SALON_ID) values ('Kathleen Fields', '12/8/2016', '10/28/2016', '2:30', '7:53', 'Open-architected multi-state moratorium', 1, 4);

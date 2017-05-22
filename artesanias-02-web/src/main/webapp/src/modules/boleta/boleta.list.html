@@ -1,11 +1,21 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="boletaControlador">
     <div class="row">
-        <h2 class="detail-fg">Boletas</h2>
+        <div class="row">
+            <h2 class="col-lg-5 detail-fg">Boletas</h2>
+            <div class="pull-right btn-group-detail">
+                <button class="btn btn-add-detail" data-target="#crearBoleta" data-toggle="modal">&plus;</button>
+                <button class="btn btn-edit" ng-click="switchEditBoletas()" id="updateBoletasButton"><span
+                        class="glyphicon glyphicon-pencil"></span></button>
+                <button class="btn btn-remove-detail" ng-click="switchRemoveBoletas()" id="removeBoletasButton">&times;</button>
+            </div>
+        </div>
         <div class="pre-scrollable" id="style-2">
             <div class="force-overflow">
                 <div ng-repeat="boleta in boletasRecords">
                     <!--Wrapper-->
                     <div class="col-lg-12" style="position:relative; min-height: 180px; ">
+                        <div class="col-lg-10 thumbnail cover-boleta" ng-show="boletasToRemove[$index]">
+                        </div>
                         <!--Box Transparency-->
                         <div class="col-lg-12 thumbnail" style="min-height: 150px;opacity: 0.3;position:absolute;"></div>
                         <!--Info-->
@@ -15,6 +25,116 @@
                             <p><strong>Fin:</strong> {{boleta.fin|date:'dd/MMMM/yyyy'}}</p>
                             <p><strong>Espectador:</strong> {{boleta.espectador.correo}}</p>
                         </div>
+                        <div>
+                            <button class="btn btn-edit btn-det-detail" ng-show="editBoletasEnabled" ng-click="editBoleta($index)">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <button class="btn btn-remove-detail btn-det-detail" ng-show="removeBoletasEnabled"
+                                    ng-click="prepareToRemoveBoleta($index)">&times;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Crear-->
+    <div class="modal fade" role="dialog" id="crearBoleta">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Crear Boleta</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row center-block text-center">
+                        <form>
+                            <div class="form-group">
+                                <label for="nombreCrearBoleta">Nombre</label>
+                                <input type="text" class="form-control text-center" id="nombreCrearBoleta">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row center-block text-center">
+                        <button class="option btn btn-success" type="submit" ng-click="crearBoleta()">
+                            Aceptar
+                        </button>
+                        <button class="option btn btn-danger" data-dismiss="modal">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Actualizar-->
+    <div class="modal fade" role="dialog" id="updateBoleta">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Actualizar Boleta</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row center-block text-center">
+                        <!--Imagen-->
+                        <img src="" id="updateImagenBoleta" style="height: 200px; height: 327px"/><br>
+                        <button class="btn btn-add btn-upload">
+                            <span class="glyphicon glyphicon-upload"></span>
+                        </button>
+                        <form>
+                            <div class="form-group">
+                                <label for="updateNombreBoleta">Nombre</label>
+                                <input type="text" class="form-control text-center" id="updateNombreBoleta">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row center-block text-center">
+                        <button class="option btn btn-success" type="submit" ng-click="confirmUpdateBoleta()">
+                            Aceptar
+                        </button>
+                        <button class="option btn btn-danger" data-dismiss="modal">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Eliminar-->
+    <div class="modal fade" role="dialog" id="removeBoletas">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="resetBoletas()">&times;</button>
+                    <h4 class="modal-title">Eliminar Boletas</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <h4>¿Seguro que desea eliminar las siguientes boletas?</h4>
+                        <div class="col-lg-12 pre-scrollable" id="style-3">
+                            <div ng-repeat="a in boletasOnQueue">
+                                <div class="thumbnail">
+                                    <span class="nombre-art">Espectador:</span> {{a.espectador.correo}}
+                                    <br>
+                                    <span class="nombre-art">Feria:</span> {{a.feria.nombre}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row center-block text-center">
+                        <button class="option btn btn-success" type="submit" ng-click="deleteBoletas()">
+                            Aceptar
+                        </button>
+                        <button class="option btn btn-danger" data-dismiss="modal" ng-click="resetBoletas()">
+                            Cancelar
+                        </button>
                     </div>
                 </div>
             </div>

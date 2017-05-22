@@ -1,18 +1,14 @@
 (function (ng) {
   var mod = ng.module('feriaModule', ['ui.router']);
-
   mod.constant('feriasContext', 'api/ferias');
   mod.constant('ciudadesContext', 'api/ciudades');
   mod.constant('espaciosContext', 'espacios');
   mod.constant('artesaniasContext', '/artesanias');
   mod.constant('reviewsContext', '/reviews');
-
   mod.config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
       var basePath = 'src/modules/feria/';
-
       $urlRouterProvider.otherwise('/ferias/list');
-
       $stateProvider
         .state('ferias', {
           url: '/ferias',
@@ -59,7 +55,6 @@
               templateUrl: basePath + 'feria.list.html',
               controller: ['$scope', '$http', 'feriasContext', '$state', 'espacios',
                 function ($scope, $http, feriasContext, $state, espacios) {
-
                   // Variables
                   $scope.isExtraDetailRow = ($scope.feriasRecords.length % 6 ) !== 0;
                   $scope.numDetailsRows = Math.ceil($scope.feriasRecords.length / 6);
@@ -69,13 +64,10 @@
                   $scope.feriasToRemove = [];
                   $scope.squareFerias = [];
                   $scope.isDetailShown = true;
-
                   $scope.sites = espacios;
-                  
                   // Init
                   initDetailsRows();
                   initRemovedFerias();
-
                   // Control Detail
                   $scope.isDetailRowShown = function (index) {
                     var i = Math.ceil(( index + 1 ) / 6);
@@ -84,13 +76,11 @@
                   $scope.isLastRowDetail = function () {
                     return $scope.detailsRows[$scope.detailsRows.length-1];
                   };
-
                   // Crear
                   $scope.crear = function () {
                     setDetails();
                     $scope.isDetailShown = false;
                     $state.go('feriasList', {});
-
                     var name = document.getElementById('nombre').value;
                     var ini = document.getElementById('inicio').value;
                     var fn = document.getElementById('fin').value;
@@ -98,7 +88,6 @@
                     var dr = 1.0;
                     var dm = (100 - document.getElementById('dmenores').value)/100;
                     var dM = (100 - document.getElementById('dmayores').value)/100;
-
                     var nuevaFeria = {
                       nombre: name,
                       inicio: ini,
@@ -108,7 +97,7 @@
                       descuentoMenores: dm,
                       descuentoMayores: dM,
                       descuentoRegular: dr,
-                      image: 'src/utils/img/artesanos/Artesano 0.jpg'
+                      image: 'https://dummyimage.com/1524x2000/948e94/fff.jpg'
                     };
                     console.log(nuevaFeria);
                     $http.post(feriasContext, nuevaFeria)
@@ -117,7 +106,6 @@
                         $scope.feriasRecords.push(nuevaFeria);
                         $('#crearFeria').modal('hide');
                         $scope.alerta = false;
-
                         document.getElementById('nombre').value = '';
                         document.getElementById('inicio').value = '';
                         document.getElementById('fin').value = '';
@@ -132,7 +120,6 @@
                         $scope.alerta = true;
                       });
                   };
-
                   // Eliminar
                   $scope.removeFerias = function () {
                     $scope.toBeRemoved.forEach(function (item) {
@@ -178,15 +165,12 @@
                   $scope.addToRemove = function (index) {
                     $scope.feriasToRemove[index] = !$scope.feriasToRemove[index];
                   };
-
                   // Detail
                   $scope.seeDetail = function (index) {
                     if (!$scope.squareFerias[index]) {
                       var iRow = Math.ceil(( index + 1 ) / 6);
-
                       setDetails();
                       initDetailsRows();
-
                       $http.get(feriasContext + '/' + $scope.feriasRecords[index].id)
                         .then(function (response) {
                           $scope.currentFeria = response.data;
@@ -199,7 +183,6 @@
                       initDetailsRows();
                     }
                   };
-
                   // Funciones internas
                   function initRemovedFerias () {
                     $scope.feriasToRemove = [];
@@ -207,14 +190,12 @@
                       $scope.feriasToRemove.push(false);
                     });
                   }
-
                   function initDetailsRows () {
                     $scope.detailsRows = [];
                     for (var i = 0; i < $scope.numDetailsRows; i++) {
                       $scope.detailsRows.push(false);
                     }
                   }
-
                   function setDetails () {
                     $scope.squareFerias = [];
                     $scope.feriasRecords.forEach(function (item) {
@@ -226,7 +207,6 @@
           }
         });
     }]);
-
   // DIRECTIVAS
   mod.directive('feriaDetail', function () {
     return {
@@ -248,49 +228,56 @@
       restrict: 'E',
       templateUrl: 'src/modules/boleta/boleta.list.html',
       scope: {
-        boletasRecords: '=boletas'
+        boletasRecords: '=boletas',
+        currentFeria: '=feria'
       }
     };
   });
-
   // CONTROLADORES
   mod.controller('feriaDetailControlador', function ($scope, $http) {
-
     $scope.showBoletas = true;
     $scope.showEspacio = false;
-
     $scope.switchBoletas = function () {
       $scope.showEspacio = false;
       $scope.showBoletas = true;
     };
-
     $scope.switchEspacio = function () {
       $scope.showBoletas = false;
       $scope.showEspacio = true;
     };
-
     $scope.updateFeria = function () {
         document.getElementById('unombre').value   = $scope.currentFeria.nombre;
         document.getElementById('uinicio').value   = $scope.currentFeria.inicio;
         document.getElementById('ufin').value      = $scope.currentFeria.fin;
         document.getElementById('utotalb').value   = $scope.currentFeria.totalBoletas;
-        document.getElementById('udmenores').value = $scope.currentFeria.descuentoMenores;
-        document.getElementById('udmayores').value = $scope.currentFeria.descuentoMayores;
+        document.getElementById('udmenores').value = 100 - $scope.currentFeria.descuentoMenores*100;
+        document.getElementById('udmayores').value = 100 - $scope.currentFeria.descuentoMayores*100;
         $scope.espacioSeleccionado = $scope.currentFeria.espacio;
         console.log($scope.currentFeria.espacio);
         $('#updateFeria').modal('show');
     };
     $scope.confirmUpdate = function () {
-      var artCur = $scope.currentFeria;
-      $scope.currentFeria.id = artCur.id;
-      $scope.currentFeria.nombre = document.getElementById('upNombre').value;
-      $scope.currentFeria.identificacion = document.getElementById('upIdentificacion').value;
-      $scope.currentFeria.telefono = document.getElementById('upTelefono').value;
-      $scope.currentFeria.imagen = artCur.imagen;
-      $scope.currentFeria.ciudad = $scope.ciudadSeleccionada;
-      $http.put('api/artesanos/' + artCur.id, $scope.currentArtesano)
+      var curFe = $scope.currentFeria;
+      $scope.currentFeria.id = curFe.id;
+      $scope.currentFeria.nombre = document.getElementById('unombre').value;
+      if (document.getElementById('uinicio').value === $scope.currentFeria.inicio) {
+          $scope.currentFeria.inicio = null;
+      } else {
+          $scope.currentFeria.inicio = document.getElementById('uinicio').value;
+      }
+      if (document.getElementById('ufin').value === $scope.currentFeria.inicio) {
+          $scope.currentFeria.fin = null;
+      } else {
+          $scope.currentFeria.inicio = document.getElementById('ufin').value;
+      }
+      $scope.currentFeria.totalBoletas = document.getElementById('utotalb').value;
+      $scope.currentFeria.descuentoMenores = (100 - document.getElementById('udmenores').value)/100;
+      $scope.currentFeria.descuentoMayores = (100 - document.getElementById('udmayores').value)/100;
+      $scope.currentFeria.descuentoRegular = curFe.descuentoRegular;
+      $scope.currentFeria.imagen = curFe.imagen;
+      $http.put('api/ferias/' + curFe.id, $scope.currentFeria)
         .then(function (response) {
-          // $scope.currentArtesano = response.data;
+          $scope.currentFeria = response.data;
           $('#updateFeria').modal('hide');
         })
         .catch(function (response) {
@@ -299,21 +286,24 @@
         });
     };
   });
-  mod.controller('artesanoArtesaniasControlador', function ($scope, $http) {
-
+  mod.controller('boletaControlador', function ($scope, $http) {
     // // Variables
-    $scope.editArtesaniasEnabled = false;
-    $scope.removeArtesaniasEnabled = false;
-    $scope.artesaniasToRemove = []; // Boolean
-    $scope.artesaniasOnQueue = []; // Entities
-
+    $scope.editBoletasEnabled = false;
+    $scope.removeBoletasEnabled = false;
+    $scope.boletasToRemove = []; // Boolean
+    $scope.boletasOnQueue = []; // Entities
     // Init
-    if (!isUndefined($scope.currentArtesano)) {
+    if (!isUndefined($scope.currentFeria)) {
       resetRemoveOff();
     }
+    $scope.darPrecioBoleta = function (boleta) {
+        return boleta.tipo === 1 ? boleta.precio*$scope.currentFeria.descuentoMenores : 
+                boleta.tipo === 2 ? boleta.precio*$scope.currentFeria.descuentoRegular :
+                boleta.precio*$scope.currentFeria.descuentoMayores;
+    };
 
     // Crear
-    $scope.crearArtesania = function () {
+    $scope.crearBoleta = function () {
       var artesaniaNombre = document.getElementById('nombreCrearArtesania').value;
       var newArtesania = {
         nombre: artesaniaNombre,
@@ -328,119 +318,91 @@
     };
 
     // Editar
-    $scope.switchEditArtesanias = function () {
+    $scope.switchEditBoletas = function () {
       resetRemoveOff();
-      $scope.editArtesaniasEnabled = !$scope.editArtesaniasEnabled;
+      $scope.editBoletasEnabled = !$scope.editBoletasEnabled;
     };
-    $scope.editArtesania = function (index) {
+    
+    $scope.editBoleta = function (index) {
       $scope.updatedArtesania = $scope.currentArtesano.artesanias[index];
-      document.getElementById('updateNombreArtesania').value = $scope.updatedArtesania.nombre;
+      document.getElementById('updateNombreBoleta').value = $scope.updatedArtesania.nombre;
       if (!isUndefined($scope.updatedArtesania.imagen)) {
-        document.getElementById('updateImagenArtesania').src = $scope.updatedArtesania.imagen;
+        document.getElementById('updateImagenBoleta').src = $scope.updatedArtesania.imagen;
       }
-      $('#updateArtesania').modal('show');
+      $('#updateBoleta').modal('show');
     };
     $scope.confirmUpdateArtesania = function () {
       $scope.updatedArtesania.nombre = document.getElementById('updateNombreArtesania').value;
       //TODO Imagen
-      $http.put('api/artesanos/' + $scope.currentArtesano.id + '/artesanias/' + $scope.updatedArtesania.id, $scope.updatedArtesania)
+      $http.put('api/ferias/' + $scope.currentFeria.id + '/boletas/' + $scope.updatedArtesania.id, $scope.updatedArtesania)
         .then(function (response) {
           $scope.updatedArtesania = response.data;
         });
-      $('#updateArtesania').modal('hide');
+      $('#updateBoleta').modal('hide');
     };
 
     // Eliminar
-    $scope.switchRemoveArtesanias = function () {
-      $scope.editArtesaniasEnabled = false;
-      if ($scope.removeArtesaniasEnabled) {
-        var willRemove = $scope.artesaniasToRemove.some(function (item) {
+    $scope.switchRemoveBoletas = function () {
+      $scope.editBoletasEnabled = false;
+      if ($scope.removeBoletasEnabled) {
+        var willRemove = $scope.boletasToRemove.some(function (item) {
           return item;
         });
         if (willRemove) {
-          $scope.artesaniasOnQueue = [];
-          $scope.artesaniasToRemove.forEach(function (item, index) {
+          $scope.boletasOnQueue = [];
+          $scope.boletasToRemove.forEach(function (item, index) {
             if (item) {
-              $scope.artesaniasOnQueue.push($scope.currentArtesano.artesanias[index]);
+              $scope.boletasOnQueue.push($scope.currentFeria.boletas[index]);
             }
           });
-          $('#removeArtesanias').modal('show');
-        }
-        else {
+          $('#removeBoletas').modal('show');
+        } else {
           resetRemoveOff();
         }
-      }
-      else {
-        document.getElementById('removeArtesaniasButton').innerHTML = '&#128504;';
-        $scope.removeArtesaniasEnabled = true;
+      } else {
+        document.getElementById('removeBoletasButton').innerHTML = '&#128504;';
+        $scope.removeBoletasEnabled = true;
       }
       toogleUpdate();
     };
-    $scope.prepareToRemoveArtesania = function (index) {
-      $scope.artesaniasToRemove[index] = !$scope.artesaniasToRemove[index];
+    $scope.prepareToRemoveBoleta = function (index) {
+      $scope.boletasToRemove[index] = !$scope.boletasToRemove[index];
     };
-    $scope.resetArtesanias = function () {
+    $scope.resetBoletas = function () {
       resetRemoveOff();
     };
-    $scope.deleteArtesanias = function () {
+    $scope.deleteBoletas = function () {
       $scope.artesaniasOnQueue.forEach(function (item) {
-        $http.delete('api/artesanos/' + $scope.currentArtesano.id + '/artesanias/' + item.id);
-        var index = $scope.currentArtesano.artesanias.indexOf(item);
-        $scope.currentArtesano.artesanias.splice(index, 1);
-        $('#removeArtesanias').modal('hide');
+        $http.delete('api/ferias/' + $scope.currentFeria.id + '/boletas/' + item.id);
+        var index = $scope.currentFeria.boletas.indexOf(item);
+        $scope.currentFeria.boletas.splice(index, 1);
+        $('#removeBoletas').modal('hide');
         resetRemoveOff();
       });
     };
 
     // Funciones Internas
     function resetRemoveOff () {
-      $scope.artesaniasToRemove = [];
-      $scope.currentArtesano.artesanias.forEach(function (item) {
-        $scope.artesaniasToRemove.push(false);
+      $scope.boletasToRemove = [];
+      $scope.currentFeria.boletas.forEach(function (item) {
+        $scope.boletasToRemove.push(false);
       });
 
-      $scope.removeArtesaniasEnabled = false;
-      document.getElementById('removeArtesaniasButton').innerHTML = '&#0215;';
+      $scope.removeBoletasEnabled = false;
+      document.getElementById('removeBoletasButton').innerHTML = '&#0215;';
       toogleUpdate();
     }
 
     function toogleUpdate () {
-      if (document.getElementById('updateArtesaniasButton').hasAttribute('disabled')) {
-        document.getElementById('updateArtesaniasButton').removeAttribute('disabled');
+      if (document.getElementById('updateBoletasButton').hasAttribute('disabled')) {
+        document.getElementById('updateBoletasButton').removeAttribute('disabled');
       }
       else if ($scope.removeArtesaniasEnabled) {
-        document.getElementById('updateArtesaniasButton').setAttribute('disabled', '');
+        document.getElementById('updateBoletasButton').setAttribute('disabled', '');
       }
     }
   });
   mod.controller('espacioControlador', function ($scope, $http) {
-    $scope.currentStar = 0;
-
-    $scope.eliminarReview = function (index) {
-      $scope.reviewToRemove = $scope.currentArtesano.reviews[index];
-      $('#eliminarReview').modal('show');
-    };
-    $scope.eliminarDefinitivo = function () {
-      $http.delete('api/artesanos/' + $scope.currentArtesano.id + '/reviews/' + $scope.reviewToRemove.id);
-      var index = $scope.currentArtesano.reviews.indexOf($scope.reviewToRemove);
-      $scope.currentArtesano.reviews.splice(index, 1);
-      $('#eliminarReview').modal('hide');
-    };
-
-    $scope.agregarReview = function () {
-      var comment = document.getElementById('commentReview').value;
-
-      var review = {
-        comentario: comment,
-        puntuacion: $scope.currentStar
-      };
-      $http.post('api/artesanos/' + $scope.currentArtesano.id + '/reviews', review)
-        .then(function (response) {
-          review = response.data;
-          $scope.currentArtesano.reviews.push(review);
-        });
-    };
-
     $scope.openUpdateReview = function (index) {
       $scope.reviewToUpdate = $scope.currentArtesano.reviews[index];
 
@@ -463,62 +425,7 @@
           $scope.currentArtesano.reviews[index] = response.data;
         });
     };
-
-    // Update
-    $scope.upOverStar = function (s) {
-      $scope.upResetStars();
-      for (var i = 1; i <= s; i++) {
-        document.getElementById('upStar' + i).style.color = '#dcb40a';
-      }
-    };
-    $scope.upLeaveStar = function (s) {
-      for (var i = s; i > 0; i--) {
-        document.getElementById('upStar' + i).style.color = '#212121';
-      }
-    };
-    $scope.upSetDefaultStar = function (s) {
-      $scope.currentStar = s;
-      $scope.upShowSelectedStar();
-    };
-    $scope.upShowSelectedStar = function () {
-      if ($scope.currentStar !== 0) {
-        $scope.upOverStar($scope.currentStar);
-      }
-    };
-    $scope.upResetStars = function () {
-      for (var i = 5; i > 0; i--) {
-        document.getElementById('upStar' + i).style.color = '#212121';
-      }
-    };
-
-    // Create
-    $scope.overStar = function (s) {
-      $scope.resetStars();
-      for (var i = 1; i <= s; i++) {
-        document.getElementById('star' + i).style.color = '#dcb40a';
-      }
-    };
-    $scope.leaveStar = function (s) {
-      for (var i = s; i > 0; i--) {
-        document.getElementById('star' + i).style.color = '#212121';
-      }
-    };
-    $scope.setDefaultStar = function (s) {
-      $scope.currentStar = s;
-      $scope.showSelectedStar();
-    };
-    $scope.showSelectedStar = function () {
-      if ($scope.currentStar !== 0) {
-        $scope.overStar($scope.currentStar);
-      }
-    };
-    $scope.resetStars = function () {
-      for (var i = 5; i > 0; i--) {
-        document.getElementById('star' + i).style.color = '#212121';
-      }
-    };
   });
-
   function isUndefined (val) {
     return val === 'undefined' || val === '' || val === null || val === undefined;
   }
