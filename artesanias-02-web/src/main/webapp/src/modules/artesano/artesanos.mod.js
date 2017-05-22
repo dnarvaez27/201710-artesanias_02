@@ -6,6 +6,7 @@
   mod.constant('artesaniasContext', '/artesanias');
   mod.constant('reviewsContext', '/reviews');
 
+  // STATES
   mod.config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
       var basePath = 'src/modules/artesano/';
@@ -56,7 +57,10 @@
                   $scope.artesanosToRemove = [];
                   $scope.squareArtesanos = [];
                   $scope.isDetailShown = true;
+                  // Child
+                  $scope.reviewToRemove = {};
 
+                  // Resolves
                   $scope.cities = ciudades.data;
 
                   // Init
@@ -235,7 +239,7 @@
   });
 
   // CONTROLADORES
-  mod.controller('artesanoDetailControlador', function ($scope, $http) {
+  mod.controller('artesanoDetailControlador', function ($scope, $http, artesanoService) {
 
     $scope.showArtesanias = true;
     $scope.showReviews = false;
@@ -251,15 +255,18 @@
     };
 
     $scope.updateArtesano = function () {
+
       document.getElementById('upNombre').value = $scope.currentArtesano.nombre;
       document.getElementById('upIdentificacion').value = $scope.currentArtesano.identificacion;
       document.getElementById('upTelefono').value = $scope.currentArtesano.telefono;
       $scope.ciudadSeleccionada = $scope.currentArtesano.ciudad;
 
+      artesanoService.setArtesano($scope.currentArtesano);
+
       $('#updateArtesano').modal('show');
     };
     $scope.confirmUpdate = function () {
-      var artCur = $scope.currentArtesano;
+      var artCur = artesanoService.sArtesano;
 
       $scope.currentArtesano.id = artCur.id;
       $scope.currentArtesano.nombre = document.getElementById('upNombre').value;
@@ -272,20 +279,21 @@
         .then(function (response) {
           // $scope.currentArtesano = response.data;
           $('#updateArtesano').modal('hide');
+          artesanoService.setArtesano(undefined);
         })
         .catch(function error (response) {
-          document.getElementById('infoError').innerHTML = response.data;
+          document.getElementById('infoErrorUpdate').innerHTML = response.data;
           $scope.alerta = true;
         });
     };
   });
-  mod.controller('artesanoArtesaniasControlador', function ($scope, $http) {
+  mod.controller('artesanoArtesaniasControlador', function ($scope, $http, artesaniaService) {
 
     // // Variables
     $scope.editArtesaniasEnabled = false;
-    $scope.removeArtesaniasEnabled = false;
+    $scope.removeArtesaniasEnabled = artesaniaService.isRemoving;
     $scope.artesaniasToRemove = []; // Boolean
-    $scope.artesaniasOnQueue = []; // Entities
+    $scope.artesaniasOnQueue = artesaniaService.sArtesaniasOnQueue;
 
     // Init
     if (!isUndefined($scope.currentArtesano)) {
@@ -293,7 +301,12 @@
     }
 
     // Crear
+    $scope.prepareToAddArtesania = function () {
+      artesaniaService.setCurrentArtesano($scope.currentArtesano);
+      $('#crearArtesania').modal('show');
+    };
     $scope.crearArtesania = function () {
+      $scope.currentArtesano = artesaniaService.sCurrentArtesano;
       var artesaniaNombre = document.getElementById('nombreCrearArtesania').value;
       var newArtesania = {
         nombre: artesaniaNombre,
@@ -309,23 +322,28 @@
 
     // Editar
     $scope.switchEditArtesanias = function () {
+      var temp = $scope.editArtesaniasEnabled;
       resetRemoveOff();
-      $scope.editArtesaniasEnabled = !$scope.editArtesaniasEnabled;
+      $scope.editArtesaniasEnabled = !temp;
     };
     $scope.editArtesania = function (index) {
-      $scope.updatedArtesania = $scope.currentArtesano.artesanias[index];
-      document.getElementById('updateNombreArtesania').value = $scope.updatedArtesania.nombre;
-      if (!isUndefined($scope.updatedArtesania.imagen)) {
-        document.getElementById('updateImagenArtesania').src = $scope.updatedArtesania.imagen;
+      artesaniaService.setCurrentArtesano($scope.currentArtesano);
+
+      artesaniaService.setArtesania($scope.currentArtesano.artesanias[index]);
+      document.getElementById('updateNombreArtesania').value = artesaniaService.sArtesania.nombre;
+      if (!isUndefined(artesaniaService.sArtesania.imagen)) {
+        document.getElementById('updateImagenArtesania').src = artesaniaService.sArtesania.imagen;
       }
       $('#updateArtesania').modal('show');
     };
     $scope.confirmUpdateArtesania = function () {
-      $scope.updatedArtesania.nombre = document.getElementById('updateNombreArtesania').value;
+      $scope.currentArtesano = artesaniaService.sCurrentArtesano;
+
+      artesaniaService.sArtesania.nombre = document.getElementById('updateNombreArtesania').value;
       //TODO Imagen
-      $http.put('api/artesanos/' + $scope.currentArtesano.id + '/artesanias/' + $scope.updatedArtesania.id, $scope.updatedArtesania)
+      $http.put('api/artesanos/' + $scope.currentArtesano.id + '/artesanias/' + artesaniaService.sArtesania.id, artesaniaService.sArtesania)
         .then(function (response) {
-          $scope.updatedArtesania = response.data;
+          artesaniaService.setArtesania(response.data);
         });
       $('#updateArtesania').modal('hide');
     };
@@ -338,13 +356,15 @@
           return item;
         });
         if (willRemove) {
-          $scope.artesaniasOnQueue = [];
+          artesaniaService.sArtesaniasOnQueue = [];
           $scope.artesaniasToRemove.forEach(function (item, index) {
             if (item) {
-              $scope.artesaniasOnQueue.push($scope.currentArtesano.artesanias[index]);
+              artesaniaService.sArtesaniasOnQueue.push($scope.currentArtesano.artesanias[index]);
             }
           });
+          console.log(artesaniaService.sArtesaniasOnQueue);
           $('#removeArtesanias').modal('show');
+          $scope.updateRemoves();
         }
         else {
           resetRemoveOff();
@@ -363,25 +383,34 @@
       resetRemoveOff();
     };
     $scope.deleteArtesanias = function () {
-      $scope.artesaniasOnQueue.forEach(function (item) {
-        $http.delete('api/artesanos/' + $scope.currentArtesano.id + '/artesanias/' + item.id);
-        var index = $scope.currentArtesano.artesanias.indexOf(item);
-        $scope.currentArtesano.artesanias.splice(index, 1);
-        $('#removeArtesanias').modal('hide');
-        resetRemoveOff();
+      $scope.currentArtesano = artesaniaService.sCurrentArtesano;
+      artesaniaService.sArtesaniasOnQueue.forEach(function (item) {
+        $http.delete('api/artesanos/' + $scope.currentArtesano.id + '/artesanias/' + item.id)
+          .then(function (response) {
+            var index = $scope.currentArtesano.artesanias.indexOf(item);
+            $scope.currentArtesano.artesanias.splice(index, 1);
+          });
       });
+      $('#removeArtesanias').modal('hide');
+      resetRemoveOff();
+      $scope.editArtesaniasEnabled = false;
+      $scope.removeArtesaniasEnabled = false;
+      $scope.sArtesaniasOnQueue = [];
+      $scope.artesaniasToRemove = [];
+      artesaniaService.isRemoving = false;
+    };
+    $scope.updateRemoves = function () {
+      $scope.artesaniasOnQueue = artesaniaService.sArtesaniasOnQueue;
+      console.log($scope.artesaniasOnQueue);
     };
 
-    // Funciones Internas
     function resetRemoveOff () {
+      $scope.removeArtesaniasEnabled = false;
+      $scope.editArtesaniasEnabled = false;
       $scope.artesaniasToRemove = [];
       $scope.currentArtesano.artesanias.forEach(function (item) {
         $scope.artesaniasToRemove.push(false);
       });
-
-      $scope.removeArtesaniasEnabled = false;
-      document.getElementById('removeArtesaniasButton').innerHTML = '&#0215;';
-      toogleUpdate();
     }
 
     function toogleUpdate () {
@@ -393,26 +422,41 @@
       }
     }
   });
-  mod.controller('artesanoReviewsControlador', function ($scope, $http) {
-    $scope.currentStar = 0;
+  mod.controller('artesanoReviewsControlador', function ($scope, $http, reviewService) {
 
     $scope.eliminarReview = function (index) {
-      $scope.reviewToRemove = $scope.currentArtesano.reviews[index];
+      reviewService.setCurrentArtesano($scope.currentArtesano);
+      reviewService.setReview($scope.currentArtesano.reviews[index]);
+
+      document.getElementById('idReviewRemove').innerHTML = reviewService.sReview.id;
+      document.getElementById('puntuacionReviewRemove').innerHTML = reviewService.sReview.puntuacion;
+      document.getElementById('comentarioReviewRemove').innerHTML = reviewService.sReview.comentario;
+
       $('#eliminarReview').modal('show');
     };
-    $scope.eliminarDefinitivo = function () {
-      $http.delete('api/artesanos/' + $scope.currentArtesano.id + '/reviews/' + $scope.reviewToRemove.id);
-      var index = $scope.currentArtesano.reviews.indexOf($scope.reviewToRemove);
+    $scope.confirmarEliminarReview = function () {
+      var review = reviewService.sReview;
+      $scope.currentArtesano = reviewService.sCurrentArtesano;
+
+      $http.delete('api/artesanos/' + $scope.currentArtesano.id + '/reviews/' + review.id);
+      var index = $scope.currentArtesano.reviews.indexOf(review);
       $scope.currentArtesano.reviews.splice(index, 1);
       $('#eliminarReview').modal('hide');
     };
 
+    $scope.prepareToAddReview = function () {
+      reviewService.setCurrentArtesano($scope.currentArtesano);
+      reviewService.setCurrentStar(0);
+      $('#agregarReview').modal('show');
+    };
     $scope.agregarReview = function () {
+      $scope.currentArtesano = reviewService.sCurrentArtesano;
+
       var comment = document.getElementById('commentReview').value;
 
       var review = {
         comentario: comment,
-        puntuacion: $scope.currentStar
+        puntuacion: reviewService.sCurrentStar
       };
       $http.post('api/artesanos/' + $scope.currentArtesano.id + '/reviews', review)
         .then(function (response) {
@@ -423,20 +467,24 @@
 
     $scope.openUpdateReview = function (index) {
       $scope.reviewToUpdate = $scope.currentArtesano.reviews[index];
+      reviewService.sReview = $scope.currentArtesano.reviews[index];
+      reviewService.setCurrentArtesano($scope.currentArtesano);
 
       document.getElementById('upCommentReview').value = $scope.reviewToUpdate.comentario;
       $scope.upSetDefaultStar($scope.reviewToUpdate.puntuacion);
 
       $('#updateReview').modal('show');
     };
-    $scope.confirmarUpdate = function () {
+    $scope.confirmarUpdateReview = function () {
+      $scope.currentArtesano = reviewService.sCurrentArtesano;
+
       var upComentario = document.getElementById('upCommentReview').value;
-      var index = $scope.currentArtesano.reviews.indexOf($scope.reviewToUpdate);
-      var id = $scope.reviewToUpdate.id;
+      var index = $scope.currentArtesano.reviews.indexOf(reviewService.sReview);
+      var id = reviewService.sReview.id;
 
       $scope.reviewToUpdate = {
         comentario: upComentario,
-        puntuacion: $scope.currentStar
+        puntuacion: reviewService.sCurrentStar
       };
       $http.put('api/artesanos/' + $scope.currentArtesano.id + '/reviews/' + id, $scope.reviewToUpdate)
         .then(function (response) {
@@ -457,12 +505,12 @@
       }
     };
     $scope.upSetDefaultStar = function (s) {
-      $scope.currentStar = s;
+      reviewService.setCurrentStar(s);
       $scope.upShowSelectedStar();
     };
     $scope.upShowSelectedStar = function () {
-      if ($scope.currentStar !== 0) {
-        $scope.upOverStar($scope.currentStar);
+      if (reviewService.sCurrentStar !== 0) {
+        $scope.upOverStar(reviewService.sCurrentStar);
       }
     };
     $scope.upResetStars = function () {
@@ -484,12 +532,12 @@
       }
     };
     $scope.setDefaultStar = function (s) {
-      $scope.currentStar = s;
+      reviewService.setCurrentStar(s);
       $scope.showSelectedStar();
     };
     $scope.showSelectedStar = function () {
-      if ($scope.currentStar !== 0) {
-        $scope.overStar($scope.currentStar);
+      if (reviewService.sCurrentStar !== 0) {
+        $scope.overStar(reviewService.sCurrentStar);
       }
     };
     $scope.resetStars = function () {
@@ -499,6 +547,43 @@
     };
   });
 
+  // SERVICES
+  mod.service('artesanoService', function () {
+    this.sArtesano = {};
+    this.setArtesano = function (art) {
+      this.sArtesano = art;
+    };
+  });
+  mod.service('reviewService', function () {
+    this.sReview = {};
+    this.sCurrentArtesano = {};
+    this.sCurrentStar = 0;
+
+    this.setCurrentStar = function (s) {
+      this.sCurrentStar = s;
+    };
+    this.setReview = function (rev) {
+      this.sReview = rev;
+    };
+    this.setCurrentArtesano = function (art) {
+      this.sCurrentArtesano = art;
+    };
+  });
+  mod.service('artesaniaService', function () {
+    this.sArtesania = {};
+    this.sCurrentArtesano = {};
+    this.sArtesaniasOnQueue = []; // Entities
+    this.isRemoving = false;
+
+    this.setArtesania = function (artesania) {
+      this.sArtesania = artesania;
+    };
+    this.setCurrentArtesano = function (artesano) {
+      this.sCurrentArtesano = artesano;
+    };
+  });
+
+  // FUNCIONES
   function isUndefined (val) {
     return val === 'undefined' || val === '' || val === null || val === undefined;
   }

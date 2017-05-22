@@ -52,7 +52,7 @@
                   $scope.agregarEspectador = function () {
                     $('#agregarEspectaculo').modal('show');
                   };
-                  $scope.confirmarAgregar = function () {
+                  $scope.confirmarAgregarEspectador = function () {
                     var nEmail = document.getElementById('newEmail').value;
                     var nPassw = document.getElementById('newPassword').value;
                     var nEdad = document.getElementById('newEdad').value;
@@ -60,7 +60,8 @@
                     var espectadorNuevo = {
                       correo: nEmail,
                       contrasena: nPassw,
-                      edad: nEdad
+                      edad: nEdad,
+                      foto: 'src/utils/img/espectadores/Espectador 0.png'
                     };
                     $http.post(espectadorContext, espectadorNuevo)
                       .then(function (response) {

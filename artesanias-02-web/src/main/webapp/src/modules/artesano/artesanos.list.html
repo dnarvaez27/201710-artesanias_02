@@ -7,8 +7,8 @@
         </div>
     </div>
 
+    <!--Content-->
     <div class="row content-artesanos">
-
         <div ng-repeat="artesano in artesanosRecords">
             <div class="col-lg-2">
                 <div class="thumbnail screen-remove" ng-show="artesanosToRemove[$index]">
@@ -30,7 +30,6 @@
                              ng-show="isDetailRowShown($index)">
             </artesano-detail>
         </div>
-
         <artesano-detail style="width: 100%;display: inline-block;"
                          ng-if="isExtraDetailRow"
                          id="{{'detail-' + numDetailsRows}}"
@@ -40,97 +39,408 @@
 
     <!--Modals-->
     <div>
-        <div class="row">
-            <div class="col-lg-12" ui-view="detailView" ng-show="isDetailShown"></div>
-        </div>
-
-        <!--Modal Crear-->
-        <div class="modal fade" role="dialog" id="crearArtesano">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Crear Artesano</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="alert alert-danger" ng-show="alerta">
-                            <strong>Error!</strong><span id="infoError"></span>
+        <!--Artesanos-->
+        <div>
+            <!--Modal Crear-->
+            <div class="modal fade" role="dialog" id="crearArtesano">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Crear Artesano</h4>
                         </div>
-                        <div class="row">
-                            <!--Imagen-->
-                            <div class="col-lg-3 thumbnail" style="max-height: inherit; min-height: inherit;margin: 5px;">
-                                <button class="btn btn-default">Cargar Imagen</button>
+                        <div class="modal-body">
+                            <div class="alert alert-danger" ng-show="alerta">
+                                <strong>Error!</strong><span id="infoError"></span>
                             </div>
-                            <!--Formulario-->
-                            <form class="col-lg-8">
-                                <!--Nombre-->
-                                <div class="form-group">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre">
+                            <div class="row">
+                                <!--Imagen-->
+                                <div class="col-lg-3 thumbnail" style="max-height: inherit; min-height: inherit;margin: 5px;">
+                                    <button class="btn btn-default">Cargar Imagen</button>
                                 </div>
-                                <!--Identificacion-->
-                                <div class="form-group">
-                                    <label for="identificacion">Identificacion</label>
-                                    <input type="text" class="form-control" id="identificacion">
-                                </div>
-                                <!--Telefono-->
-                                <div class="form-group">
-                                    <label for="telefono">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono">
-                                </div>
-                                <!--Ciudad-->
-                                <div class="form-group">
-                                    <label for="ciudad">Ciudad</label>
-                                    <select id="ciudad" ng-model="ciudadSeleccionada" class="form-control"
-                                            ng-options="c.nombre for c in cities"></select>
-                                </div>
-                            </form>
+                                <!--Formulario-->
+                                <form class="col-lg-8">
+                                    <!--Nombre-->
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre</label>
+                                        <input type="text" class="form-control" id="nombre">
+                                    </div>
+                                    <!--Identificacion-->
+                                    <div class="form-group">
+                                        <label for="identificacion">Identificacion</label>
+                                        <input type="text" class="form-control" id="identificacion">
+                                    </div>
+                                    <!--Telefono-->
+                                    <div class="form-group">
+                                        <label for="telefono">Teléfono</label>
+                                        <input type="text" class="form-control" id="telefono">
+                                    </div>
+                                    <!--Ciudad-->
+                                    <div class="form-group">
+                                        <label for="ciudad">Ciudad</label>
+                                        <select id="ciudad" ng-model="ciudadSeleccionada" class="form-control"
+                                                ng-options="c.nombre for c in cities"></select>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row center-block text-center">
+                                <button class="option btn btn-success" type="submit" ng-click="crear()">
+                                    Aceptar
+                                </button>
+                                <button class="option btn btn-danger" data-dismiss="modal">
+                                    Cancelar
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <div class="row center-block text-center">
-                            <button class="option btn btn-success" type="submit" ng-click="crear()">
-                                Aceptar
-                            </button>
-                            <button class="option btn btn-danger" data-dismiss="modal">
-                                Cancelar
-                            </button>
+                </div>
+            </div>
+
+            <!--Modal Eliminar-->
+            <div class="modal fade" role="dialog" id="eliminarArtesanos">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" ng-click="shutRemoveOff()">&times;</button>
+                            <h4 class="modal-title">Eliminar Artesanos</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <h4>¿Seguro que desea eliminar a los siguientes artesanos?</h4>
+                                <div class="col-lg-12 pre-scrollable" id="style-3">
+                                    <div ng-repeat="a in toBeRemoved">
+                                        <div class="thumbnail">
+                                            <span class="nombre-art">{{a.nombre}}</span>
+                                            <br>
+                                            <span class="identi-art">{{a.identificacion}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row center-block text-center">
+                                <button class="option btn btn-success" type="submit" ng-click="removeArtesanos()">
+                                    Aceptar
+                                </button>
+                                <button class="option btn btn-danger" data-dismiss="modal" ng-click="shutRemoveOff()">
+                                    Cancelar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!--Modal Eliminar-->
-        <div class="modal fade" role="dialog" id="eliminarArtesanos">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" ng-click="shutRemoveOff()">&times;</button>
-                        <h4 class="modal-title">Eliminar Artesanos</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <h4>¿Seguro que desea eliminar a los siguientes artesanos?</h4>
-                            <div class="col-lg-12 pre-scrollable" id="style-3">
-                                <div ng-repeat="a in toBeRemoved">
-                                    <div class="thumbnail">
-                                        <span class="nombre-art">{{a.nombre}}</span>
-                                        <br>
-                                        <span class="identi-art">{{a.identificacion}}</span>
-                                    </div>
+        <!--Detail-->
+        <div>
+            <!--Modal Update-->
+            <div class="modal fade" role="dialog" id="updateArtesano" ng-controller="artesanoDetailControlador">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Actualizar Artesano</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-danger" ng-show="alerta">
+                                <strong>Error!</strong><span id="infoErrorUpdate"></span>
+                            </div>
+                            <div class="row">
+                                <!--Imagen-->
+                                <div class="col-lg-3 thumbnail" style="max-height: inherit; min-height: inherit;margin: 5px;">
+                                    <button class="btn btn-default">Cargar Imagen</button>
                                 </div>
+                                <!--Formulario-->
+                                <form class="col-lg-8">
+                                    <!--Nombre-->
+                                    <div class="form-group">
+                                        <label for="upNombre">Nombre</label>
+                                        <input type="text" class="form-control" id="upNombre">
+                                    </div>
+                                    <!--Identificacion-->
+                                    <div class="form-group">
+                                        <label for="upIdentificacion">Identificacion</label>
+                                        <input type="text" class="form-control" id="upIdentificacion">
+                                    </div>
+                                    <!--Telefono-->
+                                    <div class="form-group">
+                                        <label for="upTelefono">Teléfono</label>
+                                        <input type="text" class="form-control" id="upTelefono">
+                                    </div>
+                                    <!--Ciudad-->
+                                    <div class="form-group">
+                                        <label for="upCiudad">Ciudad</label>
+                                        <select id="upCiudad" ng-model="ciudadSeleccionada" class="form-control"
+                                                ng-options="c.nombre for c in cities | orderBy: 'nombre'">
+                                        </select>
+                                    </div>
+                                    <!--Botones de Confirmación-->
+                                    <div class="row ">
+                                        <button class="option col-sm-5 col-lg-5 btn btn-default btn-success" type="submit" ng-click="confirmUpdate()">
+                                            Aceptar
+                                        </button>
+                                        <button class="option col-sm-5 col-lg-5 btn btn-default btn-danger" data-dismiss="modal">
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <div class="row center-block text-center">
-                            <button class="option btn btn-success" type="submit" ng-click="removeArtesanos()">
-                                Aceptar
-                            </button>
-                            <button class="option btn btn-danger" data-dismiss="modal" ng-click="shutRemoveOff()">
-                                Cancelar
-                            </button>
+                </div>
+            </div>
+        </div>
+
+        <!--Reviews-->
+        <div ng-controller="artesanoReviewsControlador">
+            <!--Modal Eliminar-->
+            <div class="modal fade" role="dialog" id="eliminarReview">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Eliminar Review</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h4>¿Seguro que desea eliminar el Review?</h4>
+                            <hr>
+                            <h5><strong>Id:</strong> <span id="idReviewRemove"></span></h5>
+                            <h5><strong>Puntuación:</strong><span id="puntuacionReviewRemove"></span></h5>
+                            <p><strong>Comentario:</strong><span id="comentarioReviewRemove"></span></p>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row center-block text-center">
+                                <button class="option btn btn-success" type="submit" ng-click="confirmarEliminarReview()">
+                                    Aceptar
+                                </button>
+                                <button class="option btn btn-danger" data-dismiss="modal">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Modal Agregar-->
+            <div class="modal fade" role="dialog" id="agregarReview">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" ng-click="resetStars()">&times;</button>
+                            <h4 class="modal-title">Agregar Review</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <form>
+                                    <div class="text-center" ng-mouseleave="showSelectedStar()">
+                                        <button class="btn star" id="star1" ng-mouseover="overStar(1)" ng-mouseleave="leaveStar(1)"
+                                                ng-click="setDefaultStar(1)">
+                                            ★
+                                        </button>
+                                        <button class="btn star" id="star2" ng-mouseover="overStar(2)" ng-mouseleave="leaveStar(2)"
+                                                ng-click="setDefaultStar(2)">
+                                            ★
+                                        </button>
+                                        <button class="btn star" id="star3" ng-mouseover="overStar(3)" ng-mouseleave="leaveStar(3)"
+                                                ng-click="setDefaultStar(3)">
+                                            ★
+                                        </button>
+                                        <button class="btn star" id="star4" ng-mouseover="overStar(4)" ng-mouseleave="leaveStar(4)"
+                                                ng-click="setDefaultStar(4)">
+                                            ★
+                                        </button>
+                                        <button class="btn star" id="star5" ng-mouseover="overStar(5)" ng-mouseleave="leaveStar(5)"
+                                                ng-click="setDefaultStar(5)">
+                                            ★
+                                        </button>
+                                    </div>
+                                    <div class="form-group" style="padding-left: 20px; padding-right: 20px;">
+                                        <label for="commentReview">Comment:</label>
+                                        <textarea class="form-control" rows="4" id="commentReview"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row center-block text-center">
+                                <button class="option btn btn-success" data-dismiss="modal" type="submit" ng-click="agregarReview()">
+                                    Aceptar
+                                </button>
+                                <button class="option btn btn-danger" data-dismiss="modal" ng-click="resetStars()">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Modal Update-->
+            <div class="modal fade" role="dialog" id="updateReview">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" ng-click="upResetStars()">&times;</button>
+                            <h4 class="modal-title">Actualizar Review</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <form>
+                                    <div class="text-center" ng-mouseleave="upShowSelectedStar()">
+                                        <button class="btn star" id="upStar1" ng-mouseover="upOverStar(1)" ng-mouseleave="upLeaveStar(1)"
+                                                ng-click="upSetDefaultStar(1)">
+                                            ★
+                                        </button>
+                                        <button class="btn star" id="upStar2" ng-mouseover="upOverStar(2)" ng-mouseleave="upLeaveStar(2)"
+                                                ng-click="upSetDefaultStar(2)">
+                                            ★
+                                        </button>
+                                        <button class="btn star" id="upStar3" ng-mouseover="upOverStar(3)" ng-mouseleave="upLeaveStar(3)"
+                                                ng-click="upSetDefaultStar(3)">
+                                            ★
+                                        </button>
+                                        <button class="btn star" id="upStar4" ng-mouseover="upOverStar(4)" ng-mouseleave="upLeaveStar(4)"
+                                                ng-click="upSetDefaultStar(4)">
+                                            ★
+                                        </button>
+                                        <button class="btn star" id="upStar5" ng-mouseover="upOverStar(5)" ng-mouseleave="upLeaveStar(5)"
+                                                ng-click="upSetDefaultStar(5)">
+                                            ★
+                                        </button>
+                                    </div>
+                                    <div class="form-group" style="padding-left: 20px; padding-right: 20px;">
+                                        <label for="upCommentReview">Comment:</label>
+                                        <textarea class="form-control" rows="4" id="upCommentReview"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row center-block text-center">
+                                <button class="option btn btn-success" data-dismiss="modal" type="submit" ng-click="confirmarUpdateReview()">
+                                    Aceptar
+                                </button>
+                                <button class="option btn btn-danger" data-dismiss="modal" ng-click="upResetStars()">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Artesanias-->
+        <div ng-controller="artesanoArtesaniasControlador">
+            <!--Modal Crear-->
+            <div class="modal fade" role="dialog" id="crearArtesania">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Crear Artesania</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row center-block text-center">
+                                <!--Imagen-->
+                                <img src="" style="height: 200px;width: 327px"/><br>
+                                <button class="btn btn-add btn-upload">
+                                    <span class="glyphicon glyphicon-upload"></span>
+                                </button>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="nombreCrearArtesania">Nombre</label>
+                                        <input type="text" class="form-control text-center" id="nombreCrearArtesania">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row center-block text-center">
+                                <button class="option btn btn-success" type="submit" ng-click="crearArtesania()">
+                                    Aceptar
+                                </button>
+                                <button class="option btn btn-danger" data-dismiss="modal">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Modal Actualizar-->
+            <div class="modal fade" role="dialog" id="updateArtesania">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Actualizar Artesania</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row center-block text-center">
+                                <!--Imagen-->
+                                <img src="" id="updateImagenArtesania" style="height: 200px; height: 327px"/><br>
+                                <button class="btn btn-add btn-upload">
+                                    <span class="glyphicon glyphicon-upload"></span>
+                                </button>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="updateNombreArtesania">Nombre</label>
+                                        <input type="text" class="form-control text-center" id="updateNombreArtesania">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row center-block text-center">
+                                <button class="option btn btn-success" type="submit" ng-click="confirmUpdateArtesania()">
+                                    Aceptar
+                                </button>
+                                <button class="option btn btn-danger" data-dismiss="modal">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Modal Eliminar-->
+            <div class="modal fade" role="dialog" id="removeArtesanias" ng-controller="artesanoArtesaniasControlador">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" ng-click="resetArtesanias()">&times;</button>
+                            <h4 class="modal-title">Eliminar Artesanias</h4>
+                        </div>
+                        <div class="modal-body" ng-init="updateRemoves()">
+                            <div class="row">
+                                <h4>¿Seguro que desea eliminar las artesanias seleccionadas?</h4>
+                                <!--<button ng-click="updateRemoves()">U</button>-->
+                                <!--<div class="col-lg-12 pre-scrollable" id="style-3">-->
+                                <!--<div ng-repeat="a in artesaniasOnQueue">-->
+                                <!--<div class="thumbnail">-->
+                                <!--<span class="nombre-art">{{a.nombre}}</span>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row center-block text-center">
+                                <button class="option btn btn-success" type="submit" ng-click="deleteArtesanias()">
+                                    Aceptar
+                                </button>
+                                <button class="option btn btn-danger" data-dismiss="modal" ng-click="resetArtesanias()">
+                                    Cancelar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

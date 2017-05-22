@@ -67,6 +67,10 @@ a {
     margin-bottom: 5px;
 }
 
+#welcomeImg {
+    background: url(../../img/Welcome.png) no-repeat;
+}
+
 .control-buttons {
     position: fixed;
     top: 3px;

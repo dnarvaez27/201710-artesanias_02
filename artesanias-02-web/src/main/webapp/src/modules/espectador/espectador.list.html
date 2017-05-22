@@ -57,76 +57,77 @@
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal fade" role="dialog" id="eliminarEspectadorConfirmacion">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Eliminar Espectador</h4>
-                </div>
-                <div class="modal-body">
-                    <h4>¿Seguro que desea eliminar al espectador?</h4>
-                    {{espectadorAEliminar}}
-                </div>
-                <div class="modal-footer">
-                    <div class="row center-block text-center">
-                        <button class="option btn btn-success">
-                            Aceptar
-                        </button>
-                        <button class="option btn btn-danger" data-dismiss="modal">
-                            Cancelar
-                        </button>
-                    </div>
+<!--Modal Eliminar-->
+<div class="modal fade" role="dialog" id="eliminarEspectadorConfirmacion">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Eliminar Espectador</h4>
+            </div>
+            <div class="modal-body">
+                <h4>¿Seguro que desea eliminar al espectador?</h4>
+                {{espectadorAEliminar}}
+            </div>
+            <div class="modal-footer">
+                <div class="row center-block text-center">
+                    <button class="option btn btn-success" ng-click="eliminarEspectador()">
+                        Aceptar
+                    </button>
+                    <button class="option btn btn-danger" data-dismiss="modal">
+                        Cancelar
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal fade" role="dialog" id="agregarEspectaculo">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Agregar Espectador</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <img src="" style="width: 100px; height: 100px;">
-                            <button class="btn btn-default" style="display: inline-block; width: 100px">Subir</button>
-                        </div>
-                        <div class="col-lg-9" style="margin-top: 10px;margin-right: 20px">
-                            <form>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                    <input id="newEmail" class="form-control" type="text" placeholder="E-mail">
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                    <input id="newPassword" class="form-control" type="password" placeholder="Password">
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                    <input id="newEdad" class="form-control" type="number" placeholder="Edad">
-                                </div>
-                            </form>
-                        </div>
+<!--Modal Agregar-->
+<div class="modal fade" role="dialog" id="agregarEspectaculo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Agregar Espectador</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <img src="" style="width: 100px; height: 100px;">
+                        <button class="btn btn-default" style="display: inline-block; width: 100px">Subir</button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="row center-block text-center">
-                        <button class="option btn btn-success" ng-click="confirmarAgregar()">
-                            Aceptar
-                        </button>
-                        <button class="option btn btn-danger" data-dismiss="modal">
-                            Cancelar
-                        </button>
+                    <div class="col-lg-9" style="margin-top: 10px;margin-right: 20px">
+                        <form>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="newEmail" class="form-control" type="text" placeholder="E-mail">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="newPassword" class="form-control" type="password" placeholder="Password">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="newEdad" class="form-control" type="number" placeholder="Edad">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <div class="row center-block text-center">
+                    <button class="option btn btn-success" ng-click="confirmarAgregarEspectador()">
+                        Aceptar
+                    </button>
+                    <button class="option btn btn-danger" data-dismiss="modal">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
         </div>
-
     </div>
 
 </div>
