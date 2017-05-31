@@ -189,7 +189,7 @@ public class PabellonEntity implements Serializable
 	{
 		if( this.getId( ) != null )
 		{
-			return this.getId( ).equals( ( ( SalonEntity ) obj ).getId( ) );
+			return this.getId( ).equals( ( ( PabellonEntity ) obj ).getId( ) );
 		}
 		return super.equals( obj );
 	}

@@ -106,14 +106,14 @@ public class CiudadLogic {
         return persistence.find(id).getEspacios();
     }
     
-    public void removeEspacio(Long idEspacio, Long idCiudad) {
-        EspacioEntity ee = espacioLogic.getEspacio(idEspacio);
+    public void removeEspacio(Long idEspacio, Long idCiudad) throws BusinessLogicException {
+        EspacioEntity ee = espacioLogic.getEspacio(idCiudad, idEspacio);
         ee.setCiudad(null);
         persistence.find(idCiudad).getEspacios().remove(ee);
     }
     
-    public EspacioEntity addEspacio(Long idEspacio, Long idCiudad) {
-        EspacioEntity ee = espacioLogic.getEspacio(idEspacio);
+    public EspacioEntity addEspacio(Long idEspacio, Long idCiudad) throws BusinessLogicException {
+        EspacioEntity ee = espacioLogic.getEspacio(idCiudad, idEspacio);
         ee.setCiudad(persistence.find(idCiudad));
         return ee;
     }

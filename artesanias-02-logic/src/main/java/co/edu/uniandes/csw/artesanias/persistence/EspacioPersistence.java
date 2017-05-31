@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2017 Miller.
+ * Copyright 2017 ja.espinosa12.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,77 +24,70 @@
 package co.edu.uniandes.csw.artesanias.persistence;
 
 import co.edu.uniandes.csw.artesanias.entities.EspacioEntity;
+import co.edu.uniandes.csw.artesanias.entities.PabellonEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
- * Persistencia de la entidad espacio.
- * @author Miller
+ * @author ja.espinosa12
  */
 @Stateless
 public class EspacioPersistence {
     
-    //--------------------------------------------------------------------------
-    // Atributos
-    //--------------------------------------------------------------------------
-    
     /**
-     * Manejador o controlador de entidades.
+     * Entity Manager encargado de la persistencia de Entities
      */
     @PersistenceContext(unitName = "artesaniasPU")
     protected EntityManager em;
     
-    //--------------------------------------------------------------------------
-    // Métodos
-    //--------------------------------------------------------------------------
-
-    /**
-     * Devuelve la entidad espacio con el id indicado.
-     * @param id de la espacio a buscar.
-     * @return la entidad espacio con el id indicado.
-     */
-    public EspacioEntity find(Long id) {
-        return em.find(EspacioEntity.class, id);
-    }
-
-    /**
-     * Devuelve el conjunto de todas las entidades espacio de la base de datos.
-     * @return el conjunto de todas las entidades espacio de la base de datos.
-     */
-    public List<EspacioEntity> findAll() {
-        return em.createQuery("select u from EspacioEntity u").getResultList();
-    }
-
-    /**
-     * Crea una nueva entidad espacio.
-     * post: Se creó una nueva fila en la tabla EspacioEntity.
-     * @param entity entidad a ser creada.
-     * @return entidad creada.
-     */
-    public EspacioEntity create(EspacioEntity entity) {
+    public EspacioEntity create(EspacioEntity entity) 
+    {
         em.persist(entity);
         return entity;
     }
 
+    public EspacioEntity find(Long ciudadId, Long id) 
+    {
+        TypedQuery<EspacioEntity> q = em.createQuery( "SELECT R FROM EspacioEntity R WHERE R.id = :id AND R.ciudad.id = :ciudadId", EspacioEntity.class );
+		q.setParameter( "id", id );
+		q.setParameter( "ciudadId", ciudadId );
+		EspacioEntity entity;
+		try
+		{
+			entity = q.getSingleResult( );
+		}
+		catch( Exception e )
+		{
+			entity = null;
+		}
+		return entity;
+    }
+
+
+    public List<EspacioEntity> findAll() {
+        TypedQuery<EspacioEntity> q = em.createQuery( "SELECT U FROM EspacioEntity U", EspacioEntity.class );
+		return q.getResultList( );
+    }
+
     /**
-     * Actualiza la información de la entidad espacio que comparte el id con la 
-     * entidad indicada. Se almacena la información de la entidad espacio indicada.
-     * post: Se cambió la información de la entidad espacio por la indicada.
-     * @param entity entidad con la nueva información.
-     * @return la entidad con los datos actualizados.
-     */
+	 * 
+	 */
+	public List<EspacioEntity> findAllFromCiudad( Long ciudadId )
+	{
+		TypedQuery<EspacioEntity> q = em.createQuery( "SELECT R FROM EspacioEntity R WHERE R.ciudad.id = :ciudadId", EspacioEntity.class );
+		q.setParameter( "ciudadId", ciudadId );
+		return q.getResultList( );
+	}
+    
     public EspacioEntity update(EspacioEntity entity) {
         return em.merge(entity);
     }
 
-    /**
-     * Elimina la entidad espacio con el id indicado.
-     * post: Se eliminó la fila con el id indicado de la tabla EspacioEntity.
-     * @param id de la entidad espacio a eliminar.
-     */
     public void delete(Long id) {
-        em.remove(em.find(EspacioEntity.class, id));
+        EspacioEntity entity = em.find(EspacioEntity.class, id);
+        em.remove(entity);
     }
 }
